@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1">
+  <dict>
+    <key>PayloadUUID</key>
+    <string>70DD1D4F-7287-43CD-8598-6B82C8732BC0</string>
+    <key>PayloadType</key>
+    <string>Configuration</string>
+    <key>PayloadOrganization</key>
+    <string>DISA.MIL</string>
+    <key>PayloadIdentifier</key>
+    <string>AOSX-11.Passcode_Policy</string>
+    <key>PayloadDisplayName</key>
+    <string>Passcode Policy</string>
+    <key>PayloadDescription</key>
+    <string>This payload configures required password options.</string>
+    <key>PayloadVersion</key>
+    <integer>1</integer>
+    <key>PayloadEnabled</key>
+    <true/>
+    <key>PayloadRemovalDisallowed</key>
+    <true/>
+    <key>PayloadScope</key>
+    <string>System</string>
+    <key>PayloadContent</key>
+    <array>
+      <dict>
+        <key>PayloadUUID</key>
+        <string>CB65944C-A73E-4322-856D-C582F8C51C00</string>
+        <key>PayloadType</key>
+        <string>com.apple.mobiledevice.passwordpolicy</string>
+        <key>PayloadOrganization</key>
+        <string>DISA.MIL</string>
+        <key>PayloadIdentifier</key>
+        <string>CB65944C-A73E-4322-856D-C582F8C51C00</string>
+        <key>PayloadDisplayName</key>
+        <string>Passcode</string>
+        <key>PayloadDescription</key>
+        <string/>
+        <key>PayloadVersion</key>
+        <integer>1</integer>
+        <key>PayloadEnabled</key>
+        <true/>
+        <key>allowSimple</key>
+        <false/>
+        <key>requireAlphanumeric</key>
+        <true/>
+		<key>forcePIN</key>
+        <true/>
+        <key>maxFailedAttempts</key>
+        <integer>3</integer>
+        <key>maxPINAgeInDays</key>
+        <integer>60</integer>
+        <key>minLength</key>
+        <integer>15</integer>
+        <key>pinHistory</key>
+        <integer>5</integer>
+		<key>minutesUntilFailedLoginReset</key>
+        <integer>15</integer>
+		<key>minComplexChars</key>
+		<integer>1</integer>
+      </dict>
+    </array>
+  </dict>
+</plist>

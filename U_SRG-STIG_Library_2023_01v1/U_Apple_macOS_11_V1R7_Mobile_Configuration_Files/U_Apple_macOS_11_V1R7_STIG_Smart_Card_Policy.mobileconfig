@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+  <dict>
+    <key>PayloadContent</key>
+    <array>
+      <dict>
+        <key>PayloadDisplayName</key>
+        <string>Smart Card Mandatory</string>
+        <key>PayloadIdentifier</key>
+        <string>AOSX-11.Smart_Card_Policy.FDDD396B-0506-49B0-B9F4-1B0983247505</string>
+    	<key>PayloadOrganization</key>
+   		<string>DISA.MIL</string>
+        <key>PayloadType</key>
+        <string>com.apple.security.smartcard</string>
+        <key>PayloadUUID</key>
+        <string>FDDD396B-0506-49B0-B9F4-1B0983247505</string>
+        <key>PayloadVersion</key>
+        <integer>1</integer>
+        <key>checkCertificateTrust</key>
+        <integer>1</integer>
+        <key>enforceSmartCard</key>
+        <true/>
+        <key>tokenRemovalAction</key>
+        <integer>1</integer>
+        <key>allowUnmappedUsers</key>
+        <integer>1</integer>
+      </dict>
+    </array>
+    <key>PayloadDescription</key>
+    <string>Enables Mandatory Smart Card Authentication, Smart Card Certificate Checks, and Token Removal Screen Saver Initiation.</string>
+    <key>PayloadDisplayName</key>
+    <string>Smart Card Policy</string>
+    <key>PayloadIdentifier</key>
+    <string>AOSX-11.Smart_Card_Policy</string>
+    <key>PayloadOrganization</key>
+    <string>DISA</string>
+	<key>PayloadRemovalDisallowed</key>
+	<true/>
+    <key>PayloadScope</key>
+    <string>System</string>
+    <key>PayloadType</key>
+    <string>Configuration</string>
+    <key>PayloadUUID</key>
+    <string>5A545406-874C-45D2-AAFC-F23B9214B922</string>
+    <key>PayloadVersion</key>
+    <integer>1</integer>
+    <key>PayloadRemovalDisallowed</key>
+    <true/>
+  </dict>
+</plist>

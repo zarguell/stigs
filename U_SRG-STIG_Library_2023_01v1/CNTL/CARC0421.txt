@@ -1,0 +1,464 @@
+PROC 0                                                                -
+  CONSLIST(OFF)              /* DEFAULT IS OFF */                     -
+  COMLIST(OFF)               /* DEFAULT IS OFF */                     -
+  SYMLIST(OFF)               /* DEFAULT IS OFF */                     -
+  TERMMSGS(OFF)              /* DEFAULT IS OFF */                     -
+  TYPERUN(FSO)               /* Run for SRRAUDIT | FSO   */           -
+  CACC1000(CACC1000)         /* SELECT SECURITY CHECK PGM*/           -
+  CACT0000(CACT0000)         /* SELECT MVS REPORT TABLE  */           -
+  CACT0008(CACT0008)         /* SELECT RESOURCE TABLE    */           -
+  CACM000T(CACM000T)         /* SELECT edit macro/CACT0000 */         -
+  CACM042R(CACM042R)         /* SELECT edit macro/CACT0008 */         -
+  CARM0421(CARM0421)         /* SELECT EDIT MACRO/SENSITVE */         -
+  CARM0422(CARM0422)         /* SELECT EDIT MACRO/SENSITVE */         -
+  CARM0423(CARM0423)         /* AAMV0420                   */         -
+  PDILIMIT(999999)           /* Limit output PDIs          */         -
+  PDIDDN(PDIDD)              /* PDI DDNAME IN JCL          */         -
+  SENSDDN(SENSITVE)          /* SENSITVE DDNAME IN JCL     */         -
+  TEMP6DDN(TEMP6)            /* TEMP6 DDNAME IN JCL        */         -
+  CNTLDDN(CNTL)              /* CNTL DDNAME IN JCL         */         -
+  TRACE(OFF)                 /* TRACE ACTIONS AND ERRORS */
+ 
+/* 06/01/2004 JL.NELSON CREATE to check data set FINDINGS
+/* 06/18/2004 JL.NELSON ADDED EXIT CODE
+/* 06/23/2004 JL.NELSON ADDED code to check security system
+/* 01/20/2005 JL.NELSON Changed to add dslist to PDIs
+/* 02/28/2005 JL.NELSON Changed constants to variables
+/* 03/22/2005 JL.NELSON PDI member maybe blank, old CACT0000
+/* 03/23/2005 JL.NELSON Added TYPERUN for Reports without PDIs
+/* 06/09/2005 JL.NELSON Pass MAXCC in ZISPFRC variable
+/* 06/15/2005 JL.NELSON Reset return code to end job step
+/* 09/10/2007 CL.Fenton Added resource collection.  Chgd several
+/*            variables and routines being executed by process.
+/* 07/16/2009 CL.FENTON Changes CACT0001 to CACT0000, CACM042V to
+/*            CACM000T.  Changes for reflect new table information.
+/* 08/29/2016 CL.FENTON Correct issue with TBLMBR.
+ 
+SET PGMNAME = &STR(CARC0421 08/29/16)
+ 
+SET SYSPROMPT = OFF                /* CONTROL NOPROMPT          */
+SET SYSFLUSH  = OFF                /* CONTROL NOFLUSH           */
+SET SYSASIS   = ON                 /* CONTROL ASIS - caps off   */
+ 
+/* ERROR ROUTINE */
+ERROR DO
+  SET RETURN_CODE = &LASTCC          /* SAVE LAST ERROR CODE */
+  IF &LASTCC GT 16 THEN +
+    WRITE &PGMNAME LASTCC = &LASTCC &ZERRLM
+  RETURN
+  END
+ 
+IF &TRACE = ON THEN DO              /* TURN messages on          */
+  SET TERMMSGS = ON                 /* CONTROL MSG               */
+  SET COMLIST  = ON                 /* CONTROL LIST              */
+  SET CONSLIST = ON                 /* CONTROL CONLIST           */
+  SET SYMLIST  = ON                 /* CONTROL SYMLIST           */
+  END
+ 
+SET SYSSYMLIST = &SYMLIST           /* CONTROL SYMLIST/NOSYMLIST */
+SET SYSCONLIST = &CONSLIST          /* CONTROL CONLIST/NOCONLIST */
+SET SYSLIST    = &COMLIST           /* CONTROL LIST/NOLIST       */
+SET SYSMSG     = &TERMMSGS          /* CONTROL MSG/NOMSG         */
+ 
+SET ZISPFRC = 0
+ISPEXEC VPUT (ZISPFRC) SHARED
+ 
+SET RETURN_CODE = 0
+ 
+ISPEXEC VPUT ( +
+  CONSLIST     +
+  COMLIST      +
+  SYMLIST      +
+  TERMMSGS     +
+  CARM0422     +
+  PDILIMIT     +
+  TYPERUN      +
+  ) ASIS
+ 
+SET RC21VPUT = &RETURN_CODE
+IF &RETURN_CODE NE 0 THEN DO
+  WRITE &PGMNAME VPUT RC = &RETURN_CODE  &ZERRSM
+  SET RETURN_CODE = &RETURN_CODE + 16
+  GOTO ERR_EXIT
+  END
+ 
+/* Determine which security system is running */
+ 
+SET RETURN_CODE = 0
+ 
+ISPEXEC SELECT CMD(&CACC1000 ACP)
+ 
+ISPEXEC VGET ( +
+  ACPNAME      +
+  ACPVERS      +
+  ) ASIS
+ 
+IF &STR(&ACPNAME) NE &STR(RACF) THEN DO
+  WRITE &PGMNAME RACF Job running on the wrong system
+  WRITE &PGMNAME &ACPNAME &ACPVERS
+  WRITE &PGMNAME CCACPRC = &CCACPRC
+  SET RETURN_CODE = 20
+  GOTO ERR_EXIT
+  END
+ 
+/* *************************************** */
+/* INITIALIZE LIBRARY MANAGEMENT           */
+/* *************************************** */
+ 
+SET RETURN_CODE = 0
+ 
+ISPEXEC LMINIT DATAID(PDIDD) DDNAME(&PDIDDN)
+ 
+SET LMINIT_PDIDD_RC = &RETURN_CODE
+IF &RETURN_CODE NE 0 THEN DO
+  WRITE &PGMNAME LMINIT PDIDD     RC = &RETURN_CODE  &ZERRSM
+  SET RETURN_CODE = &RETURN_CODE + 16
+  GOTO ERR_EXIT
+  END
+ 
+ISPEXEC LMINIT DATAID(SENSITVE) DDNAME(&SENSDDN)
+ 
+SET LMINIT_SENSITVE_RC = &RETURN_CODE
+IF &RETURN_CODE NE 0 THEN DO
+  WRITE &PGMNAME LMINIT SENSITVE  RC = &RETURN_CODE  &ZERRSM
+  SET RETURN_CODE = &RETURN_CODE + 16
+  GOTO ERR_EXIT
+  END
+ 
+ISPEXEC LMINIT DATAID(TEMP6) DDNAME(&TEMP6DDN)
+ 
+SET LMINIT_TEMP6_RC = &RETURN_CODE
+IF &RETURN_CODE NE 0 THEN DO
+  WRITE &PGMNAME LMINIT TEMP6  RC = &RETURN_CODE  &ZERRSM
+  SET RETURN_CODE = &RETURN_CODE + 16
+  GOTO ERR_EXIT
+  END
+ 
+ISPEXEC LMINIT DATAID(CNTL) DDNAME(&CNTLDDN)
+ 
+SET LMINIT_CNTL_RC = &RETURN_CODE
+IF &RETURN_CODE NE 0 THEN DO
+  WRITE &PGMNAME LMINIT CNTL      RC = &RETURN_CODE  &ZERRSM
+  SET RETURN_CODE = &RETURN_CODE + 16
+  GOTO ERR_EXIT
+  END
+ 
+LISTDSI &PDIDDN FILE
+ 
+SET LISTDSI_FILE_RCODE  = &RETURN_CODE
+SET LISTDSI_FILE_REASON = &SYSREASON
+IF &SYSREASON EQ 0 THEN DO
+   SET ODSNAME  = &SYSDSNAME
+   SET LISTDSI_FILE_MSGLVL2 = &STR(&SYSMSGLVL2)
+   END
+ELSE DO
+   WRITE &PGMNAME Unable to determine PDI DSNAME SYSREASON &SYSREASON
+   WRITE &PGMNAME &STR(&SYSMSGLVL1)
+   WRITE &PGMNAME &STR(&SYSMSGLVL2)
+   END
+ 
+/* *************************************** */
+/* OPEN DATASETS                           */
+/* *************************************** */
+ 
+SET RETURN_CODE = 0
+ 
+ISPEXEC LMOPEN DATAID(&PDIDD) OPTION(OUTPUT)
+ 
+SET LMOPEN_PDIDD_RC = &RETURN_CODE
+IF &RETURN_CODE NE 0 THEN DO
+  WRITE &PGMNAME LMOPEN PDIDD     RC = &RETURN_CODE  &ZERRSM
+  SET RETURN_CODE = &RETURN_CODE + 16
+  GOTO ERR_EXIT
+  END
+ 
+ISPEXEC LMOPEN DATAID(&SENSITVE) OPTION(INPUT)
+ 
+SET LMOPEN_SENSITVE_RC = &RETURN_CODE
+IF &RETURN_CODE NE 0 THEN DO
+  WRITE &PGMNAME LMOPEN SENSITVE  RC = &RETURN_CODE  &ZERRSM
+  SET RETURN_CODE = &RETURN_CODE + 16
+  GOTO ERR_EXIT
+  END
+ 
+ISPEXEC LMOPEN DATAID(&TEMP6) OPTION(INPUT)
+ 
+SET LMOPEN_TEMP6_RC = &RETURN_CODE
+IF &RETURN_CODE NE 0 THEN DO
+  WRITE &PGMNAME LMOPEN TEMP6  RC = &RETURN_CODE  &ZERRSM
+  SET RETURN_CODE = &RETURN_CODE + 16
+  GOTO ERR_EXIT
+  END
+ 
+/* *************************************** */
+/* PUT VARS IN POOL                        */
+/* *************************************** */
+ 
+ISPEXEC VPUT ( +
+  PDIDD        +
+  SENSITVE     +
+  TEMP6        +
+  CNTL         +
+  CACT0000     +
+  ) ASIS
+ 
+/* *************************************** */
+/* GET TABLE VALUES                        */
+/* *************************************** */
+ 
+SET RETURN_CODE = 0
+ 
+ISPEXEC VIEW DATAID(&CNTL) MACRO(&CACM000T) MEMBER(&CACT0000)
+ 
+SET VIEW_CACT0000_RC = &RETURN_CODE
+ 
+SET RETURN_CODE = 0
+ 
+ISPEXEC VGET ( +
+  CM0TVGET     +
+  CM0TVPUT     +
+  CM00TRC      +
+  TBLMBR       +
+  ) ASIS
+ 
+IF &VIEW_CACT0000_RC GT 4 THEN DO
+  WRITE &PGMNAME VIEW CNTL &CACT0000  RC = &CM00TRC  &ZERRSM
+  SET RETURN_CODE = &RETURN_CODE + 16
+  GOTO ERR_EXIT
+  END
+ 
+SET RESOURCE = &STR(DSNAME)
+ISPEXEC VPUT ( +
+  RESOURCE     +
+  ) ASIS
+ 
+/* *************************************** */
+/* EDIT RACF REPORTS                       */
+/* *************************************** */
+ 
+/*SET TBLMBR = &NRSTR(&TBLMBR.#)
+SET TBLMBR = &NRSTR(&TBLMBR)
+ 
+DO X = 2 TO &LENGTH(&NRSTR(&TBLMBR))
+  SET ITER   = &SUBSTR(&X:&X+1,&NRSTR(&TBLMBR))
+  SET RPTMBR = &SUBSTR(&X+3:&X+11,&NRSTR(&TBLMBR))
+  SET PDIMBR = &SUBSTR(&X+12:&X+19,&NRSTR(&TBLMBR))
+  SET Y      = &SYSINDEX(&NRSTR(@),&NRSTR(&TBLMBR),&X)
+  IF &Y GT 0 THEN +
+    SET TITLE  = &SUBSTR(&X+21:&Y-1,&NRSTR(&TBLMBR))
+  ELSE +
+    SET TITLE  =
+  SET X      = &SYSINDEX(&STR(#),&NRSTR(&TBLMBR),&X)
+ 
+  SET RPTMBR = &RPTMBR
+  SET PDIMBR = &PDIMBR
+ 
+  SET RETURN_CODE = 0
+ 
+  IF &STR(&PDIMBR) EQ &STR( ) THEN GOTO DO_END  /* No entry in CACT0000
+ 
+  ISPEXEC LMMFIND DATAID(&TEMP6) MEMBER(&PDIMBR)
+ 
+  IF &RETURN_CODE EQ 0 THEN +
+    DO
+ 
+    /* *************************************** */
+    /* PUT VARS IN POOL                        */
+    /* *************************************** */
+ 
+    SET RETURN_CODE = 0
+ 
+    ISPEXEC VPUT ( +
+     PDIMBR        +
+     RPTMBR        +
+     ODSNAME       +
+     ) ASIS
+ 
+    SET RETURN_CODE = 0
+ 
+    ISPEXEC VIEW DATAID(&TEMP6) MACRO(&CARM0421) MEMBER(&PDIMBR)
+ 
+    IF &RETURN_CODE GT 4 THEN +
+      WRITE &PGMNAME VIEW_TEMP6_RC = &RETURN_CODE +
+        MEMBER &PDIMBR for &RPTMBR  &ZERRSM
+ 
+    END
+DO_END: END
+ 
+SET PDIMBR = AAMV0420
+ 
+ISPEXEC SELECT CMD(&CARM0423)
+ 
+IF &RETURN_CODE GT 4 THEN +
+  WRITE &PGMNAME AAMV0420_RC = &RETURN_CODE +
+    MEMBER &PDIMBR &ZERRSM
+ 
+SET RECTYPE = 1
+SET PDINAME =
+SET RESNAME =
+ 
+ISPEXEC VPUT ( +
+  RECTYPE      +
+  PDINAME      +
+  RESNAME      +
+  ) ASIS
+ 
+ 
+SET RETURN_CODE = 0
+ 
+ISPEXEC VIEW DATAID(&CNTL) MEMBER(&CACT0008) MACRO(&CACM042R)
+ 
+SET VIEW_CACT0008_RC = &RETURN_CODE
+IF &VIEW_CACT0008_RC GT 4 THEN DO
+  WRITE &PGMNAME VIEW CNTL &CACT0008  RC = &VIEW_CACT0008_RC
+  SET RETURN_CODE = &RETURN_CODE + 16
+  GOTO BYPASS_CACT0008
+  END
+ 
+ISPEXEC VGET ( +
+  REC1TBL      +
+  ) ASIS
+ 
+SET RETURN_CODE = 0
+DO X = 1 TO &LENGTH(&NRSTR(&REC1TBL)) BY 18
+  SET PDIMBR = &SUBSTR(&X:&X+7,&NRSTR(&REC1TBL))    /* PDI ID
+  SET RESOURCE = &SUBSTR(&X+9:&X+16,&NRSTR(&REC1TBL)) /* RESOURCE NAME
+  SET PDIMBR = &PDIMBR
+  SET RPTMBR = &PDIMBR
+  SET RETURN_CODE = 0
+ 
+  ISPEXEC LMMFIND DATAID(&TEMP6) MEMBER(&PDIMBR)
+ 
+  IF &RETURN_CODE NE 0 THEN +
+    WRITE &PGMNAME LMMFIND_RACFRPT_RC = &RETURN_CODE +
+       MEMBER = &RPTNAME  &ZERRSM
+  ELSE DO
+    /* *************************************** */
+    /* PUT VARS IN POOL                        */
+    /* *************************************** */
+    ISPEXEC VPUT (+
+      PDIMBR   +
+      RPTMBR   +
+      RESOURCE +
+     ) ASIS
+ 
+    SET RETURN_CODE = 0
+ 
+    ISPEXEC VIEW DATAID(&TEMP6) MACRO(&CARM0421) MEMBER(&PDIMBR)
+ 
+    IF &RETURN_CODE GT 4 THEN +
+      WRITE &PGMNAME VIEW_RACFRPT_RC = &RETURN_CODE MEMBER = +
+        &RPTNAME &ZERRSM
+    END
+END
+ 
+BYPASS_CACT0008:+
+SET RETURN_CODE = 0
+ 
+/* *************************************** */
+/* CLOSE OUTPUT                            */
+/* *************************************** */
+ 
+END_EXIT: +
+SET RETURN_CODE = 0
+ 
+ISPEXEC LMCLOSE DATAID(&PDIDD)
+ 
+SET LMCLOSE_PDIDD_RC = &RETURN_CODE
+SET RETURN_CODE = 0
+ 
+ISPEXEC LMCLOSE DATAID(&SENSITVE)
+ 
+SET LMCLOSE_SENSITVE_RC = &RETURN_CODE
+SET RETURN_CODE = 0
+ 
+ISPEXEC LMCLOSE DATAID(&TEMP6)
+ 
+SET LMCLOSE_TEMP6_RC = &RETURN_CODE
+SET RETURN_CODE = 0
+ 
+ISPEXEC LMCOMP DATAID(&PDIDD)
+ 
+SET LMCOMP_PDIDD_RC = &RETURN_CODE
+ 
+/* *************************************** */
+/* FREE FILES                              */
+/* *************************************** */
+ 
+SET RETURN_CODE = 0
+ 
+ISPEXEC LMFREE DATAID(&SENSITVE)
+ 
+SET LMFREE_SENSITVE_RC = &RETURN_CODE
+SET RETURN_CODE = 0
+ 
+ISPEXEC LMFREE DATAID(&TEMP6)
+ 
+SET LMFREE_TEMP6_RC = &RETURN_CODE
+SET RETURN_CODE = 0
+ 
+ 
+ISPEXEC LMFREE DATAID(&PDIDD)
+ 
+SET LMFREE_PDIDD_RC = &RETURN_CODE
+SET RETURN_CODE = 0
+ 
+ 
+ISPEXEC LMFREE DATAID(&CNTL)
+ 
+SET LMFREE_CNTL_RC = &RETURN_CODE
+SET RETURN_CODE = 0
+ 
+/* *************************************** */
+/* ERROR EXIT                              */
+/* *************************************** */
+ 
+ERR_EXIT: +
+IF &MAXCC GE 16 OR +
+   &RETURN_CODE GT 0 THEN DO
+  ISPEXEC VGET (ZISPFRC) SHARED
+  IF &MAXCC GT &ZISPFRC THEN +
+    SET ZISPFRC = &MAXCC
+  ELSE +
+    SET ZISPFRC = &RETURN_CODE
+  ISPEXEC VPUT (ZISPFRC) SHARED
+  WRITE &PGMNAME ZISPFRC = &ZISPFRC
+  END
+ 
+ISPEXEC VGET ( +
+  RM21VGET     +
+  RM421RC      +
+  RM22VGET     +
+  RM422RC      +
+  CM42VRC      +
+  ) ASIS
+ 
+IF &TERMMSGS = ON THEN DO                       /* TURN TRACE ON */
+WRITE ===============================================================
+WRITE &PGMNAME LMINIT_PDIDD_RC          &LMINIT_PDIDD_RC
+WRITE &PGMNAME LMINIT_SENSITVE_RC       &LMINIT_SENSITVE_RC
+WRITE &PGMNAME LMINIT_CNTL_RC           &LMINIT_CNTL_RC
+WRITE ===============================================================
+WRITE &PGMNAME LMOPEN_PDIDD_RC          &LMOPEN_PDIDD_RC
+WRITE &PGMNAME LMOPEN_SENSITVE_RC       &LMOPEN_SENSITVE_RC
+WRITE ===============================================================
+WRITE &PGMNAME VIEW_CACT0000_RC         &VIEW_CACT0000_RC
+WRITE &PGMNAME &CACM000T CM00TRC         &CM00TRC
+  IF &CM00TRC NE 0 THEN DO
+    WRITE &PGMNAME &CACM000T VGET            &CM0TVGET
+    WRITE &PGMNAME &CACM000T VPUT            &CM0TVPUT
+    END
+WRITE &PGMNAME &CARM0421 VGET            &RM21VGET
+WRITE &PGMNAME &CARM0421 RM421RC         &RM421RC
+WRITE &PGMNAME &CARM0422 VGET            &RM22VGET
+WRITE &PGMNAME &CARM0422 RM422RC         &RM422RC
+WRITE ===============================================================
+WRITE &PGMNAME LMCOMP_PDIDD_RC          &LMCOMP_PDIDD_RC
+WRITE &PGMNAME LMCLOSE_PDIDD_RC         &LMCLOSE_PDIDD_RC
+WRITE &PGMNAME LMCLOSE_SENSITVE_RC      &LMCLOSE_SENSITVE_RC
+WRITE &PGMNAME LMFREE_PDIDD_RC          &LMFREE_PDIDD_RC
+WRITE &PGMNAME LMFREE_SENSITVE_RC       &LMFREE_SENSITVE_RC
+WRITE &PGMNAME LMFREE_CNTL_RC           &LMFREE_CNTL_RC
+END
+EXIT CODE(0)
+END

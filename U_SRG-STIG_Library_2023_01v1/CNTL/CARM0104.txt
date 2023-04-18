@@ -1,0 +1,471 @@
+ISREDIT MACRO       /* CARM0104 EDIT TEMP4(*)  */
+ 
+/* 09/10/2007 CL Fenton Copied from CARM0004 to evaulate resources.
+/* 11/30/2007 CL Fenton Corrected sort RC cond.  Removed comment commands.
+/* 03/08/2017 CL Fenton Added process to remove duplicate records.
+/* 05/23/2017 CL Fenton removed GROUPID user list processing (CARM0005),
+/*            STS-017060.
+/* 02/27/2018 CL Fenton Copied writing sep30 and racfpro records for
+/*            rectype 1 to rectype 4.
+/* 10/29/2020 CL Fenton Chgs made to remove resources where there is a
+/*            more specific resource specified for the rule specified,
+/*            STS-025101.
+ 
+SET PGMNAME = &STR(CARM0104 10/29/20)
+ 
+SET SYSPROMPT = OFF                /* CONTROL NOPROMPT          */
+SET SYSFLUSH  = OFF                /* CONTROL NOFLUSH           */
+SET SYSASIS   = ON                 /* CONTROL ASIS - caps off   */
+ 
+/* ERROR ROUTINE */
+ERROR DO
+  SET RETURN_CODE = &LASTCC          /* SAVE LAST ERROR CODE */
+  IF &LASTCC GE 16 THEN +
+    WRITE &PGMNAME LASTCC = &LASTCC &ZERRLM
+  RETURN
+  END
+ 
+/*******************************************/
+/* VARIABLES ARE PASSED TO THIS MACRO      */
+/* CONSLIST                                */
+/* COMLIST                                 */
+/* TERMPRO                                 */
+/* TERMMSGS                                */
+/* SORTPOS                                 */
+/*******************************************/
+ 
+SET RETURN_CODE = 0
+ 
+ISPEXEC VGET ( +
+  CONSLIST     +
+  COMLIST      +
+  SYMLIST      +
+  TERMMSGS     +
+  CARM0005     +
+  TEMP5        +
+  RACFRPT      +
+  TYPERUN      +
+  LISTGRP      +
+  ) ASIS
+ 
+SET RM04VGET = &RETURN_CODE
+IF &RETURN_CODE NE 0 THEN DO
+  WRITE &PGMNAME VGET RC = &RETURN_CODE  &ZERRSM
+  WRITE &PGMNAME CONSLIST/&CONSLIST COMLIST/&COMLIST SYMLIST/&SYMLIST +
+    TERMMSGS/&TERMMSGS
+  WRITE &PGMNAME CARM0005/&CARM0005 TEMP5/&TEMP5 RACFRPT/&RACFRPT +
+    TYPERUN/&TYPERUN LISTGRP/&LISTGRP
+  SET RETURN_CODE = &RETURN_CODE + 16
+  GOTO ERR_EXIT
+  END
+ 
+SET RETURN_CODE = 0
+ 
+/*******************************************/
+/* TURN ON MESSAGES                        */
+/*******************************************/
+ 
+ISREDIT (MEMBER) = MEMBER
+ISREDIT NULLS OFF
+ISREDIT CAPS OFF
+ 
+SET OMEMBER = &MEMBER
+ 
+SET BLANK = &STR( )
+SET IND1  = &STR(  )
+SET IND2  = &STR(    )
+SET SEP30 = &STR(- - - - - - - - - - - - - - - )
+ 
+SET LP = &STR((
+SET RP = )
+SET SPC = &STR(          )
+SET SP80 = &STR(&SPC&SPC&SPC&SPC&SPC&SPC&SPC&SPC)
+ 
+SET UZID_LIST = &STR(#)
+ISREDIT (ENDER) = LINENUM .ZLAST
+ 
+IF &ENDER LT 1 THEN +
+  GOTO END_EDIT
+ 
+SET SYSOUTTRAP = 3
+SET ROW = 0
+ 
+ 
+CHK_UZID: +
+SET RETURN_CODE = 0
+ 
+SET ROW = &ROW + 1
+ 
+IF &ROW GT &ENDER THEN -
+  GOTO SORT
+ 
+ISREDIT CURSOR = &ROW 0
+ 
+ISREDIT FIND 'GROUPID'
+ 
+IF &RETURN_CODE NE 0 THEN +
+  GOTO SORT
+ 
+ISREDIT (ROW,COL) = CURSOR
+ 
+ISREDIT (DATA) = LINE &ROW
+ 
+SET UZID = &SUBSTR(54:61,&STR(&DATA))
+ 
+IF &SYSINDEX(&STR(&UZID),&NRSTR(&UZID_LIST)) NE 0 THEN +
+  GOTO CHK_UZID
+ 
+SET UZID_LIST = &STR(&UZID_LIST.&UZID.#)
+ 
+SET NAME = &STR(NAME=Unknown  )
+SET RETURN_CODE = 0
+ 
+SET CMD = &STR(LISTUSER &UZID)
+&CMD
+ 
+SET LISTU_RC = &RETURN_CODE
+IF &RETURN_CODE = 0 THEN +
+  DO
+  IF &STR(U) = &SUBSTR(1,&NRSTR(&SYSOUTLINE1)) THEN +
+    SET TEST1 = &NRSTR(&SYSOUTLINE1)
+  IF &STR(U) = &SUBSTR(1,&NRSTR(&SYSOUTLINE2)) THEN +
+    SET TEST1 = &NRSTR(&SYSOUTLINE2)
+  IF &STR(U) = &SUBSTR(1,&NRSTR(&SYSOUTLINE3)) THEN +
+    SET TEST1 = &NRSTR(&SYSOUTLINE3)
+ 
+  SET XN = &SYSINDEX(&STR(NAME=),&NRSTR(&TEST1),1)
+  SET XO = &SYSINDEX(&STR(OWNER=),&NRSTR(&TEST1),&XN)
+ 
+  IF &XN GT 0 AND &XN LT &XO-1 THEN +
+    SET NAME = &SUBSTR(&XN:&XO-1,&NRSTR(&TEST1))
+ 
+  NEXT_AMPERSAND: +
+  SET XA = &SYSINDEX(&SYSNSUB(0,&),&NRSTR(&NAME))
+ 
+  IF &XA GT 0 THEN DO
+    SET NL = &LENGTH(&NRSTR(&NAME))
+    IF &XA EQ 1 THEN DO
+      SET NAME = &SUBSTR(2:&NL,&NRSTR(&NAME))
+      GOTO NEXT_AMPERSAND
+      END
+ 
+    IF &XA EQ &NL THEN DO
+      SET NAME = &SUBSTR(1:&NL-1,&NRSTR(&NAME))
+      GOTO NEXT_AMPERSAND
+      END
+ 
+    SET NAME = &SUBSTR(1:&XA-1,&NRSTR(&NAME))+
+               &SUBSTR(&XA+1:&NL,&NRSTR(&NAME))
+    GOTO NEXT_AMPERSAND
+    END
+ 
+  SET NAME = &SUBSTR(1:42,&STR(&NAME &SP80))
+ 
+  ISREDIT X ALL
+  ISREDIT FIND ALL '&UZID' 54
+  SET CF = &STR('8GROUPID')
+  SET CT = &STR('7 USERID')
+  ISREDIT CHANGE &CF &CT ALL NX 45
+ 
+  SET CF = &STR('                                          ')
+  SET CT = &STR('&NAME')
+  ISREDIT CHANGE &CF &CT ALL NX 83
+  ISREDIT RESET
+  GOTO CHK_UZID
+  END
+ 
+SET RETURN_CODE = 0
+ 
+SET CMD = &STR(LISTGRP &UZID)
+&CMD
+ 
+SET LISTG_RC = &RETURN_CODE
+IF &RETURN_CODE NE 0 THEN +
+  DO
+  SET NAME = &SUBSTR(1:42,&STR(NAME=Not found U=&LISTU_RC +
+             G=&LISTG_RC &SP80))
+ 
+  ISREDIT X ALL
+  ISREDIT FIND ALL '&UZID' 54
+  SET CF = &STR('8GROUPID')
+  SET CT = &STR('5NOT_DEF')
+  ISREDIT CHANGE &CF &CT ALL NX 45
+ 
+  SET CF = &STR('                                          ')
+  SET CT = &STR('&NAME')
+  ISREDIT CHANGE &CF &CT ALL NX 83
+  ISREDIT RESET
+  END
+ 
+GOTO CHK_UZID
+ 
+ 
+SORT: +
+ISREDIT (ENDER) = LINENUM .ZLAST
+ 
+SET RETURN_CODE = 0
+ 
+IF &ENDER GT 0 THEN DO
+  ISREDIT SORT 1 62
+ 
+  IF &RETURN_CODE GT 4 THEN DO    /* SORT_RC = 8 No records to sort
+    WRITE &PGMNAME SORT_RC = &RETURN_CODE &MEMBER &ZERRSM
+    END
+  END
+ELSE DO
+  WRITE &PGMNAME &MEMBER no record in member.
+  GOTO ERR_EXIT
+  END
+ 
+/*******************************************/
+/* Remove duplicate records                */
+/*******************************************/
+DO CNT = 1 TO &ENDER
+  ISREDIT (XSTAT) = XSTATUS &CNT
+  IF &NRSTR(&XSTAT) EQ &STR(NX) THEN DO
+    ISREDIT (DATA) = LINE &CNT
+    ISREDIT EXCLUDE ALL "&NRSTR(&DATA)" 1
+    ISREDIT XSTATUS &CNT = NX
+    END
+  END
+ISREDIT DELETE ALL X
+ISREDIT (ENDER) = LINENUM .ZLAST
+SET RETURN_CODE = 0
+ 
+/*******************************************/
+/* Remove unneeded type 4 entries          */
+/*******************************************/
+NGLOBAL DATA CNT RETURN_CODE
+DO CNT = 1 TO &ENDER
+  ISREDIT (XSTAT) = XSTATUS &CNT
+  IF &NRSTR(&XSTAT) EQ &STR(NX) THEN DO
+    ISREDIT (DATA) = LINE &CNT
+    IF &SUBSTR(45,&NRSTR(&DATA)) EQ 4 THEN DO
+      SYSCALL CHECK_USER_RECS
+      END
+    END
+  END
+ISREDIT DELETE ALL X
+ISREDIT (ENDER) = LINENUM .ZLAST
+SET RETURN_CODE = 0
+/*******************************************/
+/* MAIN LOOP                               */
+/*******************************************/
+ 
+SET PREVPRO1 =
+SET PREVPRO2 =
+SET PREVUID  =
+SET GROUP_LIST = &STR(#)
+SET CURLINE = 0
+ 
+ 
+LOOP_PROFILE: +
+SET RETURN_CODE = 0
+ 
+SET CURLINE = &CURLINE + 1
+ 
+IF &CURLINE GT &ENDER THEN -
+  GOTO END_EDIT
+ 
+ISREDIT (DATA) = LINE &CURLINE
+ 
+SET RACFPRO = &SUBSTR(1:44,&STR(&DATA))
+SET RECTYPE = &SUBSTR(45,&STR(&DATA))
+ 
+SELECT (&RECTYPE)
+  WHEN (1) DO
+    IF &STR(&PREVPRO1) NE &STR(&RACFPRO) AND +
+       &STR(&PREVPRO1) NE &STR() THEN DO
+      SET AC = &STR(&SEP30&SEP30&SEP30&SEP30)
+      ISPEXEC LMPUT DATAID(&TEMP5) MODE(INVAR) DATALOC(AC) +
+        DATALEN(&LENGTH(&STR(&AC))) MEMBER(&OMEMBER)
+      END
+    SET PREVPRO1 = &STR(&RACFPRO)
+    SET PREVUID  =
+    SET UNIV = &SUBSTR(46:&LENGTH(&STR(&DATA)),&STR(&DATA))
+    SET AC = &STR(&RACFPRO &SP80)
+    SET AC = &STR(&SUBSTR(1:53,&AC)&UNIV)
+    ISPEXEC LMPUT DATAID(&TEMP5) MODE(INVAR) DATALOC(AC) +
+      DATALEN(&LENGTH(&STR(&AC))) MEMBER(&OMEMBER)
+    END
+  WHEN (4) DO
+/* COPIED INFORMATION FROM RECTYPE 1 BELOW */
+    IF &STR(&PREVPRO1) NE &STR(&RACFPRO) AND +
+       &STR(&PREVPRO1) NE &STR() THEN DO
+      SET AC = &STR(&SEP30&SEP30&SEP30&SEP30)
+      ISPEXEC LMPUT DATAID(&TEMP5) MODE(INVAR) DATALOC(AC) +
+        DATALEN(&LENGTH(&STR(&AC))) MEMBER(&OMEMBER)
+      SET PREVPRO1 = &STR(&RACFPRO)
+      SET PREVUID  =
+      SET AC = &STR(&RACFPRO)
+      ISPEXEC LMPUT DATAID(&TEMP5) MODE(INVAR) DATALOC(AC) +
+        DATALEN(&LENGTH(&STR(&AC))) MEMBER(&OMEMBER)
+      END
+/* COPIED INFORMATION FROM RECTYPE 1 ABOVE */
+    SET DSN = &SUBSTR(55:97,&STR(&DATA))
+    IF &SUBSTR(1:4,&STR(&DATA)) NE &STR(    ) THEN DO
+      SET AC = &STR(&IND1&DSN)
+      ISPEXEC LMPUT DATAID(&TEMP5) MODE(INVAR) DATALOC(AC) +
+        DATALEN(&LENGTH(&STR(&AC))) MEMBER(&OMEMBER)
+      END
+    ELSE DO
+      SET AC = &STR(&RACFPRO &SP80)
+      SET AC = &STR(&SUBSTR(1:53,&AC)&DSN)
+      ISPEXEC LMPUT DATAID(&TEMP5) MODE(INVAR) DATALOC(AC) +
+        DATALEN(&LENGTH(&STR(&AC))) MEMBER(&OMEMBER)
+      END
+    END
+  WHEN (5 OR 6 OR 7) DO
+    SET UZID = &SUBSTR(54:61,&STR(&DATA))
+    IF &STR(&PREVUID) NE &STR(&UZID) THEN DO
+      SET PREVUID = &STR(&UZID)
+      SET GRPUSR = &SUBSTR(46:62,&STR(&DATA))
+      SET GRPACC = &SUBSTR(65:80,&STR(&DATA))
+      SET NAME   = &SUBSTR(83:108,&STR(&DATA))
+      SET AC = &STR(&IND2&GRPUSR                   )
+      SET AC = &STR(&SUBSTR(1:22,&AC)&GRPACC &SP80)
+      SELECT (&RECTYPE)
+        WHEN (5) DO
+          SET AC = &STR(&SUBSTR(1:39,&AC)USER=NOT_DEF* &SP80)
+          SET AC = &STR(&SUBSTR(1:53,&AC)&NAME &SP80)
+          SET AC = &STR(&SUBSTR(1:79,&AC)&RACFPRO )
+          END
+        WHEN (6) DO
+          SET AC = &STR(&AC &SP80)
+          SET AC = &STR(&SUBSTR(1:79,&AC)&RACFPRO )
+          END
+        WHEN (7) DO
+          SET AC = &STR(&SUBSTR(1:39,&AC)USER=&UZID &SP80)
+          SET AC = &STR(&SUBSTR(1:53,&AC)&NAME &SP80)
+          SET AC = &STR(&SUBSTR(1:79,&AC)&RACFPRO )
+          END
+      END
+      ISPEXEC LMPUT DATAID(&TEMP5) MODE(INVAR) DATALOC(AC) +
+        DATALEN(&LENGTH(&STR(&AC))) MEMBER(&OMEMBER)
+    END
+  END
+END
+ 
+ 
+IF &RECTYPE NE 8 THEN   -
+   GOTO LOOP_PROFILE
+ 
+SET UZID = &SUBSTR(54:61,&STR(&DATA))
+ 
+IF &STR(&PREVUID) EQ &STR(&UZID) THEN   -
+   GOTO LOOP_PROFILE
+ 
+IF &STR(&UZID) EQ &STR( ) THEN GOTO LOOP_PROFILE
+ 
+SET PREVUID = &STR(&UZID)
+ 
+SET GRPUSR = &SUBSTR(46:62,&STR(&DATA))
+SET GRPACC = &SUBSTR(65:80,&STR(&DATA))
+SET ACC1 = &SUBSTR(72:79,&STR(&DATA))
+ 
+SET ACC1  = &ACC1
+SET GROUP = &STR(G)
+SET NAME  = &STR(NAME= )
+ 
+NEXT_PROCESS: +
+SET RETURN_CODE = 0
+ 
+SET AC = &STR(&IND2&GRPUSR                 )
+SET AC = &STR(&SUBSTR(1:22,&AC)&GRPACC     )
+ 
+ISPEXEC LMPUT DATAID(&TEMP5) MODE(INVAR) DATALOC(AC) +
+      DATALEN(&LENGTH(&STR(&AC))) MEMBER(&OMEMBER)
+ 
+IF &STR(&ACC1) = &STR(NONE)    THEN GOTO LOOP_PROFILE
+ 
+ISPEXEC VPUT ( +
+  OMEMBER      +
+  UZID         +
+  GRPUSR       +
+  GRPACC       +
+  RACFPRO      +
+  ) ASIS
+ 
+SET RETURN_CODE = 0
+ 
+/*ISPEXEC EDIT DATAID(&RACFRPT) MACRO(&CARM0005) MEMBER(&LISTGRP)
+ 
+IF &RETURN_CODE GT 4 THEN DO
+  WRITE &PGMNAME EDIT RACFRPT &LISTGRP RC = &RETURN_CODE  &ZERRSM
+  END
+ 
+GOTO LOOP_PROFILE
+ 
+ 
+END_EDIT: +
+SET RETURN_CODE = 0
+ 
+ISPEXEC LMMADD DATAID(&TEMP5) MEMBER(&OMEMBER)
+ 
+IF &RETURN_CODE EQ 4 THEN DO          /* MEMBER ALREADY EXISTS
+  SET RETURN_CODE = 0
+ 
+  ISPEXEC LMMREP DATAID(&TEMP5) MEMBER(&OMEMBER)
+ 
+  IF &RETURN_CODE NE 0 THEN DO
+    WRITE &PGMNAME LMMREP_TEMP5_RCODE = &RETURN_CODE &OMEMBER &ZERRSM
+    END
+  END
+ELSE DO
+  IF &RETURN_CODE NE 0 THEN +
+    WRITE &PGMNAME LMMADD_TEMP5_RCODE = &RETURN_CODE &OMEMBER  &ZERRSM
+  END
+ 
+SET RETURN_CODE = 0
+ 
+/*******************************************/
+/* SAVE OUTPUT                             */
+/*******************************************/
+ 
+ERR_EXIT: +
+IF &MAXCC GE 16 OR +
+   &RETURN_CODE GT 0 THEN DO
+  ISPEXEC VGET (ZISPFRC) SHARED
+  IF &MAXCC GT &ZISPFRC THEN +
+    SET ZISPFRC = &MAXCC
+  ELSE +
+    SET ZISPFRC = &RETURN_CODE
+  ISPEXEC VPUT (ZISPFRC) SHARED
+  WRITE &PGMNAME ZISPFRC = &ZISPFRC
+  END
+ 
+SET RM004RC = &RETURN_CODE
+ 
+ISPEXEC VPUT ( +
+  RM04VGET     +
+  RM004RC      +
+  ) ASIS
+ 
+ISREDIT END
+ 
+EXIT CODE(0)
+ 
+ 
+/*******************************************/
+/*  SYSCALL SUBROUTINES                    */
+/*******************************************/
+CHECK_USER_RECS: PROC 0
+SET RETURN_CODE = 0
+SET KEY1 = &SUBSTR(1:44,&NRSTR(&DATA))
+DO X = 5 TO 8
+  SET RETURN_CODE = 0
+/*WRITE FIND FIRST "&NRSTR(&KEY1)&STR(&X)" 1*/
+  ISREDIT FIND FIRST "&NRSTR(&KEY1)&STR(&X)" 1
+  IF &RETURN_CODE = 0 THEN SET X = 8
+  END
+IF &RETURN_CODE = 0 THEN DO
+  DO X = &LENGTH(&NRSTR(&DATA)) TO 1 BY -1 +
+    UNTIL &SUBSTR(&X,&NRSTR(&DATA)) NE &STR( )
+  END
+  SET DATA = &SUBSTR(1:&X,&NRSTR(&DATA))
+  ISREDIT SEEK ALL "&NRSTR(&DATA)" 1
+  ISREDIT (A,B) = SEEK_COUNTS
+  IF &B GT 1 THEN +
+    ISREDIT XSTATUS &CNT = X
+  END
+END

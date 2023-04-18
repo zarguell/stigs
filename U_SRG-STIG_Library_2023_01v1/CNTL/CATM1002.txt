@@ -1,0 +1,102 @@
+ISREDIT MACRO
+ 
+/********************************************************************/
+/* THIS EDIT MACRO (CATM1002) GENERATES THE WHOHAS REPORTS AND      */
+/* CREATES THE WHOHXXXX MEMBER DEPENDING ON THE VALUES IN VARIABLE  */
+/* RESOURCE.  VALUE VARIABLE CONTAINS THE RESOURCE TO BE GENERATED. */
+/********************************************************************/
+ 
+/* 10/03/2011 CL FENTON ADDED ERROR CHECKING.
+ 
+/* ***************************************    */
+/* VARIABLES ARE PASSED TO THIS MACRO         */
+/* RESOURCE                                   */
+/* VALUE                                      */
+/* CONSLIST                                   */
+/* COMLIST                                    */
+/* SYMLIST                                    */
+/* TERMPRO                                    */
+/* TERMMSGS                                   */
+/* ***************************************    */
+ 
+SET PGMNAME = &STR(CATM1002 10/03/11)
+ 
+SET RETURN_CODE = 0                   /* SET RETURN CODE TO 0  */
+ 
+ISPEXEC CONTROL NONDISPL ENTER
+ISPEXEC CONTROL ERRORS RETURN
+ 
+ERROR DO
+  SET RETURN_CODE = &LASTCC          /* SAVE LAST ERROR CODE */
+  IF &LASTCC GE 16 THEN +
+    WRITE &PGMNAME LASTCC = &LASTCC &ZERRLM
+  RETURN
+  END
+ 
+ISPEXEC VGET ( -
+  RESOURCE     -
+  VALUE        -
+  CONSLIST     -
+  COMLIST      -
+  SYMLIST      -
+  TERMPRO      -
+  ACP          -
+  ACPVER       -
+  EXAMVER      -
+  TERMMSGS     -
+  ) ASIS
+ 
+SET T2VGERR = 0
+ 
+IF &RETURN_CODE NE 0 THEN +
+  SET T2VGERR = &RETURN_CODE
+ 
+ 
+CHAPT01_MESSAGE_HOUSEKEEPING: -
+SET SYSSYMLIST = &SYMLIST          /* CONTROL SYMLIST/NOSYMLIST */
+SET SYSCONLIST = &CONSLIST         /* CONTROL CONLIST/NOCONLIST */
+SET SYSLIST    = &COMLIST          /* CONTROL LIST/NOLIST       */
+SET SYSMSG     = &TERMMSGS         /* CONTROL MSG/NOMSG         */
+ 
+ISREDIT STATS = OFF
+ 
+ISREDIT NUMBER OFF
+ 
+SET LINE = 1
+ 
+SET &SYSOUTTRAP = 999999999
+ 
+SET VAR = &SUBSTR(1:8,&STR(&RESOURCE))
+ 
+SET VAR = &VAR
+ 
+SET &SYSLIST = ON
+ 
+SET RETURN_CODE = 0
+ 
+TSS WHOH &VAR(&VALUE)
+ 
+SET &SYSLIST = OFF
+ 
+SET A = &SYSOUTLINE
+ 
+ISREDIT LINE_AFTER .ZLAST = "READY"
+ 
+DO X = 1 TO &A
+  SET DATA = &&SYSOUTLINE&X
+  ISREDIT LINE_AFTER .ZLAST = "&DATA"
+END
+ 
+ISPEXEC VPUT ( -
+  T2VGERR -
+  ) ASIS
+ 
+ISREDIT SAVE
+ 
+ISREDIT END
+ 
+SET LASTCC = 0
+ 
+EXIT
+END
+ 

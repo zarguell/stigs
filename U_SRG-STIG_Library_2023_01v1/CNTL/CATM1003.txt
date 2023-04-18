@@ -1,0 +1,64 @@
+ISREDIT MACRO
+ 
+/********************************************************************/
+/* THIS EDIT MACRO (CATM1003) PUTS THE FINISHING TOUCHES TO THE     */
+/* WHOHXXXX MEMBER.                                                 */
+/********************************************************************/
+ 
+/* ***************************************    */
+/* VARIABLES ARE PASSED TO THIS MACRO         */
+/* CONSLIST                                   */
+/* SYMLIST                                    */
+/* COMLIST                                    */
+/* TERMPRO                                    */
+/* TERMMSGS                                   */
+/* ***************************************    */
+ 
+SET RETURN_CODE = 0                   /* SET RETURN CODE TO 0  */
+ 
+ISPEXEC  CONTROL  NONDISPL  ENTER
+ISPEXEC  CONTROL  ERRORS  RETURN
+ 
+ERROR +
+  DO
+    SET RETURN_CODE = &LASTCC
+    RETURN
+  END
+ 
+ISPEXEC  VGET ( -
+  CONSLIST      -
+  COMLIST       -
+  SYMLIST       -
+  TERMPRO       -
+  ACP           -
+  ACPVER        -
+  EXAMVER       -
+  TERMMSGS      -
+  ) ASIS
+ 
+IF &RETURN_CODE NE 0 THEN +
+  SET T3VGERR = &RETURN_CODE
+ 
+CHAPT01_MESSAGE_HOUSEKEEPING: -
+SET SYSSYMLIST = &SYMLIST          /* CONTROL SYMLIST/NOSYMLIST */
+SET SYSCONLIST = &CONSLIST         /* CONTROL CONLIST/NOCONLIST */
+SET SYSLIST    = &COMLIST          /* CONTROL LIST/NOLIST       */
+SET SYSMSG     = &TERMMSGS         /* CONTROL MSG/NOMSG         */
+ 
+ISREDIT STATS = OFF
+ 
+ISREDIT NUMBER OFF
+ 
+ISREDIT AUTOSAVE ON
+ 
+ISREDIT LINE_AFTER .ZLAST = "READY"
+ 
+ISREDIT LINE_AFTER .ZLAST = "END"
+ 
+ISREDIT END
+ 
+SET LASTCC = 0
+ 
+EXIT
+END
+ 

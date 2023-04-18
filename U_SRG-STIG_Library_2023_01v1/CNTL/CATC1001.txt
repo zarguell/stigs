@@ -1,0 +1,160 @@
+PROC 0 -
+  ACP()                      /* TSS , RACF , ACF2 */ -
+  ACPVER()                   /* 5.0 , 2.2 , 6.1 */ -
+  EXAMVER()                  /* 3.3 */ -
+  CONSLIST(OFF)              /* DEFAULT IS OFF */ -
+  COMLIST(OFF)               /* DEFAULT IS OFF */ -
+  SYMLIST(OFF)               /* DEFAULT IS OFF */ -
+  TERMPRO(OFF)               /* DEFAULT IS OFF */ -
+  TERMMSGS(OFF)              /* DEFAULT IS OFF */ -
+  TRACE(OFF)                 /* TRACE ACTIONS AND ERRORS */
+ 
+/********************************************************************/
+/* THIS CLIST (CATC1001) GENERATES REPORTS FOR SELECTED RESOURCES   */
+/* THROUGH THE USE OF TSS COMMANDS, (I.E. TSS WHOHAS AND TSS        */
+/* WHOOWNS COMMANDS).                                               */
+/********************************************************************/
+ 
+/* SETUP ERROR ROUTINE */
+ERROR +
+  DO
+    SET RETURN_CODE = &LASTCC
+    RETURN
+  END
+ 
+ISPEXEC  CONTROL  NONDISPL  ENTER
+ISPEXEC  CONTROL  ERRORS  RETURN
+ 
+CONTROL NOFLUSH
+/* *************************************** */
+/* NO VARIABLES ARE PASSED TO THIS CLIST   */
+/* BUT KEYWORDS OF                         */
+/* ACP                                     */
+/* ACPVER                                  */
+/* EXAMVER                                 */
+/* CAN BE PASSED TO LET                    */
+/* THIS CLIST BE AWARE OF WHAT  ACCESS     */
+/* CONTROL PRODUCT AND EXAMINE VERSION     */
+/* YOU ARE                                 */
+/* WORKING WITH                            */
+/* *************************************** */
+/* CONSLIST = CONLIST                      */
+/* COMLIST = LIST                          */
+/* SYMLIST = SYMLIST                       */
+/* TERMPRO = PROMPT                        */
+/* TERMMSGS = MESSAGES                     */
+/* TRACE TURNS ON MESSAGING                */
+/* *************************************** */
+ 
+SET RETURN_CODE = 0                         /* SET RETURN CODE TO 0 */
+ 
+IF &TRACE = ON THEN                         /* TURN TRACE ON */ -
+  DO
+    SET CONSLIST = ON
+    SET COMLIST = ON
+    SET SYMLIST = ON
+    SET TERMPRO = ON
+    SET TERMMSGS = ON
+  END
+ 
+ 
+MESSAGE_HOUSEKEEPING: -
+SET SYSSYMLIST = &SYMLIST          /* CONTROL SYMLIST/NOSYMLIST */
+SET SYSCONLIST = &CONSLIST         /* CONTROL CONLIST/NOCONLIST */
+SET SYSLIST    = &COMLIST          /* CONTROL LIST/NOLIST       */
+SET SYSMSG     = &TERMMSGS         /* CONTROL MSG/NOMSG         */
+ 
+ISPEXEC  VPUT ( -
+  CONSLIST COMLIST SYMLIST TERMPRO -
+  ACP ACPVER EXAMVER -
+  TERMMSGS  -
+  ) ASIS
+ 
+/********************************************************************/
+/* MAIN PROCESS LOOP                                                */
+/********************************************************************/
+ 
+SET RETURN_CODE = 0                         /* SET RETURN CODE TO 0 */
+ 
+ISPEXEC  LMINIT DATAID(CATT1001) DDNAME(CNTL)
+ 
+IF &RETURN_CODE NE 0 THEN                   /* IF ERROR THEN */       -
+  DO
+    SET AC0001_LIB_INIT_CATT1001_ERROR = &RETURN_CODE
+    GOTO ERR_EXIT    /* EXIT */
+  END
+ELSE                                                                  -
+  DO
+    SET AC0001_LIB_INIT_CATT1001_ERROR = 0
+  END
+ 
+ISPEXEC  LMOPEN  DATAID(&CATT1001) OPTION(INPUT)
+ 
+IF &RETURN_CODE NE 0 THEN                   /* IF ERROR THEN */       -
+  DO
+    SET AC0001_LIB_OPEN_CATT1001_ERROR = &RETURN_CODE
+    GOTO ERR_EXIT    /* EXIT */
+  END
+ELSE                                                                  -
+  DO
+    SET AC0001_LIB_OPEN_CATT1001_ERROR = 0
+  END
+ 
+ 
+/* *************************************** */
+/* GET TABLE VALUES                        */
+/* *************************************** */
+ 
+ISPEXEC  EDIT DATAID(&CATT1001) MACRO(CATM1005) MEMBER(CATT1001)
+ 
+IF &RETURN_CODE GT 4 THEN                   /* IF ERROR THEN */       -
+  DO
+    SET AC0001_DATA_EDIT_CATT1001_ERROR = &RETURN_CODE
+    GOTO ERR_EXIT    /* EXIT */
+  END
+ELSE                                                                  -
+  DO
+    SET AC0001_DATA_EDIT_CATT1001_ERROR = 0
+  END
+ 
+SET RETURN_CODE = 0
+ 
+ISPEXEC  VGET  (                                                      -
+  TABLE                                                               -
+  ) ASIS
+ 
+IF &RETURN_CODE GT 0 THEN                   /* IF ERROR THEN */       -
+  DO
+    SET AC0001_TBL_VGET_CATT1001_ERROR = &RETURN_CODE
+    GOTO ERR_EXIT    /* EXIT */
+  END
+ELSE                                                                  -
+  DO
+    SET AC0001_TBL_VGET_CATT1001_ERROR = 0
+  END
+ 
+ 
+ISPEXEC  LMINIT DATAID(OUTPUT) DDNAME(OUTPUT) ENQ(EXCLU)
+ 
+DO INDEX = 1 TO &LENGTH(&TABLE) BY 15
+ 
+  SET RESOURCE = &SUBSTR(&INDEX:&INDEX+14,&STR(&TABLE))
+ 
+  ISPEXEC VPUT (RESOURCE OUTPUT) ASIS
+ 
+  SET MEMBER = WHOO&SUBSTR(9:12,&STR(&RESOURCE))
+ 
+  ISPEXEC EDIT DATAID(&OUTPUT) MACRO(CATM1001) MEMBER(&MEMBER)
+ 
+  SET RETURN_CODE = 0
+ 
+  ISPEXEC LMCOMP DATAID(&OUTPUT)
+ 
+END
+ 
+JOBDONE: +
+EXIT CODE(0)
+END
+ 
+ 
+END

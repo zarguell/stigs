@@ -1,0 +1,194 @@
+ISREDIT MACRO
+ 
+/********************************************************************/
+/* THIS EDIT MACRO (CATM1001) GENERATES THE WHOOWNS REPORTS AND     */
+/* CREATES THE WHOOXXXX MEMBER DEPENDING ON THE VALUES IN VARIABLE  */
+/* RESOURCE.                                                        */
+/********************************************************************/
+ 
+/* 10/03/2011 CL FENTON ADDED ERROR CHECKING.
+ 
+SET PGMNAME = &STR(CATM1001 10/03/11)
+ 
+SET RETURN_CODE = 0                   /* SET RETURN CODE TO 0  */
+ 
+ISPEXEC CONTROL NONDISPL ENTER
+ISPEXEC CONTROL ERRORS RETURN
+ 
+ERROR DO
+  SET RETURN_CODE = &LASTCC          /* SAVE LAST ERROR CODE */
+  IF &LASTCC GE 16 THEN +
+    WRITE &PGMNAME LASTCC = &LASTCC &ZERRLM
+  RETURN
+  END
+ 
+/* ***************************************    */
+/* VARIABLES ARE PASSED TO THIS MACRO         */
+/* RESOURCE                                   */
+/* OUTPUT                                     */
+/* CONSLIST                                   */
+/* COMLIST                                    */
+/* SYMLIST                                    */
+/* TERMPRO                                    */
+/* TERMMSGS                                   */
+/* ***************************************    */
+ 
+ISPEXEC  VGET ( -
+  RESOURCE      -
+  OUTPUT        -
+  CONSLIST      -
+  COMLIST       -
+  SYMLIST       -
+  TERMPRO       -
+  ACP           -
+  ACPVER        -
+  EXAMVER       -
+  TERMMSGS      -
+  ) ASIS
+ 
+IF &RETURN_CODE NE 0 THEN +
+  SET T1VGERR = &RETURN_CODE
+ 
+MESSAGE_HOUSEKEEPING: -
+SET SYSSYMLIST = &SYMLIST          /* CONTROL SYMLIST/NOSYMLIST */
+SET SYSCONLIST = &CONSLIST         /* CONTROL CONLIST/NOCONLIST */
+SET SYSLIST    = &COMLIST          /* CONTROL LIST/NOLIST       */
+SET SYSMSG     = &TERMMSGS         /* CONTROL MSG/NOMSG         */
+ 
+/***************************************************************** */
+/*  SET DIFFERENT ATTRIBUTES WITHIN CURRENTLY OPENED MEMBER        */
+/***************************************************************** */
+ 
+ISREDIT STATS = OFF
+ISREDIT NUMBER OFF
+ 
+/***************************************************************** */
+/*  SET AUTOSAVE FOR WHOOWNS VARIABLE IN RESOURCE.                 */
+/***************************************************************** */
+ 
+IF &SUBSTR(13:13,&STR(&RESOURCE)) EQ Y THEN +
+  ISREDIT AUTOSAVE ON
+ELSE +
+  ISREDIT AUTOSAVE OFF NOPROMPT
+ 
+/***************************************************************** */
+/*  SET VARIABLES AND CONTROL VARIABLES FOR THIS PROCESS.          */
+/***************************************************************** */
+ 
+SET L = &STR((
+ 
+SET LINE = 1
+ 
+SET &SYSOUTTRAP = 999999999
+ 
+SET VAR = &SUBSTR(1:8,&STR(&RESOURCE))  /* SET RESOURCE CLASS */
+ 
+SET VAR = &VAR
+WRITE &PGMNAME Processing &VAR..
+ 
+SET TSSRC = 0
+SET RETURN_CODE = 0
+ 
+/***************************************************************** */
+/*  ISSUE TSS COMMAND TO OBTAIN OWNERSHIP OF THE RESOURCE          */
+/*  VALUES.                                                        */
+/***************************************************************** */
+ISREDIT LINE_AFTER .ZLAST = "READY"
+ 
+SET &SYSLIST = ON
+ 
+TSS WHOO &VAR(*)
+ 
+SET TSSRC = &RETURN_CODE
+ 
+SET &SYSLIST = &COMLIST
+ 
+SET A = &SYSOUTLINE  /* OBTAIN LAST LINE FROM CMD RESULTS */
+ 
+DO X = 1 TO &A
+ 
+  SET DATA = &&SYSOUTLINE&X
+  SET DATA = &STR(&DATA)
+ 
+  ISREDIT LINE_AFTER .ZLAST = (DATA)
+ 
+END
+/* WRITE RC=&TSSRC &DATA
+ 
+ISREDIT LINE_AFTER .ZLAST = "READY"
+ 
+ISREDIT LINE_AFTER .ZLAST = "END"
+ 
+SET RETURN_CODE = 0
+ 
+ISREDIT FIND 'TSS0301I' ALL
+ 
+IF &RETURN_CODE EQ 0 AND &TSSRC EQ 0 THEN +
+  SET TSSRC = 4
+ 
+/***************************************************************** */
+/*  DEPENDING ON RESULTS OF TSS COMMAND AND THE VALUE IN RESOURCE  */
+/*  IS USED TO GENERATE THE WHOHAS MEMBER.                         */
+/***************************************************************** */
+ 
+IF &SUBSTR(14:14,&STR(&RESOURCE)) EQ Y AND +
+  &TSSRC EQ 0 THEN DO
+  DO INDEX = 3 TO &A
+ 
+    ISREDIT (LINE) = LINE &INDEX
+ 
+    IF &SUBSTR(10:13,&NRSTR(&LINE)) EQ OWNS THEN DO
+      SET VALUE = &SUBSTR(24:80,&NRSTR(&LINE))
+ 
+      DO UNTIL &SUBSTR(&LENGTH(&NRSTR(&VALUE)),&NRSTR(&VALUE)) +
+        NE &STR( )
+        SET VALUE = &SUBSTR(1:&LENGTH(&NRSTR(&VALUE))-1,+
+          &NRSTR(&VALUE))
+      END
+ 
+      IF &NRSTR(&VALUE) EQ &STR(*(G)) THEN +
+        SET VALUE = &STR(*ALL*)
+ 
+      IF &SYSINDEX(&STR(&L),&NRSTR(&VALUE)) GT 0 THEN +
+        SET VALUE = &SUBSTR(1:&SYSINDEX(&STR(&L),&NRSTR(&VALUE))-1,+
+          &NRSTR(&VALUE))
+ 
+      ISPEXEC VPUT (VALUE)
+ 
+      SET MEMBER = WHOH&SUBSTR(9:12,&STR(&RESOURCE))
+ 
+      ISPEXEC EDIT DATAID(&OUTPUT) MACRO(CATM1002) MEMBER(&MEMBER)
+ 
+      SET CNT = &CNT + 1
+ 
+      IF &CNT GT 10 THEN DO
+          SET &CNT = 0
+          SET RETURN_CODE = 0
+          ISPEXEC LMCOMP DATAID(&OUTPUT)
+        END
+      END
+  END
+ 
+/***************************************************************** */
+/*  ADDS FINISHING TOUCHES TO THE WHOHAS MEMBER.                   */
+/***************************************************************** */
+ 
+  ISPEXEC EDIT DATAID(&OUTPUT) MACRO(CATM1003) MEMBER(&MEMBER)
+ 
+  END
+ 
+ISPEXEC  VPUT  ( -
+  T1VGERR -
+  T1CONSER -
+  T1COMER -
+  T1TERPER -
+  T1TERMER -
+  ) ASIS
+ 
+ISREDIT END
+ 
+SET LASTCC = 0
+ 
+EXIT
+END
+ 

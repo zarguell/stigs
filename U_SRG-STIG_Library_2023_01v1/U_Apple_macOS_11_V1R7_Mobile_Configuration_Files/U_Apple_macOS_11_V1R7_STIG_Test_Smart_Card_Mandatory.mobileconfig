@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>ConsentText</key>
+	<dict>
+		<key>default</key>
+		<string>This profile should be set to expire no more than 1 hour after being installed.</string>
+	</dict>
+	<key>PayloadContent</key>
+	<array>
+		<dict>
+			<key>PayloadDisplayName</key>
+			<string>Test Smart Card Mandatory</string>
+			<key>PayloadIdentifier</key>
+			<string>com.apple.security.smartcard.508CF050-A894-432C-8CBF-A316C508F3F2</string>
+			<key>PayloadOrganization</key>
+			<string></string>
+			<key>PayloadType</key>
+			<string>com.apple.security.smartcard</string>
+			<key>PayloadUUID</key>
+			<string>508CF050-A894-432C-8CBF-A316C508F3F2</string>
+			<key>PayloadVersion</key>
+			<integer>1</integer>
+			<key>checkCertificateTrust</key>
+			<integer>1</integer>
+			<key>enforceSmartCard</key>
+			<true/>
+			<key>tokenRemovalAction</key>
+			<integer>1</integer>
+		</dict>
+	</array>
+	<key>PayloadDescription</key>
+	<string>This payload is intended to be used to validate that the Certificate checks required for mandatory smart card do not lock out users. This profile should be set to expire no more than 1 hour after being installed.</string>
+	<key>PayloadDisplayName</key>
+	<string>Test Smart Card Policy</string>
+	<key>PayloadIdentifier</key>
+	<string>mil.disa.AOSX-15.Test_Smart_Card_Policy</string>
+	<key>PayloadOrganization</key>
+	<string>DISA</string>
+	<key>PayloadScope</key>
+	<string>System</string>
+	<key>PayloadType</key>
+	<string>Configuration</string>
+	<key>PayloadUUID</key>
+	<string>A8585E01-3434-4772-AD8F-372F51D37786</string>
+	<key>PayloadVersion</key>
+	<integer>1</integer>
+	<key>RemovalDate</key>
+	<date>2020-05-13T16:00:00Z</date>
+</dict>
+</plist>

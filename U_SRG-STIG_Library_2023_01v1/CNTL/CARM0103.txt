@@ -1,0 +1,326 @@
+ISREDIT MACRO       /* CARM0103 EDIT RACFCMDS.RPT(*)  */
+ 
+/* 09/10/2007 CL.Fenton Copied from CARM0003 to evaluate resources
+/* 10/17/2007 CL.Fenton Corrected 'NOT FOUND'/ICH13003I issue
+/* 11/30/2007 CL.Fenton Corrected error by specifing fix start pos.
+/* 04/17/2009 CL.Fenton Mod for evaluation of RL with mask.
+/* 07/16/2009 CL.FENTON Changes CACT0001 to CACT0000, CACM042T to
+/*            CACM000T.  Changes for reflect new table information.
+/* 12/13/2009 CL.FENTON Added IKJ56702I msg for no resource rule test.
+/* 04/13/2017 CL.Fenton Corrected issue with FIRSTPO and LASTPO being
+/*            equal.
+ 
+SET PGMNAME = &STR(CARM0103 04/13/17)
+ 
+SET SYSPROMPT = OFF                /* CONTROL NOPROMPT          */
+SET SYSFLUSH  = OFF                /* CONTROL NOFLUSH           */
+SET SYSASIS   = ON                 /* CONTROL ASIS - caps off   */
+ 
+/* ERROR ROUTINE */
+ERROR DO
+  SET RETURN_CODE = &LASTCC          /* SAVE LAST ERROR CODE */
+  IF &LASTCC GT 16 THEN +
+    WRITE &PGMNAME LASTCC = &LASTCC &ZERRLM
+  RETURN
+  END
+ 
+/* *************************************** */
+/* VARIABLES ARE PASSED TO THIS MACRO      */
+/* CONSLIST                                */
+/* COMLIST                                 */
+/* TERMMSGS                                */
+/* *************************************** */
+ 
+SET RETURN_CODE = 0
+ 
+ISPEXEC VGET ( +
+  CONSLIST     +
+  COMLIST      +
+  SYMLIST      +
+  TERMMSGS     +
+  TEMP4        +
+  RPTMBR       +
+  TITLE        +
+  ) ASIS
+ 
+SET RM03VGET = &RETURN_CODE
+IF &RETURN_CODE NE 0 THEN DO
+  WRITE &PGMNAME VGET RC = &RETURN_CODE  &ZERRSM
+  WRITE &PGMNAME CONSLIST/&CONSLIST COMLIST/&COMLIST SYMLIST/&SYMLIST +
+    TERMMSGS/&TERMMSGS TEMP4/&TEMP4 RPTMBR/&RPTMBR TITLE/&TITLE
+  SET RETURN_CODE = &RETURN_CODE + 16
+  GOTO ERR_EXIT
+  END
+ 
+SET RETURN_CODE = 0
+ 
+/* *************************************** */
+/* TURN ON MESSAGES                        */
+/* *************************************** */
+ 
+SET SYSSYMLIST = &SYMLIST          /* CONTROL SYMLIST/NOSYMLIST */
+SET SYSCONLIST = &CONSLIST         /* CONTROL CONLIST/NOCONLIST */
+SET SYSLIST    = &COMLIST          /* CONTROL LIST/NOLIST       */
+SET SYSMSG     = &TERMMSGS         /* CONTROL MSG/NOMSG         */
+ 
+ISPEXEC CONTROL NONDISPL ENTER
+ISPEXEC CONTROL ERRORS RETURN
+ 
+ISREDIT (MEMBER) = MEMBER
+ 
+SET OMEMBER = &MEMBER
+ 
+SET LP = &STR((
+SET RP = )
+SET BLK44 = &STR(                                            )
+SET TITLE = &SUBSTR(1:8,&TITLE        )
+ 
+/* *************************************** */
+/* MAIN LOOP                               */
+/* *************************************** */
+ 
+ISREDIT (ENDER) = LINENUM .ZLAST
+ 
+ISREDIT CURSOR = 1 0
+ 
+SET CURLINE = 0
+ 
+LOOP_RL: +
+SET RETURN_CODE = 0
+ 
+SET CURLINE = &CURLINE + 1
+IF &CURLINE GT &ENDER THEN GOTO END_EDIT
+ 
+/* *************************************** */
+/* LOOK FOR DATASET                        */
+/* *************************************** */
+ 
+SET RETURN_CODE = 0
+ISREDIT (DATA) = LINE &CURLINE
+ 
+SET DATA = &NRSTR(&DATA)
+ 
+IF &SYSINDEX(&STR(CARC1001),&NRSTR(&DATA)) GT 0 THEN DO
+  SET FIRSTPO = 20
+  SET LASTPO = &SYSINDEX(&STR( ),&STR(&DATA),&FIRSTPO + 1) - 1
+ 
+  IF &FIRSTPO LE &LASTPO THEN +
+    SET DSNAME = &SUBSTR(&FIRSTPO:&LASTPO,&STR(&DATA))
+  SET RESCL = &SUBSTR(11:18,&NRSTR(&DATA))
+  END
+ 
+IF &SUBSTR(1:8,&NRSTR(&DATA)) EQ &NRSTR(&RESCL) THEN DO
+ 
+  /* *************************************** */
+  /* STRIP PROFILE                           */
+  /* *************************************** */
+ 
+  SET LASTPO = &LENGTH(&NRSTR(&DATA))
+  SET RACFPRO = &SUBSTR(12:&LASTPO,&NRSTR(&DATA&BLK44))
+  SET AC = &SUBSTR(1:44,&STR(&RACFPRO.&BLK44))
+  SET AC = &STR(&AC.4&TITLE &DSNAME)
+ 
+  ISPEXEC LMPUT DATAID(&TEMP4) MODE(INVAR) DATALOC(AC) +
+     DATALEN(&LENGTH(&STR(&AC))) MEMBER(&OMEMBER)
+  END
+ 
+IF &SYSINDEX(&STR(RESOURCE NOT FO),&NRSTR(&DATA)) GT 0 THEN DO
+  SET RACFPRO = &STR( )
+  SET AC = &SUBSTR(1:44,&STR(&RACFPRO.&BLK44))
+  SET AC = &STR(&AC.4&SUBSTR(1:8,&TITLE        ) &DSNAME)
+ 
+  ISPEXEC LMPUT DATAID(&TEMP4) MODE(INVAR) DATALOC(AC) +
+     DATALEN(&LENGTH(&STR(&AC))) MEMBER(&OMEMBER)
+  END
+ 
+/* *************************************** */
+/* STRIP UACC                              */
+/* *************************************** */
+ 
+IF &SYSINDEX(&STR(UNIVERSAL ACCESS),&NRSTR(&DATA)) GT 0 THEN DO
+  SET WARN1 =
+  SET CURLINE = &CURLINE + 2
+  ISREDIT (DATA) = LINE &CURLINE
+  SET UACC1 = &SUBSTR(21:30,&STR(&DATA))
+  SET WARN1 = &SUBSTR(51:53,&STR(&DATA))
+  IF &WARN1 = YES THEN +
+    SET WARN1 = &STR(WARN&LP.Y&RP)
+  ELSE +
+    SET WARN1 = &STR(WARN&LP.N&RP)
+  IF &SYSINDEX(&SYSNSUB(0,&),&NRSTR(&UACC1)) EQ 0 AND +
+     &SYSINDEX(+,&STR(&UACC1)) EQ 0 AND +
+     &SYSINDEX(-,&STR(&UACC1)) EQ 0 AND +
+     &SYSINDEX(*,&STR(&UACC1)) EQ 0 AND +
+     &SYSINDEX(/,&STR(&UACC1)) EQ 0 THEN SET UACC = &UACC1
+  ELSE SET UACC = &STR(&UACC1)
+  SET UACC = &STR(UACC&LP&UACC&RP)
+  SET AC = &SUBSTR(1:44,&STR(&RACFPRO.&BLK44))
+  SET AC = &STR(&AC.1&UACC.&BLK44)
+  SET AC = &STR(&SUBSTR(1:59,&AC)&WARN1)
+  END
+ 
+/* *************************************** */
+/* LOOK FOR AUDIT PARMS                    */
+/* *************************************** */
+ 
+IF &SYSINDEX(&STR(AUDITING),&NRSTR(&DATA)) EQ 1 THEN DO
+  SET AUDIT1 =
+  SET CURLINE = &CURLINE + 2
+  ISREDIT (DATA) = LINE &CURLINE
+ 
+/* *************************************** */
+/* SET AUDIT 1 = AUDIT PARMS               */
+/* *************************************** */
+ 
+  SET AUDIT1 = &SUBSTR(1:50,&STR(&DATA))
+  SET XI = &SYSINDEX(&STR( ),&NRSTR(&AUDIT1))
+  IF &XI GT 2 THEN +
+    SET AUDIT1 = &SUBSTR(1:&XI-1,&AUDIT1)
+ 
+  SET AC = &SUBSTR(1:44,&STR(&RACFPRO.&BLK44))
+  SET AC = &STR(&AC.1&UACC.&BLK44)
+  SET AC = &STR(&SUBSTR(1:59,&AC)&WARN1.&BLK44)
+  SET AC = &STR(&SUBSTR(1:67,&AC)AUDIT&LP&AUDIT1&RP)
+ 
+  ISPEXEC LMPUT DATAID(&TEMP4) MODE(INVAR) DATALOC(AC) +
+    DATALEN(&LENGTH(&STR(&AC))) MEMBER(&OMEMBER)
+  END
+ 
+/* *************************************** */
+/* LOOK FOR WHO IS USING DATASET           */
+/* *************************************** */
+ 
+IF &SYSINDEX(&STR(USER      ACCESS),&NRSTR(&DATA)) EQ 1 THEN DO
+  SET CURLINE = &CURLINE + 2
+  SET BLANK = &STR( )
+ 
+  ID_CHECK: +
+  ISREDIT (DATA) = LINE &CURLINE
+ 
+  IF &SUBSTR(1:1,&STR(&DATA)) EQ &BLANK OR +
+     &NRSTR(&DATA) EQ &STR(NO USERS IN ACCESS LIST) THEN +
+    GOTO LOOP_RL
+ 
+  SET LOOPCNT = 22
+  SET COUNTER = 1
+  SET WORDCNT = 0
+  SET IDCNT = 1
+ 
+  SET USRID = &SUBSTR(1:8,&NRSTR(&DATA))
+  SET USRACC = &SUBSTR(11:18,&NRSTR(&DATA))
+/*NEXT_WORD: +
+/*IF &COUNTER LE &LENGTH(&STR(&DATA)) THEN +
+/*  SET LETTER = &SUBSTR(&COUNTER,&STR(&DATA))
+ 
+/*IF &COUNTER LT &LOOPCNT THEN DO
+/*  SET WORDCNT = &WORDCNT + 1
+/*  SET WORD =
+/*  END
+ 
+/*DO WHILE &STR(&LETTER) NE &BLANK
+/*  SET WORD = &STR(&WORD&LETTER)
+/*  SET COUNTER = &COUNTER + 1
+/*  IF &COUNTER LE &LENGTH(&STR(&DATA)) THEN +
+/*    SET LETTER = &SUBSTR(&COUNTER,&STR(&DATA))
+/*  END
+ 
+/*IF &WORDCNT = 1 THEN DO
+/*  SET WORD8 = &SUBSTR(1:8,&WORD        )
+/*  IF &NRSTR(&WORD) = &STR(NO) THEN -
+/*    GOTO LOOP_RL
+/*  ELSE DO
+/*    IF &NRSTR(&WORD) = &STR(*) THEN -
+/*      SET GROUPID = &STR(6GENERIC&LP&WORD8&RP     )
+/*    ELSE -
+/*      SET GROUPID = &STR(8GROUPID&LP&WORD8&RP     )
+/*    END
+/*  END
+ 
+    SET USRID = &SUBSTR(1:8,&NRSTR(&USRID        ))
+ 
+    IF &NRSTR(&USRID) = &STR(*) THEN -
+      SET GROUPID = &STR(6GENERIC&LP&USRID&RP     )
+    ELSE -
+      SET GROUPID = &STR(8GROUPID&LP&USRID&RP     )
+ 
+/*IF &WORDCNT EQ 2 THEN DO
+/*  SET WORD8 = &SUBSTR(1:8,&WORD        )
+/*  SET GRPACC = &STR(ACCESS&LP&WORD8&RP     )
+/*  IF &WORD = &STR(IN) THEN SET GRPACC = &STR(          )
+/*  GOTO NEXT_ID
+/*  END
+ 
+  SET GRPACC = &STR(ACCESS&LP&USRACC&RP     )
+ 
+/*DO WHILE &STR(&LETTER) EQ &BLANK
+/*  SET COUNTER = &COUNTER + 1
+/*  IF &COUNTER LE &LENGTH(&STR(&DATA)) THEN +
+/*    SET LETTER = &SUBSTR(&COUNTER,&STR(&DATA))
+/*  ELSE SET LETTER = STR(#)
+/*  IF &COUNTER = &LOOPCNT THEN GOTO NEXT_ID
+/*  END
+ 
+/*GOTO NEXT_WORD
+ 
+/*NEXT_ID: +
+/*SET RETURN_CODE = 0
+ 
+  SET OUTLINE = &STR(&SUBSTR(1:19,&GROUPID) &SUBSTR(1:18,&GRPACC))
+  SET AC = &SUBSTR(1:44,&STR(&RACFPRO.&BLK44))
+  SET AC = &STR(&AC&OUTLINE)
+ 
+  ISPEXEC LMPUT DATAID(&TEMP4) MODE(INVAR) DATALOC(AC) +
+    DATALEN(&LENGTH(&STR(&AC))) MEMBER(&OMEMBER)
+ 
+/*SET WORD = &BLANK
+  SET CURLINE = &CURLINE + 1
+  IF &CURLINE = &ENDER THEN GOTO END_EDIT
+  GOTO ID_CHECK
+  END
+ 
+GOTO LOOP_RL
+ 
+END_EDIT: +
+SET RETURN_CODE = 0
+ 
+ISPEXEC LMMADD DATAID(&TEMP4) MEMBER(&OMEMBER)
+ 
+IF &RETURN_CODE EQ 4 THEN DO          /* MEMBER ALREADY EXISTS
+  SET RETURN_CODE = 0
+ 
+  ISPEXEC LMMREP DATAID(&TEMP4) MEMBER(&OMEMBER)
+ 
+  IF &RETURN_CODE NE 0 THEN DO
+    WRITE &PGMNAME LMMREP_TEMP4_RCODE = &RETURN_CODE &OMEMBER &ZERRSM
+    END
+  END
+ELSE DO
+  IF &RETURN_CODE NE 0 THEN +
+    WRITE &PGMNAME LMMADD_TEMP4_RCODE = &RETURN_CODE &OMEMBER  &ZERRSM
+  END
+ 
+SET RETURN_CODE = 0
+ 
+ERR_EXIT: +
+IF &MAXCC GE 16 OR +
+   &RETURN_CODE GT 0 THEN DO
+  ISPEXEC VGET (ZISPFRC) SHARED
+  IF &MAXCC GT &ZISPFRC THEN +
+    SET ZISPFRC = &MAXCC
+  ELSE +
+    SET ZISPFRC = &RETURN_CODE
+  ISPEXEC VPUT (ZISPFRC) SHARED
+  WRITE &PGMNAME ZISPFRC = &ZISPFRC
+  END
+ 
+SET RM003RC = &RETURN_CODE
+ 
+ISPEXEC VPUT ( +
+  RM03VGET     +
+  RM03FER      +
+  RM003RC      +
+  ) ASIS
+ 
+ISREDIT END
+ 
+EXIT CODE(0)

@@ -1,0 +1,341 @@
+PROC 0                                                                -
+  CONSLIST(OFF)              /* DEFAULT IS OFF                     */ -
+  COMLIST(OFF)               /* DEFAULT IS OFF                     */ -
+  SYMLIST(OFF)               /* DEFAULT IS OFF                     */ -
+  TERMMSGS(ON)               /* DEFAULT IS OFF                     */ -
+  CACT0008(CACT0008)         /* SELECT RESOURCE TABLE              */ -
+  CACC1000(CACC1000)         /* SELECT SECURITY CHECK PGM          */ -
+  CAAM0013(CAAM0013)         /* Edit macro for LIDs                */ -
+  CAAM0121(CAAM0121)         /* SELECT EDIT macro SEN(pdi)         */ -
+  CACM042R(CACM042R)         /* SELECT edit macro/CACT0008         */ -
+  CACM0422(CACM0422)         /* SELECT edit macro/AUACCESS         */ -
+  CNTLDD(CNTL)               /* Default DDNAME - Security table    */ -
+  PDIDD(PDIDD)               /* Default DDNAME - PDI data set      */ -
+  TEMP4DD(TEMP4)             /* Default DDNAME - TEMP records      */ -
+  DIALOGDD(DIALOG)           /* Default DDNAME - Authorized users  */ -
+  AUACCESSDD(AUACCESS)       /* Default DDNAME - Work file         */ -
+  TRACE(OFF)                 /* TRACE ACTIONS AND ERRORS           */
+ 
+/* 06/01/2004 JL.NELSON CREATE TO REPORT NEW FINDINGS
+/* 07/12/2004 JL.NELSON copied from CARC0420 for TSS
+/* 11/16/2004 JL.NELSON Added code for Authorized users
+/* 01/25/2005 JL.NELSON Changed to add dslist to PDIs
+/* 02/08/2005 JL.NELSON Changed constants to variables
+/* 03/28/2005 JL.NELSON Added TYPERUN for Reports without PDIs
+/* 06/06/2006 C. STERN  Updated ERROR ROUTINE.
+/*                      Removed PDI compress.  Done in last step.
+/* 08/08/2006 CL.FENTON Added 'Not a finding' for empty dsn groups.
+/* 05/23/2012 CL.FENTON Chgs to allow use of AUACCESS for authorized
+/*            users list to prevent the possible "IKJ56548I INSUFFICIENT
+/*            STORAGE FOR CLIST TO CONTINUE" message from occurring when
+/*            a DIALOG user group contains an excessive number of user,
+/*            CSD-AR003400969.
+/* 04/08/2019 CL.FENTON Chgs to evaluate ZCIC0021 for system that are
+/*            running both production and test/developement CICS regions,
+/*            STS-021044.
+ 
+SET PGMNAME = &STR(CAAC0120 04/08/19)
+ 
+SET SYSPROMPT = OFF                 /* CONTROL NOPROMPT          */
+SET SYSFLUSH  = OFF                 /* CONTROL NOFLUSH           */
+SET SYSASIS   = ON                  /* CONTROL ASIS - caps off   */
+ 
+/* ERROR ROUTINE */
+ERROR DO
+  SET RETURN_CODE = &LASTCC         /* save LAST ERROR CODE */
+  IF &LASTCC GE 16 THEN +
+    WRITE &PGMNAME LASTCC = &LASTCC &ZERRLM
+  RETURN
+  END
+ 
+SET RETURN_CODE = 0
+ 
+IF &TRACE = ON THEN DO              /* TURN messages on          */
+  SET TERMMSGS = ON                 /* CONTROL MSG               */
+  SET COMLIST  = ON                 /* CONTROL LIST              */
+  SET CONSLIST = ON                 /* CONTROL CONLIST           */
+  SET SYMLIST  = ON                 /* CONTROL SYMLIST           */
+  END
+ 
+SET SYSSYMLIST = &SYMLIST           /* CONTROL SYMLIST/NOSYMLIST */
+SET SYSCONLIST = &CONSLIST          /* CONTROL CONLIST/NOCONLIST */
+SET SYSLIST    = &COMLIST           /* CONTROL LIST/NOLIST       */
+SET SYSMSG     = &TERMMSGS          /* CONTROL MSG/NOMSG         */
+ 
+SET RP = )
+SET RETURN_CODE = 0
+SET ZISPFRC     = 0
+ISPEXEC VPUT (ZISPFRC) SHARED
+ 
+ISPEXEC VPUT ( +
+  CONSLIST     +
+  COMLIST      +
+  SYMLIST      +
+  TERMMSGS     +
+  CACM0422     +
+  ) ASIS
+ 
+SET AC20VPUT = &RETURN_CODE
+IF &RETURN_CODE NE 0 THEN +
+  WRITE &PGMNAME VPUT RC = &RETURN_CODE  &ZERRSM
+ 
+/* Determine which security system is running */
+ 
+SET RETURN_CODE = 0
+ 
+ISPEXEC SELECT CMD(&CACC1000 ACP)
+ 
+ISPEXEC VGET ( +
+  ACPNAME      +
+  ACPVERS      +
+  ) ASIS
+ 
+IF &NRSTR(&ACPNAME) NE &STR(ACF2) THEN -
+  DO
+  WRITE &PGMNAME ACF2 Job running on the wrong system
+  WRITE &PGMNAME &ACPNAME &ACPVERS
+  SET RETURN_CODE = 12
+  GOTO ERR_EXIT
+  END
+ 
+/* *************************************** */
+/* INITIALIZE LIBRARY MANAGEMENT           */
+/* *************************************** */
+ 
+SET RETURN_CODE = 0
+ 
+ISPEXEC LMINIT DATAID(PDIDD) DDNAME(&PDIDD)
+SET  LMINIT_PDIDD_RC = &RETURN_CODE
+IF &RETURN_CODE NE 0 THEN DO
+  WRITE &PGMNAME LMINIT_PDIDD_RC &RETURN_CODE  &ZERRSM
+  GOTO ERR_EXIT
+  END
+ 
+ISPEXEC LMINIT DATAID(TEMP4) DDNAME(&TEMP4DD)
+SET  LMINIT_TEMP4_RC = &RETURN_CODE
+IF &RETURN_CODE NE 0 THEN DO
+  WRITE &PGMNAME LMINIT_TEMP4_RC &RETURN_CODE     &ZERRSM
+  GOTO ERR_EXIT
+  END
+ 
+ISPEXEC LMINIT DATAID(CNTL) DDNAME(&CNTLDD)
+SET  LMINIT_CNTL_RC = &RETURN_CODE
+IF &RETURN_CODE NE 0 THEN DO
+  WRITE &PGMNAME LMINIT_CNTL_RC &RETURN_CODE  &ZERRSM
+  GOTO ERR_EXIT
+  END
+ 
+ISPEXEC LMINIT DATAID(DIALOG) DDNAME(&DIALOGDD)
+SET LMINIT_DIALOG_RC = &RETURN_CODE
+IF &RETURN_CODE NE 0 THEN DO
+  WRITE &PGMNAME LMINIT DIALOG  RC = &RETURN_CODE  &ZERRSM
+  SET RETURN_CODE = &RETURN_CODE + 16
+  GOTO ERR_EXIT
+  END
+ 
+ISPEXEC LMINIT DATAID(AUACCESS) DDNAME(&AUACCESSDD) ENQ(EXCLU)
+SET LMINIT_AUACCESS_RC = &RETURN_CODE
+IF &RETURN_CODE NE 0 THEN DO
+  WRITE &PGMNAME LMINIT AUACCESS  RC = &RETURN_CODE  &ZERRSM
+  SET RETURN_CODE = &RETURN_CODE + 16
+  GOTO ERR_EXIT
+  END
+ 
+SET ODDNAME  = TEMP4
+ 
+LISTDSI &ODDNAME FILE
+ 
+SET  LISTDSI_FILE_RCODE  = &RETURN_CODE
+SET  LISTDSI_FILE_REASON = &SYSREASON
+IF &SYSREASON EQ 0 THEN DO
+  SET ODSNAME  = &SYSDSNAME
+  SET LISTDSI_FILE_MSGLVL2 = &NRSTR(&SYSMSGLVL2)
+  END
+ELSE DO
+  WRITE &PGMNAME LISTDSI failed for TEMP4 &SYSREASON
+  WRITE &PGMNAME &SYSMSGLVL1
+  WRITE &PGMNAME &SYSMSGLVL2
+  END
+ 
+/* *************************************** */
+/* OPEN DATASETS                           */
+/* *************************************** */
+ 
+SET RETURN_CODE = 0
+ 
+ISPEXEC LMOPEN DATAID(&PDIDD) OPTION(OUTPUT)
+SET LMOPEN_PDIDD_RC = &RETURN_CODE
+IF &RETURN_CODE NE 0 THEN DO
+  WRITE &PGMNAME LMOPEN_PDIDD_RC &RETURN_CODE  &ZERRSM
+  GOTO ERR_EXIT
+  END
+ 
+ISPEXEC LMOPEN DATAID(&DIALOG) OPTION(INPUT)
+SET LMOPEN_DIALOG_RC = &RETURN_CODE
+IF &RETURN_CODE NE 0 THEN DO
+  WRITE &PGMNAME LMOPEN_DIALOG_RC &RETURN_CODE  &ZERRSM
+  GOTO ERR_EXIT
+  END
+ 
+ISPEXEC LMOPEN DATAID(&AUACCESS) OPTION(INPUT)
+SET LMOPEN_AUACCESS_RC = &RETURN_CODE
+IF &RETURN_CODE NE 0 THEN DO
+  WRITE &PGMNAME LMOPEN_AUACCESS_RC &RETURN_CODE  &ZERRSM
+  GOTO ERR_EXIT
+  END
+ 
+/* *************************************** */
+/* GET TABLE VALUES                        */
+/* *************************************** */
+ 
+SET AUACCCNT = 0
+SET RETURN_CODE = 0
+ 
+SET RECTYPE = 1
+SET PDINAME =
+SET RESNAME =
+ 
+ISPEXEC VPUT ( +
+  RECTYPE      +
+  PDINAME      +
+  RESNAME      +
+  PDIDD        +
+  TEMP4        +
+  CNTL         +
+  DIALOG       +
+  AUACCESS     +
+  AUACCCNT     +
+  CACT0008     +
+  CAAM0013     +
+  CACM042R     +
+  ) ASIS
+ 
+SET RETURN_CODE = 0
+ 
+ISPEXEC VIEW DATAID(&CNTL) MEMBER(CACT0008) MACRO(&CACM042R)
+ 
+SET VIEW_CACT0008_RC = &RETURN_CODE
+IF &VIEW_CACT0008_RC GT 4 THEN DO
+  WRITE &PGMNAME VIEW CNTL &CACT0008  RC = &VIEW_CACT0008_RC
+  SET RETURN_CODE = &RETURN_CODE + 16
+  GOTO BYPASS_CACT0008
+  END
+ 
+ISPEXEC VGET ( +
+  REC1TBL      +
+  ) ASIS
+ 
+DO X = 1 TO &LENGTH(&NRSTR(&REC1TBL)) BY 18
+  SET PDINAME = &SUBSTR(&X:&X+7,&NRSTR(&REC1TBL))    /* PDI ID
+  SET PDINAME = &PDINAME
+ 
+  /* *************************************** */
+  /* EDIT TEMP4 PDI MEMBER                   */
+  /* *************************************** */
+ 
+  ISPEXEC EDIT DATAID(&TEMP4) MACRO(&CAAM0121) MEMBER(&PDINAME)
+ 
+  SET VIEW_RESOURCE_RC = &RETURN_CODE
+ 
+  SET RETURN_CODE = 0
+ 
+END
+ 
+ 
+/* *************************************** */
+/* CLOSE OUTPUT                            */
+/* *************************************** */
+ 
+CLOSEUP: +
+SET RETURN_CODE = 0
+ 
+ISPEXEC LMCLOSE DATAID(&PDIDD)
+SET LMCLOSE_PDIDD_RC = &RETURN_CODE
+SET RETURN_CODE = 0
+ 
+ISPEXEC LMCLOSE DATAID(&DIALOG)
+SET LMCLOSE_DIALOG_RC = &RETURN_CODE
+SET RETURN_CODE = 0
+ 
+ISPEXEC LMCLOSE DATAID(&AUACCESS)
+SET LMCLOSE_AUACCESS_RC = &RETURN_CODE
+SET RETURN_CODE = 0
+ 
+ISPEXEC LMCOMP DATAID(&AUACCESS)
+SET LMCOMP_AUACCESS_RC = &RETURN_CODE
+IF &RETURN_CODE NE 0 THEN DO
+  WRITE &PGMNAME LMCOMP_AUACCESS_RC &RETURN_CODE  &ZERRSM
+  END
+/* *************************************** */
+/* FREE FILES                              */
+/* *************************************** */
+ 
+SET RETURN_CODE = 0
+ 
+ISPEXEC LMFREE DATAID(&TEMP4)
+SET LMFREE_TEMP4_RC = &RETURN_CODE
+SET RETURN_CODE = 0
+ 
+ISPEXEC LMFREE DATAID(&PDIDD)
+SET LMFREE_PDIDD_RC = &RETURN_CODE
+SET RETURN_CODE = 0
+ 
+ISPEXEC LMFREE DATAID(&CNTL)
+SET LMFREE_CNTL_RC = &RETURN_CODE
+SET RETURN_CODE = 0
+ 
+ISPEXEC LMFREE DATAID(&DIALOG)
+SET LMFREE_DIALOG_RC = &RETURN_CODE
+SET RETURN_CODE = 0
+ 
+ISPEXEC LMFREE DATAID(&AUACCESS)
+SET LMFREE_AUACCESS_RC = &RETURN_CODE
+SET RETURN_CODE = 0
+ 
+/* *************************************** */
+/* ERROR EXIT                              */
+/* *************************************** */
+ 
+ERR_EXIT: +
+IF &MAXCC GE 16 OR +
+   &RETURN_CODE GT 0 THEN DO
+  ISPEXEC VGET (ZISPFRC) SHARED
+  IF &MAXCC GT &ZISPFRC THEN +
+    SET ZISPFRC = &MAXCC
+  ELSE +
+    SET ZISPFRC = &RETURN_CODE
+  ISPEXEC VPUT (ZISPFRC) SHARED
+  WRITE &PGMNAME ZISPFRC = &ZISPFRC
+  END
+ 
+IF &TERMMSGS = ON THEN DO
+WRITE ===============================================================
+WRITE &PGMNAME VPUT                     &AC20VPUT
+WRITE &PGMNAME LMINIT_PDIDD_RC          &LMINIT_PDIDD_RC
+WRITE &PGMNAME LMINIT_TEMP4_RC          &LMINIT_TEMP4_RC
+WRITE &PGMNAME LMINIT_CNTL_RC           &LMINIT_CNTL_RC
+WRITE &PGMNAME LMINIT_DIALOG_RC         &LMINIT_DIALOG_RC
+WRITE &PGMNAME LMINIT_AUACCESS_RC       &LMINIT_AUACCESS_RC
+WRITE ===============================================================
+WRITE &PGMNAME LMOPEN_PDIDD_RC          &LMOPEN_PDIDD_RC
+WRITE &PGMNAME LMOPEN_DIALOG_RC         &LMOPEN_DIALOG_RC
+WRITE &PGMNAME LMOPEN_AUACCESS_RC       &LMOPEN_AUACCESS_RC
+WRITE ===============================================================
+WRITE &PGMNAME VIEW_CACT0008_RC         &VIEW_CACT0008_RC
+WRITE &PGMNAME VIEW_RESOURCE_RC         &VIEW_RESOURCE_RC
+WRITE ===============================================================
+WRITE &PGMNAME LMCLOSE_PDIDD_RC         &LMCLOSE_PDIDD_RC
+WRITE &PGMNAME LMCLOSE_DIALOG_RC        &LMCLOSE_DIALOG_RC
+WRITE &PGMNAME LMCLOSE_AUACCESS_RC      &LMCLOSE_AUACCESS_RC
+WRITE ===============================================================
+WRITE &PGMNAME LMCOMP_AUACCESS_RC       &LMCOMP_AUACCESS_RC
+WRITE ===============================================================
+WRITE &PGMNAME LMFREE_PDIDD_RC          &LMFREE_PDIDD_RC
+WRITE &PGMNAME LMFREE_TEMP4_RC          &LMFREE_TEMP4_RC
+WRITE &PGMNAME LMFREE_CNTL_RC           &LMFREE_CNTL_RC
+WRITE &PGMNAME LMFREE_DIALOG_RC         &LMFREE_DIALOG_RC
+WRITE &PGMNAME LMFREE_AUACCESS_RC       &LMFREE_AUACCESS_RC
+WRITE ===============================================================
+END
+EXIT CODE(0)
+END

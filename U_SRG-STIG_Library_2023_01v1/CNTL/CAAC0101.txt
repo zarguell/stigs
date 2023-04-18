@@ -1,0 +1,436 @@
+PROC 0                                                                -
+  CONSLIST(OFF)              /* DEFAULT IS OFF                   */   -
+  COMLIST(OFF)               /* DEFAULT IS OFF                   */   -
+  SYMLIST(OFF)               /* DEFAULT IS OFF                   */   -
+  TERMMSGS(OFF)              /* DEFAULT IS OFF                   */   -
+  CAAT0001(CAAT0001)         /* Resource table                   */   -
+  CAAM0004(CAAM0004)         /* Process resource table           */   -
+  CACC1000(CACC1000)         /* Security check program           */   -
+  CAAM0102(CAAM0102)         /* Edit macro resource output       */   -
+  CAAM0013(CAAM0013)         /* Edit macro for LIDs              */   -
+  TRACE(OFF)                 /* TRACE ACTIONS AND ERRORS         */
+ 
+/* 01/31/2008 CL.FENTON Copied from CAAC0001.
+/* 07/16/2009 CL.FENTON Added LIDLINE variable.
+/* 05/17/2010 CL.FENTON Changes made in the collection of SHOW CLASMAP
+/*            output from V12 to V14 of ACF2.
+/* 03/22/2013 CL.FENTON Changes evaluation of REC1TBL for a 3 char RESNAME
+/*            replacing this as RESTYPE, STS-002186.
+ 
+CONTROL NOFLUSH
+ 
+ 
+SET PGMNAME = &STR(CAAC0101 03/22/13)
+ 
+/* ERROR CODES PREFIXED BY AC0001 */
+ 
+/* ERROR ROUTINE */
+ERROR DO
+  SET RETURN_CODE = &LASTCC         /* save LAST ERROR CODE */
+  IF &LASTCC GE 16 THEN +
+    WRITE &PGMNAME LASTCC = &LASTCC &ZERRLM
+  RETURN
+  END
+ 
+ 
+ISPEXEC CONTROL NONDISPL ENTER
+ISPEXEC CONTROL ERRORS RETURN
+ 
+CONTROL NOFLUSH
+/* *************************************** */
+/* NO VARIABLES ARE PASSED TO THIS CLIST   */
+/* BUT KEYWORDS OF                         */
+/* CAN BE PASSED TO LET                    */
+/* THIS CLIST BE AWARE OF WHAT  ACCESS     */
+/* CONTROL PRODUCT AND EXAMINE VERSION     */
+/* YOU ARE                                 */
+/* WORKING WITH                            */
+/* *************************************** */
+/* CONSLIST = CONLIST                      */
+/* COMLIST = LIST                          */
+/* SYMLIST = SYMLIST                       */
+/* TERMMSGS = MESSAGES                     */
+/* TRACE TURNS ON MESSAGING                */
+/* *************************************** */
+ 
+SET RETURN_CODE = 0                         /* SET RETURN CODE TO 0 */
+ 
+IF &TRACE = ON THEN                         /* TURN TRACE ON */ -
+  DO
+    SET CONSLIST = ON
+    SET COMLIST = ON
+    SET SYMLIST = ON
+    SET TERMMSGS = ON
+  END
+ 
+SET SYSSYMLIST = &SYMLIST           /* CONTROL SYMLIST/NOSYMLIST */
+SET SYSCONLIST = &CONSLIST          /* CONTROL CONLIST/NOCONLIST */
+SET SYSLIST    = &COMLIST           /* CONTROL LIST/NOLIST       */
+SET SYSMSG     = &TERMMSGS          /* CONTROL MSG/NOMSG         */
+SET TERMPRO    = OFF
+SET SYSASIS    = ON
+ 
+SET RETURN_CODE = 0
+ 
+SET LIDLINE = 0
+ 
+ISPEXEC VPUT ( +
+  LIDLINE      +
+  CONSLIST     +
+  COMLIST      +
+  SYMLIST      +
+  TERMPRO      +
+  TERMMSGS     +
+  ) ASIS
+ 
+SET AC01VPUT = &RETURN_CODE
+IF &RETURN_CODE NE 0 THEN +
+  WRITE &PGMNAME VPUT RC = &RETURN_CODE  &ZERRSM
+ 
+/* Determine which security system is running */
+ 
+SET RETURN_CODE = 0
+ 
+ISPEXEC SELECT CMD(&CACC1000 ACP)
+ 
+ISPEXEC VGET ( +
+  ACPNAME      +
+  ACPVERS      +
+  ) ASIS
+ 
+IF &STR(&ACPNAME) NE &STR(ACF2) THEN -
+  DO
+  WRITE &PGMNAME ACF2 Job running on the wrong system
+  WRITE &PGMNAME &ACPNAME &ACPVERS
+  SET RETURN_CODE = 12
+  GOTO ERR_EXIT
+  END
+ 
+/* *************************************** */
+/* INITIALIZE LIBRARY MANAGEMENT           */
+/* *************************************** */
+ 
+SET RETURN_CODE = 0                         /* SET RETURN CODE TO 0 */
+ 
+ISPEXEC LMINIT DATAID(CNTL) DDNAME(CNTL)
+ 
+SET LMINIT_CNTL_RC = &RETURN_CODE
+IF &RETURN_CODE NE 0 THEN DO
+  WRITE &PGMNAME LMINIT_CNTL_RC &RETURN_CODE  &ZERRSM
+  GOTO ERR_EXIT
+  END
+ 
+ISPEXEC LMINIT DATAID(RESID) DDNAME(RESOURCE)
+ 
+SET LMINIT_RESOURCE_RC = &RETURN_CODE
+IF &RETURN_CODE NE 0 THEN DO
+  WRITE &PGMNAME LMINIT_RESOURCE_RC &RETURN_CODE  &ZERRSM
+  GOTO ERR_EXIT
+  END
+ 
+ISPEXEC LMINIT DATAID(OUTPUT) DDNAME(REPORT)
+ 
+SET LMINIT_OUTPUT_RC = &RETURN_CODE
+IF &RETURN_CODE NE 0 THEN DO
+  WRITE &PGMNAME LMINIT_OUTPUT_RC &RETURN_CODE  &ZERRSM
+  GOTO ERR_EXIT
+  END
+ 
+ISPEXEC LMINIT DATAID(TEMP4) DDNAME(TEMP4)
+ 
+SET LMINIT_TEMP4_RC = &RETURN_CODE
+IF &RETURN_CODE NE 0 THEN DO
+  WRITE &PGMNAME LMINIT_TEMP4_RC &RETURN_CODE  &ZERRSM
+  GOTO ERR_EXIT
+  END
+ 
+ISPEXEC LMOPEN DATAID(&OUTPUT) OPTION(OUTPUT)
+ 
+SET LMOPEN_OUTPUT_RC = &RETURN_CODE
+IF &RETURN_CODE NE 0 THEN DO
+  WRITE &PGMNAME LMOPEN_OUTPUT_RC &RETURN_CODE  &ZERRSM
+  GOTO ERR_EXIT
+  END
+ 
+ISPEXEC EDIT DATAID(&TEMP4) MEMBER(LIDS) MACRO(&CAAM0013)
+ 
+SET EDIT_TEMP4_RC = &RETURN_CODE
+ 
+SET RETURN_CODE = 0                         /* SET RETURN CODE TO 0 */
+ 
+ 
+/* *************************************** */
+/* PUT VARS IN POOL                        */
+/* *************************************** */
+ 
+ISPEXEC VPUT   (                                                      -
+  CNTL                                                                -
+  OUTPUT                                                              -
+  TEMP4                                                               -
+  CAAM0013                                                            -
+  ) ASIS
+ 
+SET VPUT_CNTL_RC = &RETURN_CODE
+IF &RETURN_CODE NE 0 THEN DO
+  WRITE &PGMNAME VPUT_CNTL_RC &RETURN_CODE  &ZERRSM
+  GOTO ERR_EXIT
+  END
+ 
+ 
+/* *************************************** */
+/* OBTAIN RESOURCES                        */
+/* *************************************** */
+ 
+SET RESOURCE =
+SET TYPE = I
+SET SPC = &STR(               )
+ 
+SET &SYSOUTTRAP = 999999999
+ 
+ACF
+SHOW CL
+ 
+SET A = &SYSOUTLINE
+ 
+DO X = 1 TO &A
+  SET DATA = &&SYSOUTLINE&X
+  SET DATA = &STR(&DATA)
+ 
+  IF &SUBSTR(1:12,&NRSTR(&DATA)&SPC) EQ &STR(-- MERGED CL) THEN +
+    SET MERGE = Y
+ 
+  IF &SUBSTR(1:12,&NRSTR(&DATA)&SPC) EQ &STR(-- EXTERNAL) THEN +
+    SET TYPE = E
+ 
+  SET B = &LENGTH(&NRSTR(&DATA))
+ 
+  IF &MERGE = Y AND +
+     &B GE 50 THEN +
+    IF &SYSINDEX(&STR( EXT ),&NRSTR(&DATA)&SPC) GT 50 THEN +
+      SET TYPE = E
+    ELSE +
+      SET TYPE = I
+ 
+  IF &B GT 33 THEN DO
+    SET C = &SUBSTR(30:35,&NRSTR(&DATA&SPC&SPC))
+    IF &SYSINDEX(&STR(=),&STR(&C)) EQ 0 THEN +
+      SET C = &C
+    IF &DATATYPE(&STR(&C)) EQ NUM THEN DO
+      SET C = &SUBSTR(12:26,&NRSTR(&DATA))&TYPE
+      IF &SYSINDEX(&NRSTR( &C),&NRSTR(&RESOURCE)) EQ 0 THEN DO
+        SET XX = &SYSINDEX(&SUBSTR(1:9,&NRSTR( &C)),+
+          &NRSTR(&RESOURCE))
+        IF &XX = 0 THEN +
+          SET RESOURCE = &NRSTR(&RESOURCE)&NRSTR( &C)
+        ELSE +
+          IF &XX = 1 THEN +
+            SET RESOURCE = &NRSTR( &C)&NRSTR(&RESOURCE)
+          ELSE +
+            SET RESOURCE = &SUBSTR(1:&XX-1,&NRSTR(&RESOURCE))+
+              &NRSTR( &C)+
+              &SUBSTR(&XX:&LENGTH(&NRSTR(&RESOURCE)),+
+              &NRSTR(&RESOURCE))
+        END
+      END
+    END
+END
+ 
+QUIT
+ 
+ISPEXEC VPUT   ( -
+  RESOURCE       -
+  ) ASIS
+ 
+IF &RETURN_CODE GT 0 THEN                   /* IF ERROR THEN */       -
+  DO
+    SET VPUT_RESOURCE_RC = &RETURN_CODE
+    GOTO ERR_EXIT    /* EXIT */
+  END
+ELSE                                                                  -
+  DO
+    SET VPUT_RESOURCE_RC = 0
+  END
+ 
+SET RETURN_CODE = 0   /* SET RETURN CODE TO 0 */
+ 
+ISPEXEC VIEW DATAID(&CNTL) MACRO(&CAAM0004) MEMBER(&CAAT0001)
+ 
+IF &RETURN_CODE GT 4 THEN                   /* IF ERROR THEN */       -
+  DO
+    SET VIEW_CNTL_RC = &RETURN_CODE
+    GOTO ERR_EXIT    /* EXIT */
+  END
+ELSE                                                                  -
+  DO
+    SET VIEW_CNTL_RC = 0
+  END
+ 
+SET RETURN_CODE = 0
+ 
+SET RECTYPE = 1
+SET PDINAME =
+SET RESNAME =
+ 
+ISPEXEC VPUT ( +
+  RECTYPE      +
+  PDINAME      +
+  RESNAME      +
+  ) ASIS
+ 
+SET RETURN_CODE = 0
+ 
+ISPEXEC VIEW DATAID(&CNTL) MEMBER(CACT0008) MACRO(CACM042R)
+ 
+SET VIEW_CACT0008_RC = &RETURN_CODE
+IF &VIEW_CACT0008_RC GT 4 THEN DO
+  WRITE &PGMNAME VIEW CNTL &CACT0008  RC = &VIEW_CACT0008_RC
+  SET RETURN_CODE = &RETURN_CODE + 16
+  GOTO BYPASS_CACT0008
+  END
+ 
+ISPEXEC VGET ( +
+  REC1TBL      +
+  RESOURCE     +
+  ) ASIS
+ 
+DO X = 1 TO &LENGTH(&NRSTR(&REC1TBL)) BY 18
+  SET PDINAME = &SUBSTR(&X:&X+7,&NRSTR(&REC1TBL))    /* PDI ID
+  SET RESNAME= &SUBSTR(&X+9:&X+16,&NRSTR(&REC1TBL)) /* RESOURCE NAME
+  SET RESSP  = &SYSINDEX(&STR( ),&STR(&RESNAME))
+  SET RESIND = &SYSINDEX(&STR( &RESNAME),&STR(&RESOURCE))
+  SET RESTYPE =
+  SET TYPE =
+  IF &RESIND GT 0 THEN DO
+    SET RESTYPE = &SUBSTR(&RESIND+9:&RESIND+11,&STR(&RESOURCE))
+    SET TYPE    = &SUBSTR(&RESIND+12,&STR(&RESOURCE))
+    WRITE &PGMNAME Processing &PDINAME for resource class &RESNAME +
+      TYPE(&RESTYPE).
+    END
+  ELSE DO
+    IF &RESSP EQ 4 THEN DO
+      SET RESTYPE = &SUBSTR(1:&RESSP-1,&NRSTR(&RESNAME))
+      WRITE &PGMNAME Processing &PDINAME for TYPE(&RESTYPE).
+      END
+    ELSE DO
+      WRITE &PGMNAME Unable to processing &PDINAME for resource +
+        class &RESNAME..
+      END
+    END
+ 
+  ISPEXEC VPUT ( +
+    RESTYPE      +
+    PDINAME      +
+    ) ASIS
+ 
+  SET RETURN_CODE = 0
+ 
+  /* *************************************** */
+  /* VIEW RESOURCE OUTPUT AND CREATE TEMP4   */
+  /* *************************************** */
+ 
+  ISPEXEC VIEW DATAID(&RESID) MACRO(&CAAM0102)
+ 
+  SET VIEW_RESOURCE_RC = &RETURN_CODE
+ 
+  SET RETURN_CODE = 0
+ 
+END
+ 
+BYPASS_CACT0008:+
+SET RETURN_CODE = 0
+ 
+/* *************************************** */
+/* CLOSE OUTPUT                            */
+/* *************************************** */
+ 
+ISPEXEC LMCLOSE DATAID(&OUTPUT)
+ 
+SET LMCLOSE_OUTPUT_RC = &RETURN_CODE
+ 
+SET RETURN_CODE = 0
+ 
+ 
+/* *************************************** */
+/* FREE FILES                              */
+/* *************************************** */
+ 
+ISPEXEC LMFREE DATAID(&CNTL)
+ 
+SET LMFREE_CNTL_RC = &RETURN_CODE
+ 
+SET RETURN_CODE = 0
+ 
+ISPEXEC LMFREE DATAID(&RESID)
+ 
+SET LMFREE_RESOURCE_RC = &RETURN_CODE
+ 
+SET RETURN_CODE = 0
+ 
+ISPEXEC LMFREE DATAID(&OUTPUT)
+ 
+SET LMFREE_OUTPUT_RC = &RETURN_CODE
+ 
+SET RETURN_CODE = 0
+ 
+ISPEXEC LMFREE DATAID(&TEMP4)
+ 
+SET LMFREE_TEMP4_RC = &RETURN_CODE
+ 
+SET RETURN_CODE = 0
+ 
+/* *************************************** */
+/* ERROR EXIT                              */
+/* *************************************** */
+ 
+ERR_EXIT: +
+IF &MAXCC GE 16 OR +
+   &RETURN_CODE GT 0 THEN DO
+  ISPEXEC VGET (ZISPFRC) SHARED
+  IF &MAXCC GT &ZISPFRC THEN +
+    SET ZISPFRC = &MAXCC
+  ELSE +
+    SET ZISPFRC = &RETURN_CODE
+  ISPEXEC VPUT (ZISPFRC) SHARED
+  WRITE &PGMNAME ZISPFRC = &ZISPFRC
+  END
+ 
+IF &TERMMSGS = ON THEN                          /* TURN TRACE ON */   -
+DO
+WRITE ===============================================================
+    WRITE &PGMNAME LMINIT_CNTL_RC                +
+          &LMINIT_CNTL_RC
+    WRITE &PGMNAME LMINIT_RESOURCE_RC            +
+          &LMINIT_RESOURCE_RC
+    WRITE &PGMNAME LMINIT_OUTPUT_RC              +
+          &LMINIT_OUTPUT_RC
+    WRITE &PGMNAME LMINIT_TEMP4_RC               +
+          &LMINIT_TEMP4_RC
+WRITE ===============================================================
+    WRITE &PGMNAME LMOPEN_OUTPUT_RC              +
+          &LMOPEN_OUTPUT_RC
+WRITE ===============================================================
+    WRITE &PGMNAME EDIT_TEMP4_RC                 +
+          &EDIT_TEMP4_RC
+WRITE ===============================================================
+    WRITE &PGMNAME VPUT_CNTL_RC                  +
+          &VPUT_CNTL_RC
+    WRITE &PGMNAME VPUT_RESOURCE_RC              +
+          &VPUT_RESOURCE_RC
+WRITE ===============================================================
+    WRITE &PGMNAME VIEW_CNTL_RC                  +
+          &VIEW_CNTL_RC
+WRITE ===============================================================
+    WRITE &PGMNAME VIEW_RESOURCE_RC              +
+          &VIEW_RESOURCE_RC
+WRITE ===============================================================
+    WRITE &PGMNAME LMCLOSE_OUTPUT_RC             +
+          &LMCLOSE_OUTPUT_RC
+WRITE ===============================================================
+    WRITE &PGMNAME LMFREE_CNTL_RC                +
+          &LMFREE_CNTL_RC
+    WRITE &PGMNAME LMFREE_RESOURCE_RC            +
+          &LMFREE_RESOURCE_RC
+    WRITE &PGMNAME LMFREE_TEMP4_RC               +
+          &LMFREE_TEMP4_RC
+END
+END

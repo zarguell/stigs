@@ -1,0 +1,241 @@
+ISREDIT MACRO       /* CARM0061 EDIT MACRO */
+ 
+SET RETURN_CODE = 0   /* SET RETURN CODE TO 0 */
+ 
+/* 04/13/2018 CL.FENTON Corrected issue with a single ampersand
+/*            when setting the UZID field, STS-019759.
+ 
+ 
+/* *************************************** */
+/* VARIABLES ARE PASSED TO THIS MACRO      */
+/* CONSLIST                                */
+/* COMLIST                                 */
+/* TERMPRO                                 */
+/* TERMMSGS                                */
+/* *************************************** */
+ 
+                    /* GET VARIABLES FROM POOL */
+ 
+ISPEXEC  VGET (                                                       -
+  TABLE1                                                              -
+  SENSITVE                                                            -
+  APREFIX                                                             -
+  ALPHA                                                               -
+  XTITLE                                                              -
+  CONSLIST                                                            -
+  COMLIST                                                             -
+  SYMLIST                                                             -
+  TERMMSGS                                                            -
+  ) ASIS
+ 
+SET RETURN_CODE = &LASTCC
+ 
+IF &RETURN_CODE NE 0 THEN                                             -
+  SET CBVGERR = &RETURN_CODE
+ELSE                                                                  -
+  SET CBVGERR = 0
+ 
+/* *************************************** */
+/* TURN ON MESSAGES                        */
+/* *************************************** */
+ 
+CHAPRM6_MESSAGE_HOUSEKEEPING:                                         -
+                                                                      -
+SET SYSSYMLIST = &SYMLIST          /* CONTROL SYMLIST/NOSYMLIST */
+SET SYSCONLIST = &CONSLIST         /* CONTROL CONLIST/NOCONLIST */
+SET SYSLIST    = &COMLIST          /* CONTROL LIST/NOLIST       */
+SET SYSMSG     = &TERMMSGS         /* CONTROL MSG/NOMSG         */
+ 
+ 
+CHAPRM6_HOUSEKEEPING:                                                 -
+                                                                      -
+ISREDIT (MEMBER) = MEMBER
+ 
+SET OMEMBER = &MEMBER
+ 
+SET BLANK = &STR( )
+ 
+SET LAST_LOOP = NO
+ 
+SET LOOP_CNT = 0
+ 
+ 
+/* *************************************** */
+/* PUT HEADINGS OUT                        */
+/* *************************************** */
+ 
+  SET HEADLINE = &NRSTR(              &MEMBER                   )
+  SET AC = &STR(&HEADLINE)
+  ISPEXEC LMPUT DATAID(&SENSITVE) MODE(INVAR) DATALOC(AC)             -
+      DATALEN(&LENGTH(&STR(&AC))) MEMBER(&OMEMBER)
+  SET HEADLINE = &STR( =======================================)
+  SET HEADLINE = &STR(&HEADLINE===============================)
+  SET HEADLINE = &STR(&HEADLINE===============================)
+  SET HEADLINE = &STR(&HEADLINE===============================)
+  SET AC = &STR(&HEADLINE)
+  ISPEXEC LMPUT DATAID(&SENSITVE) MODE(INVAR) DATALOC(AC)             -
+      DATALEN(&LENGTH(&STR(&AC))) MEMBER(&OMEMBER)
+  SET AC = &STR( )
+  ISPEXEC LMPUT DATAID(&SENSITVE) MODE(INVAR) DATALOC(AC)             -
+      DATALEN(&LENGTH(&STR(&AC))) MEMBER(&OMEMBER)
+ 
+ISREDIT (ENDER) = LINENUM .ZLAST
+ 
+ISREDIT CURSOR = 1 1
+ 
+ISREDIT (CURLINE) = LINENUM .ZCSR
+ 
+/* *************************************** */
+/* MAIN LOOP                               */
+/* *************************************** */
+ 
+LOOP:                                                                 -
+                                                                      -
+IF &LAST_LOOP = YES THEN GOTO END_EDIT
+ 
+IF &CURLINE = &ENDER THEN SET &LAST_LOOP = YES
+ 
+ISREDIT (DATA) = LINE &CURLINE
+ 
+/* *************************************** */
+/* CHECK 1 POSITION                        */
+/* *************************************** */
+ 
+SET DATA_INDICATE = &SUBSTR(1:1,&NRSTR(&DATA))
+ 
+IF &DATA_INDICATE = &STR(L) THEN GOTO LINED
+ 
+IF &DATA_INDICATE = &STR(D) THEN GOTO STRIPD
+ 
+IF &DATA_INDICATE = &STR( ) THEN GOTO STRIPU
+ 
+/*IF &DATA_INDICATE = &STR( ) THEN                                    -
+/*  DO
+/*  SET AC = &NRSTR(&DATA)
+/*  ISPEXEC LMPUT DATAID(&SENSITVE) MODE(INVAR) DATALOC(AC)           -
+/*  DATALEN(&LENGTH(&NRSTR(&AC))) MEMBER(&OMEMBER)
+/*  SET CURLINE = &CURLINE + 1
+  GOTO LOOP
+/*  END
+ 
+ 
+/* *************************************** */
+/* STRIP DATA                              */
+/* *************************************** */
+ 
+STRIPD:                                                               -
+                                                                      -
+SET LOOP_CNT = &LOOP_CNT + 1
+ 
+IF &LOOP_CNT = 1 THEN                                                 -
+DO
+  SET DSNAME = &SUBSTR(11:61,&DATA)
+  SET UZID = &SUBSTR(62:70,&DATA)
+  SET GROUP = &SUBSTR(81:81,&DATA)
+  SET ACC1 = &SUBSTR(71:79,&DATA)
+  SET WARN1 = &SUBSTR(84:84,&DATA)
+  SET UACC1 = &SUBSTR(87:94,&DATA)
+  SET AUDIT1 = &SUBSTR(96:133,&DATA)
+  SET AC = &STR(&DSNAME                                            )
+  SET AC = &STR(&AC                                                )
+  SET AC = &SUBSTR(1:67,&AC)
+  IF &WARN1 = N THEN                                                  -
+  DO
+  SET AC = &STR(     &AC UACC(&UACC1) WARN(N) &AUDIT1)
+  ISPEXEC LMPUT DATAID(&SENSITVE) MODE(INVAR) DATALOC(AC)             -
+  DATALEN(&LENGTH(&STR(&AC))) MEMBER(&OMEMBER)
+  END
+  IF &WARN1 = Y THEN                                                  -
+  DO
+  SET AC = &STR(     &AC UACC(&UACC1) WARN(Y) &AUDIT1)
+  ISPEXEC LMPUT DATAID(&SENSITVE) MODE(INVAR) DATALOC(AC)             -
+  DATALEN(&LENGTH(&STR(&AC))) MEMBER(&OMEMBER)
+  END
+  IF &GROUP EQ G THEN SET UZID1 = &STR(GROUPID(&UZID))
+  ELSE +
+    IF &GROUP EQ U THEN SET UZID1 = &STR( USERID(&UZID))
+    ELSE SET UZID1 = &STR(  UNK(&UZID))
+  SET AC = &STR(          &UZID1 ACCESS(&ACC1) )
+/*SET AC = &SUBSTR(1:15,&AC)
+/*SET AC = &STR(&AC  &ACC1                                          )
+/*SET AC = &SUBSTR(1:24,&AC)
+/*SET AC = &STR(          &AC &GROUP)
+  IF &STR(&UZID) NE &STR( ) THEN +
+    ISPEXEC LMPUT DATAID(&SENSITVE) MODE(INVAR) DATALOC(AC)          -
+    DATALEN(&LENGTH(&STR(&AC))) MEMBER(&OMEMBER)
+END
+ 
+IF &LOOP_CNT NE 1 THEN                                               -
+DO
+  SET DSNAME = &SUBSTR(11:62,&DATA)
+  SET UZID = &SUBSTR(62:70,&DATA)
+  SET GROUP = &SUBSTR(81:81,&DATA)
+  SET ACC1 = &SUBSTR(71:79,&DATA)
+  SET WARN1 = &SUBSTR(84:84,&DATA)
+  SET UACC1 = &SUBSTR(87:94,&DATA)
+  SET AUDIT1 = &SUBSTR(96:133,&DATA)
+/*SET AC = &STR(          &UZID  &ACC1 &GROUP )
+  IF &GROUP EQ G THEN SET UZID1 = &STR(GROUPID(&UZID))
+  ELSE +
+    IF &GROUP EQ U THEN SET UZID1 = &STR( USERID(&UZID))
+    ELSE SET UZID1 = &STR(  UNK(&UZID))
+  SET AC = &STR(          &UZID1 ACCESS(&ACC1) )
+/*SET AC = &SUBSTR(1:15,&AC)
+/*SET AC = &STR(&AC  &ACC1                                          )
+/*SET AC = &SUBSTR(1:24,&AC)
+/*SET AC = &STR(          &AC &GROUP)
+  IF &STR(&UZID) NE &STR( ) THEN +
+    ISPEXEC LMPUT DATAID(&SENSITVE) MODE(INVAR) DATALOC(AC)          -
+    DATALEN(&LENGTH(&STR(&AC))) MEMBER(&OMEMBER)
+END
+ 
+ 
+SET CURLINE = &CURLINE + 1
+ 
+GOTO LOOP
+ 
+STRIPU:                                                               -
+                                                                      -
+SET &UZID = &SUBSTR(40:79,&NRSTR(&DATA))
+ 
+SET &AC = &STR(               &NRSTR(&UZID))
+ISPEXEC LMPUT DATAID(&SENSITVE) MODE(INVAR) DATALOC(AC)               -
+  DATALEN(&LENGTH(&NRSTR(&AC))) MEMBER(&OMEMBER)
+ 
+SET CURLINE = &CURLINE + 1
+ 
+GOTO LOOP
+ 
+LINED:                                                                -
+                                                                      -
+SET LINE1 = &STR(&SUBSTR(2:133,&DATA))
+ 
+SET AC = &STR( )
+ 
+ISPEXEC LMPUT DATAID(&SENSITVE) MODE(INVAR) DATALOC(AC)               -
+  DATALEN(&LENGTH(&STR(&AC))) MEMBER(&OMEMBER)
+ 
+SET LOOP_CNT = 0
+ 
+SET CURLINE = &CURLINE + 1
+ 
+GOTO LOOP
+ 
+END_EDIT:                                                             -
+                                                                      -
+ISPEXEC  VPUT  (                                                      -
+  CBVGERR                                                             -
+  CBCONSER                                                            -
+  CBCOMER                                                             -
+  CBTERPER                                                            -
+  CBTERMER                                                            -
+  ) ASIS
+ 
+   ISPEXEC LMMREP DATAID(&SENSITVE) MEMBER(&OMEMBER)
+/* *************************************** */
+/* SAVE OUTPUT                             */
+/* *************************************** */
+ 
+ISREDIT END
+ 
+EXIT
