@@ -1,0 +1,222 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<CHECKLIST><!--DISA STIG Viewer :: 2.14--><ASSET><ROLE>None</ROLE><ASSET_TYPE>Computing</ASSET_TYPE><HOST_NAME>Test_Host</HOST_NAME><HOST_IP>1.2.3.4</HOST_IP><HOST_MAC></HOST_MAC><HOST_FQDN>test.hostname.dev</HOST_FQDN><TARGET_COMMENT></TARGET_COMMENT><TECH_AREA></TECH_AREA><TARGET_KEY>3425</TARGET_KEY><WEB_OR_DATABASE>true</WEB_OR_DATABASE><WEB_DB_SITE>true</WEB_DB_SITE><WEB_DB_INSTANCE>true</WEB_DB_INSTANCE></ASSET><STIGS><iSTIG><STIG_INFO><SI_DATA><SID_NAME>version</SID_NAME><SID_DATA>1</SID_DATA></SI_DATA><SI_DATA><SID_NAME>classification</SID_NAME><SID_DATA>UNCLASSIFIED</SID_DATA></SI_DATA><SI_DATA><SID_NAME>customname</SID_NAME></SI_DATA><SI_DATA><SID_NAME>stigid</SID_NAME><SID_DATA>Arista_MLS_DCS-7000_Series_L2S</SID_DATA></SI_DATA><SI_DATA><SID_NAME>description</SID_NAME><SID_DATA>This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via e-mail to the following address: disa.stig_spt@mail.mil.</SID_DATA></SI_DATA><SI_DATA><SID_NAME>filename</SID_NAME><SID_DATA>TEMP FILENAME</SID_DATA></SI_DATA><SI_DATA><SID_NAME>releaseinfo</SID_NAME><SID_DATA>Release: 2 Benchmark Date: 22 Apr 2016</SID_DATA></SI_DATA><SI_DATA><SID_NAME>title</SID_NAME><SID_DATA>Arista MLS DCS-7000 Series L2S Security Technical Implementation Guide</SID_DATA></SI_DATA><SI_DATA><SID_NAME>uuid</SID_NAME><SID_DATA>e390a464-b8b1-4dd9-885c-e480725b2885</SID_DATA></SI_DATA><SI_DATA><SID_NAME>notice</SID_NAME><SID_DATA>terms-of-use</SID_DATA></SI_DATA><SI_DATA><SID_NAME>source</SID_NAME><SID_DATA>STIG.DOD.MIL</SID_DATA></SI_DATA></STIG_INFO><VULN><STIG_DATA><VULN_ATTRIBUTE>Vuln_Num</VULN_ATTRIBUTE><ATTRIBUTE_DATA>V-60813</ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>Severity</VULN_ATTRIBUTE><ATTRIBUTE_DATA>medium</ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>Group_Title</VULN_ATTRIBUTE><ATTRIBUTE_DATA>SRG-APP-000001</ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>Rule_ID</VULN_ATTRIBUTE><ATTRIBUTE_DATA>SV-75269r1_rule</ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>Rule_Ver</VULN_ATTRIBUTE><ATTRIBUTE_DATA>AMLS-L2-000100</ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>Rule_Title</VULN_ATTRIBUTE><ATTRIBUTE_DATA>The Arista Multilayer Switch must enforce approved authorizations for controlling the flow of information within the network based on organization-defined information flow control policies.</ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>Vuln_Discuss</VULN_ATTRIBUTE><ATTRIBUTE_DATA>Information flow control regulates where information is allowed to travel within a network and between interconnected networks. The flow of all network traffic must be monitored and controlled so it does not introduce any unacceptable risk to the network infrastructure or data. 
+
+A few examples of flow control restrictions include: keeping export-controlled information from being transmitted in the clear to the Internet and blocking information marked as classified but which is being transported to an unapproved destination. Information flow control policies and enforcement mechanisms are commonly employed by organizations to control the flow of information between designated sources and destinations (e.g., networks, individuals, devices) within information systems.
+
+Enforcement occurs, for example, in boundary protection devices (e.g., gateways, routers, guards, encrypted tunnels, and firewalls) that employ rule sets or establish configuration settings that restrict information system services, provide a packet filtering capability based on header information, or provide a message filtering capability based on message content (e.g., implementing key word searches or using document characteristics).</ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>IA_Controls</VULN_ATTRIBUTE><ATTRIBUTE_DATA></ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>Check_Content</VULN_ATTRIBUTE><ATTRIBUTE_DATA>Verify the use of Spanning-Tree Protocol for information flow control via the "show spanning-tree" command.
+
+Alternatively, from the output of the "show running-config" command, review the configuration for "spanning-tree mode" statement, and verify the line "spanning-tree disabled" is not present for production VLANs.
+
+If spanning-tree is not used for controlling the flow of information, this is a finding.</ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>Fix_Text</VULN_ATTRIBUTE><ATTRIBUTE_DATA>Configure the switch to use spanning-tree protocol for Layer-2 connections.
+
+The version of spanning-tree protocol as well as the VLANs upon which it is enabled must be determined according to organizational use and site policy.
+
+For full configuration examples, refer to the Arista Configuration Manual, Chapter 20.</ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>False_Positives</VULN_ATTRIBUTE><ATTRIBUTE_DATA></ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>False_Negatives</VULN_ATTRIBUTE><ATTRIBUTE_DATA></ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>Documentable</VULN_ATTRIBUTE><ATTRIBUTE_DATA>false</ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>Mitigations</VULN_ATTRIBUTE><ATTRIBUTE_DATA></ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>Potential_Impact</VULN_ATTRIBUTE><ATTRIBUTE_DATA></ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>Third_Party_Tools</VULN_ATTRIBUTE><ATTRIBUTE_DATA></ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>Mitigation_Control</VULN_ATTRIBUTE><ATTRIBUTE_DATA></ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>Responsibility</VULN_ATTRIBUTE><ATTRIBUTE_DATA></ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>Security_Override_Guidance</VULN_ATTRIBUTE><ATTRIBUTE_DATA></ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>Check_Content_Ref</VULN_ATTRIBUTE><ATTRIBUTE_DATA>M</ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>Weight</VULN_ATTRIBUTE><ATTRIBUTE_DATA>10.0</ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>Class</VULN_ATTRIBUTE><ATTRIBUTE_DATA>Unclass</ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>STIGRef</VULN_ATTRIBUTE><ATTRIBUTE_DATA>Arista MLS DCS-7000 Series L2S Security Technical Implementation Guide :: 1</ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>TargetKey</VULN_ATTRIBUTE><ATTRIBUTE_DATA>3425</ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>STIG_UUID</VULN_ATTRIBUTE><ATTRIBUTE_DATA>48fd5f89-e33c-422d-b4b9-eefab17e6d22</ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>LEGACY_ID</VULN_ATTRIBUTE><ATTRIBUTE_DATA></ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>CCI_REF</VULN_ATTRIBUTE><ATTRIBUTE_DATA>CCI-001368</ATTRIBUTE_DATA></STIG_DATA><STATUS>Not_Reviewed</STATUS><FINDING_DETAILS></FINDING_DETAILS><COMMENTS></COMMENTS><SEVERITY_OVERRIDE></SEVERITY_OVERRIDE><SEVERITY_JUSTIFICATION></SEVERITY_JUSTIFICATION></VULN><VULN><STIG_DATA><VULN_ATTRIBUTE>Vuln_Num</VULN_ATTRIBUTE><ATTRIBUTE_DATA>V-60821</ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>Severity</VULN_ATTRIBUTE><ATTRIBUTE_DATA>medium</ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>Group_Title</VULN_ATTRIBUTE><ATTRIBUTE_DATA>SRG-APP-000001</ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>Rule_ID</VULN_ATTRIBUTE><ATTRIBUTE_DATA>SV-75277r1_rule</ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>Rule_Ver</VULN_ATTRIBUTE><ATTRIBUTE_DATA>AMLS-L2-000110</ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>Rule_Title</VULN_ATTRIBUTE><ATTRIBUTE_DATA>The Arista Multilayer Switch must enforce approved authorizations for controlling the flow of information between interconnected systems based on organization-defined information flow control policies.</ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>Vuln_Discuss</VULN_ATTRIBUTE><ATTRIBUTE_DATA>Information flow control regulates where information is allowed to travel within a network and between interconnected networks. The flow of all network traffic must be monitored and controlled so it does not introduce any unacceptable risk to the network infrastructure or data. 
+
+Examples of flow control restrictions include blocking outside traffic claiming to be from within the organization, and not passing any web requests to the Internet not from the internal web proxy. Additional examples of restrictions include: keeping export-controlled information from being transmitted in the clear to the Internet, and blocking information marked as classified, but which is being transported to an unapproved destination. Information flow control policies and enforcement mechanisms are commonly employed by organizations to control the flow of information between designated sources and destinations (e.g., networks, individuals, and devices) within information systems.
+
+Enforcement occurs, for example, in boundary protection devices (e.g., gateways, routers, guards, encrypted tunnels, and firewalls) that employ rule sets or establish configuration settings that restrict information system services, provide a packet filtering capability based on header information, or provide a message filtering capability based on message content (e.g., implementing key word searches or using document characteristics).</ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>IA_Controls</VULN_ATTRIBUTE><ATTRIBUTE_DATA></ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>Check_Content</VULN_ATTRIBUTE><ATTRIBUTE_DATA>Verify the use of MAC Access Control Lists to prevent unintended information flow between network segments. 
+
+For network boundary interfaces, verify the use of an access control list by entering "show mac access-list summary" to validate the use of an access control list on the interface. 
+
+Verify the access control list restricts network traffic as intended by entering "show mac access-list [name]" and substituting the name of the access control list for the bracketed variable.
+
+If there is no access control list configured, or if the access control list does not prevent unintended flow of information between network segments, this is a finding.</ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>Fix_Text</VULN_ATTRIBUTE><ATTRIBUTE_DATA>Configure an Access Control List to control information flow between connected networks.
+Configuration Example
+configure
+mac access-list STIG
+ permit [src mac] [src mask] [dst mac] [dst mask]/[any] [protocol]
+exit</ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>False_Positives</VULN_ATTRIBUTE><ATTRIBUTE_DATA></ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>False_Negatives</VULN_ATTRIBUTE><ATTRIBUTE_DATA></ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>Documentable</VULN_ATTRIBUTE><ATTRIBUTE_DATA>false</ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>Mitigations</VULN_ATTRIBUTE><ATTRIBUTE_DATA></ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>Potential_Impact</VULN_ATTRIBUTE><ATTRIBUTE_DATA></ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>Third_Party_Tools</VULN_ATTRIBUTE><ATTRIBUTE_DATA></ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>Mitigation_Control</VULN_ATTRIBUTE><ATTRIBUTE_DATA></ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>Responsibility</VULN_ATTRIBUTE><ATTRIBUTE_DATA></ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>Security_Override_Guidance</VULN_ATTRIBUTE><ATTRIBUTE_DATA></ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>Check_Content_Ref</VULN_ATTRIBUTE><ATTRIBUTE_DATA>M</ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>Weight</VULN_ATTRIBUTE><ATTRIBUTE_DATA>10.0</ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>Class</VULN_ATTRIBUTE><ATTRIBUTE_DATA>Unclass</ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>STIGRef</VULN_ATTRIBUTE><ATTRIBUTE_DATA>Arista MLS DCS-7000 Series L2S Security Technical Implementation Guide :: 1</ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>TargetKey</VULN_ATTRIBUTE><ATTRIBUTE_DATA>3425</ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>STIG_UUID</VULN_ATTRIBUTE><ATTRIBUTE_DATA>48fd5f89-e33c-422d-b4b9-eefab17e6d22</ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>LEGACY_ID</VULN_ATTRIBUTE><ATTRIBUTE_DATA></ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>CCI_REF</VULN_ATTRIBUTE><ATTRIBUTE_DATA>CCI-001414</ATTRIBUTE_DATA></STIG_DATA><STATUS>Not_Reviewed</STATUS><FINDING_DETAILS></FINDING_DETAILS><COMMENTS></COMMENTS><SEVERITY_OVERRIDE></SEVERITY_OVERRIDE><SEVERITY_JUSTIFICATION></SEVERITY_JUSTIFICATION></VULN><VULN><STIG_DATA><VULN_ATTRIBUTE>Vuln_Num</VULN_ATTRIBUTE><ATTRIBUTE_DATA>V-60823</ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>Severity</VULN_ATTRIBUTE><ATTRIBUTE_DATA>medium</ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>Group_Title</VULN_ATTRIBUTE><ATTRIBUTE_DATA>SRG-APP-000001</ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>Rule_ID</VULN_ATTRIBUTE><ATTRIBUTE_DATA>SV-75279r1_rule</ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>Rule_Ver</VULN_ATTRIBUTE><ATTRIBUTE_DATA>AMLS-L2-000120</ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>Rule_Title</VULN_ATTRIBUTE><ATTRIBUTE_DATA>The Arista Multilayer Switch must uniquely identify all network-connected endpoint devices before establishing any connection.</ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>Vuln_Discuss</VULN_ATTRIBUTE><ATTRIBUTE_DATA>Without identifying devices, unidentified or unknown devices may be introduced, thereby facilitating malicious activity.
+
+For distributed architectures (e.g., service-oriented architectures), the decisions regarding the validation of identification claims may be made by services separate from the services acting on those decisions. In such situations, it is necessary to provide the identification decisions (as opposed to the actual identifiers) to the services that need to act on those decisions.
+
+This requirement applies to applications that connect either locally, remotely, or through a network to an endpoint device (including, but not limited to, workstations, printers, servers (outside a datacenter), VoIP Phones, and VTC CODECs). Gateways and SOA applications are examples of where this requirement would apply.</ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>IA_Controls</VULN_ATTRIBUTE><ATTRIBUTE_DATA></ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>Check_Content</VULN_ATTRIBUTE><ATTRIBUTE_DATA>Verify that the network device uniquely identifies network-connected endpoint devices. This requirement is not applicable to Arista switches when not used as an access switch.
+
+802.1X must be configured on any interface where there is an applicable endpoint device connected. This is demonstrated by viewing the running-config via the "show dot1x all" command and validating the following lines are present in the configuration:
+
+Dot1X Information for Ethernet[X]
+--------------------------------------------
+PortControl : auto
+HostMode : single-host
+QuietPeriod : [value]
+TxPeriod : [value]
+ReauthPeriod : 3600 seconds
+MaxReauthReq : 2
+
+!
+
+802.1X must also be globally enabled on the switch using the "dot1x system-auth-control" command from the configuration mode interface. When this is configured, the following line will be visible in the running-config:
+
+dot1x-system-auth-control
+
+802.1X is dependent on a properly configured RADIUS server for authentication. Refer to the RADIUS configuration example for validation of properly configured AAA services. Additionally, the user must specify to use the RADIUS server as an 802.1X authenticator with the "aaa authentication dot1x default group [radius]" command from the configuration mode interface, replacing the bracketed variable with either the group name of the RADIUS server group or leaving it as is to authenticate against all RADIUS servers. When properly configured, the following line is visible in the running-config:
+
+aaa authentication dot1x default group radius
+
+If 802.1X is not configured on necessary ports or is not globally enabled on the switch, or if it is not set to authenticate supplicants via RADIUS, this is a finding.</ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>Fix_Text</VULN_ATTRIBUTE><ATTRIBUTE_DATA>Configure 802.1X on the switch, using the following mandatory parameters for all applicable interfaces. Replace the bracketed variable with the applicable value.
+
+config
+interface Ethernet[X]
+ switchport access vlan [Y]
+ dot1x pae authenticator
+ dot1x reauthentication
+ dot1x port-control auto
+ dot1x host-mode single-host
+ dot1x timeout quiet-period [value]
+ dot1x timeout reauth-period [value]
+ dot1x max-reauth-req [value]
+
+For the global configuration, include the following command statements from the global configuration mode interface:
+
+logging level DOT1X informational
+aaa authentication dot1x default group radius
+dot1x system-auth-control</ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>False_Positives</VULN_ATTRIBUTE><ATTRIBUTE_DATA></ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>False_Negatives</VULN_ATTRIBUTE><ATTRIBUTE_DATA></ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>Documentable</VULN_ATTRIBUTE><ATTRIBUTE_DATA>false</ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>Mitigations</VULN_ATTRIBUTE><ATTRIBUTE_DATA></ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>Potential_Impact</VULN_ATTRIBUTE><ATTRIBUTE_DATA></ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>Third_Party_Tools</VULN_ATTRIBUTE><ATTRIBUTE_DATA></ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>Mitigation_Control</VULN_ATTRIBUTE><ATTRIBUTE_DATA></ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>Responsibility</VULN_ATTRIBUTE><ATTRIBUTE_DATA></ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>Security_Override_Guidance</VULN_ATTRIBUTE><ATTRIBUTE_DATA></ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>Check_Content_Ref</VULN_ATTRIBUTE><ATTRIBUTE_DATA>M</ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>Weight</VULN_ATTRIBUTE><ATTRIBUTE_DATA>10.0</ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>Class</VULN_ATTRIBUTE><ATTRIBUTE_DATA>Unclass</ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>STIGRef</VULN_ATTRIBUTE><ATTRIBUTE_DATA>Arista MLS DCS-7000 Series L2S Security Technical Implementation Guide :: 1</ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>TargetKey</VULN_ATTRIBUTE><ATTRIBUTE_DATA>3425</ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>STIG_UUID</VULN_ATTRIBUTE><ATTRIBUTE_DATA>48fd5f89-e33c-422d-b4b9-eefab17e6d22</ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>LEGACY_ID</VULN_ATTRIBUTE><ATTRIBUTE_DATA></ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>CCI_REF</VULN_ATTRIBUTE><ATTRIBUTE_DATA>CCI-000778</ATTRIBUTE_DATA></STIG_DATA><STATUS>Not_Reviewed</STATUS><FINDING_DETAILS></FINDING_DETAILS><COMMENTS></COMMENTS><SEVERITY_OVERRIDE></SEVERITY_OVERRIDE><SEVERITY_JUSTIFICATION></SEVERITY_JUSTIFICATION></VULN><VULN><STIG_DATA><VULN_ATTRIBUTE>Vuln_Num</VULN_ATTRIBUTE><ATTRIBUTE_DATA>V-60825</ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>Severity</VULN_ATTRIBUTE><ATTRIBUTE_DATA>medium</ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>Group_Title</VULN_ATTRIBUTE><ATTRIBUTE_DATA>SRG-APP-000001</ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>Rule_ID</VULN_ATTRIBUTE><ATTRIBUTE_DATA>SV-75281r1_rule</ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>Rule_Ver</VULN_ATTRIBUTE><ATTRIBUTE_DATA>AMLS-L2-000130</ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>Rule_Title</VULN_ATTRIBUTE><ATTRIBUTE_DATA>The Arista Multilayer Switch must authenticate all endpoint devices before establishing a network connection using bidirectional authentication that is cryptographically based.</ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>Vuln_Discuss</VULN_ATTRIBUTE><ATTRIBUTE_DATA>Without authenticating devices, unidentified or unknown devices may be introduced, thereby facilitating malicious activity on the network. Bidirectional authentication provides stronger safeguards to validate the identity of other devices for connections that are of greater risk (e.g., remote connections).
+
+Bidirectional authentication solutions include, but are not limited to, IEEE 802.1x and Extensible Authentication Protocol (EAP) and Radius server with EAP-Transport Layer Security (TLS) authentication.
+ 
+A network connection is any connection with a device that communicates through a network (e.g., local area network, wide area network, or the Internet).
+
+Authentication must use a form of cryptography to ensure a high level of trust and authenticity.</ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>IA_Controls</VULN_ATTRIBUTE><ATTRIBUTE_DATA></ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>Check_Content</VULN_ATTRIBUTE><ATTRIBUTE_DATA>Verify that the network device uniquely identifies network-connected endpoint devices. This requirement is not applicable to Arista switches when not used as an access switch.
+
+802.1X must be configured on any interface where there is an applicable endpoint device connected. This is demonstrated by viewing the running-config via the "show dot1x all" command and validating the following lines are present in the configuration:
+
+Dot1X Information for Ethernet[X]
+--------------------------------------------
+PortControl : auto
+HostMode : single-host
+QuietPeriod : [value]
+TxPeriod : [value]
+ReauthPeriod : 3600 seconds
+MaxReauthReq : 2
+
+!
+
+802.1X must also be globally enabled on the switch using the "dot1x system-auth-control" command from the configuration mode interface. When this is configured, the following line will be visible in the running-config:
+
+dot1x-system-auth-control
+
+802.1X is dependent on a properly configured RADIUS server for authentication. Refer to the RADIUS configuration example for validation of properly configured AAA services. Additionally, the user must specify to use the RADIUS server as an 802.1X authenticator with the "aaa authentication dot1x default group [radius]" command from the configuration mode interface, replacing the bracketed variable with either the group name of the RADIUS server group, or leaving it as is to authenticate against all RADIUS servers. When properly configured, the following line is visible in the running-config:
+
+aaa authentication dot1x default group radius
+
+If 802.1X is not configured on necessary ports, or is not globally enabled on the switch, or if it is not set to authenticate supplicants via RADIUS, this is a finding.</ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>Fix_Text</VULN_ATTRIBUTE><ATTRIBUTE_DATA>Configure 802.1X on the switch, using the following mandatory parameters for all applicable interfaces. Replace the bracketed variable with the applicable value.
+
+config
+interface Ethernet[X]
+ switchport access vlan [Y]
+ dot1x pae authenticator
+ dot1x reauthentication
+ dot1x port-control auto
+ dot1x host-mode single-host
+ dot1x timeout quiet-period [value]
+ dot1x timeout reauth-period [value]
+ dot1x max-reauth-req [value]
+
+For the global configuration, include the following command statements from the global configuration mode interface:
+
+logging level DOT1X informational
+aaa authentication dot1x default group radius
+dot1x system-auth-control</ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>False_Positives</VULN_ATTRIBUTE><ATTRIBUTE_DATA></ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>False_Negatives</VULN_ATTRIBUTE><ATTRIBUTE_DATA></ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>Documentable</VULN_ATTRIBUTE><ATTRIBUTE_DATA>false</ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>Mitigations</VULN_ATTRIBUTE><ATTRIBUTE_DATA></ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>Potential_Impact</VULN_ATTRIBUTE><ATTRIBUTE_DATA></ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>Third_Party_Tools</VULN_ATTRIBUTE><ATTRIBUTE_DATA></ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>Mitigation_Control</VULN_ATTRIBUTE><ATTRIBUTE_DATA></ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>Responsibility</VULN_ATTRIBUTE><ATTRIBUTE_DATA></ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>Security_Override_Guidance</VULN_ATTRIBUTE><ATTRIBUTE_DATA></ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>Check_Content_Ref</VULN_ATTRIBUTE><ATTRIBUTE_DATA>M</ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>Weight</VULN_ATTRIBUTE><ATTRIBUTE_DATA>10.0</ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>Class</VULN_ATTRIBUTE><ATTRIBUTE_DATA>Unclass</ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>STIGRef</VULN_ATTRIBUTE><ATTRIBUTE_DATA>Arista MLS DCS-7000 Series L2S Security Technical Implementation Guide :: 1</ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>TargetKey</VULN_ATTRIBUTE><ATTRIBUTE_DATA>3425</ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>STIG_UUID</VULN_ATTRIBUTE><ATTRIBUTE_DATA>48fd5f89-e33c-422d-b4b9-eefab17e6d22</ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>LEGACY_ID</VULN_ATTRIBUTE><ATTRIBUTE_DATA></ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>CCI_REF</VULN_ATTRIBUTE><ATTRIBUTE_DATA>CCI-001967</ATTRIBUTE_DATA></STIG_DATA><STATUS>Not_Reviewed</STATUS><FINDING_DETAILS></FINDING_DETAILS><COMMENTS></COMMENTS><SEVERITY_OVERRIDE></SEVERITY_OVERRIDE><SEVERITY_JUSTIFICATION></SEVERITY_JUSTIFICATION></VULN><VULN><STIG_DATA><VULN_ATTRIBUTE>Vuln_Num</VULN_ATTRIBUTE><ATTRIBUTE_DATA>V-60827</ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>Severity</VULN_ATTRIBUTE><ATTRIBUTE_DATA>medium</ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>Group_Title</VULN_ATTRIBUTE><ATTRIBUTE_DATA>SRG-APP-000001</ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>Rule_ID</VULN_ATTRIBUTE><ATTRIBUTE_DATA>SV-75283r1_rule</ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>Rule_Ver</VULN_ATTRIBUTE><ATTRIBUTE_DATA>AMLS-L2-000140</ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>Rule_Title</VULN_ATTRIBUTE><ATTRIBUTE_DATA>The Arista Multilayer Switch must re-authenticate all endpoint devices every 60 minutes or less.</ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>Vuln_Discuss</VULN_ATTRIBUTE><ATTRIBUTE_DATA>Without authenticating devices, unidentified or unknown devices may be introduced, thereby facilitating malicious activity on the network. Bidirectional authentication provides stronger safeguards to validate the identity of other devices for connections that are of greater risk (e.g., remote connections).
+
+Bidirectional authentication solutions include, but are not limited to, IEEE 802.1x and Extensible Authentication Protocol (EAP) and Radius server with EAP-Transport Layer Security (TLS) authentication.
+ 
+A network connection is any connection with a device that communicates through a network (e.g., local area network, wide area network, or the Internet).
+
+Authentication must use a form of cryptography to ensure a high level of trust and authenticity. Re-authentication must occur to ensure session security.</ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>IA_Controls</VULN_ATTRIBUTE><ATTRIBUTE_DATA></ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>Check_Content</VULN_ATTRIBUTE><ATTRIBUTE_DATA>This requirement only applies to devices required to employ 802.1X authentication.
+
+Verify that the network device uniquely identifies network-connected endpoint devices and re-authenticates devices every 60 minutes or less. This can be viewed via the "show dot1x all" command. Under the interface configuration for the .1X connected port, the following statements must be present:
+
+ReauthPeriod : 3600 seconds
+
+If the device does not require re-authentication, or if the re-authentication period is longer than 60 minutes, this is a finding.</ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>Fix_Text</VULN_ATTRIBUTE><ATTRIBUTE_DATA>Configure 802.1X on the switch, including the following mandatory parameters in the interface configuration mode:
+
+config
+interface Ethernet[X]
+ dot1x reauthentication
+ dot1x timeout reauth-period 3600</ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>False_Positives</VULN_ATTRIBUTE><ATTRIBUTE_DATA></ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>False_Negatives</VULN_ATTRIBUTE><ATTRIBUTE_DATA></ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>Documentable</VULN_ATTRIBUTE><ATTRIBUTE_DATA>false</ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>Mitigations</VULN_ATTRIBUTE><ATTRIBUTE_DATA></ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>Potential_Impact</VULN_ATTRIBUTE><ATTRIBUTE_DATA></ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>Third_Party_Tools</VULN_ATTRIBUTE><ATTRIBUTE_DATA></ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>Mitigation_Control</VULN_ATTRIBUTE><ATTRIBUTE_DATA></ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>Responsibility</VULN_ATTRIBUTE><ATTRIBUTE_DATA></ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>Security_Override_Guidance</VULN_ATTRIBUTE><ATTRIBUTE_DATA></ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>Check_Content_Ref</VULN_ATTRIBUTE><ATTRIBUTE_DATA>M</ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>Weight</VULN_ATTRIBUTE><ATTRIBUTE_DATA>10.0</ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>Class</VULN_ATTRIBUTE><ATTRIBUTE_DATA>Unclass</ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>STIGRef</VULN_ATTRIBUTE><ATTRIBUTE_DATA>Arista MLS DCS-7000 Series L2S Security Technical Implementation Guide :: 1</ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>TargetKey</VULN_ATTRIBUTE><ATTRIBUTE_DATA>3425</ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>STIG_UUID</VULN_ATTRIBUTE><ATTRIBUTE_DATA>48fd5f89-e33c-422d-b4b9-eefab17e6d22</ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>LEGACY_ID</VULN_ATTRIBUTE><ATTRIBUTE_DATA></ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>CCI_REF</VULN_ATTRIBUTE><ATTRIBUTE_DATA>CCI-001967</ATTRIBUTE_DATA></STIG_DATA><STATUS>Not_Reviewed</STATUS><FINDING_DETAILS></FINDING_DETAILS><COMMENTS></COMMENTS><SEVERITY_OVERRIDE></SEVERITY_OVERRIDE><SEVERITY_JUSTIFICATION></SEVERITY_JUSTIFICATION></VULN><VULN><STIG_DATA><VULN_ATTRIBUTE>Vuln_Num</VULN_ATTRIBUTE><ATTRIBUTE_DATA>V-60829</ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>Severity</VULN_ATTRIBUTE><ATTRIBUTE_DATA>medium</ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>Group_Title</VULN_ATTRIBUTE><ATTRIBUTE_DATA>SRG-APP-000001</ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>Rule_ID</VULN_ATTRIBUTE><ATTRIBUTE_DATA>SV-75285r1_rule</ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>Rule_Ver</VULN_ATTRIBUTE><ATTRIBUTE_DATA>AMLS-L2-000150</ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>Rule_Title</VULN_ATTRIBUTE><ATTRIBUTE_DATA>The Arista Multilayer Switch must re-authenticate 802.1X connected devices every hour.</ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>Vuln_Discuss</VULN_ATTRIBUTE><ATTRIBUTE_DATA>Without re-authentication, users may access resources or perform tasks for which they do not have authorization. 
+
+In addition to the re-authentication requirements associated with session locks, organizations may require re-authentication of individuals and/or devices in other situations, including (but not limited to) the following circumstances:
+
+(i) When authenticators change; 
+(ii) When roles change; 
+(iii) When security categories of information systems change; 
+(iv) When the execution of privileged functions occurs; 
+(v) After a fixed period of time; or
+(vi) Periodically.
+
+Within the DoD, the minimum circumstances requiring re-authentication are privilege escalation and role changes. 
+
+This requirement only applies to components where this is specific to the function of the device or has the concept of user authentication (e.g., VPN or ALG capability). This does not apply to authentication for the purpose of configuring the device itself (i.e., device management).</ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>IA_Controls</VULN_ATTRIBUTE><ATTRIBUTE_DATA></ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>Check_Content</VULN_ATTRIBUTE><ATTRIBUTE_DATA>This requirement only applies to devices required to employ 802.1X.
+
+Verify the Arista Multilayer Switch re-authenticates 802.1X connected devices every hour. If the Arista Multilayer Switch does not re-authenticate 802.1X connected devices, this is a finding.
+
+ This can be viewed via the "show dot1x all" command. Under the interface configuration for the .1X connected port, the following statements must be present:
+
+ReauthPeriod : 3600 seconds
+
+If the device does not require re-authentication, or if the re-authentication period is longer than 60 minutes, this is a finding.</ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>Fix_Text</VULN_ATTRIBUTE><ATTRIBUTE_DATA>Configure 802.1X on the switch, using the following mandatory parameters for all applicable interfaces. Replace the bracketed variable with the applicable value.
+
+config
+interface Ethernet[X]
+ switchport access vlan [Y]
+ dot1x pae authenticator
+ dot1x reauthentication
+ dot1x port-control auto
+ dot1x host-mode single-host
+ dot1x timeout quiet-period [value]
+ dot1x timeout reauth-period 3600
+ dot1x max-reauth-req [value]
+
+For the global configuration, include the following command statements from the global configuration mode interface:
+
+logging level DOT1X informational
+aaa authentication dot1x default group radius
+dot1x system-auth-control</ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>False_Positives</VULN_ATTRIBUTE><ATTRIBUTE_DATA></ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>False_Negatives</VULN_ATTRIBUTE><ATTRIBUTE_DATA></ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>Documentable</VULN_ATTRIBUTE><ATTRIBUTE_DATA>false</ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>Mitigations</VULN_ATTRIBUTE><ATTRIBUTE_DATA></ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>Potential_Impact</VULN_ATTRIBUTE><ATTRIBUTE_DATA></ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>Third_Party_Tools</VULN_ATTRIBUTE><ATTRIBUTE_DATA></ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>Mitigation_Control</VULN_ATTRIBUTE><ATTRIBUTE_DATA></ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>Responsibility</VULN_ATTRIBUTE><ATTRIBUTE_DATA></ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>Security_Override_Guidance</VULN_ATTRIBUTE><ATTRIBUTE_DATA></ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>Check_Content_Ref</VULN_ATTRIBUTE><ATTRIBUTE_DATA>M</ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>Weight</VULN_ATTRIBUTE><ATTRIBUTE_DATA>10.0</ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>Class</VULN_ATTRIBUTE><ATTRIBUTE_DATA>Unclass</ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>STIGRef</VULN_ATTRIBUTE><ATTRIBUTE_DATA>Arista MLS DCS-7000 Series L2S Security Technical Implementation Guide :: 1</ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>TargetKey</VULN_ATTRIBUTE><ATTRIBUTE_DATA>3425</ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>STIG_UUID</VULN_ATTRIBUTE><ATTRIBUTE_DATA>48fd5f89-e33c-422d-b4b9-eefab17e6d22</ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>LEGACY_ID</VULN_ATTRIBUTE><ATTRIBUTE_DATA></ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>CCI_REF</VULN_ATTRIBUTE><ATTRIBUTE_DATA>CCI-002039</ATTRIBUTE_DATA></STIG_DATA><STATUS>Not_Reviewed</STATUS><FINDING_DETAILS></FINDING_DETAILS><COMMENTS></COMMENTS><SEVERITY_OVERRIDE></SEVERITY_OVERRIDE><SEVERITY_JUSTIFICATION></SEVERITY_JUSTIFICATION></VULN><VULN><STIG_DATA><VULN_ATTRIBUTE>Vuln_Num</VULN_ATTRIBUTE><ATTRIBUTE_DATA>V-60831</ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>Severity</VULN_ATTRIBUTE><ATTRIBUTE_DATA>medium</ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>Group_Title</VULN_ATTRIBUTE><ATTRIBUTE_DATA>SRG-APP-000001</ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>Rule_ID</VULN_ATTRIBUTE><ATTRIBUTE_DATA>SV-75287r1_rule</ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>Rule_Ver</VULN_ATTRIBUTE><ATTRIBUTE_DATA>AMLS-L2-000160</ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>Rule_Title</VULN_ATTRIBUTE><ATTRIBUTE_DATA>The Arista Multilayer Switch must authenticate 802.1X connected devices before establishing any connection.</ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>Vuln_Discuss</VULN_ATTRIBUTE><ATTRIBUTE_DATA>Without authenticating devices, unidentified or unknown devices may be introduced, thereby facilitating malicious activity.
+
+For distributed architectures (e.g., service-oriented architectures), the decisions regarding the validation of authentication claims may be made by services separate from the services acting on those decisions. In such situations, it is necessary to provide authentication decisions (as opposed to the actual authenticators) to the services that need to act on those decisions.
+
+This requirement applies to applications that connect either locally, remotely, or through a network to an endpoint device (including, but not limited to, workstations, printers, servers (outside a datacenter), VoIP Phones, and VTC CODECs). Gateways and SOA applications are examples of where this requirement would apply. 
+
+Device authentication is a solution enabling an organization to manage devices. It is an additional layer of authentication ensuring only specific pre-authorized devices can access the system.</ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>IA_Controls</VULN_ATTRIBUTE><ATTRIBUTE_DATA></ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>Check_Content</VULN_ATTRIBUTE><ATTRIBUTE_DATA>This requirement only applies to devices required to employ 802.1X.
+
+Verify that the network device uniquely identifies network-connected endpoint devices. This requirement is not applicable to Arista switches when not used as an access switch.
+
+802.1X must be configured on any interface where there is an applicable endpoint device connected. This is demonstrated by viewing the running-config via the "show dot1x all" command and validating the following lines are present in the configuration:
+
+Dot1X Information for Ethernet[X]
+--------------------------------------------
+PortControl : auto
+HostMode : single-host
+QuietPeriod : [value]
+TxPeriod : [value]
+ReauthPeriod : 3600 seconds
+MaxReauthReq : 2
+
+!
+
+802.1X must also be globally enabled on the switch using the "dot1x system-auth-control" command from the configuration mode interface. When this is configured, the following line will be visible in the running-config:
+
+dot1x-system-auth-control
+
+802.1X is dependent on a properly configured RADIUS server for authentication. Refer to the RADIUS configuration example for validation of properly configured AAA services. Additionally, the user must specify to use the RADIUS server as an 802.1X authenticator with the "aaa authentication dot1x default group [radius]" command from the configuration mode interface, replacing the bracketed variable with either the group name of the RADIUS server group or leaving it as is to authenticate against all RADIUS servers. When properly configured, the following line is visible in the running-config:
+
+aaa authentication dot1x default group radius
+
+If 802.1X is not configured on necessary ports or is not globally enabled on the switch, or if it is not set to authenticate supplicants via RADIUS, this is a finding.</ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>Fix_Text</VULN_ATTRIBUTE><ATTRIBUTE_DATA>Configure 802.1X on the switch, using the following mandatory parameters for all applicable interfaces. Replace the bracketed variable with the applicable value.
+
+config
+interface Ethernet[X]
+ switchport access vlan [Y]
+ dot1x pae authenticator
+ dot1x reauthentication
+ dot1x port-control auto
+ dot1x host-mode single-host
+ dot1x timeout quiet-period [value]
+ dot1x timeout reauth-period 3600
+ dot1x max-reauth-req [value]
+
+For the global configuration, include the following command statements from the global configuration mode interface:
+
+logging level DOT1X informational
+aaa authentication dot1x default group radius
+dot1x system-auth-control</ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>False_Positives</VULN_ATTRIBUTE><ATTRIBUTE_DATA></ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>False_Negatives</VULN_ATTRIBUTE><ATTRIBUTE_DATA></ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>Documentable</VULN_ATTRIBUTE><ATTRIBUTE_DATA>false</ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>Mitigations</VULN_ATTRIBUTE><ATTRIBUTE_DATA></ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>Potential_Impact</VULN_ATTRIBUTE><ATTRIBUTE_DATA></ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>Third_Party_Tools</VULN_ATTRIBUTE><ATTRIBUTE_DATA></ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>Mitigation_Control</VULN_ATTRIBUTE><ATTRIBUTE_DATA></ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>Responsibility</VULN_ATTRIBUTE><ATTRIBUTE_DATA></ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>Security_Override_Guidance</VULN_ATTRIBUTE><ATTRIBUTE_DATA></ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>Check_Content_Ref</VULN_ATTRIBUTE><ATTRIBUTE_DATA>M</ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>Weight</VULN_ATTRIBUTE><ATTRIBUTE_DATA>10.0</ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>Class</VULN_ATTRIBUTE><ATTRIBUTE_DATA>Unclass</ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>STIGRef</VULN_ATTRIBUTE><ATTRIBUTE_DATA>Arista MLS DCS-7000 Series L2S Security Technical Implementation Guide :: 1</ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>TargetKey</VULN_ATTRIBUTE><ATTRIBUTE_DATA>3425</ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>STIG_UUID</VULN_ATTRIBUTE><ATTRIBUTE_DATA>48fd5f89-e33c-422d-b4b9-eefab17e6d22</ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>LEGACY_ID</VULN_ATTRIBUTE><ATTRIBUTE_DATA></ATTRIBUTE_DATA></STIG_DATA><STIG_DATA><VULN_ATTRIBUTE>CCI_REF</VULN_ATTRIBUTE><ATTRIBUTE_DATA>CCI-001958</ATTRIBUTE_DATA></STIG_DATA><STATUS>Not_Reviewed</STATUS><FINDING_DETAILS></FINDING_DETAILS><COMMENTS></COMMENTS><SEVERITY_OVERRIDE></SEVERITY_OVERRIDE><SEVERITY_JUSTIFICATION></SEVERITY_JUSTIFICATION></VULN></iSTIG></STIGS></CHECKLIST>

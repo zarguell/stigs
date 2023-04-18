@@ -1,0 +1,197 @@
+Files that caused an error:
+U_zOS_V6R56_SRR: UnboundLocalError: cannot access local variable 'STIG_FILENAME' where it is not associated with a value
+Stack Trace:
+Traceback (most recent call last):
+  File "./stigs/scripts/stig-to-ckl.py", line 47, in <module>
+    ckl_results = generate_ckl(zip_file, CHECKLIST_INFO)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "./stig_parser/stig_parser.py", line 235, in generate_ckl
+    RAW_STIG = extract_stig(FILENAME)
+               ^^^^^^^^^^^^^^^^^^^^^^
+  File "./stig_parser/stig_parser.py", line 207, in extract_stig
+    assert STIG_FILENAME is not None, 'Manual STIG File was NOT FOUND'
+           ^^^^^^^^^^^^^
+UnboundLocalError: cannot access local variable 'STIG_FILENAME' where it is not associated with a value
+
+U_Apache_2-2_UNIX_V1R11_STIG: KeyError: 'ident'
+Stack Trace:
+Traceback (most recent call last):
+  File "./stigs/scripts/stig-to-ckl.py", line 47, in <module>
+    ckl_results = generate_ckl(zip_file, CHECKLIST_INFO)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "./stig_parser/stig_parser.py", line 238, in generate_ckl
+    JSON_STIG = convert_xccdf(RAW_STIG)
+                ^^^^^^^^^^^^^^^^^^^^^^^
+  File "./stig_parser/stig_parser.py", line 131, in convert_xccdf
+    IDENT = STIG['Rule']['ident']
+            ~~~~~~~~~~~~^^^^^^^^^
+KeyError: 'ident'
+
+U_Storage_Area_Network_V2R4_STIG: KeyError: 'ident'
+Stack Trace:
+Traceback (most recent call last):
+  File "./stigs/scripts/stig-to-ckl.py", line 47, in <module>
+    ckl_results = generate_ckl(zip_file, CHECKLIST_INFO)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "./stig_parser/stig_parser.py", line 238, in generate_ckl
+    JSON_STIG = convert_xccdf(RAW_STIG)
+                ^^^^^^^^^^^^^^^^^^^^^^^
+  File "./stig_parser/stig_parser.py", line 131, in convert_xccdf
+    IDENT = STIG['Rule']['ident']
+            ~~~~~~~~~~~~^^^^^^^^^
+KeyError: 'ident'
+
+U_Cloud_Computing_SRG_V1R4: UnboundLocalError: cannot access local variable 'STIG_FILENAME' where it is not associated with a value
+Stack Trace:
+Traceback (most recent call last):
+  File "./stigs/scripts/stig-to-ckl.py", line 47, in <module>
+    ckl_results = generate_ckl(zip_file, CHECKLIST_INFO)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "./stig_parser/stig_parser.py", line 235, in generate_ckl
+    RAW_STIG = extract_stig(FILENAME)
+               ^^^^^^^^^^^^^^^^^^^^^^
+  File "./stig_parser/stig_parser.py", line 207, in extract_stig
+    assert STIG_FILENAME is not None, 'Manual STIG File was NOT FOUND'
+           ^^^^^^^^^^^^^
+UnboundLocalError: cannot access local variable 'STIG_FILENAME' where it is not associated with a value
+
+U_Exchange_2010_Client_Access_V1R9_STIG: KeyError: 'ident'
+Stack Trace:
+Traceback (most recent call last):
+  File "./stigs/scripts/stig-to-ckl.py", line 47, in <module>
+    ckl_results = generate_ckl(zip_file, CHECKLIST_INFO)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "./stig_parser/stig_parser.py", line 238, in generate_ckl
+    JSON_STIG = convert_xccdf(RAW_STIG)
+                ^^^^^^^^^^^^^^^^^^^^^^^
+  File "./stig_parser/stig_parser.py", line 131, in convert_xccdf
+    IDENT = STIG['Rule']['ident']
+            ~~~~~~~~~~~~^^^^^^^^^
+KeyError: 'ident'
+
+U_MS_Exchange_2010_Edge_V1R15_STIG: KeyError: 'ident'
+Stack Trace:
+Traceback (most recent call last):
+  File "./stigs/scripts/stig-to-ckl.py", line 47, in <module>
+    ckl_results = generate_ckl(zip_file, CHECKLIST_INFO)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "./stig_parser/stig_parser.py", line 238, in generate_ckl
+    JSON_STIG = convert_xccdf(RAW_STIG)
+                ^^^^^^^^^^^^^^^^^^^^^^^
+  File "./stig_parser/stig_parser.py", line 131, in convert_xccdf
+    IDENT = STIG['Rule']['ident']
+            ~~~~~~~~~~~~^^^^^^^^^
+KeyError: 'ident'
+
+U_MOT_Solutions_Android_11_V1R2_STIG: UnboundLocalError: cannot access local variable 'STIG_FILENAME' where it is not associated with a value
+Stack Trace:
+Traceback (most recent call last):
+  File "./stigs/scripts/stig-to-ckl.py", line 47, in <module>
+    ckl_results = generate_ckl(zip_file, CHECKLIST_INFO)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "./stig_parser/stig_parser.py", line 235, in generate_ckl
+    RAW_STIG = extract_stig(FILENAME)
+               ^^^^^^^^^^^^^^^^^^^^^^
+  File "./stig_parser/stig_parser.py", line 207, in extract_stig
+    assert STIG_FILENAME is not None, 'Manual STIG File was NOT FOUND'
+           ^^^^^^^^^^^^^
+UnboundLocalError: cannot access local variable 'STIG_FILENAME' where it is not associated with a value
+
+U_Splunk_Enterprise_7-x_for_Windows_V2R3_STIG: UnboundLocalError: cannot access local variable 'STIG_FILENAME' where it is not associated with a value
+Stack Trace:
+Traceback (most recent call last):
+  File "./stigs/scripts/stig-to-ckl.py", line 47, in <module>
+    ckl_results = generate_ckl(zip_file, CHECKLIST_INFO)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "./stig_parser/stig_parser.py", line 235, in generate_ckl
+    RAW_STIG = extract_stig(FILENAME)
+               ^^^^^^^^^^^^^^^^^^^^^^
+  File "./stig_parser/stig_parser.py", line 207, in extract_stig
+    assert STIG_FILENAME is not None, 'Manual STIG File was NOT FOUND'
+           ^^^^^^^^^^^^^
+UnboundLocalError: cannot access local variable 'STIG_FILENAME' where it is not associated with a value
+
+U_MS_Azure_SQL_DB_V1R1_STIG: UnboundLocalError: cannot access local variable 'STIG_FILENAME' where it is not associated with a value
+Stack Trace:
+Traceback (most recent call last):
+  File "./stigs/scripts/stig-to-ckl.py", line 47, in <module>
+    ckl_results = generate_ckl(zip_file, CHECKLIST_INFO)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "./stig_parser/stig_parser.py", line 235, in generate_ckl
+    RAW_STIG = extract_stig(FILENAME)
+               ^^^^^^^^^^^^^^^^^^^^^^
+  File "./stig_parser/stig_parser.py", line 207, in extract_stig
+    assert STIG_FILENAME is not None, 'Manual STIG File was NOT FOUND'
+           ^^^^^^^^^^^^^
+UnboundLocalError: cannot access local variable 'STIG_FILENAME' where it is not associated with a value
+
+U_Apache_2-2_WIN_V1R13_STIG: KeyError: 'ident'
+Stack Trace:
+Traceback (most recent call last):
+  File "./stigs/scripts/stig-to-ckl.py", line 47, in <module>
+    ckl_results = generate_ckl(zip_file, CHECKLIST_INFO)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "./stig_parser/stig_parser.py", line 238, in generate_ckl
+    JSON_STIG = convert_xccdf(RAW_STIG)
+                ^^^^^^^^^^^^^^^^^^^^^^^
+  File "./stig_parser/stig_parser.py", line 131, in convert_xccdf
+    IDENT = STIG['Rule']['ident']
+            ~~~~~~~~~~~~^^^^^^^^^
+KeyError: 'ident'
+
+U_Multifunction_Device_and_Network_Printers_V2R14_STIG: KeyError: 'ident'
+Stack Trace:
+Traceback (most recent call last):
+  File "./stigs/scripts/stig-to-ckl.py", line 47, in <module>
+    ckl_results = generate_ckl(zip_file, CHECKLIST_INFO)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "./stig_parser/stig_parser.py", line 238, in generate_ckl
+    JSON_STIG = convert_xccdf(RAW_STIG)
+                ^^^^^^^^^^^^^^^^^^^^^^^
+  File "./stig_parser/stig_parser.py", line 131, in convert_xccdf
+    IDENT = STIG['Rule']['ident']
+            ~~~~~~~~~~~~^^^^^^^^^
+KeyError: 'ident'
+
+U_MDM_Server_Policy_V2R5_STIG: KeyError: 'ident'
+Stack Trace:
+Traceback (most recent call last):
+  File "./stigs/scripts/stig-to-ckl.py", line 47, in <module>
+    ckl_results = generate_ckl(zip_file, CHECKLIST_INFO)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "./stig_parser/stig_parser.py", line 238, in generate_ckl
+    JSON_STIG = convert_xccdf(RAW_STIG)
+                ^^^^^^^^^^^^^^^^^^^^^^^
+  File "./stig_parser/stig_parser.py", line 131, in convert_xccdf
+    IDENT = STIG['Rule']['ident']
+            ~~~~~~~~~~~~^^^^^^^^^
+KeyError: 'ident'
+
+U_Exchange_2010_Hub_V1R12_STIG: KeyError: 'ident'
+Stack Trace:
+Traceback (most recent call last):
+  File "./stigs/scripts/stig-to-ckl.py", line 47, in <module>
+    ckl_results = generate_ckl(zip_file, CHECKLIST_INFO)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "./stig_parser/stig_parser.py", line 238, in generate_ckl
+    JSON_STIG = convert_xccdf(RAW_STIG)
+                ^^^^^^^^^^^^^^^^^^^^^^^
+  File "./stig_parser/stig_parser.py", line 131, in convert_xccdf
+    IDENT = STIG['Rule']['ident']
+            ~~~~~~~~~~~~^^^^^^^^^
+KeyError: 'ident'
+
+U_Exchange_2010_Mailbox_V1R10_STIG: KeyError: 'ident'
+Stack Trace:
+Traceback (most recent call last):
+  File "./stigs/scripts/stig-to-ckl.py", line 47, in <module>
+    ckl_results = generate_ckl(zip_file, CHECKLIST_INFO)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "./stig_parser/stig_parser.py", line 238, in generate_ckl
+    JSON_STIG = convert_xccdf(RAW_STIG)
+                ^^^^^^^^^^^^^^^^^^^^^^^
+  File "./stig_parser/stig_parser.py", line 131, in convert_xccdf
+    IDENT = STIG['Rule']['ident']
+            ~~~~~~~~~~~~^^^^^^^^^
+KeyError: 'ident'
+
