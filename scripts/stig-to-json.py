@@ -1,4 +1,4 @@
-from stig_parser import convert_xccdf
+from stig_parser import convert_xccdf, generate_stig_json
 import json
 import os
 import traceback
@@ -34,6 +34,7 @@ for xml_file in xml_files:
     ## PARSE XCCDF(XML) to JSON
     try:
         json_results = convert_xccdf(raw_file)
+        generate_stig_json(json_results, "./json/" + file_name + ".json")
     except Exception as e:
         error_info = {}
         error_info["file"] = xml_file
@@ -41,10 +42,6 @@ for xml_file in xml_files:
         error_info["message"] = str(e)
         error_info["stack_trace"] = traceback.format_exc()
         error_files.append(error_info)
-
-    with open("./json/" + file_name + ".json", "w") as outfile:
-        # Save the JSON object to the file
-        json.dump(json_results, outfile)
 
 
 with open("./json/error.log", "w") as f:
