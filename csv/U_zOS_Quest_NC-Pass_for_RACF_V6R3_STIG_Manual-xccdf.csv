@@ -1,0 +1,142 @@
+"Title","Description","Version","Release","BenchmarkDate","ReleaseInfo","Source","Notice","Rule_VulnID","Rule_RuleID","Rule_StigID","Rule_Severity","Rule_Cat","Rule_Classification","Rule_GroupTitle","Rule_RuleTitle","Rule_Description","Rule_VulnDiscussion","Rule_FalsePositives","Rule_FalseNegatives","Rule_Documentable","Rule_Mitigations","Rule_SeverityOverrideGuidance","Rule_PotentialImpacts","Rule_ThirdPartyTools","Rule_MitigationControl","Rule_Responsibility","Rule_IAControls","Rule_CheckText","Rule_FixText","Rule_CCI"
+"z/OS Quest NC-Pass for RACF Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via email to the following address: disa.stig_spt@mail.mil.","6","3 ","23 Nov 2022","Release: 3 Benchmark Date: 23 Nov 2022","STIG.DOD.MIL","terms-of-use","V-224523","SV-224523r855191_rule","ZNCPR000","medium","CAT II","","SRG-OS-000080","Quest NC-Pass installation data sets will be properly protected.","<VulnDiscussion>Quest NC-Pass installation data sets have the ability to use privileged functions and/or have access to sensitive data. Failure to properly restrict access to these data sets could result in violating the integrity of the base product which could result in compromising the operating system or sensitive data.</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","Quest NC-Pass installation data sets have the ability to use privileged functions and/or have access to sensitive data. Failure to properly restrict access to these data sets could result in violating the integrity of the base product which could result in compromising the operating system or sensitive data.","","","false","","","","","","","","Refer to the following report produced by the Data Set and Resource Data Collection:
+
+-	SENSITVE.RPT(NCPASRPT)
+
+Automated Analysis
+Refer to the following report produced by the Data Set and Resource Data Collection:
+
+-	PDI(ZNCP0000)
+
+Verify that the accesses to the Quest NC-Pass installation data sets are properly restricted.  If the following guidance is true, this is not a finding.
+ 
+___	The RACF data set rules for the data sets restricts READ access to all authorized users.
+
+___	The RACF data set rules for the data sets restricts WRITE and/or greater access to systems programming personnel.
+
+___	The RACF data set rules for the data sets specify that all (i.e., failures and successes) WRITE and/or greater access is logged.
+
+___	The RACF data set rules for the data sets specify UACC(NONE) and NOWARNING.","The IAO will ensure that WRITE and/or greater access to Quest NC-Pass installation data sets is limited to System Programmers only, and all WRITE and/or greater access is logged.  READ access can be given to all authorized users.
+
+The installing Systems Programmer will identify and document the product data sets and categorize them according to who will have WRITE and/or greater access and if required that all WRITE and/or greater access is logged.  He will identify if any additional groups have WRITE and/or greater access for specific data sets, and once documented he will work with the IAO to see that they are properly restricted to the ACP (Access Control Program) active on the system.
+
+Data sets to be protected will be:
+SYS2.NCPASS.
+SYS3.NCPASS. (data sets that are not altered by product STCs, can be more specific)
+
+The following commands are provided as a sample for implementing data set controls:
+
+ad 'SYS2.NCPASS.**' uacc(none) owner(sys2) -
+	audit(success(update) failures(read)) -
+	data('Quest NC-Pass Install DS')
+pe 'SYS2.NCPASS.**' id(<syspaudt> <tstcaudt>) acc(a)
+pe 'SYS2.NCPASS.**' id(<audtaudt>) acc(r)
+pe 'SYS2.NCPASS.**' id(*) acc(r)
+
+ad 'SYS3.NCPASS.**' uacc(none) owner(sys3) -
+	audit(success(update) failures(read)) -
+	data('Quest NC-Pass Install DS')
+pe 'SYS3.NCPASS.**' id(<syspaudt> <tstcaudt>) acc(a)
+pe 'SYS3.NCPASS.**' id(<audtaudt>) acc(r)
+pe 'SYS3.NCPASS.**' id(*) acc(r)
+
+setr generic(dataset) refresh","SV-40864,V-16932,CCI-000213,CCI-002234"
+"z/OS Quest NC-Pass for RACF Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via email to the following address: disa.stig_spt@mail.mil.","6","3 ","23 Nov 2022","Release: 3 Benchmark Date: 23 Nov 2022","STIG.DOD.MIL","terms-of-use","V-224524","SV-224524r868515_rule","ZNCPR001","medium","CAT II","","SRG-OS-000259","Quest NC-Pass STC data sets will be properly protected.","<VulnDiscussion>Quest NC-Pass STC data sets have the ability to use privileged functions and/or have access to sensitive data. Failure to properly restrict access to these data sets could result in violating the integrity of the base product which could result in compromising the operating system or sensitive data.</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","Quest NC-Pass STC data sets have the ability to use privileged functions and/or have access to sensitive data. Failure to properly restrict access to these data sets could result in violating the integrity of the base product which could result in compromising the operating system or sensitive data.","","","false","","","","","","","","Refer to the following report produced by the Data Set and Resource Data Collection:
+
+- SENSITVE.RPT(NCPASSTC)
+
+Automated Analysis
+Refer to the following report produced by the Data Set and Resource Data Collection:
+
+- PDI(ZNCP0001)
+
+Verify that the accesses to the Quest NC-Pass STC data sets are properly restricted.
+
+___ The RACF data set rules for the data sets restricts READ access to auditors.
+
+___ The RACF data set rules for the data sets restricts UPDATE access to domain level security administrators.
+
+___ The RACF data set rules for the data sets restricts WRITE and/or greater access to systems programming personnel.
+
+___ The RACF data set rules for the data sets restricts WRITE and/or greater access to the Quest NC-Pass's STC(s) and/or batch user(s).
+
+___ The RACF data set rules for the data sets specify UACC(NONE) and NOWARNING.","The ISSO will ensure that WRITE and/or greater access to Quest NC-Pass STC data sets is limited to systems programmers and/or Quest NC-Pass's STC(s) and/or batch user(s) only. UPDATE access can be given to domain level security administrators. READ access can be given to auditors.
+
+The installing systems programmer will identify and document the product data sets and categorize them according to who will have update and alter access and if required that all update and allocate access is logged. The installing systems programmer will identify if any additional groups have update and/or alter access for specific data sets, and once documented will work with the ISSO to ensure they are properly restricted to the ACP (Access Control Program) active on the system.
+
+Data sets to be protected will be:
+SYS3.NCPASS.*.PASSCAF
+SYS3.NCPASS.*.PASSVSDD
+
+The following commands are provided as a sample for implementing data set controls:
+
+ad 'SYS3.NCPASS.*.PASSCAF.**' uacc(none) owner(sys3) -
+	audit(failures(read)) -
+	data('Vendor DS Profile: Quest NC-Pass')
+ad 'SYS3.NCPASS.*.PASSVSDD.**' uacc(none) owner(sys3) -
+	audit(failures(read)) -
+	data('Vendor DS Profile: Quest NC-Pass')
+pe ' SYS3.NCPASS.*.PASSCAF.**' id(<syspaudt> <tstcaudt> NCPASS STCs) acc(a)
+pe ' SYS3.NCPASS.*.PASSCAF.**' id(<secaaudt>) acc(u)
+pe ' SYS3.NCPASS.*.PASSCAF.**' id(<audtaudt>) acc(r)
+pe ' SYS3.NCPASS.*.PASSVSDD.**' id(<syspaudt> <tstcaudt> NCPASS STCs) acc(a)
+pe ' SYS3.NCPASS.*.PASSVSDD.**' id(<secaaudt>) acc(u)
+pe ' SYS3.NCPASS.*.PASSVSDD.**' id(<audtaudt>) acc(r)
+
+setr generic(dataset) refresh","SV-40867,V-17067,CCI-001499"
+"z/OS Quest NC-Pass for RACF Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via email to the following address: disa.stig_spt@mail.mil.","6","3 ","23 Nov 2022","Release: 3 Benchmark Date: 23 Nov 2022","STIG.DOD.MIL","terms-of-use","V-224525","SV-224525r855192_rule","ZNCPR020","medium","CAT II","","SRG-OS-000018","Quest NC-Pass will be used by Highly-Sensitive users.","<VulnDiscussion>DISA has directed that Quest NC-Pass extended authentication be implemented on all domains. All users with update and alter access to sensitive system-level data sets and resources, or who possess special security privileges, are required to use NC-Pass for extended authentication.  Typical personnel required to use NC-Pass include, but are not limited to, systems programming, security, operations, network/communications, storage management, and production control.
+
+Improper enforcement of extended authentication through NC-Pass could potentially compromise the operating system, ACP, and customer data.</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","DISA has directed that Quest NC-Pass extended authentication be implemented on all domains. All users with update and alter access to sensitive system-level data sets and resources, or who possess special security privileges, are required to use NC-Pass for extended authentication.  Typical personnel required to use NC-Pass include, but are not limited to, systems programming, security, operations, network/communications, storage management, and production control.
+
+Improper enforcement of extended authentication through NC-Pass could potentially compromise the operating system, ACP, and customer data.","","","false","","","","","","","","Refer to the following reports produced by the RACF Data Collection:
+
+-	RACFCMDS.RPT(LISTUSER)
+-	RACFCMDS.RPT(LISTGRP)
+
+If the SECURID group is defined and all sensitive users are connected to the SECURID group, this is not a finding.
+
+NOTE:	Sensitive users include systems programming personnel, security personnel, and other staff (e.g., DASD management, operations, auditors, technical support, etc.) with access to sensitive resources (e.g., operator commands, ACP privileges, etc.) that can modify the operating system and system software, and review/modify the security environment.","The IAO will ensure that sensitive users are properly validated to Quest NC-Pass.
+
+NOTE:	Sensitive users include systems programming personnel, security personnel, and other staff (e.g., DASD management, operations, auditors, technical support, etc.) with access to sensitive resources (e.g., operator commands, ACP privileges, etc.) that can modify the operating system and system software, and review/modify the security environment.
+
+Ensure SECURID is defined to RACF.  Use the following RACF AddGroup command:
+
+AG SECURID SUPGROUP(ADMIN) OWNER(ADMIN)
+
+Ensure sensitive users that require NC-Pass validation is connected to the SECURID group.  Use the following command:
+
+CO userid GROUP(SECURID) OWNER(SECURID)","SV-40870,V-17947,CCI-000035,CCI-002234"
+"z/OS Quest NC-Pass for RACF Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via email to the following address: disa.stig_spt@mail.mil.","6","3 ","23 Nov 2022","Release: 3 Benchmark Date: 23 Nov 2022","STIG.DOD.MIL","terms-of-use","V-224526","SV-224526r868521_rule","ZNCPR030","medium","CAT II","","SRG-OS-000104","Quest NC-Pass Started Task name will be properly identified and/or defined to the system ACP.","<VulnDiscussion>Quest NC-Pass requires a started task that will be restricted to certain resources, datasets and other system functions. By defining the started task as a userid to the system ACP, It allows the ACP to control the access and authorized users that require these capabilities. Failure to properly control these capabilities, could compromise of the operating system environment, ACP, and customer data.</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","Quest NC-Pass requires a started task that will be restricted to certain resources, datasets and other system functions. By defining the started task as a userid to the system ACP, It allows the ACP to control the access and authorized users that require these capabilities. Failure to properly control these capabilities, could compromise of the operating system environment, ACP, and customer data.","","","false","","","","","","","","Refer to the following report produced by the RACF Data Collection:
+
+- RACFCMDS.RPT(LISTUSER)
+
+Verify that the userid(s) for the Quest NC-Pass started task(s) is (are) properly defined. If the following attributes are defined, this is not a finding.
+
+PROTECTED","The ISSO working with the systems programmer will ensure the Quest NC-Pass Started Task(s) is properly identified and/or defined to the System ACP.
+
+If the product requires a Started Task, verify that it is properly defined to the System ACP with the proper attributes.
+
+Most installation manuals will indicate how the Started Task is identified and any additional attributes that must be specified.
+
+The following commands are provided as a sample for defining Started Task(s):
+
+au NCPASS name('STC, Quest NC-Pass') owner(stc) dfltgrp(stc) nopass -
+	data('Start CA1 TMS')","V-17452,SV-40873,CCI-000764"
+"z/OS Quest NC-Pass for RACF Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via email to the following address: disa.stig_spt@mail.mil.","6","3 ","23 Nov 2022","Release: 3 Benchmark Date: 23 Nov 2022","STIG.DOD.MIL","terms-of-use","V-224527","SV-224527r868527_rule","ZNCPR032","medium","CAT II","","SRG-OS-000104","Quest NC-Pass Started task will be properly defined to the STARTED resource class for RACF.","<VulnDiscussion>Access to product resources should be restricted to only those individuals responsible for the application connectivity and who have a requirement to access these resources. Improper control of product resources could potentially compromise the operating system, ACP, and customer data.</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","Access to product resources should be restricted to only those individuals responsible for the application connectivity and who have a requirement to access these resources. Improper control of product resources could potentially compromise the operating system, ACP, and customer data.","","","false","","","","","","","","Refer to the following report produced by the RACF Data Collection:
+
+- DSMON.RPT(RACSPT)
+
+Automated Analysis
+Refer to the following report produced by the RACF Data Collection:
+
+- PDI(ZNCP0032)
+
+If the Quest NC-Pass started task(s) is (are) defined to the STARTED resource class profile and/or ICHRIN03 table entry, this is not a finding.","The ISSO working with the systems programmer will ensure the Quest NC-Pass Started Task(s) is properly identified and/or defined to the System ACP.
+
+A unique ACID must be assigned for the CA 1 Tape Management started task(s) thru a corresponding STC table entry.
+
+The following commands are provided as a sample for defining Started Task(s):
+
+rdef started NCPASS.** uacc(none) owner(admin) audit(all(read)) -
+	stdata(user(NCPASS) group(stc))
+setr racl(started) ref","SV-40875,V-17454,CCI-000764"

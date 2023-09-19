@@ -1,0 +1,67 @@
+"Title","Description","Version","Release","BenchmarkDate","ReleaseInfo","Source","Notice","Rule_VulnID","Rule_RuleID","Rule_StigID","Rule_Severity","Rule_Cat","Rule_Classification","Rule_GroupTitle","Rule_RuleTitle","Rule_Description","Rule_VulnDiscussion","Rule_FalsePositives","Rule_FalseNegatives","Rule_Documentable","Rule_Mitigations","Rule_SeverityOverrideGuidance","Rule_PotentialImpacts","Rule_ThirdPartyTools","Rule_MitigationControl","Rule_Responsibility","Rule_IAControls","Rule_CheckText","Rule_FixText","Rule_CCI"
+"z/OS CSSMTP for RACF Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via email to the following address: disa.stig_spt@mail.mil.","6","6 ","23 Nov 2022","Release: 6 Benchmark Date: 23 Nov 2022","STIG.DOD.MIL","terms-of-use","V-224478","SV-224478r868548_rule","ZSMTR001","medium","CAT II","","SRG-OS-000259","IBM Communications Server Simple Mail Transfer Protocol (CSSMTP) STC data sets must be properly protected.","<VulnDiscussion>IBM Communications Server Simple Mail Transfer Protocol (CSSMTP) STC data sets have the ability to use privileged functions and/or have access to sensitive data. Failure to properly restrict access to their data sets could result in violating the integrity of the base product which could result in compromising the operating system or sensitive data.</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","IBM Communications Server Simple Mail Transfer Protocol (CSSMTP) STC data sets have the ability to use privileged functions and/or have access to sensitive data. Failure to properly restrict access to their data sets could result in violating the integrity of the base product which could result in compromising the operating system or sensitive data.","","","false","","","","","","","","Examine the running started task for CSSMTP. 
+
+Verify that access to the IBM Communications Server Simple Mail Transfer Protocol (CSSMTP) STC data sets are properly restricted. The data sets to be protected are identified in the data set referenced in the DD statements of the CSSMTP started task(s) and/or batch job(s). 
+Refer to the following report produced by the Data Set and Resource Data Collection:
+
+- SENSITVE.RPT(SMTPSTC)
+
+Automated Analysis:
+Refer to the following report produced by the Data Set and Resource Data Collection:
+
+- PDI(ZSMT0001)
+
+If the following guidance is true, this is not a finding.
+
+___ The RACF data set access authorizations restrict READ access to auditors.
+
+___ The RACF data set access authorizations restrict WRITE and/or greater access to systems programming personnel.
+
+___ The RACF data set access authorizations restrict WRITE and/or greater access to the product STC(s) and/or batch job(s).
+
+___ The RACF data set access authorizations specify UACC(NONE) and NOWARNING.","Ensure that WRITE and/or greater access to the IBM Communications Server Simple Mail Transfer Protocol (CSSMTP) STC data sets are limited to systems programmers and CSSMTP STC and/or batch jobs only. READ access can be given to auditors at the ISSOs discretion.
+
+The installing Systems Programmer will identify and document the product data sets and categorize them according to who will have what type of access and if required which type of access is logged. The installing systems programmer will identify any additional groups requiring access to specific data sets, and once documented the installing systems programmer will work with the ISSO to see that they are properly restricted to the ACP (Access Control Program) active on the system.
+
+Note: The data sets and/or data set prefixes identified below are examples of a possible installation. The actual data sets and/or prefixes are determined when the product is actually installed on a system through the product's installation guide and can be site specific.
+
+The following commands are provided as an example for implementing data set controls: 
+
+ad 'sys3.cssmtp.**' uacc(none) owner(sys3) -
+audit(failures(read)) -
+data('CSSMTP Output Data')
+pe 'sys3.cssmtp.**' id(syspaudt) acc(a)
+pe 'sys3.cssmtp.**' id(tstcaudt) acc(a)
+pe 'sys3.cssmtp.**' id(smptstc) acc(a)
+pe 'sys3.cssmtp.**' id(audtaudt) acc(r)","V-17067,SV-89725,CCI-001499"
+"z/OS CSSMTP for RACF Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via email to the following address: disa.stig_spt@mail.mil.","6","6 ","23 Nov 2022","Release: 6 Benchmark Date: 23 Nov 2022","STIG.DOD.MIL","terms-of-use","V-224479","SV-224479r519865_rule","ZSMTR030","medium","CAT II","","SRG-OS-000104","IBM CSSMTP Started Task name is not properly identified and/or defined to the system ACP.","<VulnDiscussion>IBM CSSMTP requires a started task that will be restricted to certain resources, datasets and other system functions. By defining the started task as a userid to the system ACP, It allows the ACP to control the access and authorized users that require these capabilities. Failure to properly control these capabilities, could compromise of the operating system environment, ACP, and customer data.</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","IBM CSSMTP requires a started task that will be restricted to certain resources, datasets and other system functions. By defining the started task as a userid to the system ACP, It allows the ACP to control the access and authorized users that require these capabilities. Failure to properly control these capabilities, could compromise of the operating system environment, ACP, and customer data.","","","false","","","","","","","","Refer to the following report produced by the RACF Data Collection:
+
+-	RACFCMDS.RPT(LISTUSER)
+
+The IBM CSSMTP started task(s) and/or batch job userid(s) is defined and is assigned the RACF PROTECTED attribute.","The IBM CSSMTP system programmer and the IAO will ensure that a product's Started Task(s) is properly identified and/or defined to the System ACP. 
+
+If the product requires a Started Task, verify that it is properly defined to the System ACP with the proper attributes.
+
+Most installation manuals will indicate how the Started Task is identified and any additional attributes that must be specified.
+
+A sample is provided here:
+
+au CSSMTP name('IBM CSSMTP') owner(stc) dfltgrp(stc) nopass","SV-37480,V-17452,CCI-000764"
+"z/OS CSSMTP for RACF Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via email to the following address: disa.stig_spt@mail.mil.","6","6 ","23 Nov 2022","Release: 6 Benchmark Date: 23 Nov 2022","STIG.DOD.MIL","terms-of-use","V-224480","SV-224480r519868_rule","ZSMTR032","medium","CAT II","","SRG-OS-000104","IBM CSSMTP Started task(s) must be properly defined to the STARTED resource class for RACF.","<VulnDiscussion>Access to product resources should be restricted to only those individuals responsible for the application connectivity and who have a requirement to access these resources.  Improper control of product resources could potentially compromise the operating system, ACP, and customer data.</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","Access to product resources should be restricted to only those individuals responsible for the application connectivity and who have a requirement to access these resources.  Improper control of product resources could potentially compromise the operating system, ACP, and customer data.","","","false","","","","","","","","Refer to the following report produced by the RACF Data Collection:
+
+-	DSMON.RPT(RACSPT)
+
+Automated Analysis
+Refer to the following report produced by the RACF Data Collection:
+
+-	PDI(ZSMT0032)
+
+Verify that the IBM CSSMTP started task(s) is (are) defined to the STARTED resource class profile and/or ICHRIN03 table entry.","The IBM CSSMTP system programmer and the IAO will ensure that a product's started task(s) is (are) properly identified and/or defined to the System ACP. 
+
+A unique userid must be assigned for the IBM CSSMTP started task(s) thru a corresponding STARTED class entry.
+
+The following sample set of commands is shown here as a guideline:
+
+rdef started CSSMTP.** uacc(none) owner(admin) audit(all(read)) stdata(user(CSSMTP) group(stc))
+
+setr racl(started) ref","SV-37483,V-17454,CCI-000764"

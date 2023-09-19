@@ -1,0 +1,79 @@
+"Title","Description","Version","Release","BenchmarkDate","ReleaseInfo","Source","Notice","Rule_VulnID","Rule_RuleID","Rule_StigID","Rule_Severity","Rule_Cat","Rule_Classification","Rule_GroupTitle","Rule_RuleTitle","Rule_Description","Rule_VulnDiscussion","Rule_FalsePositives","Rule_FalseNegatives","Rule_Documentable","Rule_Mitigations","Rule_SeverityOverrideGuidance","Rule_PotentialImpacts","Rule_ThirdPartyTools","Rule_MitigationControl","Rule_Responsibility","Rule_IAControls","Rule_CheckText","Rule_FixText","Rule_CCI"
+"z/OS SRRAUDIT for ACF2 Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via email to the following address: disa.stig_spt@mail.mil.","6","5 ","23 Nov 2022","Release: 5 Benchmark Date: 23 Nov 2022","STIG.DOD.MIL","terms-of-use","V-224342","SV-224342r868233_rule","ZSRRA000","medium","CAT II","","SRG-OS-000080","SRRAUDIT installation data sets must be properly protected.","<VulnDiscussion>SRRAUDIT installation data sets have the ability to use privileged functions and/or have access to sensitive data. Failure to properly restrict access to these data sets could result in violating the integrity of the base product which could result in compromising the operating system or sensitive data.</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","SRRAUDIT installation data sets have the ability to use privileged functions and/or have access to sensitive data. Failure to properly restrict access to these data sets could result in violating the integrity of the base product which could result in compromising the operating system or sensitive data.","","","false","","","","","","","","Refer to the following report produced by the Data Set and Resource Data Collection:
+
+- SENSITVE.RPT(SRRPROD)
+
+Automated Analysis
+Refer to the following report produced by the Data Set and Resource Data Collection:
+
+- PDI(ZSRR0000)
+
+Verify that the accesses to the SRRAUDIT installation data sets are properly restricted. If the following guidance is true, this is not a finding.
+ 
+___ The ACF2 data set rules for the data sets do not restrict READ access to systems programming personnel, domain level production control and scheduling personnel, security personnel, and auditors.
+
+___ The ACF2 data set rules for the data sets do not restrict WRITE and/or greater access to systems programming personnel.
+
+___ The ACF2 data set rules for the data sets do not specify that all (i.e., failures and successes) WRITE and/or greater access will be logged.","The ISSO will ensure WRITE and/or greater access to SRRAUDIT installation data sets is limited to systems programmers only, and all WRITE and/or greater access is logged. READ access can be given to Security personnel, Production Control and Scheduling personnel, and Auditors. All failures and successful WRITE and/or greater accesses are logged.
+
+The installing systems programmer will identify and document the product data sets and categorize them according to who will have WRITE and/or greater access and, if required, that all WRITE and/or greater accesses are logged. The installing systems programmer will identify if any additional groups have WRITE and/or greater access for specific data sets, and once documented will work with the ISSO to ensure they are properly restricted to the ACP (Access Control Program) active on the system.
+
+(Note: The data sets and/or data set prefixes identified below are examples of a possible installation. The actual data sets and/or prefixes are determined when the product is actually installed on a system through the product's installation guide and can be site specific.)
+
+Data sets to be protected will be: 
+SYS2.SRRAUDIT.
+
+The following commands are provided as a sample for implementing data set controls: 
+
+$KEY(SYS2)
+SET RULE
+$KEY(S2S)
+$PREFIX(SYS2)
+SRRAUDIT.- UID(audtaudt) R(A) E(A) DATA(DEFAULT Auditor)
+SRRAUDIT.- UID(pcspaudt) R(A) E(A) DATA(DEFAULT Production control and Scheduling)
+SRRAUDIT.- UID(secaaudt) R(A) E(A) DATA(DEFAULT Security)
+SRRAUDIT.- UID(syspaudt) R(A) W(L) A(L) E(A) DATA(DEFAULT SYSPROG)
+SRRAUDIT.- UID(tstcaudt) R(A) W(L) A(L) E(A) DATA(DEFAULT Trusted STCs)","V-16932,SV-21724,CCI-000213,CCI-002234"
+"z/OS SRRAUDIT for ACF2 Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via email to the following address: disa.stig_spt@mail.mil.","6","5 ","23 Nov 2022","Release: 5 Benchmark Date: 23 Nov 2022","STIG.DOD.MIL","terms-of-use","V-224343","SV-224343r520882_rule","ZSRRA002","medium","CAT II","","SRG-OS-000259","SRRAUDIT User data sets are not properly protected.","<VulnDiscussion>SRRAUDIT User data sets provide the capability to use privileged functions and/or have access to sensitive data. Failure to properly restrict access to their data sets could result in violating the integrity of the base product which could result in compromising the operating system or sensitive data.</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","SRRAUDIT User data sets provide the capability to use privileged functions and/or have access to sensitive data. Failure to properly restrict access to their data sets could result in violating the integrity of the base product which could result in compromising the operating system or sensitive data.","","","false","","","","","","","","a)	Refer to the following report produced by the Data Set and Resource Data Collection:
+
+-	SENSITVE.RPT(SRRUSER)
+
+Automated Analysis
+Refer to the following report produced by the Data Set and Resource Data Collection:
+
+-	PDI(ZSRR0002)
+
+b)	Verify that access to the SRRAUDIT User data sets are properly restricted.
+
+___	The ACF2 data set rules for the data sets does not restrict READ, UPDATE, and/or ALTER access to systems programming personnel, security personnel, and auditors.
+
+___	The ACF2 data set rules for the data sets do not specify that all (i.e., failures and successes) UPDATE and/or ALTER access will be logged.
+
+b)	If all of the above are untrue, there is NO FINDING.
+
+c)	If any of the above is true, this is a FINDING.","The IAO will ensure that read, update, and allocate access to program product user data sets is limited to System Programmers, Security Personnel, and Auditors and all update and allocate access is logged.
+
+The installing System Programmer will identify and document the product user data sets and categorize them according to who will have update and alter access and if required that all update and allocate access is logged. He will identify if any additional groups have update access for specific data sets, and once documented he will work with the IAO to see that they are properly restricted to the ACP (Access Control Program ) active on the system.
+
+Data set prefix to be protected will be:
+
+SYS3.SRRAUDIT.
+
+If doing a full SRR review using the z/OS STIG Instruction, the following data set prefix to be protected will be:
+
+SYS3.FSO.
+
+The following commands are provided as a sample for implementing dataset controls:
+
+SET RULE
+$KEY(S3S)
+$PREFIX(SYS3)
+SRRAUDIT.- UID(syspaudt) R(A) W(L) A(L) E(A) DATA(DEFAULT SYSPROG)
+SRRAUDIT.- UID(secaaudt) R(A) W(L) A(L) E(A) DATA(DEFAULT Security)
+SRRAUDIT.- UID(audtaudt) R(A) W(L) A(L) E(A) DATA(DEFAULT Auditor)
+
+$KEY(S3F)
+$PREFIX(SYS3)
+FSO- UID(syspaudt) R(A) W(L) A(L) E(A) DATA(DEFAULT SYSPROG)
+FSO- UID(secaaudt) R(A) W(L) A(L) E(A) DATA(DEFAULT Security)
+FSO- UID(audtaudt) R(A) W(L) A(L) E(A) DATA(DEFAULT Auditor)","SV-23902,V-21592,CCI-001499"

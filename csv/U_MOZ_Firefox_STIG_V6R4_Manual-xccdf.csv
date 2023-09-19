@@ -1,0 +1,882 @@
+"Title","Description","Version","Release","BenchmarkDate","ReleaseInfo","Source","Notice","Rule_VulnID","Rule_RuleID","Rule_StigID","Rule_Severity","Rule_Cat","Rule_Classification","Rule_GroupTitle","Rule_RuleTitle","Rule_Description","Rule_VulnDiscussion","Rule_FalsePositives","Rule_FalseNegatives","Rule_Documentable","Rule_Mitigations","Rule_SeverityOverrideGuidance","Rule_PotentialImpacts","Rule_ThirdPartyTools","Rule_MitigationControl","Rule_Responsibility","Rule_IAControls","Rule_CheckText","Rule_FixText","Rule_CCI"
+"Mozilla Firefox Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via email to the following address: disa.stig_spt@mail.mil.","6","4 ","27 Oct 2022","Release: 4 Benchmark Date: 27 Oct 2022","STIG.DOD.MIL","terms-of-use","V-251545","SV-251545r849960_rule","FFOX-00-000001","high","CAT I","","SRG-APP-000456","The installed version of Firefox must be supported.","<VulnDiscussion>Using versions of an application that are not supported by the vendor is not permitted. Vendors respond to security flaws with updates and patches. These updates are not available for unsupported versions, which can leave the application vulnerable to attack.</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","Using versions of an application that are not supported by the vendor is not permitted. Vendors respond to security flaws with updates and patches. These updates are not available for unsupported versions, which can leave the application vulnerable to attack.","","","false","","","","","","","","Run Firefox. Click the ellipsis button >> Help >> About Firefox, and view the version number.
+
+If the Firefox version is not a supported version, this is a finding.","Upgrade the version of the browser to an approved version by obtaining software from the vendor or other trusted source.","CCI-002605"
+"Mozilla Firefox Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via email to the following address: disa.stig_spt@mail.mil.","6","4 ","27 Oct 2022","Release: 4 Benchmark Date: 27 Oct 2022","STIG.DOD.MIL","terms-of-use","V-251546","SV-251546r820745_rule","FFOX-00-000002","high","CAT I","","SRG-APP-000560","Firefox must be configured to allow only TLS 1.2 or above.","<VulnDiscussion>Use of versions prior to TLS 1.2 are not permitted. SSL 2.0 and SSL 3.0 contain a number of security flaws. These versions must be disabled in compliance with the Network Infrastructure and Secure Remote Computing STIGs.</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","Use of versions prior to TLS 1.2 are not permitted. SSL 2.0 and SSL 3.0 contain a number of security flaws. These versions must be disabled in compliance with the Network Infrastructure and Secure Remote Computing STIGs.","","","false","","","","","","","","Type ""about:policies"" in the browser window. 
+
+If ""SSLVersionMin"" is not displayed under Policy Name or the Policy Value is not ""tls1.2"" or ""tls1.3"", this is a finding.","Windows group policy:
+1. Open the group policy editor tool with ""gpedit.msc"".
+2. Navigate to Policy Path: Computer Configuration\Administrative Templates\Mozilla\Firefox\
+Policy Name: Minimum SSL version enabled
+Policy State: Enabled
+Policy Value: TLS 1.2   (or TLS 1.3)
+
+macOS ""plist"" file:
+Add the following:
+<key>SSLVersionMin</key>
+<string>tls1.2</string>   (or <string>tls1.3</string>)
+
+Linux ""policies.json"" file:
+Add the following in the policies section:
+""SSLVersionMin"": ""tls1.2""   or (""SSLVersionMin"": ""tls1.3"")","CCI-001453"
+"Mozilla Firefox Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via email to the following address: disa.stig_spt@mail.mil.","6","4 ","27 Oct 2022","Release: 4 Benchmark Date: 27 Oct 2022","STIG.DOD.MIL","terms-of-use","V-251547","SV-251547r807113_rule","FFOX-00-000003","medium","CAT II","","SRG-APP-000177","Firefox must be configured to ask which certificate to present to a website when a certificate is required.","<VulnDiscussion>When a website asks for a certificate for user authentication, Firefox must be configured to have the user choose which certificate to present. Websites within DoD require user authentication for access, which increases security for DoD information. Access will be denied to the user if certificate management is not configured.</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","When a website asks for a certificate for user authentication, Firefox must be configured to have the user choose which certificate to present. Websites within DoD require user authentication for access, which increases security for DoD information. Access will be denied to the user if certificate management is not configured.","","","false","","","","","","","","Type ""about:policies"" in the browser address bar. 
+
+If ""security.default_personal_cert"" is not displayed with a value of ""Ask Every Time"", this is a finding.","Windows group policy:
+1. Open the group policy editor tool with ""gpedit.msc"".
+2. Navigate to Policy Path: Computer Configuration\Administrative Templates\Mozilla\Firefox\
+Policy Name: Preferences
+Policy State: Enabled
+Policy Value:
+{
+  ""security.default_personal_cert"": {
+    ""Value"": ""Ask Every Time"",
+    ""Status"": ""locked""
+  }
+}
+
+macOS ""plist"" file:
+Add the following:
+<key>Preferences</key>
+<dict>
+  <key>security.default_personal_cert</key>
+  <dict>
+    <key>Value</key>
+    <string>Ask Every Time</string>
+    <key>Status</key>
+    <string>locked</string>
+  </dict>
+</dict>
+
+Linux ""policies.json"" file:
+Add the following in the policies section:
+""Preferences"": {
+  ""security.default_personal_cert"": {
+    ""Value"": ""Ask Every Time"",
+    ""Status"": ""locked""
+  }
+}","CCI-000187"
+"Mozilla Firefox Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via email to the following address: disa.stig_spt@mail.mil.","6","4 ","27 Oct 2022","Release: 4 Benchmark Date: 27 Oct 2022","STIG.DOD.MIL","terms-of-use","V-251548","SV-251548r807116_rule","FFOX-00-000004","medium","CAT II","","SRG-APP-000141","Firefox must be configured to not automatically check for updated versions of installed search plugins.","<VulnDiscussion>Updates must be controlled and installed from authorized and trusted servers. This setting overrides a number of other settings that may direct the application to access external URLs.</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","Updates must be controlled and installed from authorized and trusted servers. This setting overrides a number of other settings that may direct the application to access external URLs.","","","false","","","","","","","","Type ""about:policies"" in the browser address bar. 
+
+If ""browser.search.update"" is not displayed with a value of ""false"", this is a finding.","Windows group policy:
+1. Open the group policy editor tool with ""gpedit.msc"".
+2. Navigate to Policy Path: Computer Configuration\Administrative Templates\Mozilla\Firefox\
+Policy Name: Preferences
+Policy State: Enabled
+Policy Value:
+{
+  ""browser.search.update"": {
+    ""Value"": false,
+    ""Status"": ""locked""
+  }
+}
+
+macOS ""plist"" file:
+Add the following:
+<key>Preferences</key>
+<dict>
+  <key>browser.search.update</key>
+  <dict>
+    <key>Value</key>
+    <false/>
+    <key>Status</key>
+    <string>locked</string>
+  </dict>
+</dict>
+
+Linux ""policies.json"" file:
+Add the following in the policies section:
+""Preferences"": {
+  ""browser.search.update"": {
+    ""Value"": false,
+    ""Status"": ""locked""
+  }
+}","CCI-000381"
+"Mozilla Firefox Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via email to the following address: disa.stig_spt@mail.mil.","6","4 ","27 Oct 2022","Release: 4 Benchmark Date: 27 Oct 2022","STIG.DOD.MIL","terms-of-use","V-251549","SV-251549r807119_rule","FFOX-00-000005","medium","CAT II","","SRG-APP-000141","Firefox must be configured to not automatically update installed add-ons and plugins.","<VulnDiscussion>Set this to false to disable checking for updated versions of the Extensions/Themes. Automatic updates from untrusted sites puts the enclave at risk of attack and may override security settings.</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","Set this to false to disable checking for updated versions of the Extensions/Themes. Automatic updates from untrusted sites puts the enclave at risk of attack and may override security settings.","","","false","","","","","","","","Type ""about:policies"" in the browser window.
+
+If ""ExtensionUpdate"" is not displayed under Policy Name or the Policy Value is not ""false"", this is a finding.","Windows group policy:
+1. Open the group policy editor tool with ""gpedit.msc"".
+2. Navigate to Policy Path: Computer Configuration\Administrative Templates\Mozilla\Firefox\Extensions
+Policy Name: Extension Update
+Policy State: Disabled
+
+macOS ""plist"" file:
+Add the following:
+<key>ExtensionUpdate</key>
+<false/>
+
+Linux ""policies.json"" file:
+Add the following in the policies section:
+""ExtensionUpdate"": false","CCI-000381"
+"Mozilla Firefox Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via email to the following address: disa.stig_spt@mail.mil.","6","4 ","27 Oct 2022","Release: 4 Benchmark Date: 27 Oct 2022","STIG.DOD.MIL","terms-of-use","V-251550","SV-251550r832305_rule","FFOX-00-000006","medium","CAT II","","SRG-APP-000278","Firefox must be configured to not automatically execute or download MIME types that are not authorized for auto-download.","<VulnDiscussion>Some files can be downloaded or execute without user interaction. This setting ensures these files are not downloaded and executed.</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","Some files can be downloaded or execute without user interaction. This setting ensures these files are not downloaded and executed.","","","false","","","","","","","","Type ""about:preferences"" in the browser address bar. 
+
+Type ""Applications"" in the Find bar in the upper-right corner. 
+
+Determine if any of the following file extensions are listed: HTA, JSE, JS, MOCHA, SHS, VBE, VBS, SCT, WSC, FDF, XFDF, LSL, LSO, LSS, IQY, RQY, DOS, BAT, PS, EPS, WCH, WCM, WB1, WB3, WCH, WCM, AD.
+
+If the entry exists and the ""Action"" is ""Save File"" or ""Always Ask"", this is not a finding.
+ 
+If an extension exists and the entry in the Action column is associated with an application that does/can execute the code, this is a finding.","Remove any unauthorized extensions from the auto-download list.","CCI-001242"
+"Mozilla Firefox Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via email to the following address: disa.stig_spt@mail.mil.","6","4 ","27 Oct 2022","Release: 4 Benchmark Date: 27 Oct 2022","STIG.DOD.MIL","terms-of-use","V-251551","SV-251551r807125_rule","FFOX-00-000007","medium","CAT II","","SRG-APP-000141","Firefox must be configured to disable form fill assistance.","<VulnDiscussion>To protect privacy and sensitive data, Firefox provides the ability to configure the program so that data entered into forms is not saved. This mitigates the risk of a website gleaning private information from prefilled information.</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","To protect privacy and sensitive data, Firefox provides the ability to configure the program so that data entered into forms is not saved. This mitigates the risk of a website gleaning private information from prefilled information.","","","false","","","","","","","","Type ""about:policies"" in the browser window. 
+
+If ""DisableFormHistory"" is not displayed under Policy Name or the Policy Value is not ""true"", this is a finding.","Windows group policy:
+1. Open the group policy editor tool with ""gpedit.msc"".
+2. Navigate to Policy Path: Computer Configuration\Administrative Templates\Mozilla\Firefox
+Policy Name: Disable Form History
+Policy State: Enabled
+
+macOS ""plist"" file:
+Add the following:
+<key>DisableFormHistory</key>
+<true/>
+
+Linux ""policies.json"" file:
+Add the following in the policies section:
+""DisableFormHistory"": true","CCI-000381"
+"Mozilla Firefox Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via email to the following address: disa.stig_spt@mail.mil.","6","4 ","27 Oct 2022","Release: 4 Benchmark Date: 27 Oct 2022","STIG.DOD.MIL","terms-of-use","V-251552","SV-251552r822411_rule","FFOX-00-000008","medium","CAT II","","SRG-APP-000141","Firefox must be configured to not use a password store with or without a master password.","<VulnDiscussion>Firefox can be set to store passwords for sites visited by the user. These individual passwords are stored in a file and can be protected by a master password. Autofill of the password can then be enabled when the site is visited. This feature could also be used to autofill the certificate PIN, which could lead to compromise of DoD information.</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","Firefox can be set to store passwords for sites visited by the user. These individual passwords are stored in a file and can be protected by a master password. Autofill of the password can then be enabled when the site is visited. This feature could also be used to autofill the certificate PIN, which could lead to compromise of DoD information.","","","false","","","","","","","","Type ""about:policies"" in the browser window. 
+
+If ""PasswordManagerEnabled"" is not displayed under Policy Name or the Policy Value is not ""false"", this is a finding.","Windows group policy:
+1. Open the group policy editor tool with ""gpedit.msc"".
+2. Navigate to Policy Path: Computer Configuration\Administrative Templates\Mozilla\Firefox
+Policy Name: PasswordManager
+Policy State: Disabled
+
+macOS ""plist"" file:
+Add the following:
+<key>PasswordManagerEnabled</key>
+<false/>
+
+Linux ""policies.json"" file:
+Add the following in the policies section:
+""PasswordManagerEnabled"": false","CCI-000381"
+"Mozilla Firefox Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via email to the following address: disa.stig_spt@mail.mil.","6","4 ","27 Oct 2022","Release: 4 Benchmark Date: 27 Oct 2022","STIG.DOD.MIL","terms-of-use","V-251553","SV-251553r862958_rule","FFOX-00-000009","medium","CAT II","","SRG-APP-000141","Firefox must be configured to block pop-up windows.","<VulnDiscussion>Pop-up windows may be used to launch an attack within a new browser window with altered settings. This setting blocks pop-up windows created while the page is loading.</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","Pop-up windows may be used to launch an attack within a new browser window with altered settings. This setting blocks pop-up windows created while the page is loading.","","","false","","","","","","","","Type ""about:policies"" in the browser address bar.
+
+If ""PopupBlocking"" is not displayed under Policy Name or the Policy Value is not ""Default"" ""true"", this is a finding.
+If ""PopupBlocking"" is not displayed under Policy Name or the Policy Value is not ""Locked"" ""true"", this is a finding.
+
+""PopupBlocking"" ""Enabled"" may be used to specify an allowlist of sites where pop-ups are desired, this is optional.","Windows group policy:
+1. Open the group policy editor tool with ""gpedit.msc"".
+2. Navigate to Policy Path: Computer Configuration\Administrative Templates\Mozilla\Firefox\Popups
+Policy Name: Block pop-ups from websites
+Policy State: Enabled
+
+Policy Name: Do not allow preferences to be changed
+Policy State: Enabled
+
+Optional:
+Policy Name: Allowed Sites
+Policy State: Enabled
+Click ""Show..."" and enter a list of websites to be allowlisted.
+
+macOS ""plist"" file:
+Add the following:
+<key>PopupBlocking</key>
+  <dict>
+    <key>Allow</key>
+    <array>
+      <string>http://example.mil</string>
+      <string>http://example.gov</string>
+    </array>
+    <key>Default</key>
+    <true/>
+    <key>Locked</key>
+    <true/>
+  </dict>
+
+Linux ""policies.json"" file:
+Add the following in the policies section:
+""PopupBlocking"": {
+      ""Allow"": [""http://example.mil/"",
+                ""http://example.gov/""],
+      ""Default"": true,
+      ""Locked"": true}","CCI-000381"
+"Mozilla Firefox Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via email to the following address: disa.stig_spt@mail.mil.","6","4 ","27 Oct 2022","Release: 4 Benchmark Date: 27 Oct 2022","STIG.DOD.MIL","terms-of-use","V-251554","SV-251554r807134_rule","FFOX-00-000010","medium","CAT II","","SRG-APP-000141","Firefox must be configured to prevent JavaScript from moving or resizing windows.","<VulnDiscussion>JavaScript can make changes to the browser's appearance. This activity can help disguise an attack taking place in a minimized background window. Configure the browser setting to prevent scripts on visited websites from moving and resizing browser windows.</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","JavaScript can make changes to the browser's appearance. This activity can help disguise an attack taking place in a minimized background window. Configure the browser setting to prevent scripts on visited websites from moving and resizing browser windows.","","","false","","","","","","","","Type ""about:policies"" in the browser address bar. 
+
+If ""dom.disable_window_move_resize"" is not displayed with a value of ""true"", this is a finding.","Windows group policy:
+1. Open the group policy editor tool with ""gpedit.msc"".
+2. Navigate to Policy Path: Computer Configuration\Administrative Templates\Mozilla\Firefox\
+Policy Name: Preferences
+Policy State: Enabled
+Policy Value:
+{
+  ""dom.disable_window_move_resize"": {
+    ""Value"": true,
+    ""Status"": ""locked""
+  }
+}
+
+macOS ""plist"" file:
+Add the following:
+<key>Preferences</key>
+<dict>
+  <key>dom.disable_window_move_resize</key>
+  <dict>
+    <key>Value</key>
+    <true/>
+    <key>Status</key>
+    <string>locked</string>
+  </dict>
+</dict>
+
+Linux ""policies.json"" file:
+Add the following in the policies section:
+""Preferences"": {
+  ""dom.disable_window_move_resize"": {
+    ""Value"": true,
+    ""Status"": ""locked""
+  }
+}","CCI-000381"
+"Mozilla Firefox Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via email to the following address: disa.stig_spt@mail.mil.","6","4 ","27 Oct 2022","Release: 4 Benchmark Date: 27 Oct 2022","STIG.DOD.MIL","terms-of-use","V-251555","SV-251555r807137_rule","FFOX-00-000011","medium","CAT II","","SRG-APP-000141","Firefox must be configured to prevent JavaScript from raising or lowering windows.","<VulnDiscussion>JavaScript can raise and lower browser windows to cause improper input. Configure the browser setting to prevent scripts on visited websites from raising and lowering browser windows.</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","JavaScript can raise and lower browser windows to cause improper input. Configure the browser setting to prevent scripts on visited websites from raising and lowering browser windows.","","","false","","","","","","","","Type ""about:policies"" in the browser address bar. 
+
+If ""dom.disable_window_flip"" is not displayed with a value of ""true"", this is a finding.","Windows group policy:
+1. Open the group policy editor tool with ""gpedit.msc"".
+2. Navigate to Policy Path: Computer Configuration\Administrative Templates\Mozilla\Firefox\
+Policy Name: Preferences
+Policy State: Enabled
+Policy Value:
+{
+  ""dom.disable_window_flip"": {
+    ""Value"": true,
+    ""Status"": ""locked""
+  }
+}
+
+macOS ""plist"" file:
+Add the following:
+<key>Preferences</key>
+<dict>
+  <key>dom.disable_window_flip</key>
+  <dict>
+    <key>Value</key>
+    <true/>
+    <key>Status</key>
+    <string>locked</string>
+  </dict>
+</dict>
+
+Linux ""policies.json"" file:
+Add the following in the policies section:
+""Preferences"": {
+  ""dom.disable_window_flip"": {
+    ""Value"": true,
+    ""Status"": ""locked""
+  }
+}","CCI-000381"
+"Mozilla Firefox Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via email to the following address: disa.stig_spt@mail.mil.","6","4 ","27 Oct 2022","Release: 4 Benchmark Date: 27 Oct 2022","STIG.DOD.MIL","terms-of-use","V-251557","SV-251557r820752_rule","FFOX-00-000013","medium","CAT II","","SRG-APP-000141","Firefox must be configured to disable the installation of extensions.","<VulnDiscussion>A browser extension is a program that has been installed into the browser to add functionality. Where a plug-in interacts only with a web page and usually a third-party external application (e.g., Flash, Adobe Reader), an extension interacts with the browser program itself. Extensions are not embedded in web pages and must be downloaded and installed in order to work. Extensions allow browsers to avoid restrictions that apply to web pages. 
+
+For example, an extension can be written to combine data from multiple domains and present it when a certain page is accessed, which can be considered cross-site scripting. If a browser is configured to allow unrestricted use of extensions, plug-ins can be loaded and installed from malicious sources and used on the browser.</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","A browser extension is a program that has been installed into the browser to add functionality. Where a plug-in interacts only with a web page and usually a third-party external application (e.g., Flash, Adobe Reader), an extension interacts with the browser program itself. Extensions are not embedded in web pages and must be downloaded and installed in order to work. Extensions allow browsers to avoid restrictions that apply to web pages. 
+
+For example, an extension can be written to combine data from multiple domains and present it when a certain page is accessed, which can be considered cross-site scripting. If a browser is configured to allow unrestricted use of extensions, plug-ins can be loaded and installed from malicious sources and used on the browser.","","","false","","","","","","","","Type ""about:policies"" in the browser address bar. 
+
+If ""InstallAddonsPermission"" is not displayed under Policy Name or the Policy Value is not ""Default"" ""false"", this is a finding.","Windows group policy:
+1. Open the group policy editor tool with ""gpedit.msc"".
+2. Navigate to Policy Path: Computer Configuration\Administrative Templates\Mozilla\Firefox\Addons
+Policy Name: Allow add-on installs from websites
+Policy State: Disabled
+
+macOS ""plist"" file:
+Add the following:
+<key>InstallAddonsPermission</key>
+<false/>
+
+Linux ""policies.json"" file:
+Add the following in the policies section:
+""InstallAddonsPermission"": {
+      ""Default"": false
+}","CCI-000381"
+"Mozilla Firefox Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via email to the following address: disa.stig_spt@mail.mil.","6","4 ","27 Oct 2022","Release: 4 Benchmark Date: 27 Oct 2022","STIG.DOD.MIL","terms-of-use","V-251558","SV-251558r807146_rule","FFOX-00-000014","medium","CAT II","","SRG-APP-000141","Background submission of information to Mozilla must be disabled.","<VulnDiscussion>Firefox by default sends information about Firefox to Mozilla servers. There should be no background submission of technical and other information from DoD computers to Mozilla with portions posted publicly.</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","Firefox by default sends information about Firefox to Mozilla servers. There should be no background submission of technical and other information from DoD computers to Mozilla with portions posted publicly.","","","false","","","","","","","","Type ""about:policies"" in the browser window. 
+
+If ""DisableTelemetry"" is not displayed under Policy Name or the Policy Value is not ""true"", this is a finding.","Windows group policy:
+1. Open the group policy editor tool with ""gpedit.msc"".
+2. Navigate to Policy Path: Computer Configuration\Administrative Templates\Mozilla\Firefox
+Policy Name: Disable Telemetry
+Policy State: Enabled
+
+macOS ""plist"" file:
+Add the following:
+<key>DisableTelemetry</key>
+<true/>
+
+Linux ""policies.json"" file:
+Add the following in the policies section:
+""DisableTelemetry"": true","CCI-000381"
+"Mozilla Firefox Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via email to the following address: disa.stig_spt@mail.mil.","6","4 ","27 Oct 2022","Release: 4 Benchmark Date: 27 Oct 2022","STIG.DOD.MIL","terms-of-use","V-251559","SV-251559r807149_rule","FFOX-00-000015","low","CAT III","","SRG-APP-000266","Firefox development tools must be disabled.","<VulnDiscussion>Information needed by an attacker to begin looking for possible vulnerabilities in a web browser includes any information about the web browser and plug-ins or modules being used. When debugging or trace information is enabled in a production web browser, information about the web browser, such as web browser type, version, patches installed, plug-ins and modules installed, type of code being used by the hosted application, and any back ends being used for data storage may be displayed. Because this information may be placed in logs and general messages during normal operation of the web browser, an attacker does not have to cause an error condition to gain this information.</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","Information needed by an attacker to begin looking for possible vulnerabilities in a web browser includes any information about the web browser and plug-ins or modules being used. When debugging or trace information is enabled in a production web browser, information about the web browser, such as web browser type, version, patches installed, plug-ins and modules installed, type of code being used by the hosted application, and any back ends being used for data storage may be displayed. Because this information may be placed in logs and general messages during normal operation of the web browser, an attacker does not have to cause an error condition to gain this information.","","","false","","","","","","","","Type ""about:policies"" in the browser window. 
+
+If ""DisableDeveloperTools"" is not displayed under Policy Name or the Policy Value is not ""true"", this is a finding.","Windows group policy:
+1. Open the group policy editor tool with ""gpedit.msc"".
+2. Navigate to Policy Path: Computer Configuration\Administrative Templates\Mozilla\Firefox
+Policy Name: Disable Developer Tools
+Policy State: Enabled
+
+macOS ""plist"" file:
+Add the following:
+<key>DisableDeveloperTools</key>
+<true/>
+
+Linux ""policies.json"" file:
+Add the following in the policies section:
+""DisableDeveloperTools"": true","CCI-001312"
+"Mozilla Firefox Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via email to the following address: disa.stig_spt@mail.mil.","6","4 ","27 Oct 2022","Release: 4 Benchmark Date: 27 Oct 2022","STIG.DOD.MIL","terms-of-use","V-251560","SV-251560r862961_rule","FFOX-00-000016","medium","CAT II","","SRG-APP-000175","Firefox must have the DoD root certificates installed.","<VulnDiscussion>The DoD root certificates will ensure that the trust chain is established for server certificates issued from the DoD Certificate Authority (CA).</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","The DoD root certificates will ensure that the trust chain is established for server certificates issued from the DoD Certificate Authority (CA).","","","false","","","","","","","","Type ""about:preferences#privacy"" in the browser window. 
+
+Scroll down to the bottom and select ""View Certificates..."".
+
+In the Certificate Manager window, select the ""Authorities"" tab.
+
+Scroll through the Certificate Name list to the U.S. Government heading. Look for the entries for DoD Root CA 2, DoD Root CA 3, DoD Root CA 4, and DoD Root CA 5.
+
+If there are entries for DoD Root CA 2, DoD Root CA 3, DoD Root CA 4, and DoD Root CA 5, select them individually.
+
+Click the ""View"" button.
+
+Verify the publishing organization is ""US Government"".
+
+If there are no entries for the DoD Root CA 2, DoD Root CA 3, DoD Root CA 4, and DoD Root CA 5, this is a finding. If other AO-approved certificates are used, this is not a finding.
+
+Note: In a Windows environment, use of policy setting ""security.enterprise_roots.enabled=true"" will point Firefox to the Windows Trusted Root Certification Authority Store. This is not a finding. It may also be set via the policy Certificates >> ImportEnterpriseRoots, which can be verified via ""about:policies"".","Install the DoD root certificates. Other AO-approved certificates may also be used.
+
+On Windows, import certificates from the operating system by using Certificates >> Import Enterprise Roots (Certificates) via policy or Group Policy Object (GPO).","CCI-000185"
+"Mozilla Firefox Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via email to the following address: disa.stig_spt@mail.mil.","6","4 ","27 Oct 2022","Release: 4 Benchmark Date: 27 Oct 2022","STIG.DOD.MIL","terms-of-use","V-251562","SV-251562r849961_rule","FFOX-00-000018","medium","CAT II","","SRG-APP-000326","Firefox must prevent the user from quickly deleting data.","<VulnDiscussion>There should not be an option for a user to ""forget"" work they have done. This is required to meet non-repudiation controls.</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","There should not be an option for a user to ""forget"" work they have done. This is required to meet non-repudiation controls.","","","false","","","","","","","","Type ""about:policies"" in the browser address bar. 
+
+If ""DisableForgetButton"" is not displayed under Policy Name or the Policy Value is not ""true"", this is a finding.","Windows group policy:
+1. Open the group policy editor tool with ""gpedit.msc"".
+2. Navigate to Policy Path: Computer Configuration\Administrative Templates\Mozilla\Firefox
+Policy Name: Disable Forget Button
+Policy State: Enabled
+
+macOS ""plist"" file:
+Add the following:
+<key>DisableForgetButton</key>
+<true/>
+
+Linux ""policies.json"" file:
+Add the following in the policies section:
+""DisableForgetButton"": true","CCI-002355"
+"Mozilla Firefox Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via email to the following address: disa.stig_spt@mail.mil.","6","4 ","27 Oct 2022","Release: 4 Benchmark Date: 27 Oct 2022","STIG.DOD.MIL","terms-of-use","V-251563","SV-251563r807161_rule","FFOX-00-000019","medium","CAT II","","SRG-APP-000141","Firefox private browsing must be disabled.","<VulnDiscussion>Private browsing allows the user to browse the internet without recording their browsing history/activity. From a forensics perspective, this is unacceptable. Best practice requires that browser history is retained.</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","Private browsing allows the user to browse the internet without recording their browsing history/activity. From a forensics perspective, this is unacceptable. Best practice requires that browser history is retained.","","","false","","","","","","","","Type ""about:policies"" in the browser window. 
+
+If ""DisablePrivateBrowsing"" is not displayed under Policy Name or the Policy Value is not ""true"", this is a finding.","Windows group policy:
+1. Open the group policy editor tool with ""gpedit.msc"".
+2. Navigate to Policy Path: Computer Configuration\Administrative Templates\Mozilla\Firefox
+Policy Name: Disable Private Browsing
+Policy State: Enabled
+
+macOS ""plist"" file:
+Add the following:
+<key>DisablePrivateBrowsing</key>
+<true/>
+
+Linux ""policies.json"" file:
+Add the following in the policies section:
+""DisablePrivateBrowsing"": true","CCI-000381"
+"Mozilla Firefox Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via email to the following address: disa.stig_spt@mail.mil.","6","4 ","27 Oct 2022","Release: 4 Benchmark Date: 27 Oct 2022","STIG.DOD.MIL","terms-of-use","V-251564","SV-251564r807164_rule","FFOX-00-000020","medium","CAT II","","SRG-APP-000141","Firefox search suggestions must be disabled.","<VulnDiscussion>Search suggestions must be disabled as this could lead to searches being conducted that were never intended to be made.</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","Search suggestions must be disabled as this could lead to searches being conducted that were never intended to be made.","","","false","","","","","","","","Type ""about:policies"" in the browser window.
+
+If ""SearchSuggestEnabled"" is not displayed under Policy Name or the Policy Value is not ""false"", this is a finding.","Windows group policy:
+1. Open the group policy editor tool with ""gpedit.msc"".
+2. Navigate to Policy Path: Computer Configuration\Administrative Templates\Mozilla\Firefox\Search
+Policy Name: Search Suggestions
+Policy State: Disabled
+
+macOS ""plist"" file:
+Add the following:
+<key>SearchSuggestEnabled</key>
+<false/>
+
+Linux ""policies.json"" file:
+Add the following in the policies section:
+""SearchSuggestEnabled"": false","CCI-000381"
+"Mozilla Firefox Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via email to the following address: disa.stig_spt@mail.mil.","6","4 ","27 Oct 2022","Release: 4 Benchmark Date: 27 Oct 2022","STIG.DOD.MIL","terms-of-use","V-251565","SV-251565r832307_rule","FFOX-00-000021","low","CAT III","","SRG-APP-000141","Firefox autoplay must be disabled.","<VulnDiscussion>Autoplay allows the user to control whether videos can play automatically (without user consent) with audio content. The user must be able to select content that is run within the browser window.</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","Autoplay allows the user to control whether videos can play automatically (without user consent) with audio content. The user must be able to select content that is run within the browser window.","","","false","","","","","","","","Type ""about:policies"" in the browser address bar. 
+
+If ""Permissions"" is not displayed under Policy Name or the Policy Value is not ""Autoplay"" with a value of ""Default"" and ""Block-audio-video"", this is a finding.","Windows group policy:
+1. Open the group policy editor tool with ""gpedit.msc"".
+2. Navigate to Policy Path: Computer Configuration\Administrative Templates\Mozilla\Firefox\Permissions\Autoplay
+Policy Name: Default autoplay level
+Policy State: Enabled
+Policy Value: Block Audio and Video
+
+macOS ""plist"" file:
+Add the following:
+<key>Permissions</key>
+<dict>
+  <key>Autoplay</key>
+  <dict>
+    <string>block-audio-video</string>
+  </dict>
+</dict>
+ 
+Linux ""policies.json"" file:
+Add the following in the policies section:
+""Permissions"": {
+  ""Autoplay"": {
+    ""Default"": ""block-audio-video""
+  }
+}","CCI-000381"
+"Mozilla Firefox Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via email to the following address: disa.stig_spt@mail.mil.","6","4 ","27 Oct 2022","Release: 4 Benchmark Date: 27 Oct 2022","STIG.DOD.MIL","terms-of-use","V-251566","SV-251566r807170_rule","FFOX-00-000022","medium","CAT II","","SRG-APP-000141","Firefox network prediction must be disabled.","<VulnDiscussion>If network prediction is enabled, requests to URLs are made without user consent. The browser should always make a direct DNS request without prefetching occurring.</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","If network prediction is enabled, requests to URLs are made without user consent. The browser should always make a direct DNS request without prefetching occurring.","","","false","","","","","","","","Type ""about:policies"" in the browser window. 
+
+If ""NetworkPrediction"" is not displayed under Policy Name or the Policy Value is not ""false"", this is a finding.","Windows group policy:
+1. Open the group policy editor tool with ""gpedit.msc"".
+2. Navigate to Policy Path: Computer Configuration\Administrative Templates\Mozilla\Firefox
+Policy Name: Network Prediction
+Policy State: Disabled
+
+macOS ""plist"" file:
+Add the following:
+<key>NetworkPrediction</key>
+<false/>
+
+Linux ""policies.json"" file:
+Add the following in the policies section:
+""NetworkPrediction"": false","CCI-000381"
+"Mozilla Firefox Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via email to the following address: disa.stig_spt@mail.mil.","6","4 ","27 Oct 2022","Release: 4 Benchmark Date: 27 Oct 2022","STIG.DOD.MIL","terms-of-use","V-251567","SV-251567r807173_rule","FFOX-00-000023","medium","CAT II","","SRG-APP-000141","Firefox fingerprinting protection must be enabled.","<VulnDiscussion>The Content Blocking/Tracking Protection feature stops Firefox from loading content from malicious sites. The content might be a script or an image, for example. If a site is on one of the tracker lists that Firefox is set to use, the fingerprinting script (or other tracking script/image) will not be loaded from that site.
+
+Fingerprinting scripts collect information about browser and device configuration, such as operating system, screen resolution, and other settings. By compiling these pieces of data, fingerprinters create a unique profile that can be used to track the user around the web.</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","The Content Blocking/Tracking Protection feature stops Firefox from loading content from malicious sites. The content might be a script or an image, for example. If a site is on one of the tracker lists that Firefox is set to use, the fingerprinting script (or other tracking script/image) will not be loaded from that site.
+
+Fingerprinting scripts collect information about browser and device configuration, such as operating system, screen resolution, and other settings. By compiling these pieces of data, fingerprinters create a unique profile that can be used to track the user around the web.","","","false","","","","","","","","Type ""about:policies"" in the browser address bar. 
+
+If ""EnableTrackingProtection"" is not displayed under Policy Name or the Policy Value is not ""Fingerprinting""  with a value of ""true"", this is a finding.","Windows group policy:
+1. Open the group policy editor tool with ""gpedit.msc"".
+2. Navigate to Policy Path: Computer Configuration\Administrative Templates\Mozilla\Firefox\Tracking Protection
+Policy Name: Fingerprinting
+Policy State: Enabled
+
+macOS ""plist"" file:
+Add the following:
+<key>EnableTrackingProtection</key>
+  <dict>
+    <key>Fingerprinting</key>
+ <true/>
+  </dict>
+
+Linux ""policies.json"" file:
+Add the following in the policies section:
+""EnableTrackingProtection"": {
+  ""Fingerprinting"": true
+}","CCI-000381"
+"Mozilla Firefox Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via email to the following address: disa.stig_spt@mail.mil.","6","4 ","27 Oct 2022","Release: 4 Benchmark Date: 27 Oct 2022","STIG.DOD.MIL","terms-of-use","V-251568","SV-251568r807176_rule","FFOX-00-000024","medium","CAT II","","SRG-APP-000141","Firefox cryptomining protection must be enabled.","<VulnDiscussion>The Content Blocking/Tracking Protection feature stops Firefox from loading content from malicious sites. The content might be a script or an image, for example. If a site is on one of the tracker lists that Firefox is set to use, the fingerprinting script (or other tracking script/image) will not be loaded from that site.
+
+Cryptomining scripts use a computer's central processing unit to invisibly mine cryptocurrency.</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","The Content Blocking/Tracking Protection feature stops Firefox from loading content from malicious sites. The content might be a script or an image, for example. If a site is on one of the tracker lists that Firefox is set to use, the fingerprinting script (or other tracking script/image) will not be loaded from that site.
+
+Cryptomining scripts use a computer's central processing unit to invisibly mine cryptocurrency.","","","false","","","","","","","","Type ""about:policies"" in the browser address bar. 
+
+If ""EnableTrackingProtection"" is not displayed under Policy Name or the Policy Value is not ""Cryptomining"" with a value of ""true"", this is a finding.","Windows group policy:
+1. Open the group policy editor tool with ""gpedit.msc"".
+2. Navigate to Policy Path: Computer Configuration\Administrative Templates\Mozilla\Firefox\Tracking Protection
+Policy Name: Cryptomining
+Policy State: Enabled
+
+macOS ""plist"" file:
+Add the following:
+<key>EnableTrackingProtection</key>
+  <dict>
+    <key>Cryptomining</key>
+ <true/>
+  </dict>
+
+Linux ""policies.json"" file:
+Add the following in the policies section:
+""EnableTrackingProtection"": {
+  ""Cryptomining"": true
+}","CCI-000381"
+"Mozilla Firefox Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via email to the following address: disa.stig_spt@mail.mil.","6","4 ","27 Oct 2022","Release: 4 Benchmark Date: 27 Oct 2022","STIG.DOD.MIL","terms-of-use","V-251569","SV-251569r807179_rule","FFOX-00-000025","medium","CAT II","","SRG-APP-000141","Firefox Enhanced Tracking Protection must be enabled.","<VulnDiscussion>Tracking generally refers to content, cookies, or scripts that can collect browsing data across multiple sites.
+
+It is detrimental for applications to provide, or install by default, functionality exceeding requirements or mission objectives. These unnecessary capabilities or services are often overlooked and therefore may remain unsecured. They increase the risk to the platform by providing additional attack vectors.
+
+Applications are capable of providing a wide variety of functions and services. Some of the functions and services, provided by default, may not be necessary to support essential organizational operations (e.g., key missions, functions). 
+
+Examples of non-essential capabilities include but are not limited to advertising software or browser plug-ins that are not related to requirements or provide a wide array of functionality not required for every mission but that cannot be disabled.</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","Tracking generally refers to content, cookies, or scripts that can collect browsing data across multiple sites.
+
+It is detrimental for applications to provide, or install by default, functionality exceeding requirements or mission objectives. These unnecessary capabilities or services are often overlooked and therefore may remain unsecured. They increase the risk to the platform by providing additional attack vectors.
+
+Applications are capable of providing a wide variety of functions and services. Some of the functions and services, provided by default, may not be necessary to support essential organizational operations (e.g., key missions, functions). 
+
+Examples of non-essential capabilities include but are not limited to advertising software or browser plug-ins that are not related to requirements or provide a wide array of functionality not required for every mission but that cannot be disabled.","","","false","","","","","","","","Type ""about:policies"" in the browser address bar. 
+
+If ""browser.contentblocking.category"" is not displayed with a value of ""strict"", this is a finding.","Windows group policy:
+1. Open the group policy editor tool with ""gpedit.msc"".
+2. Navigate to Policy Path: Computer Configuration\Administrative Templates\Mozilla\Firefox\
+Policy Name: Preferences
+Policy State: Enabled
+Policy Value:
+{
+  ""browser.contentblocking.category"": {
+    ""Value"": ""strict"",
+    ""Status"": ""locked""
+  }
+}
+
+macOS ""plist"" file:
+Add the following:
+<key>Preferences</key>
+<dict>
+  <key>browser.contentblocking.category</key>
+  <dict>
+    <key>Value</key>
+    <string>strict</string>
+    <key>Status</key>
+    <string>locked</string>
+  </dict>
+</dict>
+
+Linux ""policies.json"" file:
+Add the following in the policies section:
+""Preferences"": {
+  ""browser.contentblocking.category"": {
+    ""Value"": ""strict"",
+    ""Status"": ""locked""
+  }
+}","CCI-000381"
+"Mozilla Firefox Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via email to the following address: disa.stig_spt@mail.mil.","6","4 ","27 Oct 2022","Release: 4 Benchmark Date: 27 Oct 2022","STIG.DOD.MIL","terms-of-use","V-251570","SV-251570r820759_rule","FFOX-00-000026","medium","CAT II","","SRG-APP-000141","Firefox extension recommendations must be disabled.","<VulnDiscussion>The Recommended Extensions program makes it easier for users to discover extensions that have been reviewed for security, functionality, and user experience. Allowed extensions are to be centrally managed.</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","The Recommended Extensions program makes it easier for users to discover extensions that have been reviewed for security, functionality, and user experience. Allowed extensions are to be centrally managed.","","","false","","","","","","","","Type ""about:policies"" in the browser address bar. 
+
+If ""extensions.htmlaboutaddons.recommendations.enabled"" is not displayed with a value of ""false"", this is a finding.","Windows group policy:
+1. Open the group policy editor tool with ""gpedit.msc"".
+2. Navigate to Policy Path: Computer Configuration\Administrative Templates\Mozilla\Firefox\
+Policy Name: Preferences
+Policy State: Enabled
+Policy Value:
+{
+  ""extensions.htmlaboutaddons.recommendations.enabled"": {
+    ""Value"": false,
+    ""Status"": ""locked""
+  }
+}
+
+macOS ""plist"" file:
+Add the following:
+<key>Preferences</key>
+<dict>
+  <key>extensions.htmlaboutaddons.recommendations.enabled</key>
+  <dict>
+    <key>Value</key>
+    <false/>
+    <key>Status</key>
+    <string>locked</string>
+  </dict>
+</dict>
+
+Linux ""policies.json"" file:
+Add the following in the policies section:
+""Preferences"": {
+""extensions.htmlaboutaddons.recommendations.enabled"": {
+""Value"": false,
+""Status"": ""locked""
+},","CCI-000381"
+"Mozilla Firefox Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via email to the following address: disa.stig_spt@mail.mil.","6","4 ","27 Oct 2022","Release: 4 Benchmark Date: 27 Oct 2022","STIG.DOD.MIL","terms-of-use","V-251571","SV-251571r820762_rule","FFOX-00-000027","medium","CAT II","","SRG-APP-000141","Firefox deprecated ciphers must be disabled.","<VulnDiscussion>A weak cipher is defined as an encryption/decryption algorithm that uses a key of insufficient length. Using an insufficient length for a key in an encryption/decryption algorithm opens up the possibility (or probability) that the encryption scheme could be broken.</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","A weak cipher is defined as an encryption/decryption algorithm that uses a key of insufficient length. Using an insufficient length for a key in an encryption/decryption algorithm opens up the possibility (or probability) that the encryption scheme could be broken.","","","false","","","","","","","","Type ""about:policies"" in the browser address bar.
+
+If ""DisabledCiphers"" is not displayed under Policy Name or the Policy Value is not ""TLS_RSA_WITH_3DES_EDE_CBC_SHA"" with a value of  ""true"", this is a finding.","Windows group policy:
+1. Open the group policy editor tool with ""gpedit.msc"".
+2. Navigate to Policy Path: Computer Configuration\Administrative Templates\Mozilla\Firefox\Disabled Ciphers
+Policy Name: TLS_RSA_WITH_3DES_EDE_CBC_SHA
+Policy State: Enabled
+
+macOS ""plist"" file:
+Add the following:
+<key>DisabledCiphers</key>
+  <dict>
+    <key>TLS_RSA_WITH_3DES_EDE_CBC_SHA</key>
+    <true/>
+  </dict>
+
+Linux ""policies.json"" file:
+Add the following in the policies section:
+""DisabledCiphers"": {
+  ""TLS_RSA_WITH_3DES_EDE_CBC_SHA"": true
+}","CCI-000381"
+"Mozilla Firefox Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via email to the following address: disa.stig_spt@mail.mil.","6","4 ","27 Oct 2022","Release: 4 Benchmark Date: 27 Oct 2022","STIG.DOD.MIL","terms-of-use","V-251572","SV-251572r807188_rule","FFOX-00-000028","medium","CAT II","","SRG-APP-000141","Firefox must not recommend extensions as the user is using the browser.","<VulnDiscussion>The Recommended Extensions program recommends extensions to users as they surf the web.
+
+The user must not be encouraged to install extensions from the websites they visit. Allowed extensions are to be centrally managed.</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","The Recommended Extensions program recommends extensions to users as they surf the web.
+
+The user must not be encouraged to install extensions from the websites they visit. Allowed extensions are to be centrally managed.","","","false","","","","","","","","Type ""about:policies"" in the browser address bar. 
+
+If ""UserMessaging"" is not displayed under Policy Name or the Policy Value is not ""ExtensionRecommendations"" with a value of ""false"", this is a finding.","Windows group policy:
+1. Open the group policy editor tool with ""gpedit.msc"".
+2. Navigate to Policy Path: Computer Configuration\Administrative Templates\Mozilla\Firefox\User Messaging
+Policy Name: Extension Recommendations
+Policy State: Disabled
+
+macOS ""plist"" file:
+Add the following:
+<key>UserMessaging</key>
+<dict>
+  <key>ExtensionRecommendations</key>
+  <false/>
+</dict>
+
+Linux ""policies.json"" file:
+Add the following in the policies section:
+""UserMessaging"": {
+  ""ExtensionRecommendations"": false
+}","CCI-000381"
+"Mozilla Firefox Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via email to the following address: disa.stig_spt@mail.mil.","6","4 ","27 Oct 2022","Release: 4 Benchmark Date: 27 Oct 2022","STIG.DOD.MIL","terms-of-use","V-251573","SV-251573r822781_rule","FFOX-00-000029","medium","CAT II","","SRG-APP-000141","The Firefox New Tab page must not show Top Sites, Sponsored Top Sites, Pocket Recommendations, Sponsored Pocket Stories, Searches, Highlights, or Snippets.","<VulnDiscussion>The New Tab page by default shows a list of built-in top sites, as well as the top sites the user has visited.
+
+It is detrimental for applications to provide, or install by default, functionality exceeding requirements or mission objectives. These unnecessary capabilities or services are often overlooked and therefore may remain unsecured. They increase the risk to the platform by providing additional attack vectors.
+
+Applications are capable of providing a wide variety of functions and services. Some of the functions and services, provided by default, may not be necessary to support essential organizational operations (e.g., key missions, functions). 
+
+Examples of non-essential capabilities include but are not limited to advertising software or browser plug-ins that are not related to requirements or provide a wide array of functionality not required for every mission but that cannot be disabled.
+
+The new tab page must not actively show user activity.</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","The New Tab page by default shows a list of built-in top sites, as well as the top sites the user has visited.
+
+It is detrimental for applications to provide, or install by default, functionality exceeding requirements or mission objectives. These unnecessary capabilities or services are often overlooked and therefore may remain unsecured. They increase the risk to the platform by providing additional attack vectors.
+
+Applications are capable of providing a wide variety of functions and services. Some of the functions and services, provided by default, may not be necessary to support essential organizational operations (e.g., key missions, functions). 
+
+Examples of non-essential capabilities include but are not limited to advertising software or browser plug-ins that are not related to requirements or provide a wide array of functionality not required for every mission but that cannot be disabled.
+
+The new tab page must not actively show user activity.","","","false","","","","","","","","Type ""about:policies"" in the browser address bar. 
+
+If ""FirefoxHome"" is not displayed under Policy Name or the Policy Value does not have ""Search"" with a value of ""false"", this is a finding.
+If ""FirefoxHome"" is not displayed under Policy Name or the Policy Value does not have ""TopSites"" with a value of ""false"", this is a finding.
+If ""FirefoxHome"" is not displayed under Policy Name or the Policy Value does not have ""SponsoredTopSites"" with a value of ""false"", this is a finding.
+If ""FirefoxHome"" is not displayed under Policy Name or the Policy Value does not have ""Pocket"" with a value of ""false"", this is a finding.
+If ""FirefoxHome"" is not displayed under Policy Name or the Policy Value does not have ""SponsoredPocket"" with a value of ""false"", this is a finding.
+If ""FirefoxHome"" is not displayed under Policy Name or the Policy Value does not have ""Highlights"" with a value of ""false"", this is a finding.
+If ""FirefoxHome"" is not displayed under Policy Name or the Policy Value does not have ""Snippets"" with a value of ""false"", this is a finding.
+If ""FirefoxHome"" is not displayed under Policy Name or the Policy Value does not have ""Locked"" with a value of ""true"", this is a finding.","Windows group policy:
+1. Open the group policy editor tool with ""gpedit.msc"".
+2. Navigate to Policy Path: Computer Configuration\Administrative Templates\Mozilla\Firefox
+Policy Name: Customize Firefox Home
+Policy State: Enabled
+Policy Value: Uncheck ""Search""
+Policy Value: Uncheck ""Top Sites""
+Policy Value: Uncheck ""Sponsored Top Sites""
+Policy Value: Uncheck ""Recommended by Pocket""
+Policy Value: Uncheck ""Sponsored Pocket Stories""
+Policy Value: Uncheck ""Download History""
+Policy Value: Uncheck ""Snippets""
+Policy Value: Check ""Do not allow settings to be changed""
+
+macOS ""plist"" file:
+Add the following:
+<key>FirefoxHome</key>
+<dict>
+<key>Search</key>
+  <false/>
+<key>TopSites</key>
+  <false/>
+<key>SponsoredTopSites</key>
+  <false/>
+<key>Pocket</key>
+  <false/>
+<key>SponsoredPocket</key>
+  <false/>
+<key>Highlights</key>
+  <false/>
+<key>Snippets</key>
+  <false/>
+<key>Locked</key>
+  <true/>
+</dict>
+
+Linux ""policies.json"" file:
+Add the following in the policies section:
+""FirefoxHome"": {
+  ""Search"": false,
+  ""TopSites"": false,
+  ""SponsoredTopSites"": false,
+  ""Pocket"": false,
+  ""SponsoredPocket"": false,
+  ""Highlights"": false,
+  ""Snippets"": false,
+  ""locked"": true
+}","CCI-000381"
+"Mozilla Firefox Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via email to the following address: disa.stig_spt@mail.mil.","6","4 ","27 Oct 2022","Release: 4 Benchmark Date: 27 Oct 2022","STIG.DOD.MIL","terms-of-use","V-251577","SV-251577r807203_rule","FFOX-00-000033","medium","CAT II","","SRG-APP-000141","Firefox must be configured so that DNS over HTTPS is disabled.","<VulnDiscussion>DNS over HTTPS has generally not been adopted in the DoD. DNS is tightly controlled.
+
+It is detrimental for applications to provide, or install by default, functionality exceeding requirements or mission objectives. These unnecessary capabilities or services are often overlooked and therefore may remain unsecured. They increase the risk to the platform by providing additional attack vectors.
+
+Applications are capable of providing a wide variety of functions and services. Some of the functions and services, provided by default, may not be necessary to support essential organizational operations (e.g., key missions, functions). 
+
+Examples of non-essential capabilities include, but are not limited to, advertising software or browser plug-ins not related to requirements or providing a wide array of functionality not required for every mission, but cannot be disabled.</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","DNS over HTTPS has generally not been adopted in the DoD. DNS is tightly controlled.
+
+It is detrimental for applications to provide, or install by default, functionality exceeding requirements or mission objectives. These unnecessary capabilities or services are often overlooked and therefore may remain unsecured. They increase the risk to the platform by providing additional attack vectors.
+
+Applications are capable of providing a wide variety of functions and services. Some of the functions and services, provided by default, may not be necessary to support essential organizational operations (e.g., key missions, functions). 
+
+Examples of non-essential capabilities include, but are not limited to, advertising software or browser plug-ins not related to requirements or providing a wide array of functionality not required for every mission, but cannot be disabled.","","","false","","","","","","","","Type ""about:policies"" in the browser address bar. 
+
+If ""DNSOverHTTPS"" is not displayed under Policy Name or the Policy Value does not have ""Enabled"" with a value of ""false"", this is a finding.","Windows group policy:
+1. Open the group policy editor tool with ""gpedit.msc"".
+2. Navigate to Policy Path: Computer Configuration\Administrative Templates\Mozilla\Firefox\DNS Over HTTPS
+Policy Name: Enabled
+Policy State: Disabled
+
+macOS ""plist"" file:
+<key>DNSOverHTTPS</key>
+  <dict>
+    <key>Enabled</key>
+    <false/>
+
+Linux ""policies.json"" file:
+Add the following in the policies section:
+""DNSOverHTTPS"": {""Enabled"": false}","CCI-000381"
+"Mozilla Firefox Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via email to the following address: disa.stig_spt@mail.mil.","6","4 ","27 Oct 2022","Release: 4 Benchmark Date: 27 Oct 2022","STIG.DOD.MIL","terms-of-use","V-251578","SV-251578r807206_rule","FFOX-00-000034","medium","CAT II","","SRG-APP-000141","Firefox accounts must be disabled.","<VulnDiscussion>Disable Firefox Accounts integration (Sync). 
+
+It is detrimental for applications to provide, or install by default, functionality exceeding requirements or mission objectives. These unnecessary capabilities or services are often overlooked and therefore may remain unsecured. They increase the risk to the platform by providing additional attack vectors.
+
+Applications are capable of providing a wide variety of functions and services. Some of the functions and services, provided by default, may not be necessary to support essential organizational operations (e.g., key missions, functions). 
+
+Examples of non-essential capabilities include but are not limited to advertising software or browser plug-ins that are not related to requirements or provide a wide array of functionality not required for every mission but that cannot be disabled.</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","Disable Firefox Accounts integration (Sync). 
+
+It is detrimental for applications to provide, or install by default, functionality exceeding requirements or mission objectives. These unnecessary capabilities or services are often overlooked and therefore may remain unsecured. They increase the risk to the platform by providing additional attack vectors.
+
+Applications are capable of providing a wide variety of functions and services. Some of the functions and services, provided by default, may not be necessary to support essential organizational operations (e.g., key missions, functions). 
+
+Examples of non-essential capabilities include but are not limited to advertising software or browser plug-ins that are not related to requirements or provide a wide array of functionality not required for every mission but that cannot be disabled.","","","false","","","","","","","","Type ""about:policies"" in the browser address bar. 
+
+If ""DisableFirefoxAccounts"" is not displayed under Policy Name or the Policy Value is not ""true"", this is a finding.","Windows group policy:
+1. Open the group policy editor tool with ""gpedit.msc"".
+2. Navigate to Policy Path: Computer Configuration\Administrative Templates\Mozilla\Firefox\
+Policy Name: Disable Firefox Accounts
+Policy State: Enabled
+
+macOS ""plist"" file:
+<key>DisableFirefoxAccounts</key>
+  <true/> 
+
+Linux ""policies.json"" file:
+Add the following in the policies section:
+""DisableFirefoxAccounts"": true","CCI-000381"
+"Mozilla Firefox Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via email to the following address: disa.stig_spt@mail.mil.","6","4 ","27 Oct 2022","Release: 4 Benchmark Date: 27 Oct 2022","STIG.DOD.MIL","terms-of-use","V-251580","SV-251580r809561_rule","FFOX-00-000036","medium","CAT II","","SRG-APP-000141","Firefox feedback reporting must be disabled.","<VulnDiscussion>Disable the menus for reporting sites (Submit Feedback, Report Deceptive Site). 
+
+It is detrimental for applications to provide, or install by default, functionality exceeding requirements or mission objectives. These unnecessary capabilities or services are often overlooked and therefore may remain unsecured. They increase the risk to the platform by providing additional attack vectors.
+
+Applications are capable of providing a wide variety of functions and services. Some of the functions and services, provided by default, may not be necessary to support essential organizational operations (e.g., key missions, functions). 
+
+Examples of non-essential capabilities include but are not limited to advertising software or browser plug-ins that are not related to requirements or provide a wide array of functionality not required for every mission but that cannot be disabled.</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","Disable the menus for reporting sites (Submit Feedback, Report Deceptive Site). 
+
+It is detrimental for applications to provide, or install by default, functionality exceeding requirements or mission objectives. These unnecessary capabilities or services are often overlooked and therefore may remain unsecured. They increase the risk to the platform by providing additional attack vectors.
+
+Applications are capable of providing a wide variety of functions and services. Some of the functions and services, provided by default, may not be necessary to support essential organizational operations (e.g., key missions, functions). 
+
+Examples of non-essential capabilities include but are not limited to advertising software or browser plug-ins that are not related to requirements or provide a wide array of functionality not required for every mission but that cannot be disabled.","","","false","","","","","","","","Type ""about:policies"" in the browser address bar. 
+
+If ""DisableFeedbackCommands"" is not displayed under Policy Name or the Policy Value is not ""true"", this is a finding.","Windows group policy:
+1. Open the group policy editor tool with ""gpedit.msc"".
+2. Navigate to Policy Path: Computer Configuration\Administrative Templates\Mozilla\Firefox\
+Policy Name: Disable Feedback Commands
+Policy State: Enabled
+
+macOS ""plist"" file:
+<key>DisableFeedbackCommands</key>
+  <true/>
+
+Linux ""policies.json"" file:
+Add the following in the policies section:
+""DisableFeedbackCommands"": true","CCI-000381"
+"Mozilla Firefox Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via email to the following address: disa.stig_spt@mail.mil.","6","4 ","27 Oct 2022","Release: 4 Benchmark Date: 27 Oct 2022","STIG.DOD.MIL","terms-of-use","V-251581","SV-251581r807215_rule","FFOX-00-000037","medium","CAT II","","SRG-APP-000141","Firefox encrypted media extensions must be disabled.","<VulnDiscussion>Enable or disable Encrypted Media Extensions and optionally lock it.
+
+If ""Enabled"" is set to ""false"", Firefox does not download encrypted media extensions (such as Widevine) unless the user consents to installing them.
+
+If ""Locked"" is set to ""true"" and ""Enabled"" is set to ""false"", Firefox will not download encrypted media extensions (such as Widevine) or ask the user to install them.
+
+It is detrimental for applications to provide, or install by default, functionality exceeding requirements or mission objectives. These unnecessary capabilities or services are often overlooked and therefore may remain unsecured. They increase the risk to the platform by providing additional attack vectors.
+
+Applications are capable of providing a wide variety of functions and services. Some of the functions and services, provided by default, may not be necessary to support essential organizational operations (e.g., key missions, functions). 
+
+Examples of non-essential capabilities include but are not limited to advertising software or browser plug-ins that are not related to requirements or provide a wide array of functionality not required for every mission but that cannot be disabled.</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","Enable or disable Encrypted Media Extensions and optionally lock it.
+
+If ""Enabled"" is set to ""false"", Firefox does not download encrypted media extensions (such as Widevine) unless the user consents to installing them.
+
+If ""Locked"" is set to ""true"" and ""Enabled"" is set to ""false"", Firefox will not download encrypted media extensions (such as Widevine) or ask the user to install them.
+
+It is detrimental for applications to provide, or install by default, functionality exceeding requirements or mission objectives. These unnecessary capabilities or services are often overlooked and therefore may remain unsecured. They increase the risk to the platform by providing additional attack vectors.
+
+Applications are capable of providing a wide variety of functions and services. Some of the functions and services, provided by default, may not be necessary to support essential organizational operations (e.g., key missions, functions). 
+
+Examples of non-essential capabilities include but are not limited to advertising software or browser plug-ins that are not related to requirements or provide a wide array of functionality not required for every mission but that cannot be disabled.","","","false","","","","","","","","Type ""about:policies"" in the browser address bar. 
+
+If ""EncryptedMediaExtensions"" is not displayed under Policy Name or the Policy Value does not have ""Enabled"" set to ""false"" or the Policy Value does not have ""Locked"" set to ""true"", this is a finding.","Windows group policy:
+1. Open the group policy editor tool with ""gpedit.msc"".
+2. Navigate to Policy Path: Computer Configuration\Administrative Templates\Mozilla\Firefox\Encrypted Media Extensions
+Policy Name: Enable Encrypted Media Extensions
+Policy State: Disabled
+Policy Name: Lock Encrypted Media Extensions
+Policy State: Enabled
+
+macOS ""plist"" file:
+<key>EncryptedMediaExtensions</key>
+  <dict>
+    <key>Enabled</key>
+    <false/>
+    <key>Locked</key>
+    <true/> 
+
+Linux ""policies.json"" file:
+Add the following in the policies section:
+""EncryptedMediaExtensions"": {
+  ""Enabled"": false,
+  ""Locked"": true
+}","CCI-000381"
+"Mozilla Firefox Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via email to the following address: disa.stig_spt@mail.mil.","6","4 ","27 Oct 2022","Release: 4 Benchmark Date: 27 Oct 2022","STIG.DOD.MIL","terms-of-use","V-252881","SV-252881r820757_rule","FFOX-00-000017","medium","CAT II","","SRG-APP-000141","Firefox must be configured to not delete data upon shutdown.","<VulnDiscussion>For diagnostic purposes, data must remain behind when the browser is closed. This is required to meet non-repudiation controls.</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","For diagnostic purposes, data must remain behind when the browser is closed. This is required to meet non-repudiation controls.","","","false","","","","","","","","Type ""about:policies"" in the browser address bar. 
+
+If ""SanitizeOnShutdown"" is not displayed under Policy Name or the Policy Value does not have {""Cache"":false,""Cookies"":false,""Downloads"":false,""FormData"":false,""Sessions"":false,""History"":false,""OfflineApps"":false,""SiteSettings"":false,""Locked"":true}, this is a finding.","Windows group policy:
+1. Open the group policy editor tool with ""gpedit.msc"".
+2. Navigate to Policy Path: Computer Configuration\Administrative Templates\Mozilla\Firefox\Clear data when browser is closed
+Policy Name: Cache, Cookies, Download History, Form & Search History, Browsing History, Active Logins, Site Preferences, Offline Website Data
+Policy State: Disabled
+Policy Name: Locked
+Policy State: Enabled
+
+macOS ""plist"" file:
+Add the following:
+<key>SanitizeOnShutdown</key>
+<dict>
+  <key>Cache</key>
+  <false/>
+  <key>Cookies</key>
+  <false/>
+  <key>Downloads</key>
+  <false/>
+  <key>FormData</key>
+  <false/>
+  <key>History</key>
+  <false/>
+  <key>Sessions</key>
+  <false/>
+  <key>SiteSettings</key>
+  <false/>
+  <key>OfflineApps</key>
+  <false/>
+  <key>Locked</key>
+  <true/>
+</dict>
+
+Linux ""policies.json"" file:
+Add the following in the policies section:
+""SanitizeOnShutdown"": {
+  ""Cache"": false,
+  ""Cookies"": false,
+  ""Downloads"": false,
+  ""FormData"": false,
+  ""History"": false,
+  ""Sessions"": false,
+  ""SiteSettings"": false,
+  ""OfflineApps"": false,
+  ""Locked"": true 
+}","CCI-000381"
+"Mozilla Firefox Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via email to the following address: disa.stig_spt@mail.mil.","6","4 ","27 Oct 2022","Release: 4 Benchmark Date: 27 Oct 2022","STIG.DOD.MIL","terms-of-use","V-252908","SV-252908r836395_rule","FFOX-00-000038","medium","CAT II","","SRG-APP-000141","Pocket must be disabled.","<VulnDiscussion>Pocket, previously known as Read It Later, is a social bookmarking service for storing, sharing, and discovering web bookmarks. Data gathering cloud services such as this are generally disabled in the DoD.</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","Pocket, previously known as Read It Later, is a social bookmarking service for storing, sharing, and discovering web bookmarks. Data gathering cloud services such as this are generally disabled in the DoD.","","","false","","","","","","","","Type ""about:policies"" in the browser address bar. 
+
+If ""DisablePocket"" is not displayed under Policy Name or the Policy Value does not have a value of ""true"", this is a finding.","Windows group policy:
+1. Open the group policy editor tool with ""gpedit.msc"".
+2. Navigate to Policy Path: Computer Configuration\Administrative Templates\Mozilla\Firefox
+Policy Name: Disable Pocket
+Policy State: Enabled
+
+macOS ""plist"" file:
+<key>DisablePocket</key>
+ <true/>
+
+Linux ""policies.json"" file:
+Add the following in the policies section:
+""DisablePocket"": true","CCI-000381"
+"Mozilla Firefox Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via email to the following address: disa.stig_spt@mail.mil.","6","4 ","27 Oct 2022","Release: 4 Benchmark Date: 27 Oct 2022","STIG.DOD.MIL","terms-of-use","V-252909","SV-252909r836408_rule","FFOX-00-000039","medium","CAT II","","SRG-APP-000141","Firefox Studies must be disabled.","<VulnDiscussion>Studies try out different features and ideas before they are released to all Firefox users. Testing beta software is not in the DoD user's mission.</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","Studies try out different features and ideas before they are released to all Firefox users. Testing beta software is not in the DoD user's mission.","","","false","","","","","","","","Type ""about:policies"" in the browser address bar. 
+
+If ""DisableFirefoxStudies"" is not displayed under Policy Name or the Policy Value does not have a value of ""true"", this is a finding.","Windows group policy:
+1. Open the group policy editor tool with ""gpedit.msc"".
+2. Navigate to Policy Path: Computer Configuration\Administrative Templates\Mozilla\Firefox
+Policy Name: Disable Firefox Studies
+Policy State: Enabled
+
+macOS ""plist"" file:
+<key>DisableFirefoxStudies</key>
+ <true/>
+
+Linux ""policies.json"" file:
+Add the following in the policies section:
+""DisableFirefoxStudies"": true","CCI-000381"

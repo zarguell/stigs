@@ -1,0 +1,66 @@
+"Title","Description","Version","Release","BenchmarkDate","ReleaseInfo","Source","Notice","Rule_VulnID","Rule_RuleID","Rule_StigID","Rule_Severity","Rule_Cat","Rule_Classification","Rule_GroupTitle","Rule_RuleTitle","Rule_Description","Rule_VulnDiscussion","Rule_FalsePositives","Rule_FalseNegatives","Rule_Documentable","Rule_Mitigations","Rule_SeverityOverrideGuidance","Rule_PotentialImpacts","Rule_ThirdPartyTools","Rule_MitigationControl","Rule_Responsibility","Rule_IAControls","Rule_CheckText","Rule_FixText","Rule_CCI"
+"z/OS BMC CONTROL-M/Restart for ACF2 Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via email to the following address: disa.stig_spt@mail.mil.","6","6 ","23 Nov 2022","Release: 6 Benchmark Date: 23 Nov 2022","STIG.DOD.MIL","terms-of-use","V-224121","SV-224121r868156_rule","ZCTRA000","medium","CAT II","","SRG-OS-000080","BMC CONTROL-M/Restart installation data sets will be properly protected.","<VulnDiscussion>BMC CONTROL-M/Restart installation data sets have the ability to use privileged functions and/or have access to sensitive data. Failure to properly restrict access to these data sets could result in violating the integrity of the base product which could result in compromising the operating system or sensitive data.</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","BMC CONTROL-M/Restart installation data sets have the ability to use privileged functions and/or have access to sensitive data. Failure to properly restrict access to these data sets could result in violating the integrity of the base product which could result in compromising the operating system or sensitive data.","","","false","","","","","","","","Refer to the following report produced by the Data Set and Resource Data Collection:
+
+- SENSITVE.RPT(CTRRPT)
+
+Automated Analysis
+Refer to the following report produced by the Data Set and Resource Data Collection:
+
+- PDI(ZCTR0000)
+
+Verify that the accesses to the BMC CONTROL-M/Restart installation data sets are properly restricted. If the following guidance is true, this is not a finding.
+ 
+___ The ACF2 data set access authorizations restrict READ access to auditors, BMC users, and BMC STCs and/or batch users.
+
+___ The ACF2 data set access authorizations restrict WRITE and/or greater access to systems programming personnel.
+
+___ The ACF2 data set access authorizations specify that all (i.e., failures and successes) WRITE and/or greater access are logged.","The ISSO will ensure that WRITE and/or greater access to BMC CONTROL-M/Restart installation data sets are limited to systems programmers only, and all WRITE and/or greater access is logged. READ access can be given to auditors, BMC users, and BMC STCs and/or batch users. All failures and successful WRITE and/or greater accesses are logged.
+
+The installing systems programmer will identify and document the product data sets and categorize them according to who will have update and alter access and if required that all update and allocate access is logged. The installing systems programmer will identify if any additional groups have update and/or alter access for specific data sets, and once documented will work with the ISSO to ensure they are properly restricted to the ACP (Access Control Program) active on the system.
+
+(Note: The data sets and/or data set prefixes identified below are examples of a possible installation. The actual data sets and/or prefixes are determined when the product is actually installed on a system through the product's installation guide and can be site specific.)
+
+Data sets to be protected will be: 
+SYS2.IOA.*.CTRO.
+
+The following commands are provided as a sample for implementing data set controls: 
+
+$KEY(SYS2)
+IOA.-.CTRO.-  UID(<syspaudt>) R(A) W(L) A(L) E(A)
+IOA.-.CTRO.-  UID(<audtaudt>) R(A)  E(A)
+IOA.-.CTRO.-  UID(<bmcuser>) R(A)  E(A)
+IOA.-.CTRO.-  UID(CONTROLR) R(A)  E(A)","V-16932,SV-31831,CCI-000213,CCI-002234"
+"z/OS BMC CONTROL-M/Restart for ACF2 Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via email to the following address: disa.stig_spt@mail.mil.","6","6 ","23 Nov 2022","Release: 6 Benchmark Date: 23 Nov 2022","STIG.DOD.MIL","terms-of-use","V-224122","SV-224122r868159_rule","ZCTRA002","medium","CAT II","","SRG-OS-000080","BMC CONTROL-M/Restart Archived Sysout data sets must be properly protected.","<VulnDiscussion>BMC CONTROL-M/Restart Archived Sysout data sets have the ability to use privileged functions and/or have access to sensitive data. Failure to properly restrict access to these data sets could result in violating the integrity of the base product which could result in compromising the operating system or sensitive data.</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","BMC CONTROL-M/Restart Archived Sysout data sets have the ability to use privileged functions and/or have access to sensitive data. Failure to properly restrict access to these data sets could result in violating the integrity of the base product which could result in compromising the operating system or sensitive data.","","","false","","","","","","","","Refer to the following report produced by the Data Set and Resource Data Collection:
+
+- SENSITVE.RPT(CTRUSER)
+
+Automated Analysis
+Refer to the following report produced by the Data Set and Resource Data Collection:
+
+- PDI(ZCTR0002)
+
+Verify that the accesses to the BMC CONTROL-M/Restart Archived Sysout data sets are properly restricted. If the following guidance is true, this is not a finding.
+
+___ The ACF2 data set access authorizations restrict READ access to auditors and BMC Users.
+
+___ The ACF2 data set access authorizations restrict WRITE and/or greater access to Production Control Scheduling personnel, scheduled batch user(s), systems programming personnel, and the BMC STCs and/or batch users.","Ensure that WRITE and/or greater access to BMC CONTROL-M/Restart Archived Sysout data sets are limited to production control scheduling personnel, scheduled batch users, systems programmers, and the BMC STCs and/or batch users only. READ access can be given to auditors and BMC users.
+
+The installing systems programmer will identify and document the product data sets and categorize them according to who will have update and alter access and if required that all update and allocate access is logged. 
+
+The installing systems programmer will identify if any additional groups have update and/or alter access for specific data sets, and once documented will work with the ISSO to ensure they are properly restricted to the ACP (Access Control Program) active on the system.
+
+(Note: The data sets and/or data set prefixes identified below are examples of a possible installation. The actual data sets and/or prefixes are determined when the product is actually installed on a system through the product's installation guide and can be site specific.)
+
+Data sets to be protected will be: 
+CTRSYS.
+
+The following commands are provided as a sample for implementing data set controls: 
+
+$KEY(CTRSYS)
+- UID(<syspaudt>) R(A) W(A) A(A) E(A)
+- UID(CONTROLM) R(A) W(A) A(A) E(A)
+- UID(CONTDAY) R(A) W(A) A(A) E(A)
+- UID(<audtaudt>) R(A) E(A)
+- UID(<bmcuser>) R(A) E(A)
+- UID(<autoaudt>) R(A) W(A) A(A) E(A)
+- UID(<pcspaudt>) R(A) W(A) A(A) E(A)","V-21592,SV-32218,CCI-000213"

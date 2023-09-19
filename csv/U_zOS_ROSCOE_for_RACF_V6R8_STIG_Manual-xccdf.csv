@@ -1,0 +1,218 @@
+"Title","Description","Version","Release","BenchmarkDate","ReleaseInfo","Source","Notice","Rule_VulnID","Rule_RuleID","Rule_StigID","Rule_Severity","Rule_Cat","Rule_Classification","Rule_GroupTitle","Rule_RuleTitle","Rule_Description","Rule_VulnDiscussion","Rule_FalsePositives","Rule_FalseNegatives","Rule_Documentable","Rule_Mitigations","Rule_SeverityOverrideGuidance","Rule_PotentialImpacts","Rule_ThirdPartyTools","Rule_MitigationControl","Rule_Responsibility","Rule_IAControls","Rule_CheckText","Rule_FixText","Rule_CCI"
+"z/OS ROSCOE for RACF Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via email to the following address: disa.stig_spt@mail.mil.","6","8 ","23 Nov 2022","Release: 8 Benchmark Date: 23 Nov 2022","STIG.DOD.MIL","terms-of-use","V-224528","SV-224528r855199_rule","ZROSR000","medium","CAT II","","SRG-OS-000080","ROSCOE Install data sets are not properly protected.","<VulnDiscussion>ROSCOE Install data sets provide the capability to use privileged functions and/or have access to sensitive data. Failure to properly restrict access to their data sets could result in violating the integrity of the base product which could result in compromising the operating system or sensitive data.</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","ROSCOE Install data sets provide the capability to use privileged functions and/or have access to sensitive data. Failure to properly restrict access to their data sets could result in violating the integrity of the base product which could result in compromising the operating system or sensitive data.","","","false","","","","","","","","a)	Refer to the following report produced by the Data Set and Resource Data Collection:
+
+-	SENSITVE.RPT(ROSRPT)
+
+Automated Analysis
+Refer to the following report produced by the Data Set and Resource Data Collection:
+
+-	PDI(ZROS0000)
+
+b)	Verify that access to the ROSCOE Install data set are properly restricted.
+ 
+___	The RACF data set rules for the data sets does not restrict UPDATE and/or ALTER access to systems programming personnel.
+
+___	The RACF data set rules for the data sets does not specify that all (i.e., failures and successes) UPDATE and/or ALTER access will be logged.
+
+c)	If all of the above are untrue, there is NO FINDING.
+
+d)	If any of the above is true, this is a FINDING.","The IAO will ensure that update and alter access to program product data sets is limited to System Programmers, Security Personnel and Auditors only,  and all update and allocate access is logged.
+
+The installing Systems Programmer will identify and document the product data sets and categorize them according to who will have update and alter access and if required that all update and alter access is logged. He will identify if any additional groups have update access for specific data sets, and once documented he will work with the IAO to see that they are properly restricted to the ACP (Access Control Program ) active on the system.
+
+Data set prefix to be protected will be:
+
+SYS2.ROSCOE.
+SYS2A.ROSCOE.
+SYS3.ROSCOE.
+SYS3A.ROSCOE.
+
+The following commands are provided as a sample for implementing dataset controls: 
+
+ad 'sys2.roscoe.**' uacc(none) owner(sys2) -
+	audit(success(update) failures(read)) -
+	data('Vendor DS Profile: ROSCOE')
+pe 'sys2.roscoe.**' id(syspaudt) acc(a)
+pe 'sys2.roscoe.**' id(*) acc(r)
+ad 'sys2a.roscoe.**' uacc(none) owner(sys2a) -
+	audit(success(update) failures(read)) -
+	data('Roscoe Vendor Datasets')
+pe 'sys2a.roscoe.**' id(<syspaudt>) acc(a)
+pe 'sys2a.roscoe.**' id(*) acc(r)
+ad 'sys3.roscoe.**' uacc(none) owner(sys3) -
+	audit(success(update) failures(read)) -
+	data('Roscoe Vendor Datasets')
+pe 'sys3.roscoe.**' id(<syspaudt>) acc(a)
+pe 'sys3.roscoe.**' id(*) acc(r)
+ad 'sys3a.roscoe.**' uacc(none) owner(sys3a) -
+	audit(success(update) failures(read)) -
+	data('Roscoe Vendor Datasets')
+pe 'sys3a.roscoe.**' id(<syspaudt>) acc(a)
+pe 'sys3a.roscoe.**' id(*) acc(r)
+setr generic(dataset) refresh","V-16932,SV-21927,CCI-000213,CCI-002234"
+"z/OS ROSCOE for RACF Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via email to the following address: disa.stig_spt@mail.mil.","6","8 ","23 Nov 2022","Release: 8 Benchmark Date: 23 Nov 2022","STIG.DOD.MIL","terms-of-use","V-224529","SV-224529r520837_rule","ZROSR001","medium","CAT II","","SRG-OS-000259","ROSCOE STC data sets are not properly protected.","<VulnDiscussion>ROSCOE STC data sets provide the capability to use privileged functions and/or have access to sensitive data. Failure to properly restrict access to their data sets could result in violating the integrity of the base product which could result in compromising the operating system or sensitive data.</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","ROSCOE STC data sets provide the capability to use privileged functions and/or have access to sensitive data. Failure to properly restrict access to their data sets could result in violating the integrity of the base product which could result in compromising the operating system or sensitive data.","","","false","","","","","","","","a)	Refer to the following report produced by the Data Set and Resource Data Collection:
+
+-	SENSITVE.RPT(ROSSTC)
+
+Automated Analysis
+Refer to the following report produced by the Data Set and Resource Data Collection:
+
+-	PDI(ZROS0001)
+
+b)	Verify that access to the ROSCOE STC data sets are properly restricted.  The data sets in this group are the data sets identified in the ROSACTxx (if used), ROSLIBxx, and SYSAWSx DD statements of the STC or batch JCL.
+ 
+___	The RACF data set rules for the data sets does not restrict UPDATE and/or ALTER access to systems programming personnel.
+
+___	The RACF data set rules for the data sets does not restrict UPDATE and/or ALTER access to the product STC(s) and/or batch job(s).
+
+c)	If all of the above are untrue, there is NO FINDING.
+
+d)	If any of the above is true, this is a FINDING.","The IAO will ensure that update and alter access to the ROSCOE started task or batch job data sets is limited to system programmers and the started task only and all update and alter access is logged.
+
+The IAO will ensure that all other accesses to the ROSCOE started task or batch job data sets are properly restricted and all required accesses are properly logged.
+
+Data sets to be protected will be
+
+SYS3.ROSCOE.sys*.**
+SYS3.ROSCOE.ros*.**
+
+The following commands are provided as a sample for implementing dataset controls: 
+
+ad 'sys3.roscoe.ros*.**' uacc(none) owner(sys3) -
+	audit(success(update) failures(read)) -
+	data('Site Customized Profile: ROSCOE')
+pe 'sys3.roscoe.ros*.**' id(syspaudt) acc(a)
+pe 'sys3.roscoe.ros*.**' id(roscoe) acc(a)
+ad 'sys3.roscoe.sys*.**' uacc(none) owner(sys3) -
+	audit(success(update) failures(read)) -
+	data('Site Customized profile: ROSCOE')
+pe 'sys3.roscoe.sys*.**' id(syspaudt) acc(a)
+pe 'sys3.roscoe.sys*.**' id(roscoe) acc(a)
+setr generic(dataset) refresh","V-17067,SV-23706,CCI-001499"
+"z/OS ROSCOE for RACF Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via email to the following address: disa.stig_spt@mail.mil.","6","8 ","23 Nov 2022","Release: 8 Benchmark Date: 23 Nov 2022","STIG.DOD.MIL","terms-of-use","V-224530","SV-224530r868542_rule","ZROSR020","medium","CAT II","","SRG-OS-000018","ROSCOE resources must be properly defined and protected.","<VulnDiscussion>ROSCOE can run with sensitive system privileges, and potentially can circumvent system controls. Failure to properly control access to product resources could result in the compromise of the operating system environment, and compromise the confidentiality and integrity of customer data. Many utilities assign resource controls that can be granted to systems programmers only in greater than read authority. Resources are also granted to certain non systems personnel with read only authority.</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","ROSCOE can run with sensitive system privileges, and potentially can circumvent system controls. Failure to properly control access to product resources could result in the compromise of the operating system environment, and compromise the confidentiality and integrity of customer data. Many utilities assign resource controls that can be granted to systems programmers only in greater than read authority. Resources are also granted to certain non systems personnel with read only authority.","","","false","","","","","","","","Refer to the following report produced by the Data Set and Resource Data Collection:
+
+- SENSITVE.RPT(ZROS0020)
+
+Automated Analysis
+Refer to the following report produced by the Data Set and Resource Data Collection:
+
+- PDI(ZROS0020)
+
+Ensure that all ROSCOE resources and/or generic equivalent are properly protected according to the requirements specified in CA ROSCOE Resources table in the z/OS STIG Addendum. If the following guidance is true, this is not a finding.
+
+___ The RACF resource access authorizations restrict access to the appropriate personnel.
+
+___ The RACF resource logging is correctly specified.
+
+___ The RACF resource access authorizations are defined with UACC(NONE) and NOWARNING.","The ISSO will work with the systems programmer to verify that the following are properly specified in the ACP.
+
+(Note: The resources and/or resource prefixes identified below are examples of a possible installation. The actual resources and/or resource prefixes are determined when the product is actually installed on a system through the product's installation guide and can be site specific.)
+
+Ensure that all ROSCOE resources and/or generic equivalent are properly protected according to the requirements specified in CA ROSCOE Resources table in the z/OS STIG Addendum.
+
+Use CA ROSCOE Resources table in the z/OS STIG Addendum. This table lists the resources, access requirements, and logging requirements for ROSCOE ensure the following guidelines are followed:
+
+The RACF resource access authorizations restrict access to the appropriate personnel.
+
+The RACF resource logging is correctly specified.
+
+The RACF resource access authorizations specify UACC(NONE) and NOWARNING.
+
+The following commands are provided as a sample for implementing resource controls:
+
+RDEFINE RO@RES rosid.** UACC(NONE) OWNER(ADMIN) AUDIT(FAILURE(READ))
+RDEFINE RO@RES rosid.ROSCMD.** UACC(NONE) OWNER(ADMIN) AUDIT(FAILURE(READ))
+RDEFINE RO@RES rosid.ROSCMD.MONITOR.** UACC(NONE) OWNER(ADMIN) AUDIT(FAILURE(READ))
+RDEFINE RO@RES rosid.ROSCMD.ETSO UACC(NONE) OWNER(ADMIN) AUDIT(FAILURE(READ))
+RDEFINE RO@RES rosid.ROSCMD.MONITOR.AMS UACC(NONE) OWNER(ADMIN) AUDIT(FAILURE(READ))
+
+PE rosid.ROSCMD.ETSO CLASS(RO@RES) ID(*) ACCESS(READ)
+PE rosid.ROSCMD.MONITOR.- CLASS(RO@RES) ID(syspaudt) ACCESS(ALTER)
+PE rosid.ROSCMD.MONITOR.AMS CLASS(RO@RES) ID(syspaudt) ACCESS(ALTER)
+PE rosid.ROSCMD.MONITOR.AMS CLASS(RO@RES) ID(*) ACCESS(READ)
+PE rosid.ROSCMD.- CLASS(RO@RES) ID(syspaudt) ACCESS(ALTER)","V-17947,SV-23708,CCI-000035,CCI-002234"
+"z/OS ROSCOE for RACF Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via email to the following address: disa.stig_spt@mail.mil.","6","8 ","23 Nov 2022","Release: 8 Benchmark Date: 23 Nov 2022","STIG.DOD.MIL","terms-of-use","V-224531","SV-224531r520843_rule","ZROSR030","medium","CAT II","","SRG-OS-000104","ROSCOE Started Task name is not properly identified / defined to the system ACP.","<VulnDiscussion>Products that require a started task will require that the started task be restricted to certain resources, datasets and other system functions. By defining the started task as a userid to the system ACP, It allows the ACP to control the access and authorized users that require these capabilities. Failure to properly control these capabilities, could compromise of the operating system environment, ACP, and customer data.      </VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","Products that require a started task will require that the started task be restricted to certain resources, datasets and other system functions. By defining the started task as a userid to the system ACP, It allows the ACP to control the access and authorized users that require these capabilities. Failure to properly control these capabilities, could compromise of the operating system environment, ACP, and customer data.      ","","","false","","","","","","","","a)	Refer to the following report produced by the RACF Data Collection:
+
+-	RACFCMDS.RPT(LISTUSER)
+
+b)	If the Product started task(s) or Product batch job userid(s) is defined and is assigned the RACF PROTECTED attribute, there is NO FINDING.
+
+c)	If the above is untrue, than this is a FINDING.","The ROSCOE system programmer and the IAO will ensure that a product's Started Task(s) is properly Identified / defined to the System ACP. 
+
+If the product requires a Started Task, verify that it is properly defined to the System ACP with the proper attributes.
+
+Most installation manuals will indicate how the Started Task is identified and any additional attributes that must be specified.
+
+A sample is provided here:
+
+au roscoe name('stc, roscoe') owner(stc) dfltgrp(stc) nopass","V-17452,SV-23710,CCI-000764"
+"z/OS ROSCOE for RACF Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via email to the following address: disa.stig_spt@mail.mil.","6","8 ","23 Nov 2022","Release: 8 Benchmark Date: 23 Nov 2022","STIG.DOD.MIL","terms-of-use","V-224532","SV-224532r520846_rule","ZROSR032","medium","CAT II","","SRG-OS-000104","ROSCOE Started task(s) must be properly defined to the STARTED resource class for RACF.","<VulnDiscussion>Access to product resources should be restricted to only those individuals responsible for the application connectivity and who have a requirement to access these resources.  Improper control of product resources could potentially compromise the operating system, ACP, and customer data.</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","Access to product resources should be restricted to only those individuals responsible for the application connectivity and who have a requirement to access these resources.  Improper control of product resources could potentially compromise the operating system, ACP, and customer data.","","","false","","","","","","","","Refer to the following report produced by the RACF Data Collection:
+
+-	DSMON.RPT(RACSPT)
+
+Automated Analysis
+Refer to the following report produced by the RACF Data Collection:
+
+-	PDI(ZROS0032)
+
+Verify that the ROSCOE started task(s) is (are) defined to the STARTED resource class profile and/or ICHRIN03 table entry.","The ROSCOE system programmer and the IAO will ensure that a product's started task(s) is (are) properly identified and/or defined to the System ACP. 
+
+A unique userid must be assigned for the ROSCOE started task(s) thru a corresponding STARTED class entry.
+
+The following sample set of commands is shown here as a guideline:
+
+rdef started ROSCOE.** uacc(none) owner(admin) audit(all(read)) stdata(user(ROSCOE) group(stc))
+
+setr racl(started) ref","V-17454,SV-24812,CCI-000764"
+"z/OS ROSCOE for RACF Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via email to the following address: disa.stig_spt@mail.mil.","6","8 ","23 Nov 2022","Release: 8 Benchmark Date: 23 Nov 2022","STIG.DOD.MIL","terms-of-use","V-224533","SV-224533r855201_rule","ZROSR038","medium","CAT II","","SRG-OS-000309","The Roscoe Resource Class will be defined or active in the ACP.","<VulnDiscussion>Failure to use a robust ACP to control a product could potentially compromise the integrity and availability of the MVS operating system and user data.</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","Failure to use a robust ACP to control a product could potentially compromise the integrity and availability of the MVS operating system and user data.","","","false","","","","","","","","Refer to the following report produced by the RACF Data Collection:
+
+-	RACFCMDS.RPT(SETROPTS)
+-	DSMON.RPT(RACCDT) - Alternate list of active resource classes
+
+Automated Analysis
+Refer to the following report produced by the RACF Data Collection:
+
+-	PDI(ZROS0038)
+
+Ensure that the ROSCOE resource class(es) is (are) defined and active.","The IAO will ensure that the Product Resource Class(es) is (are) active.
+
+Issue the following commands:
+
+SETR CLASSACT(RO@RES)
+SETR GENERIC(RO@RES)","SV-24846,V-18011,CCI-000336,CCI-002358"
+"z/OS ROSCOE for RACF Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via email to the following address: disa.stig_spt@mail.mil.","6","8 ","23 Nov 2022","Release: 8 Benchmark Date: 23 Nov 2022","STIG.DOD.MIL","terms-of-use","V-224534","SV-224534r520852_rule","ZROSR040","medium","CAT II","","SRG-OS-000018","Product configuration/parameter values are not specified properly.","<VulnDiscussion>Product configuration/parameters control the security and operational characteristics of products.  If these parameter values are improperly specified, security and operational controls may be weakened.  This exposure may threaten the availability of the product applications, and compromise the confidentiality of customer data.</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","Product configuration/parameters control the security and operational characteristics of products.  If these parameter values are improperly specified, security and operational controls may be weakened.  This exposure may threaten the availability of the product applications, and compromise the confidentiality of customer data.","","","false","","","","","","","","a)	Have the the products system programmer display the configuration/parameters control ststements used in the current runing product to define or enable security.  This information is located in the SYSIN DD statement in the JCL of the STC/Batch job.
+
+Automated Analysis
+Refer to the following report produced by the z/OS Data Collection:
+
+-	PDI(ZROS0040)
+
+b)	Verify the following specifications:
+
+Keyword	Value
+EXTSEC	RACF
+ACFEXT	YES
+CLLEXT	YES
+JOBEXT	YES
+LIBEXT	YES
+MONEXT	YES
+PRVEXT	YES
+RPFEXT	YES
+UPSEXT	YES
+
+c)	If (b) above is true, there is NO FINDING.
+
+d)	If (b) above is untrue, this is a FINDING","The product systems programmer will verify that any configuration / parameters that are required to control the security of the product are properly configured and syntactically correct.
+ 
+See the required parameters below: Example
+
+Keyword	Value
+EXTSEC	RACF
+ACFEXT	YES
+CLLEXT	YES
+JOBEXT	YES
+LIBEXT	YES
+MONEXT	YES
+PRVEXT	YES
+RPFEXT	YES
+UPSEXT	YES","SV-23712,V-18014,CCI-000035"

@@ -1,0 +1,179 @@
+"Title","Description","Version","Release","BenchmarkDate","ReleaseInfo","Source","Notice","Rule_VulnID","Rule_RuleID","Rule_StigID","Rule_Severity","Rule_Cat","Rule_Classification","Rule_GroupTitle","Rule_RuleTitle","Rule_Description","Rule_VulnDiscussion","Rule_FalsePositives","Rule_FalseNegatives","Rule_Documentable","Rule_Mitigations","Rule_SeverityOverrideGuidance","Rule_PotentialImpacts","Rule_ThirdPartyTools","Rule_MitigationControl","Rule_Responsibility","Rule_IAControls","Rule_CheckText","Rule_FixText","Rule_CCI"
+"VMware vSphere 6.7 RhttpProxy Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via email to the following address: disa.stig_spt@mail.mil.","1","2 ","08 Feb 2022","Release: 2 Benchmark Date: 08 Feb 2022","STIG.DOD.MIL","terms-of-use","V-240716","SV-240716r679661_rule","VCRP-67-000001","medium","CAT II","","SRG-APP-000001-WSR-000001","The rhttpproxy must drop connections to disconnected clients.","<VulnDiscussion>The rhttpproxy client connections that are established but no longer connected can consume resources that might otherwise be required by active connections. It is a best practice to terminate connections that are no longer connected to an active client.</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","The rhttpproxy client connections that are established but no longer connected can consume resources that might otherwise be required by active connections. It is a best practice to terminate connections that are no longer connected to an active client.","","","false","","","","","","","","At the command prompt, execute the following command:
+
+# xmllint --xpath '/config/vmacore/tcpKeepAlive/clientSocket/idleTimeSec' /etc/vmware-rhttpproxy/config.xml
+
+Expected result:
+
+<idleTimeSec>900</idleTimeSec>
+
+If the output does not match the expected result, this is a finding.","Navigate to and open /etc/vmware-rhttpproxy/config.xml.
+
+Locate the <config>/<vmacore>/<tcpKeepAlive>/<clientSocket> block and configure <idleTimeSec> as follows:
+
+<idleTimeSec>900</idleTimeSec>
+
+Restart the service for changes to take effect.
+
+# vmon-cli --restart rhttpproxy","CCI-000054"
+"VMware vSphere 6.7 RhttpProxy Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via email to the following address: disa.stig_spt@mail.mil.","1","2 ","08 Feb 2022","Release: 2 Benchmark Date: 08 Feb 2022","STIG.DOD.MIL","terms-of-use","V-240717","SV-240717r679664_rule","VCRP-67-000002","medium","CAT II","","SRG-APP-000001-WSR-000001","The rhttpproxy must set a limit on established connections.","<VulnDiscussion>The rhttpproxy client connections must be limited to preserve system resources and continue servicing connections without interruption. Without a limit set, the system would be vulnerable to a trivial denial-of-service attack where connections are created en masse and vCenter resources are entirely consumed. The rhttproxy comes configured with a tested and supported value that must be maintained.</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","The rhttpproxy client connections must be limited to preserve system resources and continue servicing connections without interruption. Without a limit set, the system would be vulnerable to a trivial denial-of-service attack where connections are created en masse and vCenter resources are entirely consumed. The rhttproxy comes configured with a tested and supported value that must be maintained.","","","false","","","","","","","","At the command prompt, execute the following command:
+
+# xmllint --xpath '/config/vmacore/http/maxConnections' /etc/vmware-rhttpproxy/config.xml
+
+Expected result:
+
+<maxConnections> 2048 </maxConnections>
+
+If the output does not match the expected result, this is a finding.","Navigate to and open /etc/vmware-rhttpproxy/config.xml.
+
+Locate the <config>/<vmacore>/<http> block and configure <maxConnections> as follows:
+
+<maxConnections> 2048 </maxConnections>
+
+Restart the service for changes to take effect.
+
+# vmon-cli --restart rhttpproxy","CCI-000054"
+"VMware vSphere 6.7 RhttpProxy Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via email to the following address: disa.stig_spt@mail.mil.","1","2 ","08 Feb 2022","Release: 2 Benchmark Date: 08 Feb 2022","STIG.DOD.MIL","terms-of-use","V-240718","SV-240718r679667_rule","VCRP-67-000003","medium","CAT II","","SRG-APP-000014-WSR-000006","The rhttpproxy must be configured to operate solely with FIPS ciphers.","<VulnDiscussion>The rhttpproxy ships with FIPS 140-2 validated OpenSSL cryptographic libraries and is configured by default to run in FIPS mode. This module is used for all crypto operations performed by rhttproxy, including protection of data-in-transit over the client TLS connection.</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","The rhttpproxy ships with FIPS 140-2 validated OpenSSL cryptographic libraries and is configured by default to run in FIPS mode. This module is used for all crypto operations performed by rhttproxy, including protection of data-in-transit over the client TLS connection.","","","false","","","","","","","","At the command prompt, execute the following command:
+
+# xmllint --xpath '/config/vmacore/ssl/fips' /etc/vmware-rhttpproxy/config.xml
+
+Expected result:
+
+<fips>true</fips>
+
+If the output does not match the expected result, this is a finding.","Navigate to and open /etc/vmware-rhttpproxy/config.xml.
+
+Locate the <config>/<vmacore>/<ssl> block and configure <fips> as follows:
+
+<fips>true</fips>
+
+Restart the service for changes to take effect.
+
+# vmon-cli --restart rhttpproxy","CCI-000068"
+"VMware vSphere 6.7 RhttpProxy Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via email to the following address: disa.stig_spt@mail.mil.","1","2 ","08 Feb 2022","Release: 2 Benchmark Date: 08 Feb 2022","STIG.DOD.MIL","terms-of-use","V-240719","SV-240719r816678_rule","VCRP-67-000004","medium","CAT II","","SRG-APP-000015-WSR-000014","The rhttpproxy must use cryptography to protect the integrity of remote sessions.","<VulnDiscussion>The rhttpproxy can be configured to support TLS 1.0, 1.1 and 1.2. Due to intrinsic problems in TLS 1.0 and TLS 1.1, they are disabled by default. The <protocol> block in the rhttproxy configuration is commented out by default, and this configuration forces TLS 1.2. The block may also be set to ""tls1.2"" in certain upgrade scenarios, but the effect is the same.</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","The rhttpproxy can be configured to support TLS 1.0, 1.1 and 1.2. Due to intrinsic problems in TLS 1.0 and TLS 1.1, they are disabled by default. The <protocol> block in the rhttproxy configuration is commented out by default, and this configuration forces TLS 1.2. The block may also be set to ""tls1.2"" in certain upgrade scenarios, but the effect is the same.","","","false","","","","","","","","At the command prompt, execute the following command:
+
+# xmllint --xpath '/config/vmacore/ssl/protocols' /etc/vmware-rhttpproxy/config.xml
+
+Expected result:
+
+<protocols>tls1.2</protocols>
+
+OR
+
+XPath set is empty
+
+If the output does not match the expected result, this is a finding.","Navigate to and open /etc/vmware-rhttpproxy/config.xml.
+
+Locate the <config>/<vmacore>/<ssl> block and configure <protocols> as follows:
+
+<protocols>tls1.2</protocols>
+
+Restart the service for changes to take effect.
+
+# vmon-cli --restart rhttpproxy","CCI-001453"
+"VMware vSphere 6.7 RhttpProxy Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via email to the following address: disa.stig_spt@mail.mil.","1","2 ","08 Feb 2022","Release: 2 Benchmark Date: 08 Feb 2022","STIG.DOD.MIL","terms-of-use","V-240720","SV-240720r679673_rule","VCRP-67-000005","medium","CAT II","","SRG-APP-000016-WSR-000005","The rhttpproxy must produce log records containing sufficient information to establish the source of events.","<VulnDiscussion>After a security incident has occurred, investigators will often review log files to determine what happened, and determining the source of an event is crucial for forensics. The rhttpproxy must be configured for verbose logging to capture client IP addresses and the associated actions.</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","After a security incident has occurred, investigators will often review log files to determine what happened, and determining the source of an event is crucial for forensics. The rhttpproxy must be configured for verbose logging to capture client IP addresses and the associated actions.","","","false","","","","","","","","At the command prompt, execute the following command:
+
+# xmllint --xpath '/config/log/level' /etc/vmware-rhttpproxy/config.xml
+
+Expected result:
+
+<level>verbose</level>
+
+If the output does not match the expected result, this is a finding.","Navigate to and open /etc/vmware-rhttpproxy/config.xml.
+
+Locate the <config>/<log> block and configure <level> as follows:
+
+<level>verbose</level>
+
+Restart the service for changes to take effect.
+
+# vmon-cli --restart rhttpproxy","CCI-000067"
+"VMware vSphere 6.7 RhttpProxy Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via email to the following address: disa.stig_spt@mail.mil.","1","2 ","08 Feb 2022","Release: 2 Benchmark Date: 08 Feb 2022","STIG.DOD.MIL","terms-of-use","V-240721","SV-240721r679676_rule","VCRP-67-000006","medium","CAT II","","SRG-APP-000092-WSR-000055","The rhttpproxy must have logging enabled.","<VulnDiscussion>After a security incident has occurred, investigators will often review log files to determine what happened. The rhttpproxy must create logs upon service startup to capture information relevant to investigations.</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","After a security incident has occurred, investigators will often review log files to determine what happened. The rhttpproxy must create logs upon service startup to capture information relevant to investigations.","","","false","","","","","","","","At the command prompt, execute the following command:
+
+# xmllint --xpath '/config/log/outputToFiles' /etc/vmware-rhttpproxy/config.xml
+
+Expected result:
+
+<outputToFiles>true</outputToFiles>
+
+If the output does not match the expected result, this is a finding.","Navigate to and open /etc/vmware-rhttpproxy/config.xml.
+
+Locate the <config>/<log> block and configure <outputToFiles> as follows:
+
+<outputToFiles>true</outputToFiles>
+
+Restart the service for changes to take effect.
+
+# vmon-cli --restart rhttpproxy","CCI-001464"
+"VMware vSphere 6.7 RhttpProxy Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via email to the following address: disa.stig_spt@mail.mil.","1","2 ","08 Feb 2022","Release: 2 Benchmark Date: 08 Feb 2022","STIG.DOD.MIL","terms-of-use","V-240722","SV-240722r679679_rule","VCRP-67-000007","medium","CAT II","","SRG-APP-000176-WSR-000096","The rhttpproxy private key file must be protected from unauthorized access.","<VulnDiscussion>The rhttpproxy's private key is used to prove the identity of the server to clients and securely exchange the shared secret key used to encrypt communications between the web server and clients.
+
+By gaining access to the private key, an attacker can pretend to be an authorized server and decrypt the TLS traffic between a client and the web server.</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","The rhttpproxy's private key is used to prove the identity of the server to clients and securely exchange the shared secret key used to encrypt communications between the web server and clients.
+
+By gaining access to the private key, an attacker can pretend to be an authorized server and decrypt the TLS traffic between a client and the web server.","","","false","","","","","","","","At the command prompt, execute the following command:
+
+# stat -c ""%n permissions are %a, is owned by %U and group owned by %G"" /etc/vmware-rhttpproxy/ssl/rui.key
+
+Expected result:
+
+/etc/vmware-rhttpproxy/ssl/rui.key permissions are 600, is owned by root and group owned by root
+
+If the output does not match the expected result, this is a finding.","At the command prompt, execute the following commands:
+
+# chmod 600 /etc/vmware-rhttpproxy/ssl/rui.key
+# chown root:root /etc/vmware-rhttpproxy/ssl/rui.key","CCI-000186"
+"VMware vSphere 6.7 RhttpProxy Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via email to the following address: disa.stig_spt@mail.mil.","1","2 ","08 Feb 2022","Release: 2 Benchmark Date: 08 Feb 2022","STIG.DOD.MIL","terms-of-use","V-240723","SV-240723r679682_rule","VCRP-67-000008","medium","CAT II","","SRG-APP-000315-WSR-000003","The rhttproxy must exclusively use the HTTPS protocol for client connections.","<VulnDiscussion>Remotely accessing vCenter via the rhttpproxy involves sensitive information going over the wire. To protect the confidentiality and integrity of these communications, the rhttpproxy must be configured to use an encrypted session of HTTPS rather than plain-text HTTP. The SSL configuration block inside the rhttproxy configuration must be present and configured correctly to safely enable TLS.</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","Remotely accessing vCenter via the rhttpproxy involves sensitive information going over the wire. To protect the confidentiality and integrity of these communications, the rhttpproxy must be configured to use an encrypted session of HTTPS rather than plain-text HTTP. The SSL configuration block inside the rhttproxy configuration must be present and configured correctly to safely enable TLS.","","","false","","","","","","","","At the command prompt, execute the following command:
+
+# xmllint --xpath '/config/ssl' /etc/vmware-rhttpproxy/config.xml
+
+Expected result:
+
+<ssl>
+    <!-- The server private key file -->
+    <privateKey>/etc/vmware-rhttpproxy/ssl/rui.key</privateKey>
+    <!-- The server side certificate file -->
+    <certificate>/etc/vmware-rhttpproxy/ssl/rui.crt</certificate>
+    <!-- vecs server name. Currently vecs runs on all node types. -->
+    <vecsServerName>localhost</vecsServerName>
+  </ssl>
+
+If the output does not match the expected result, this is a finding.","Navigate to and open /etc/vmware-rhttpproxy/config.xml.
+
+Locate the first <ssl> block and set its content to the following:
+
+<ssl>
+    <!-- The server private key file -->
+    <privateKey>/etc/vmware-rhttpproxy/ssl/rui.key</privateKey>
+    <!-- The server side certificate file -->
+    <certificate>/etc/vmware-rhttpproxy/ssl/rui.crt</certificate>
+    <!-- vecs server name. Currently vecs runs on all node types. -->
+    <vecsServerName>localhost</vecsServerName>
+</ssl>
+
+Restart the service for changes to take effect.
+
+# vmon-cli --restart rhttpproxy","CCI-002314"
+"VMware vSphere 6.7 RhttpProxy Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via email to the following address: disa.stig_spt@mail.mil.","1","2 ","08 Feb 2022","Release: 2 Benchmark Date: 08 Feb 2022","STIG.DOD.MIL","terms-of-use","V-240724","SV-240724r679685_rule","VCRP-67-000009","medium","CAT II","","SRG-APP-000358-WSR-000063","The rhttpproxy log files must be moved to a permanent repository in accordance with site policy.","<VulnDiscussion>The rhttpproxy produces a handful of logs that must be offloaded from the originating system. This information can then be used for diagnostic, forensic, or other purposes relevant to ensuring the availability and integrity of the hosted application.</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","The rhttpproxy produces a handful of logs that must be offloaded from the originating system. This information can then be used for diagnostic, forensic, or other purposes relevant to ensuring the availability and integrity of the hosted application.","","","false","","","","","","","","At the command prompt, execute the following command:
+
+# grep -v ""^#"" /etc/vmware-syslog/stig-services-rhttpproxy.conf
+
+Expected result:
+
+input(type=""imfile""
+      File=""/var/log/vmware/rhttpproxy/rhttpproxy.log""
+      Tag=""rhttpproxy-main""
+      Severity=""info""
+      Facility=""local0"")
+
+If the file does not exist, this is a finding.
+
+If the output of the command does not match the expected result, this is a finding.","Navigate to and open /etc/vmware-syslog/stig-services-rhttpproxy.conf.
+
+Create the file if it does not exist.
+
+Set the contents of the file as follows:
+
+input(type=""imfile""
+      File=""/var/log/vmware/rhttpproxy/rhttpproxy.log""
+      Tag=""rhttpproxy-main""
+      Severity=""info""
+      Facility=""local0"")","CCI-001851"

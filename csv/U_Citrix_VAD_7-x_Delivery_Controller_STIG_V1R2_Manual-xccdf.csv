@@ -1,0 +1,124 @@
+"Title","Description","Version","Release","BenchmarkDate","ReleaseInfo","Source","Notice","Rule_VulnID","Rule_RuleID","Rule_StigID","Rule_Severity","Rule_Cat","Rule_Classification","Rule_GroupTitle","Rule_RuleTitle","Rule_Description","Rule_VulnDiscussion","Rule_FalsePositives","Rule_FalseNegatives","Rule_Documentable","Rule_Mitigations","Rule_SeverityOverrideGuidance","Rule_PotentialImpacts","Rule_ThirdPartyTools","Rule_MitigationControl","Rule_Responsibility","Rule_IAControls","Rule_CheckText","Rule_FixText","Rule_CCI"
+"Citrix Virtual Apps and Desktop 7.x Delivery Controller Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via email to the following address: disa.stig_spt@mail.mil.","1","2 ","27 Jan 2022","Release: 2 Benchmark Date: 27 Jan 2022","STIG.DOD.MIL","terms-of-use","V-234565","SV-234565r810853_rule","CVAD-DC-000030","high","CAT I","","SRG-APP-000014","Citrix Delivery Controller must implement DoD-approved encryption.","<VulnDiscussion>Without confidentiality protection mechanisms, unauthorized individuals may gain access to sensitive information via a remote access session. 
+
+Remote access is access to DoD nonpublic information systems by an authorized user (or an information system) communicating through an external, non-organization-controlled network. Remote access methods include, for example, dial-up, broadband, and wireless. 
+ 
+Encryption provides a means to secure the remote connection to prevent unauthorized access to the data traversing the remote access connection, thereby providing a degree of confidentiality. The encryption strength of mechanism is selected based on the security categorization of the information.
+
+Satisfies: SRG-APP-000014, SRG-APP-000015, SRG-APP-000039, SRG-APP-000142, SRG-APP-000172, SRG-APP-000219, SRG-APP-000224, SRG-APP-000416, SRG-APP-000439, SRG-APP-000440, SRG-APP-000441, SRG-APP-000442, SRG-APP-000514</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","Without confidentiality protection mechanisms, unauthorized individuals may gain access to sensitive information via a remote access session. 
+
+Remote access is access to DoD nonpublic information systems by an authorized user (or an information system) communicating through an external, non-organization-controlled network. Remote access methods include, for example, dial-up, broadband, and wireless. 
+ 
+Encryption provides a means to secure the remote connection to prevent unauthorized access to the data traversing the remote access connection, thereby providing a degree of confidentiality. The encryption strength of mechanism is selected based on the security categorization of the information.
+
+Satisfies: SRG-APP-000014, SRG-APP-000015, SRG-APP-000039, SRG-APP-000142, SRG-APP-000172, SRG-APP-000219, SRG-APP-000224, SRG-APP-000416, SRG-APP-000439, SRG-APP-000440, SRG-APP-000441, SRG-APP-000442, SRG-APP-000514","","","false","","","","","","","","Enforcement is via TLS encryption. To verify, open the Registry Editor on each Delivery Controller and find the following key name: HKEY_LOCAL_MACHINE\SOFTWARE\Citrix\DesktopServer 
+
+1. Verify that the XmlServicesSslPort registry key exists with the correct value for SSL port. By default, it is set to ""443"".
+2. Verify XmlServicesEnableNonSsl is set to ""0"".
+3. Verify the corresponding registry value to ignore HTTPS traffic, XmlServicesEnableSsl, is not set to ""0"".
+
+If ""XmlServicesSslPort"" is not set to the desired port, this is a finding.
+
+If ""XmlServicesEnableNonSsl"" is not set to ""0"", this is a finding.
+
+If XmlServicesEnableSsl is not set to ""1"", this is a finding.
+
+To verify the FIPS Cipher Suites used:
+1. From the Group Policy Management Console, go to Computer Configuration >> Administrative Templates >> Networks >> SSL Configuration Settings.
+2. Double-click ""SSL Cipher Suite Order"" and verify the ""Enabled"" option is checked. 
+3. Verify the correct Cipher Suites are listed in the correct order per current DoD guidelines.
+
+If the ""Enabled"" option is not checked or the correct Cipher Suites are not listed in the correct order per current DoD guidelines, this is a finding.","Obtain and install root certificate(s) for server certificates installed on VDAs, SQL Server(s), Storefront, and VM Host (VMware VCenter, Hyper-V, XenServer).
+
+To install a TLS server certificate on the Delivery Controller without IIS:
+1. Log on to each Delivery Controller with a domain account that has Administrator rights.
+2. Obtain a TLS server certificate and install it on the Delivery Controller, and assign it to a port using netsh, using Microsoft server instructions.
+3. Configure the Delivery Controller with the certificate.
+
+To install a TLS server certificate on the Delivery Controller with IIS:
+1. Add the server certificate per the Microsoft server instructions.
+2. From IIS Manager, select the IIS site on which HTTPS will be enabled and select ""Bindings"" under ""Edit Site"".
+3. Click ""Add"", select ""Type"" as https, and port number as ""443"". Select the SSL Certificate that was installed and click ""OK"".
+
+To configure the Delivery Controller to use the no configured TLS port:
+1. Change the XML TLS service port use the following command:
+BrokerService –WiSslPort <port number>
+2. Open the Registry Editor on the CVAD Controller and find the following key name:
+HKEY_LOCAL_MACHINE\SOFTWARE\Citrix\DesktopServer
+3. Verify that the ""XmlServicesSslPort"" DWORD value exists with the correct value for SSL port. By default, it is set to ""443"". If it does not exist, add it.
+4. Verify that the ""XmlServicesEnableSsl"" DWORD value exists and is set to ""1"". If it does not exist, add it.
+5. Reboot the Delivery Controller to ensure all changes take effect.
+
+Perform the following only after ensuring all references to the Delivery Controllers on StoreFront servers and gateway proxy devices are set to use https and working. This includes STA references. Now disable non-TLS communication with the XML port.
+1. Open the Registry Editor on the CVAD Controller and find the following key name:
+HKEY_LOCAL_MACHINE\SOFTWARE\Citrix\DesktopServer
+2. Add the DWORD value ""XmlServicesEnableNonSsl"" and set it to ""1"".
+3. Reboot the Delivery Controller.
+
+If XmlServicesEnableSsl is not set to ""1"", this is a finding.
+
+Notes:
+If the XML service port number on the Delivery Controller needs to be changed, update the IIS port number as well under ""Bindings"" to match the new value.
+
+To change the default VDA registration port:
+1. Log on to the Delivery Controller server with a domain account that has Administrator rights.
+2. Open the command prompt window and type these commands:
+%SystemDrive%
+Cd %ProgramFiles%\Citrix\Broker\Service
+BrokerService.exe –VDAport 8888
+3. Launch Server Manager from the Start menu.
+4. In the Server Manager, go to the ""Local Server"" properties window and edit the ""Windows Firewall"" setting. Click ""Advanced Settings"".
+5. Click ""Inbound Rules"".
+6. Create a new inbound rule with the following settings:
+a) In the Rule type screen, click ""Port"". Click ""Next"".
+b) In the Protocol and Ports screen, select ""Specific local ports"" and type ""8888"". Click ""Next"".
+c) In the Action screen, accept the default value ""Allow the connection"" and click ""Next"".
+d) In the Profile screen, accept the default values and click ""Next"".
+e) In the Name screen, type a name for the rule (example: Citrix VDA Registration Port) and click ""Finish"".
+
+To configure the SSL Cipher Suite Order Group Policy setting manually, follow these steps:
+1. At a command prompt, enter ""gpedit.msc"", and press ""Enter"". The Local Group Policy Editor is displayed.
+2. Go to Computer Configuration >> Administrative Templates >> Network >> SSL Configuration Settings.
+3. Under SSL Configuration Settings, select ""SSL Cipher Suite Order"".
+4. In the SSL Cipher Suite Order pane, scroll to the bottom. Follow the instructions that are labeled ""How to modify this setting"".","CCI-000068,CCI-000197,CCI-000382,CCI-001184,CCI-001188,CCI-001414,CCI-001453,CCI-002418,CCI-002420,CCI-002421,CCI-002422,CCI-002450"
+"Citrix Virtual Apps and Desktop 7.x Delivery Controller Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via email to the following address: disa.stig_spt@mail.mil.","1","2 ","27 Jan 2022","Release: 2 Benchmark Date: 27 Jan 2022","STIG.DOD.MIL","terms-of-use","V-234567","SV-234567r615790_rule","CVAD-DC-000270","medium","CAT II","","SRG-APP-000141","Citrix Delivery Controller must be configured to disable non-essential capabilities.","<VulnDiscussion>It is detrimental for applications to provide or install by default functionality exceeding requirements or mission objectives. These unnecessary capabilities or services are often overlooked and therefore may remain unsecured. They increase the risk to the platform by providing additional attack vectors.
+
+Applications are capable of providing a wide variety of functions and services. Some of the functions and services provided by default may not be necessary to support essential organizational operations (e.g., key missions, functions). 
+
+Examples of non-essential capabilities include but are not limited to advertising software or browser plug-ins not related to requirements or providing a wide array of functionality not required for every mission but that cannot be disabled.</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","It is detrimental for applications to provide or install by default functionality exceeding requirements or mission objectives. These unnecessary capabilities or services are often overlooked and therefore may remain unsecured. They increase the risk to the platform by providing additional attack vectors.
+
+Applications are capable of providing a wide variety of functions and services. Some of the functions and services provided by default may not be necessary to support essential organizational operations (e.g., key missions, functions). 
+
+Examples of non-essential capabilities include but are not limited to advertising software or browser plug-ins not related to requirements or providing a wide array of functionality not required for every mission but that cannot be disabled.","","","false","","","","","","","","Verify Citrix Customer Experience Improvement Program (CEIP) - PHONE HOME is disabled on Delivery Controller.
+
+1. Launch Studio.
+2. Select ""Configuration"" in the left navigation pane.
+3. Select the Support tab.
+4. Verify CEIP is disabled.
+
+If CEIP is not disabled, this is a finding.","To disable Citrix CEIP - Phone Home:
+1. Launch Studio.
+2. Select ""Configuration"" in the left navigation pane.
+3. Select the Support tab.
+4. Follow the prompts to end participation in CEIP.
+
+This prevents automatic upload of installation experience metrics that are collected locally during installation.
+VADServerStartup.exe /components ""CONTROLLER,DESKTOPSTUDIO""
+/disableexperiencemetrics /exclude ""Smart Tools Agent"" /nosql
+/quiet /verboselog /noreboot","CCI-000381"
+"Citrix Virtual Apps and Desktop 7.x Delivery Controller Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via email to the following address: disa.stig_spt@mail.mil.","1","2 ","27 Jan 2022","Release: 2 Benchmark Date: 27 Jan 2022","STIG.DOD.MIL","terms-of-use","V-234569","SV-234569r615793_rule","CVAD-DC-001235","medium","CAT II","","SRG-APP-000516","Citrix Delivery Controller must be configured in accordance with the security configuration settings based on DoD security configuration or implementation guidance, including STIGs, NSA configuration guides, CTOs, and DTMs.","<VulnDiscussion>Configuring the application to implement organization-wide security implementation guides and security checklists ensures compliance with federal standards and establishes a common security baseline across DoD that reflects the most restrictive security posture consistent with operational requirements. 
+
+Configuration settings are the set of parameters that can be changed that affects the security posture and/or functionality of the system. Security-related parameters are parameters impacting the security state of the application, including the parameters required to satisfy other security control requirements.</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","Configuring the application to implement organization-wide security implementation guides and security checklists ensures compliance with federal standards and establishes a common security baseline across DoD that reflects the most restrictive security posture consistent with operational requirements. 
+
+Configuration settings are the set of parameters that can be changed that affects the security posture and/or functionality of the system. Security-related parameters are parameters impacting the security state of the application, including the parameters required to satisfy other security control requirements.","","","false","","","","","","","","To verify that Citrix Delivery Controller and all other infrastructure server components are installable and manageable by authorized administrative accounts, the following policies must be modified:
+
+Go to Computer Configuration Policies >> Windows Settings >> Security Settings >> Local Policies/User Rights Assignment.
+
+Verify policy settings ""Allow log on locally"" and ""Shut down the system"" are both set to the global security group name containing the XenApp or CVAD administrators.
+
+If they are not, this is a finding.","To ensure that Citrix Delivery Controller and all other infrastructure server components are installable and manageable by authorized administrative accounts, the following policies must be modified:
+
+Go to Computer Configuration Policies >> Windows Settings >> Security Settings >> Local Policies/User Rights Assignment.
+1. Edit ""Allow log on locally"".
+2. Edit ""Shut down the system"".
+3. Change both settings to the global security group name containing the XenApp or CVAD administrators.","CCI-000366"

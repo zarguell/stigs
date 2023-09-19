@@ -1,0 +1,108 @@
+"Title","Description","Version","Release","BenchmarkDate","ReleaseInfo","Source","Notice","Rule_VulnID","Rule_RuleID","Rule_StigID","Rule_Severity","Rule_Cat","Rule_Classification","Rule_GroupTitle","Rule_RuleTitle","Rule_Description","Rule_VulnDiscussion","Rule_FalsePositives","Rule_FalseNegatives","Rule_Documentable","Rule_Mitigations","Rule_SeverityOverrideGuidance","Rule_PotentialImpacts","Rule_ThirdPartyTools","Rule_MitigationControl","Rule_Responsibility","Rule_IAControls","Rule_CheckText","Rule_FixText","Rule_CCI"
+"z/OS CA VTAPE for RACF Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via email to the following address: disa.stig_spt@mail.mil.","6","5 ","23 Nov 2022","Release: 5 Benchmark Date: 23 Nov 2022","STIG.DOD.MIL","terms-of-use","V-224444","SV-224444r855131_rule","ZVTAR000","medium","CAT II","","SRG-OS-000080","CA VTAPE installation data sets are not properly protected.","<VulnDiscussion>CA VTAPE installation data sets have the ability to use privileged functions and/or have access to sensitive data. Failure to properly restrict access to these data sets could result in violating the integrity of the base product which could result in compromising the operating system or sensitive data.</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","CA VTAPE installation data sets have the ability to use privileged functions and/or have access to sensitive data. Failure to properly restrict access to these data sets could result in violating the integrity of the base product which could result in compromising the operating system or sensitive data.","","","false","","","","","","","","Refer to the following report produced by the Data Set and Resource Data Collection:
+
+-	SENSITVE.RPT(VTARPT)
+
+Automated Analysis
+Refer to the following report produced by the Data Set and Resource Data Collection:
+
+-	PDI(ZVTA0000)
+
+Verify that the accesses to the CA VTAPE installation data sets are properly restricted.
+ 
+___	The RACF data set rules for the data sets restricts READ access to all authorized users.
+
+___	The RACF data set rules for the data sets restricts UPDATE and/or ALTER access to systems programming personnel.
+
+___	The RACF data set rules for the data sets specify that all (i.e., failures and successes) UPDATE and/or ALTER access are logged.","The IAO will ensure that update and alter access to CA VTAPE installation data sets is limited to System Programmers only, and all update and alter access is logged.  Read access can be given to all authorized users.
+
+The installing Systems Programmer will identify and document the product data sets and categorize them according to who will have update and alter access and if required that all update and alter access is logged. He will identify if any additional groups have update and/or alter access for specific data sets, and once documented he will work with the IAO to see that they are properly restricted to the ACP (Access Control Program) active on the system.
+
+Data sets to be protected will be: 
+SYS2.VTAPE.**
+SYS3.VTAPE.** (data sets that are not altered by product STCs, can be more specific)
+
+The following commands are provided as a sample for implementing data set controls: 
+
+ad 'SYS2.VTAPE.**' uacc(none) owner(sys2) -
+	audit(success(update) failures(read)) -
+	data('CA VTAPE Install DS')
+pe 'SYS2.VTAPE.**' id(<syspaudt> <tstcaudt>) acc(a)
+pe 'SYS2.VTAPE.**' id(<audtaudt> authorized users) acc(r)
+pe 'SYS2.VTAPE.**' id(VTAPE STCs)
+
+ad 'SYS3.VTAPE.**' uacc(none) owner(sys3) -
+	audit(success(update) failures(read)) -
+	data('CA VTAPE Install DS')
+pe 'SYS3.VTAPE.**' id(<syspaudt> <tstcaudt>) acc(a)
+pe 'SYS3.VTAPE.**' id(<audtaudt> authorized users) acc(r)
+pe 'SYS3.VTAPE.**' id(VTAPE STCs)
+
+setr generic(dataset) refresh","V-16932,SV-33825,CCI-000213,CCI-002234"
+"z/OS CA VTAPE for RACF Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via email to the following address: disa.stig_spt@mail.mil.","6","5 ","23 Nov 2022","Release: 5 Benchmark Date: 23 Nov 2022","STIG.DOD.MIL","terms-of-use","V-224445","SV-224445r868569_rule","ZVTAR001","medium","CAT II","","SRG-OS-000259","CA VTAPE STC data sets will be properly protected.","<VulnDiscussion>CA VTAPE STC data sets have the ability to use privileged functions and/or have access to sensitive data. Failure to properly restrict access to these data sets could result in violating the integrity of the base product which could result in compromising the operating system or sensitive data.</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","CA VTAPE STC data sets have the ability to use privileged functions and/or have access to sensitive data. Failure to properly restrict access to these data sets could result in violating the integrity of the base product which could result in compromising the operating system or sensitive data.","","","false","","","","","","","","Refer to the following report produced by the Data Set and Resource Data Collection:
+
+- SENSITVE.RPT(VTASTC)
+
+Automated Analysis
+Refer to the following report produced by the Data Set and Resource Data Collection:
+
+- PDI(ZVTA0001)
+
+Verify that the accesses to the CA VTAPE STC data sets are properly restricted. If the following guidance is true, this is not a finding.
+ 
+___ The RACF data set rules for the data sets restricts READ access to auditors and authorized users.
+
+___ The RACF data set rules for the data sets restricts WRITE and/or greater access to systems programming personnel and Tape Management personnel.
+
+___ The RACF data set rules for the data sets restricts WRITE and/or greater access to the CA VTAPE's STC(s) and/or batch user(s).
+
+___ The RACF data set rules for the data sets specify UACC(NONE) and NOWARNING.","The ISSO will ensure that WRITE and/or greater access to CA VTAPE STC data sets is limited to systems programmers, Tape Management personnel and/or CA VTAPE's STC(s) and/or batch user(s) only. READ access can be given to auditors and authorized users.
+
+The installing systems programmer will identify and document the product data sets and categorize them according to who will have update and alter access and if required that all update and allocate access is logged. The installing systems programmer will identify if any additional groups have update and/or alter access for specific data sets, and once documented will work with the ISSO to ensure they are properly restricted to the ACP (Access Control Program) active on the system.
+
+Data sets to be protected will be: 
+SYS3.VTAPE (data sets that are altered by the product's STCs, this can be more specific)
+
+The following commands are provided as a sample for implementing data set controls: 
+
+ad 'SYS3.VTAPE.**' uacc(none) owner(sys3) -
+	audit(failures(read)) -
+	data('Vendor DS Profile: CA VTAPE')
+pe 'SYS3.VTAPE.**' id(<syspaudt> <tstcaudt> VTAPE STCs) acc(a)
+pe 'SYS3.VTAPE.**' id(<tapeaudt> VTAPE STCs) acc(a)
+pe 'SYS3.VTAPE.**' id(<audtaudt> authorized users) acc(r)
+
+setr generic(dataset) refresh","SV-33828,V-17067,CCI-001499"
+"z/OS CA VTAPE for RACF Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via email to the following address: disa.stig_spt@mail.mil.","6","5 ","23 Nov 2022","Release: 5 Benchmark Date: 23 Nov 2022","STIG.DOD.MIL","terms-of-use","V-224446","SV-224446r519682_rule","ZVTAR030","medium","CAT II","","SRG-OS-000104","CA VTAPE Started Task name is not properly identified/defined to the system ACP.","<VulnDiscussion>CA VTAPE requires a started task that will be restricted to certain resources, datasets and other system functions. By defining the started task as a userid to the system ACP, It allows the ACP to control the access and authorized users that require these capabilities. Failure to properly control these capabilities, could compromise of the operating system environment, ACP, and customer data.</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","CA VTAPE requires a started task that will be restricted to certain resources, datasets and other system functions. By defining the started task as a userid to the system ACP, It allows the ACP to control the access and authorized users that require these capabilities. Failure to properly control these capabilities, could compromise of the operating system environment, ACP, and customer data.","","","false","","","","","","","","Refer to the following report produced by the RACF Data Collection:
+
+-	RACFCMDS.RPT(LISTUSER)
+
+The CA VTAPE started task(s) and/or batch job userid(s) is defined and is assigned the RACF PROTECTED attribute.","The CA VTAPE system programmer and the IAO will ensure that a product's Started Task(s) is properly identified/defined to the System ACP. 
+
+If the product requires a Started Task, verify that it is properly defined to the System ACP with the proper attributes.
+
+Most installation manuals will indicate how the Started Task is identified and any additional attributes that must be specified.
+
+A sample is provided here:
+
+au SVTS name('CA VTAPE') owner(stc) dfltgrp(stc) nopass
+au SVTSAS name('CA VTAPE') owner(stc) dfltgrp(stc) nopass","SV-33831,V-17452,CCI-000764"
+"z/OS CA VTAPE for RACF Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via email to the following address: disa.stig_spt@mail.mil.","6","5 ","23 Nov 2022","Release: 5 Benchmark Date: 23 Nov 2022","STIG.DOD.MIL","terms-of-use","V-224447","SV-224447r519685_rule","ZVTAR032","medium","CAT II","","SRG-OS-000104","CA VTAPE Started task(s) must be properly defined to the STARTED resource class for RACF.","<VulnDiscussion>Access to product resources should be restricted to only those individuals responsible for the application connectivity and who have a requirement to access these resources.  Improper control of product resources could potentially compromise the operating system, ACP, and customer data.</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","Access to product resources should be restricted to only those individuals responsible for the application connectivity and who have a requirement to access these resources.  Improper control of product resources could potentially compromise the operating system, ACP, and customer data.","","","false","","","","","","","","Refer to the following report produced by the RACF Data Collection:
+
+-	DSMON.RPT(RACSPT)
+
+Automated Analysis
+Refer to the following report produced by the RACF Data Collection:
+
+-	PDI(ZVTA0032)
+
+Verify that the CA VTAPE started task(s) is (are) defined to the STARTED resource class profile and/or ICHRIN03 table entry.","The CA VTAPE system programmer and the IAO will ensure that a product's started task(s) is (are) properly identified and/or defined to the System ACP. 
+
+A unique userid must be assigned for the CA VTAPE started task(s) thru a corresponding STARTED class entry.
+
+The following sample set of commands is shown here as a guideline:
+
+rdef started SVTS.** uacc(none) owner(admin) audit(all(read)) stdata(user(SVTS) group(stc))
+rdef started SVTSAS.** uacc(none) owner(admin) audit(all(read)) stdata(user(SVTSAS) group(stc))
+
+setr racl(started) ref","V-17454,SV-33833,CCI-000764"

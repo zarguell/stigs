@@ -1,0 +1,187 @@
+"Title","Description","Version","Release","BenchmarkDate","ReleaseInfo","Source","Notice","Rule_VulnID","Rule_RuleID","Rule_StigID","Rule_Severity","Rule_Cat","Rule_Classification","Rule_GroupTitle","Rule_RuleTitle","Rule_Description","Rule_VulnDiscussion","Rule_FalsePositives","Rule_FalseNegatives","Rule_Documentable","Rule_Mitigations","Rule_SeverityOverrideGuidance","Rule_PotentialImpacts","Rule_ThirdPartyTools","Rule_MitigationControl","Rule_Responsibility","Rule_IAControls","Rule_CheckText","Rule_FixText","Rule_CCI"
+"z/OS BMC MAINVIEW for z/OS for RACF Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via email to the following address: disa.stig_spt@mail.mil.","6","8 ","23 Nov 2022","Release: 8 Benchmark Date: 23 Nov 2022","STIG.DOD.MIL","terms-of-use","V-224423","SV-224423r855093_rule","ZMVZR000","medium","CAT II","","SRG-OS-000080","BMC MAINVIEW for z/OS installation data sets are not properly protected.","<VulnDiscussion>BMC MAINVIEW for z/OS installation data sets have the ability to use privileged functions and/or have access to sensitive data. Failure to properly restrict access to these data sets could result in violating the integrity of the base product which could result in compromising the operating system or sensitive data.</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","BMC MAINVIEW for z/OS installation data sets have the ability to use privileged functions and/or have access to sensitive data. Failure to properly restrict access to these data sets could result in violating the integrity of the base product which could result in compromising the operating system or sensitive data.","","","false","","","","","","","","Refer to the following report produced by the Data Set and Resource Data Collection:
+
+-	SENSITVE.RPT(MVZRPT)
+
+Automated Analysis
+Refer to the following report produced by the Data Set and Resource Data Collection:
+
+-	PDI(ZMVZ0000)
+
+Verify that the accesses to the BMC MAINVIEW for z/OS installation data sets are properly restricted.
+ 
+___	The RACF data set rules for the data sets restricts READ access to all authorized users.
+
+___	The RACF data set rules for the data sets restricts UPDATE and/or ALTER access to systems programming personnel.
+
+___	The RACF data set rules for the data sets specify that all (i.e., failures and successes) UPDATE and/or ALTER access are logged.","The IAO will ensure that update and alter access to BMC MAINVIEW for z/OS installation data sets is limited to System Programmers only, and all update and alter access is logged.  Read access can be given to all authorized users.
+
+The installing Systems Programmer will identify and document the product data sets and categorize them according to who will have update and alter access and if required that all update and alter access is logged. He will identify if any additional groups have update and/or alter access for specific data sets, and once documented he will work with the IAO to see that they are properly restricted to the ACP (Access Control Program) active on the system.
+
+Data sets to be protected will be: 
+SYS2.BMCVIEW.**
+SYS3.BMCVIEW.** (data sets that are not altered by product STCs, can be more specific)
+
+The following commands are provided as a sample for implementing data set controls: 
+
+ad 'SYS2.BMCVIEW.**' uacc(none) owner(sys2) -
+	audit(success(update) failures(read)) -
+	data('BMC MAINVIEW for z/OS Install DS')
+pe 'SYS2.BMCVIEW.**' id(<syspaudt> <tstcaudt>) acc(a)
+pe 'SYS2.BMCVIEW.**' id(<audtaudt> authorized users) acc(r)
+pe 'SYS2.BMCVIEW.**' id(MAINVIEW STCs)
+
+ad 'SYS3.BMCVIEW.**' uacc(none) owner(sys3) -
+	audit(success(update) failures(read)) -
+	data('BMC MAINVIEW for z/OS Install DS')
+pe 'SYS3.BMCVIEW.**' id(<syspaudt> <tstcaudt>) acc(a)
+pe 'SYS3.BMCVIEW.**' id(<audtaudt> authorized users) acc(r)
+pe 'SYS3.BMCVIEW.**' id(MAINVIEW STCs)
+
+setr generic(dataset) refresh","V-16932,SV-33836,CCI-000213,CCI-002234"
+"z/OS BMC MAINVIEW for z/OS for RACF Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via email to the following address: disa.stig_spt@mail.mil.","6","8 ","23 Nov 2022","Release: 8 Benchmark Date: 23 Nov 2022","STIG.DOD.MIL","terms-of-use","V-224424","SV-224424r868506_rule","ZMVZR001","medium","CAT II","","SRG-OS-000259","BMC MAINVIEW for z/OS STC data sets are not properly protected.","<VulnDiscussion>BMC MAINVIEW for z/OS STC data sets have the ability to use privileged functions and/or have access to sensitive data. Failure to properly restrict access to these data sets could result in violating the integrity of the base product which could result in compromising the operating system or sensitive data.</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","BMC MAINVIEW for z/OS STC data sets have the ability to use privileged functions and/or have access to sensitive data. Failure to properly restrict access to these data sets could result in violating the integrity of the base product which could result in compromising the operating system or sensitive data.","","","false","","","","","","","","Refer to the following report produced by the Data Set and Resource Data Collection:
+
+- SENSITVE.RPT(MVZSTC)
+
+Automated Analysis
+Refer to the following report produced by the Data Set and Resource Data Collection:
+
+- PDI(ZMVZ0001)
+
+Verify that the accesses to the BMC MAINVIEW for z/OS STC data sets are properly restricted.
+ 
+___ The RACF data set rules for the data sets restricts READ access to auditors and authorized users.
+
+___ The RACF data set rules for the data sets restricts UPDATE and/or ALTER access to systems programming personnel.
+
+___ The RACF data set rules for the data sets restricts UPDATE and/or ALTER access to the BMC MAINVIEW for z/OS's STC(s) and/or batch user(s).","The ISSO will ensure that update and allocate access to BMC MAINVIEW for z/OS STC data sets is limited to systems programmers and/or BMC MAINVIEW for z/OS's STC(s) and/or batch user(s) only. Read access can be given to auditors and authorized users.
+
+The installing systems programmer will identify and document the product data sets and categorize them according to who will have update and alter access and if required that all update and allocate access is logged. The installing systems programmer will identify if any additional groups have update and/or alter access for specific data sets, and once documented will work with the ISSO to ensure they are properly restricted to the ACP (Access Control Program) active on the system.
+
+Data sets to be protected will be: 
+SYS3.BMCVIEW (data sets that are altered by the product's STCs, this can be more specific)
+
+The following commands are provided as a sample for implementing data set controls: 
+
+ad 'SYS3.BMCVIEW.**' uacc(none) owner(sys3) -
+	audit(failures(read)) -
+	data('Vendor DS Profile: BMC MAINVIEW for z/OS')
+pe 'SYS3.BMCVIEW.**' id(<syspaudt> <tstcaudt> MAINVIEW STCs) acc(a)
+pe 'SYS3.BMCVIEW.**' id(<audtaudt> authorized users) acc(r)
+
+setr generic(dataset) refresh","V-17067,SV-37723,CCI-001499"
+"z/OS BMC MAINVIEW for z/OS for RACF Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via email to the following address: disa.stig_spt@mail.mil.","6","8 ","23 Nov 2022","Release: 8 Benchmark Date: 23 Nov 2022","STIG.DOD.MIL","terms-of-use","V-224425","SV-224425r868512_rule","ZMVZR020","medium","CAT II","","SRG-OS-000018","BMC MAINVIEW resources must be properly defined and protected.","<VulnDiscussion>BMC MAINVIEW can run with sensitive system privileges, and potentially can circumvent system controls. Failure to properly control access to product resources could result in the compromise of the operating system environment, and compromise the confidentiality of customer data. Many utilities assign resource controls that can be granted to systems programmers only in greater than read authority. Resources are also granted to certain non systems personnel with read only authority.</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","BMC MAINVIEW can run with sensitive system privileges, and potentially can circumvent system controls. Failure to properly control access to product resources could result in the compromise of the operating system environment, and compromise the confidentiality of customer data. Many utilities assign resource controls that can be granted to systems programmers only in greater than read authority. Resources are also granted to certain non systems personnel with read only authority.","","","false","","","","","","","","Refer to the following report produced by the Data Set and Resource Data Collection:
+
+- SENSITVE.RPT(ZMVZ0020)
+
+Automated Analysis
+Refer to the following report produced by the Data Set and Resource Data Collection:
+
+- PDI(ZMVZ0020)
+
+Verify that the accesses to resources and/or generic equivalent are properly restricted according to the requirements specified in BMC MAINVIEW Resources table in the z/OS STIG Addendum. If the following guidance is true, this is not a finding.
+
+___ The RACF resources are defined with a default access of NONE.
+
+___ The RACF resource access authorizations restrict access to the appropriate personnel.
+
+___ The RACF resource access authorizations are defined with UACC(NONE) and NOWARNING.","The ISSO will work with the systems programmer to verify that the following are properly specified in the ACP.
+
+(Note: The resource class, resources, and/or resource prefixes identified below are examples of a possible installation. The actual resource class, resources, and/or prefixes are determined when the product is actually installed on a system through the product's installation guide and can be site specific.)
+
+Use BMC MAINVIEW Resources table in the zOS STIG Addendum. This table lists the resources, access requirements, and logging requirement for BMC MAINVIEW. Ensure the guidelines for the resources and/or generic equivalent specified in the z/OS STIG Addendum are followed.
+
+The RACF resources as designated in the above table are defined with a default access of NONE.
+
+The RACF resource access authorizations restrict access to the appropriate personnel as designated in the above table.
+
+The RACF resource rules for the resources designated in the above table specify UACC(NONE) and NOWARNING.
+
+The following commands are provided as a sample for implementing resource controls:
+
+RDEFINE #BMCVIEW BBM.ssid.CN UACC(NONE) OWNER(ADMIN) AUDIT(FAILURE(READ))
+PERMIT BBM.ssid.CN CLASS(#BMCVIEW) ACCESS(ALTER) ID(autoaudt)
+PERMIT BBM.ssid.CN CLASS(#BMCVIEW) ACCESS(ALTER) ID(dasdaudt)
+PERMIT BBM.ssid.CN CLASS(#BMCVIEW) ACCESS(ALTER) ID(mqsaaudt)
+PERMIT BBM.ssid.CN CLASS(#BMCVIEW) ACCESS(ALTER) ID(Mainview STCs)
+PERMIT BBM.ssid.CN CLASS(#BMCVIEW) ACCESS(ALTER) ID(mvzread)
+PERMIT BBM.ssid.CN CLASS(#BMCVIEW) ACCESS(ALTER) ID(mvzupdt)
+PERMIT BBM.ssid.CN CLASS(#BMCVIEW) ACCESS(ALTER) ID(pcspaudt)
+PERMIT BBM.ssid.CN CLASS(#BMCVIEW) ACCESS(ALTER) ID(syspaudt)","SV-46312,V-17947,CCI-000035,CCI-002234"
+"z/OS BMC MAINVIEW for z/OS for RACF Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via email to the following address: disa.stig_spt@mail.mil.","6","8 ","23 Nov 2022","Release: 8 Benchmark Date: 23 Nov 2022","STIG.DOD.MIL","terms-of-use","V-224426","SV-224426r518988_rule","ZMVZR030","medium","CAT II","","SRG-OS-000104","BMC Mainview for z/OS Started Task name is not properly identified and/or defined to the system ACP.","<VulnDiscussion>BMC Mainview for z/OS requires a started task that will be restricted to certain resources, datasets and other system functions. By defining the started task as a userid to the system ACP, It allows the ACP to control the access and authorized users that require these capabilities. Failure to properly control these capabilities, could compromise of the operating system environment, ACP, and customer data.</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","BMC Mainview for z/OS requires a started task that will be restricted to certain resources, datasets and other system functions. By defining the started task as a userid to the system ACP, It allows the ACP to control the access and authorized users that require these capabilities. Failure to properly control these capabilities, could compromise of the operating system environment, ACP, and customer data.","","","false","","","","","","","","Refer to the following report produced by the RACF Data Collection:
+
+-	RACFCMDS.RPT(LISTUSER)
+
+The BMC Mainview for z/OS started task(s) and/or batch job userid(s) is defined and is assigned the RACF PROTECTED attribute.","The BMC Mainview for z/OS system programmer and the IAO will ensure that a product's Started Task(s) is properly identified and/or defined to the System ACP. 
+
+If the product requires a Started Task, verify that it is properly defined to the System ACP with the proper attributes.
+
+Most installation manuals will indicate how the Started Task is identified and any additional attributes that must be specified.
+
+A sample is provided here:
+
+au MV$CAS name('CAS, BMC Mainview for z/OS') owner(stc) dfltgrp(stc) nopass
+au MV$PAS name('PAS, BMC Mainview for z/OS') owner(stc) dfltgrp(stc) nopass
+au MV$MVS name('MVS, BMC Mainview for z/OS') owner(stc) dfltgrp(stc) nopass","V-17452,SV-33839,CCI-000764"
+"z/OS BMC MAINVIEW for z/OS for RACF Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via email to the following address: disa.stig_spt@mail.mil.","6","8 ","23 Nov 2022","Release: 8 Benchmark Date: 23 Nov 2022","STIG.DOD.MIL","terms-of-use","V-224427","SV-224427r518991_rule","ZMVZR032","medium","CAT II","","SRG-OS-000104","BMC Mainview for z/OS Started task(s) must be properly defined to the STARTED resource class for RACF.","<VulnDiscussion>Access to product resources should be restricted to only those individuals responsible for the application connectivity and who have a requirement to access these resources.  Improper control of product resources could potentially compromise the operating system, ACP, and customer data.</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","Access to product resources should be restricted to only those individuals responsible for the application connectivity and who have a requirement to access these resources.  Improper control of product resources could potentially compromise the operating system, ACP, and customer data.","","","false","","","","","","","","Refer to the following report produced by the RACF Data Collection:
+
+-	DSMON.RPT(RACSPT)
+
+Automated Analysis
+Refer to the following report produced by the RACF Data Collection:
+
+-	PDI(ZMVZ0032)
+
+Verify that the BMC Mainview for z/OS started task(s) is (are) defined to the STARTED resource class profile and/or ICHRIN03 table entry.","The BMC Mainview system programmer and the IAO will ensure that a product's started task(s) is (are) properly identified and/or defined to the System ACP. 
+
+A unique userid must be assigned for the BMC Mainview started task(s) thru a corresponding STARTED class entry.
+
+The following sample set of commands is shown here as a guideline:
+
+rdef started MV$CAS.** uacc(none) owner(admin) audit(all(read)) stdata(user(MV$CAS) group(stc))
+rdef started MV$MVS.** uacc(none) owner(admin) audit(all(read)) stdata(user(MV$MVS) group(stc))
+
+setr racl(started) ref","V-17454,SV-33841,CCI-000764"
+"z/OS BMC MAINVIEW for z/OS for RACF Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via email to the following address: disa.stig_spt@mail.mil.","6","8 ","23 Nov 2022","Release: 8 Benchmark Date: 23 Nov 2022","STIG.DOD.MIL","terms-of-use","V-224428","SV-224428r855095_rule","ZMVZR038","medium","CAT II","","SRG-OS-000309","BMC Mainview for z/OS Resource Class will be defined or active in the ACP.","<VulnDiscussion>Failure to use a robust ACP to control a product could potentially compromise the integrity and availability of the MVS operating system and user data.</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","Failure to use a robust ACP to control a product could potentially compromise the integrity and availability of the MVS operating system and user data.","","","false","","","","","","","","Refer to the following report produced by the RACF Data Collection:
+
+-	RACFCMDS.RPT(SETROPTS)
+-	DSMON.RPT(RACCDT) - Alternate list of active resource classes
+
+Automated Analysis
+Refer to the following report produced by the RACF Data Collection:
+
+-	PDI(ZMVZ0038)
+
+Ensure that the BMC Mainview for z/OS resource class(es) is (are) defined and active.","The IAO will ensure that the BMC Mainview for z/OS Resource Class(es) is (are) active.
+
+Use the following commands as an example:
+
+RDEFINE CDT class -
+CDTINFO( MAXLENGTH(64) DEFAULTUACC(NONE) -
+FIRST(ALPHA) CASE(UPPER) -
+OTHER(ALPHA,NUMERIC,NATIONAL,SPECIAL) -
+POSIT(301) RACLIST(REQUIRED) -
+GENERIC(ALLOWED) GENLIST(ALLOWED) -
+OPERATIONS(YES) -
+) UACC(NONE)
+
+SETROPTS CLASSACT(CDT) RACLIST(CDT)
+SETROPTS RACLIST(CDT) REFRESH
+
+SETROPTS GENERIC(class) GENCMD(class)
+SETROPTS CLASSACT(class) RACLIST(class)
+SETROPTS RACLIST(class) REFRESH","V-18011,SV-33845,CCI-000336,CCI-002358"
+"z/OS BMC MAINVIEW for z/OS for RACF Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via email to the following address: disa.stig_spt@mail.mil.","6","8 ","23 Nov 2022","Release: 8 Benchmark Date: 23 Nov 2022","STIG.DOD.MIL","terms-of-use","V-224429","SV-224429r518997_rule","ZMVZR040","medium","CAT II","","SRG-OS-000018","BMC MAINVIEW for z/OS configuration/parameter values are not specified properly.","<VulnDiscussion>BMC MAINVIEW for z/OS configuration/parameters controls the security and operational characteristics of products.  If these parameter values are improperly specified, security and operational controls may be weakened.  This exposure may threaten the availability of the product applications, and compromise the confidentiality of customer data.</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","BMC MAINVIEW for z/OS configuration/parameters controls the security and operational characteristics of products.  If these parameter values are improperly specified, security and operational controls may be weakened.  This exposure may threaten the availability of the product applications, and compromise the confidentiality of customer data.","","","false","","","","","","","","Refer to the Configuration Location dataset and member specified in the z/OS Dialog Management Procedures for BMC MAINVIEW for z/OS. 
+
+Automated Analysis
+Refer to the following report produced by the z/OS Data Collection:
+
+-	PDI(ZMVZ0040)
+
+The following keywords will have the specified values in the BMC MAINVIEW for z/OS security parameter member:
+
+Statement(values)
+ESMTYPE(AUTO|RACF)","The BMC MAINVIEW for z/OS Systems programmer will verify that any configuration/parameters that are required to control the security of the product are properly configured and syntactically correct.  Set the standard values for the BMC MAINVIEW for z/OS security parameters for the specific ACP environment along with additional IOA security parameters with standard values as documented below.
+
+Statement(values)
+ESMTYPE(AUTO|RACF)","V-18014,SV-37807,CCI-000035"

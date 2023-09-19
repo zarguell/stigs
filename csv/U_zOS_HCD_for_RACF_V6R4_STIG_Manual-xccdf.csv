@@ -1,0 +1,121 @@
+"Title","Description","Version","Release","BenchmarkDate","ReleaseInfo","Source","Notice","Rule_VulnID","Rule_RuleID","Rule_StigID","Rule_Severity","Rule_Cat","Rule_Classification","Rule_GroupTitle","Rule_RuleTitle","Rule_Description","Rule_VulnDiscussion","Rule_FalsePositives","Rule_FalseNegatives","Rule_Documentable","Rule_Mitigations","Rule_SeverityOverrideGuidance","Rule_PotentialImpacts","Rule_ThirdPartyTools","Rule_MitigationControl","Rule_Responsibility","Rule_IAControls","Rule_CheckText","Rule_FixText","Rule_CCI"
+"z/OS HCD for RACF Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via email to the following address: disa.stig_spt@mail.mil.","6","4 ","23 Nov 2022","Release: 4 Benchmark Date: 23 Nov 2022","STIG.DOD.MIL","terms-of-use","V-224489","SV-224489r855155_rule","ZHCDR000","medium","CAT II","","SRG-OS-000080","IBM Hardware Configuration Definition (HCD) install data sets are not properly protected.","<VulnDiscussion>IBM Hardware Configuration Definition (HCD) product has the ability to use privileged functions and/or have access to sensitive data. Failure to properly restrict access to their data sets could result in violating the integrity of the base product which could result in compromising the operating system or sensitive data.</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","IBM Hardware Configuration Definition (HCD) product has the ability to use privileged functions and/or have access to sensitive data. Failure to properly restrict access to their data sets could result in violating the integrity of the base product which could result in compromising the operating system or sensitive data.","","","false","","","","","","","","Refer to the following report produced by the Data Set and Resource Data Collection:
+
+-	SENSITVE.RPT(HCDRPT)
+
+Automated Analysis
+Refer to the following report produced by the Data Set and Resource Data Collection:
+
+-	PDI(ZHCD0000)
+
+Verify that access to the IBM Hardware Configuration Definition (HCD) install data sets are properly restricted.
+ 
+___	The RACF data set rules for the data sets restricts READ access to auditors, automated operations, operators, and systems programming personnel.
+
+___	The RACF data set rules for the data sets restricts UPDATE and/or ALTER access to systems programming personnel.
+
+___	The RACF data set rules for the data sets specifies that all (i.e., failures and successes) UPDATE and/or ALTER access are logged.","The IAO will ensure that update and allocate access to IBM Hardware Configuration Definition (HCD) install data sets is limited to System Programmers only, and all update and alter access is logged. Auditors, automated operations, and operators should have READ access.
+
+The installing Systems Programmer will identify and document the product data sets and categorize them according to who will have update and alter access and if required that all update and allocate access is logged. He will identify if any additional groups have update and/or alter access for specific data sets, and once documented he will work with the IAO to see that they are properly restricted to the ACP (Access Control Program) active on the system.
+
+Data sets to be protected will be: 
+SYS1.SCBD*
+
+The following commands are provided as a sample for implementing dataset controls: 
+
+ad 'SYS1.SCBD*.**' uacc(none) owner(sys1) -
+	audit(success(update) failures(read)) -
+	data('Vendor DS Profile: hcd')
+pe 'SYS1.SCBD*.**' id(syspaudt tstcaudt) acc(a)
+pe 'SYS1.SCBD*.**' id(audtaudt autoaudt operaudt) acc(r)
+
+setr generic(dataset) refresh","V-16932,SV-30545,CCI-000213,CCI-002234"
+"z/OS HCD for RACF Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via email to the following address: disa.stig_spt@mail.mil.","6","4 ","23 Nov 2022","Release: 4 Benchmark Date: 23 Nov 2022","STIG.DOD.MIL","terms-of-use","V-224490","SV-224490r868398_rule","ZHCDR002","medium","CAT II","","SRG-OS-000259","IBM Hardware Configuration Definition (HCD) User data sets are not properly protected.","<VulnDiscussion>IBM Hardware Configuration Definition (HCD) product has the capability to use privileged functions and/or to have access to sensitive data. Failure to properly restrict access to their data sets could result in violating the integrity of the base product which could result in compromising the operating system or sensitive data.</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","IBM Hardware Configuration Definition (HCD) product has the capability to use privileged functions and/or to have access to sensitive data. Failure to properly restrict access to their data sets could result in violating the integrity of the base product which could result in compromising the operating system or sensitive data.","","","false","","","","","","","","a) Refer to the following report produced by the Data Set and Resource Data Collection:
+
+- SENSITVE.RPT(HCDUSER)
+
+Automated Analysis
+Refer to the following report produced by the Data Set and Resource Data Collection:
+
+- PDI(ZHCD0002)
+
+b) Verify that the access to the IBM Hardware Configuration Definition (HCD) install data sets is properly restricted. The data sets to be protected are the production and working IODF data sets as well as the activity log for the IODF data sets.
+
+Note: Currently on most CSD systems the prefix for these data sets is SYS3.IODF*.**.
+
+___ The RACF data set rules for the data sets does not restrict UPDATE and/or ALTER access to systems programming personnel.
+
+___ The RACF data set rules for the data sets does not restrict READ access to automated operations users and operations personnel.
+
+___ The RACF data set rules for the datasets does not specify that all (i.e., failures and successes) UPDATE and/or ALTER access will be logged.
+
+c) If all of the above are untrue, there is no finding.
+
+d) If any of the above is true, this is a finding.","The ISSO will ensure that update, and alter access to program product user data sets is limited to systems programmers and all update and allocate access is logged. Ensure that read access is limited to auditors, Operations personnel, and Automated Operations users.
+
+The installing systems programmer will identify and document the product user data sets and categorize them according to who will have update and alter access and if required that all update and allocate access is logged. The installing systems programmer will identify if any additional groups have update access for specific data sets, and once documented will work with the ISSO to ensure they are properly restricted to the ACP (Access Control Program) active on the system.
+
+Data sets to be protected will be:
+
+The production IODF data sets. (i.e., hhhhhhhh.IODFnn)
+The working IODF data sets. (i.e., hhhhhhhh.IODFnn.)
+The activity log for the IODF data sets. (i.e., hhhhhhhh.IODFnn.ACTLOG)
+
+Note: Currently on most CSD systems the prefix for these data sets is SYS3.IODF*.**.
+
+The following commands are provided as a sample for implementing dataset controls:
+
+ad 'sys3.iodf*.**' uacc(none) owner(sys3) -
+audit(success(update) failures(read)) -
+data('Vendor DS Profile: IODF for HCD')
+pe 'sys3.iodf*.**' id(syspaudt tstcaudt) acc(a)
+pe 'sys3.iodf*.**' id(audtaudt autoaudt operaudt) acc(r)","SV-30598,V-21592,CCI-001499"
+"z/OS HCD for RACF Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via email to the following address: disa.stig_spt@mail.mil.","6","4 ","23 Nov 2022","Release: 4 Benchmark Date: 23 Nov 2022","STIG.DOD.MIL","terms-of-use","V-224491","SV-224491r870227_rule","ZHCDR020","medium","CAT II","","SRG-OS-000018","IBM Hardware Configuration Definition (HCD) resources are not properly defined and protected.","<VulnDiscussion>Program products can run with sensitive system privileges, and potentially can circumvent system controls. Failure to properly control access to program product resources could result in the compromise of the operating system environment, and compromise the confidentiality of customer data. Many utilities assign resource controls that can be granted to systems programmers only in greater than read authority. Resources are also granted to certain non-systems personnel with read only authority.</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","Program products can run with sensitive system privileges, and potentially can circumvent system controls. Failure to properly control access to program product resources could result in the compromise of the operating system environment, and compromise the confidentiality of customer data. Many utilities assign resource controls that can be granted to systems programmers only in greater than read authority. Resources are also granted to certain non-systems personnel with read only authority.","","","false","","","","","","","","a) Refer to the following report produced by the Data Set and Resource Data Collection:
+
+- SENSITVE.RPT(FACILITY)
+
+Automated Analysis
+Refer to the following report produced by the Data Set and Resource Data Collection:
+
+- PDI(ZHCD0020)
+
+b) Review the following items for the IBM Hardware Configuration Definition (HCD) resources in the FACILITY resource class:
+
+1) The RACF rules for the CBD resource specify a default access of NONE.
+2) The RACF rules for the CBD.CPC.IOCDS and CBD.CPC.IPLPARM resources restrict access to systems programming and operations personnel as well as possibly any automated operations batch users with access of READ.
+3) The RACF rules for the CBD.CPC.IOCDS and CBD.CPC.IPLPARM resources are restricted access to systems programming with access of UPDATE and logged.
+4) All RACF rules are defined with UACC(NONE).
+
+c) If any item in (b) is untrue, this is a finding.
+
+d) If all items in (b) are true, this is not a finding.","The systems programmer will work with the ISSO to verify that the following are properly specified in the ACP.
+
+1) The RACF rules for the CBD resource specify a default access of NONE.
+2) There are no RACF rules that allow access to the CBD resource.
+
+Example:
+
+rdef facility cbd.** uacc(none) owner(admin) audit(failure(read)) -
+data('added per PDI ZHCD0020') 
+
+3) The RACF rules for the CBD.CPC.IOCDS and CBD.CPC.IPLPARM resources are restricted access to systems programming and operations personnel as well as possibly any automated operations batch users with access of READ.
+4) The RACF rules for the CBD.CPC.IOCDS and CBD.CPC.IPLPARM resources are restricted access to systems programming with access of UPDATE and logged.
+5) All RACF rules are defined with UACC(NONE).
+
+Example:
+
+rdef facility cbd.cpc.iocds.** uacc(none) owner(admin) -
+	audit(success(update) failures(read)) -
+	data('added per PDI ZHCD0020') 
+rdef facility cbd.cpc.iplparm.** uacc(none) owner(admin) -
+	audit(success(update) failures(read)) -
+	data('added per PDI ZHCD0020') 
+
+pe cbd.cpc.iocds.** cl(facility) id(syspaudt) acc(u)
+pe cbd.cpc.iocds.** cl(facility) id(operaudt) acc(r)
+pe cbd.cpc.iocds.** cl(facility) id(autoaudt) acc(r)
+pe cbd.cpc.iplparm.** cl(facility) id(syspaudt) acc(u)
+pe cbd.cpc.iplparm.** cl(facility) id(operaudt) acc(r)
+pe cbd.cpc.iplparm.** cl(facility) id(autoaudt) acc(r)
+
+setr racl(facility) ref","SV-30583,V-17947,CCI-000035,CCI-002234"

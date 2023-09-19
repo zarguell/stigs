@@ -1,0 +1,67 @@
+"Title","Description","Version","Release","BenchmarkDate","ReleaseInfo","Source","Notice","Rule_VulnID","Rule_RuleID","Rule_StigID","Rule_Severity","Rule_Cat","Rule_Classification","Rule_GroupTitle","Rule_RuleTitle","Rule_Description","Rule_VulnDiscussion","Rule_FalsePositives","Rule_FalseNegatives","Rule_Documentable","Rule_Mitigations","Rule_SeverityOverrideGuidance","Rule_PotentialImpacts","Rule_ThirdPartyTools","Rule_MitigationControl","Rule_Responsibility","Rule_IAControls","Rule_CheckText","Rule_FixText","Rule_CCI"
+"z/OS CA Common Services for RACF Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via email to the following address: disa.stig_spt@mail.mil.","6","3 ","23 Nov 2022","Release: 3 Benchmark Date: 23 Nov 2022","STIG.DOD.MIL","terms-of-use","V-224433","SV-224433r855119_rule","ZCCSR000","medium","CAT II","","SRG-OS-000080","CA Common Services installation data sets will be properly protected.","<VulnDiscussion>CA Common Services installation data sets have the ability to use privileged functions and/or have access to sensitive data. Failure to properly restrict access to these data sets could result in violating the integrity of the base product which could result in compromising the operating system or sensitive data.</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","CA Common Services installation data sets have the ability to use privileged functions and/or have access to sensitive data. Failure to properly restrict access to these data sets could result in violating the integrity of the base product which could result in compromising the operating system or sensitive data.","","","false","","","","","","","","Refer to the following report produced by the Data Set and Resource Data Collection:
+
+-	SENSITVE.RPT(CCSRPT)
+
+Automated Analysis
+Refer to the following report produced by the Data Set and Resource Data Collection:
+
+-	PDI(ZCCS0000)
+
+Verify that the accesses to the CA Common Services installation data sets are properly restricted.  If the following guidance is true, this is not a finding.
+
+___	The RACF data set rules for the data sets restricts READ access to all authorized users.
+
+___	The RACF data set rules for the data sets restricts WRITE and/or greater access to systems programming personnel.
+
+___	The RACF data set rules for the data sets specify that all (i.e., failures and successes) WRITE and/or greater access is logged.
+
+___	The RACF data set rules for the data sets specify UACC(NONE) and NOWARNING.","The IAO will ensure that WRITE and/or greater access to CA Common Services installation data sets is limited to System Programmers only, and all WRITE and/or greater access is logged.  READ access can be given to all authorized users.
+
+The installing Systems Programmer will identify and document the product data sets and categorize them according to who will have WRITE and/or greater access and if required that all WRITE and/or greater access is logged.  He will identify if any additional groups have WRITE and/or greater access for specific data sets, and once documented he will work with the IAO to see that they are properly restricted to the ACP (Access Control Program) active on the system.
+
+Data sets to be protected may begin with:
+SYS2.CCS.
+SYS2A.CCS.
+SYS3.CCS.
+
+The following commands are provided as a sample for implementing data set controls:
+
+AD 'sys2.ccs.**' UACC(NONE) OWNER(SYS2) AUDIT(SUCCESS(UPDATE) FAILURES(READ))
+
+PE 'sys2.ccs.**' ID(syspaudt) ACC(A)
+PE 'sys2.ccs.**' ID(authorized users/*) ACC(R)","V-16932,SV-40834,CCI-000213,CCI-002234"
+"z/OS CA Common Services for RACF Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via email to the following address: disa.stig_spt@mail.mil.","6","3 ","23 Nov 2022","Release: 3 Benchmark Date: 23 Nov 2022","STIG.DOD.MIL","terms-of-use","V-224434","SV-224434r868319_rule","ZCCSR030","medium","CAT II","","SRG-OS-000104","CA Common Services Started Task name will be properly identified and/or defined to the system ACP.","<VulnDiscussion>CA Common Services requires a started task that will be restricted to certain resources, datasets and other system functions. By defining the started task as a userid to the system ACP, It allows the ACP to control the access and authorized users that require these capabilities. Failure to properly control these capabilities, could compromise of the operating system environment, ACP, and customer data.</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","CA Common Services requires a started task that will be restricted to certain resources, datasets and other system functions. By defining the started task as a userid to the system ACP, It allows the ACP to control the access and authorized users that require these capabilities. Failure to properly control these capabilities, could compromise of the operating system environment, ACP, and customer data.","","","false","","","","","","","","Refer to the following report produced by the RACF Data Collection:
+
+- RACFCMDS.RPT(LISTUSER)
+
+Verify that the userid(s) for the CA Common Services started task(s) is (are) properly defined. If the following attributes are defined, this is not a finding.
+
+PROTECTED","The ISSO working with the systems programmer will ensure the CA Common Services Started Task(s) is properly identified and/or defined to the System ACP. 
+
+If the product requires a Started Task, verify that it is properly defined to the System ACP with the proper attributes.
+
+Most installation manuals will indicate how a Started Task is identified and any additional attributes that must be specified.
+
+The following commands are provided as a sample for defining Started Task(s):
+
+au CAS9 name('STC, CAS9') owner(stc) dfltgrp(stc) nopass -
+	data('CCS stc')","V-17452,SV-40857,CCI-000764"
+"z/OS CA Common Services for RACF Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via email to the following address: disa.stig_spt@mail.mil.","6","3 ","23 Nov 2022","Release: 3 Benchmark Date: 23 Nov 2022","STIG.DOD.MIL","terms-of-use","V-224435","SV-224435r868322_rule","ZCCSR032","medium","CAT II","","SRG-OS-000104","CA Common Services Started task will be properly defined to the STARTED resource class for RACF.","<VulnDiscussion>Access to product resources should be restricted to only those individuals responsible for the application connectivity and who have a requirement to access these resources. Improper control of product resources could potentially compromise the operating system, ACP, and customer data.</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","Access to product resources should be restricted to only those individuals responsible for the application connectivity and who have a requirement to access these resources. Improper control of product resources could potentially compromise the operating system, ACP, and customer data.","","","false","","","","","","","","Refer to the following report produced by the RACF Data Collection:
+
+- DSMON.RPT(RACSPT)
+
+Automated Analysis
+Refer to the following report produced by the RACF Data Collection:
+
+- PDI(ZCCS0032)
+
+If the CA Common Services started task(s) is (are) defined to the STARTED resource class profile and/or ICHRIN03 table entry, this is not a finding.","The ISSO working with the systems programmer will ensure the CA Common Services Started Task(s) is properly identified and/or defined to the System ACP. 
+
+A unique userid must be assigned for the CA Common Services started task(s) thru a corresponding STARTED class entry.
+
+The following commands are provided as a sample for defining Started Task(s):
+
+rdef started CAS9.** uacc(none) owner(admin) audit(all(read)) -
+	stdata(user(CAS9) group(stc))
+setr racl(started) ref","V-17454,SV-40859,CCI-000764"

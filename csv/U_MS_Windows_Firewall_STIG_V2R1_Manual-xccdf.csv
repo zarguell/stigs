@@ -1,0 +1,612 @@
+"Title","Description","Version","Release","BenchmarkDate","ReleaseInfo","Source","Notice","Rule_VulnID","Rule_RuleID","Rule_StigID","Rule_Severity","Rule_Cat","Rule_Classification","Rule_GroupTitle","Rule_RuleTitle","Rule_Description","Rule_VulnDiscussion","Rule_FalsePositives","Rule_FalseNegatives","Rule_Documentable","Rule_Mitigations","Rule_SeverityOverrideGuidance","Rule_PotentialImpacts","Rule_ThirdPartyTools","Rule_MitigationControl","Rule_Responsibility","Rule_IAControls","Rule_CheckText","Rule_FixText","Rule_CCI"
+"Microsoft Windows Firewall with Advanced Security Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via email to the following address: disa.stig_spt@mail.mil.","2","1 ","01 Nov 2021","Release: 1 Benchmark Date: 01 Nov 2021","STIG.DOD.MIL","terms-of-use","V-241989","SV-241989r698208_rule","WNFWA-000001","medium","CAT II","","SRG-OS-000480-GPOS-00227","The Windows Firewall with Advanced Security must be enabled when connected to a domain.","<VulnDiscussion>A firewall provides a line of defense against attack.  To be effective, it must be enabled and properly configured.  This setting enables the firewall when connected to the domain.</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","A firewall provides a line of defense against attack.  To be effective, it must be enabled and properly configured.  This setting enables the firewall when connected to the domain.","","","false","","","","","","","","If the system is not a member of a domain, the Domain Profile requirements can be marked NA.
+
+If the following policy-based registry value exists and is not configured as specified, this is a finding.
+
+Registry Hive:  HKEY_LOCAL_MACHINE
+Registry Path:  \SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile\
+
+Value Name:  EnableFirewall
+
+Type:  REG_DWORD
+Value:  0x00000001 (1)
+
+If the policy-based registry value does not exist, verify the following registry value.  If it is not configured as specified, this is a finding.
+
+Registry Hive:  HKEY_LOCAL_MACHINE
+Registry Path:  \SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\DomainProfile\
+
+Value Name:  EnableFirewall
+
+Type:  REG_DWORD
+Value:  0x00000001 (1)","The preferred method of configuring the firewall settings is with a policy, particularly in a domain environment.
+
+Configure the policy value for Computer Configuration -> Windows Settings -> Security Settings -> Windows Firewall with Advanced Security -> Windows Firewall with Advanced Security -> Windows Firewall Properties (this link will be in the right pane) -> Domain Profile Tab -> State, ""Firewall state"" to ""On (recommended)"".
+
+In addition to using policies, systems may also be configured using the firewall GUI or Netsh commands.  These methods may be more appropriate for standalone systems.
+The configuration settings in the GUI are the same as those specified in the policy above.  Windows Firewall Properties will be a link in the center pane after opening Windows Firewall with Advanced Security.
+
+The following Netsh commands may also be used to configure this setting:
+""Netsh advfirewall set domainprofile state on"".
+Or
+""Netsh advfirewall set allprofiles state on"".","V-17415,SV-54833,CCI-001414"
+"Microsoft Windows Firewall with Advanced Security Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via email to the following address: disa.stig_spt@mail.mil.","2","1 ","01 Nov 2021","Release: 1 Benchmark Date: 01 Nov 2021","STIG.DOD.MIL","terms-of-use","V-241990","SV-241990r698211_rule","WNFWA-000002","medium","CAT II","","SRG-OS-000480-GPOS-00227","The Windows Firewall with Advanced Security must be enabled when connected to a private network.","<VulnDiscussion>A firewall provides a line of defense against attack.  To be effective, it must be enabled and properly configured.  This setting enables the firewall when connected to a private network.</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","A firewall provides a line of defense against attack.  To be effective, it must be enabled and properly configured.  This setting enables the firewall when connected to a private network.","","","false","","","","","","","","If the following policy-based registry value exists and is not configured as specified, this is a finding.
+
+Registry Hive:  HKEY_LOCAL_MACHINE
+Registry Path:  \SOFTWARE\Policies\Microsoft\WindowsFirewall\PrivateProfile\
+
+Value Name:  EnableFirewall
+
+Type:  REG_DWORD
+Value:  0x00000001 (1)
+
+If the policy-based registry value does not exist, verify the following registry value.  If it is not configured as specified, this is a finding.
+
+Registry Hive:  HKEY_LOCAL_MACHINE
+Registry Path:  \SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\StandardProfile\
+
+Value Name:  EnableFirewall
+
+Type:  REG_DWORD
+Value:  0x00000001 (1)","The preferred method of configuring the firewall settings is with a policy, particularly in a domain environment.
+
+Configure the policy value for Computer Configuration -> Windows Settings -> Security Settings -> Windows Firewall with Advanced Security -> Windows Firewall with Advanced Security -> Windows Firewall Properties (this link will be in the right pane) -> Private Profile Tab -> State, ""Firewall state"" to ""On (recommended)"".
+
+In addition to using policies, systems may also be configured using the firewall GUI or Netsh commands.  These methods may be more appropriate for standalone systems.
+The configuration settings in the GUI are the same as those specified in the policy above.  Windows Firewall Properties will be a link in the center pane after opening Windows Firewall with Advanced Security.
+
+The following Netsh commands may also be used to configure this setting:
+""Netsh advfirewall set privateprofile state on"".
+Or
+""Netsh advfirewall set allprofiles state on"".","V-17416,SV-54849,CCI-001414"
+"Microsoft Windows Firewall with Advanced Security Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via email to the following address: disa.stig_spt@mail.mil.","2","1 ","01 Nov 2021","Release: 1 Benchmark Date: 01 Nov 2021","STIG.DOD.MIL","terms-of-use","V-241991","SV-241991r698214_rule","WNFWA-000003","medium","CAT II","","SRG-OS-000480-GPOS-00227","The Windows Firewall with Advanced Security must be enabled when connected to a public network.","<VulnDiscussion>A firewall provides a line of defense against attack.  To be effective, it must be enabled and properly configured.  This setting enables the firewall when connected to a public network.</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","A firewall provides a line of defense against attack.  To be effective, it must be enabled and properly configured.  This setting enables the firewall when connected to a public network.","","","false","","","","","","","","If the following policy-based registry value exists and is not configured as specified, this is a finding.
+
+Registry Hive:  HKEY_LOCAL_MACHINE
+Registry Path:  \SOFTWARE\Policies\Microsoft\WindowsFirewall\PublicProfile\
+
+Value Name:  EnableFirewall
+
+Type:  REG_DWORD
+Value:  0x00000001 (1)
+
+If the policy-based registry value does not exist, verify the following registry value.  If it is not configured as specified, this is a finding.
+
+Registry Hive:  HKEY_LOCAL_MACHINE
+Registry Path:  \SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\PublicProfile\
+
+Value Name:  EnableFirewall
+
+Type:  REG_DWORD
+Value:  0x00000001 (1)","The preferred method of configuring the firewall settings is with a policy, particularly in a domain environment.
+
+Configure the policy value for Computer Configuration -> Windows Settings -> Security Settings -> Windows Firewall with Advanced Security -> Windows Firewall with Advanced Security -> Windows Firewall Properties (this link will be in the right pane) -> Public Profile Tab -> State, ""Firewall state"" to ""On (recommended)"".
+
+In addition to using policies, systems may also be configured using the firewall GUI or Netsh commands.  These methods may be more appropriate for standalone systems.
+The configuration settings in the GUI are the same as those specified in the policy above.  Windows Firewall Properties will be a link in the center pane after opening Windows Firewall with Advanced Security.
+
+The following Netsh commands may also be used to configure this setting:
+""Netsh advfirewall set publicprofile state on"".
+Or
+""Netsh advfirewall set allprofiles state on"".","V-17417,SV-54855,CCI-001414"
+"Microsoft Windows Firewall with Advanced Security Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via email to the following address: disa.stig_spt@mail.mil.","2","1 ","01 Nov 2021","Release: 1 Benchmark Date: 01 Nov 2021","STIG.DOD.MIL","terms-of-use","V-241992","SV-241992r698217_rule","WNFWA-000004","high","CAT I","","SRG-OS-000480-GPOS-00227","The Windows Firewall with Advanced Security must block unsolicited inbound connections when connected to a domain.","<VulnDiscussion>A firewall provides a line of defense against attack.  To be effective, it must be enabled and properly configured.  Unsolicited inbound connections may be malicious attempts to gain access to a system.  Unsolicited inbound connections, for which there is no rule allowing the connection, will be blocked in the domain.</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","A firewall provides a line of defense against attack.  To be effective, it must be enabled and properly configured.  Unsolicited inbound connections may be malicious attempts to gain access to a system.  Unsolicited inbound connections, for which there is no rule allowing the connection, will be blocked in the domain.","","","false","","","","","","","","If the system is not a member of a domain, the Domain Profile requirements can be marked NA.
+
+If the system is a member of a domain and the firewall's Domain Profile is not enabled (see V-17415), this requirement is also a finding.
+
+If the following policy-based registry value exists and is not configured as specified, this is a finding.
+
+Registry Hive:  HKEY_LOCAL_MACHINE
+Registry Path:  \SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile\
+
+Value Name:  DefaultInboundAction
+
+Type:  REG_DWORD
+Value:  0x00000001 (1)
+
+If the policy-based registry value does not exist, verify the following registry value. If it is not configured as specified, this is a finding.
+
+Registry Hive:  HKEY_LOCAL_MACHINE
+Registry Path:  \SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\DomainProfile\
+
+Value Name:  DefaultInboundAction
+
+Type:  REG_DWORD
+Value:  0x00000001 (1)","The preferred method of configuring the firewall settings is with a policy, particularly in a domain environment.
+
+Configure the policy value for Computer Configuration -> Windows Settings -> Security Settings -> Windows Firewall with Advanced Security -> Windows Firewall with Advanced Security -> Windows Firewall Properties (this link will be in the right pane) -> Domain Profile Tab -> State, ""Inbound connections"" to ""Block (default)"".
+
+In addition to using policies, systems may also be configured using the firewall GUI or Netsh commands.  These methods may be more appropriate for standalone systems.
+The configuration settings in the GUI are the same as those specified in the policy above.  Windows Firewall Properties will be a link in the center pane after opening Windows Firewall with Advanced Security.
+
+The following Netsh commands may also be used to configure this setting:
+""Netsh advfirewall set domainprofile firewallpolicy blockinbound,allowoutbound"".
+Or
+""Netsh advfirewall set allprofiles firewallpolicy blockinbound,allowoutbound"".
+Both inbound and outbound parameters must be specified to execute this command.","V-17418,SV-54859,CCI-000382"
+"Microsoft Windows Firewall with Advanced Security Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via email to the following address: disa.stig_spt@mail.mil.","2","1 ","01 Nov 2021","Release: 1 Benchmark Date: 01 Nov 2021","STIG.DOD.MIL","terms-of-use","V-241993","SV-241993r698220_rule","WNFWA-000005","medium","CAT II","","SRG-OS-000480-GPOS-00227","The Windows Firewall with Advanced Security must allow outbound connections, unless a rule explicitly blocks the connection when connected to a domain.","<VulnDiscussion>A firewall provides a line of defense against attack.  To be effective, it must be enabled and properly configured.  Outbound connections are allowed in the domain, unless a rule explicitly blocks the connection.  This allows normal outbound communication, which could be restricted as necessary with additional rules.</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","A firewall provides a line of defense against attack.  To be effective, it must be enabled and properly configured.  Outbound connections are allowed in the domain, unless a rule explicitly blocks the connection.  This allows normal outbound communication, which could be restricted as necessary with additional rules.","","","false","","","","","","","","If the system is not a member of a domain, the Domain Profile requirements can be marked NA.
+
+If the system is a member of a domain and the firewall's Domain Profile is not enabled (see V-17415), this requirement is also a finding.
+
+If the following policy-based registry value exists and is not configured as specified, this is a finding.
+
+Registry Hive:  HKEY_LOCAL_MACHINE
+Registry Path:  \SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile\
+
+Value Name:  DefaultOutboundAction
+
+Type:  REG_DWORD
+Value:  0x00000000 (0)
+
+If the policy-based registry value does not exist, verify the following registry value. If it is not configured as specified, this is a finding.
+
+Registry Hive:  HKEY_LOCAL_MACHINE
+Registry Path:  \SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\DomainProfile\
+
+Value Name:  DefaultOutboundAction
+
+Type:  REG_DWORD
+Value:  0x00000000 (0)","The preferred method of configuring the firewall settings is with a policy, particularly in a domain environment.
+
+Configure the policy value for Computer Configuration -> Windows Settings -> Security Settings -> Windows Firewall with Advanced Security -> Windows Firewall with Advanced Security -> Windows Firewall Properties (this link will be in the right pane) -> Domain Profile Tab -> State, ""Outbound connections"" to ""Allow (default)"".
+
+In addition to using policies, systems may also be configured using the firewall GUI or Netsh commands.  These methods may be more appropriate for standalone systems.
+The configuration settings in the GUI are the same as those specified in the policy above.  Windows Firewall Properties will be a link in the center pane after opening Windows Firewall with Advanced Security.
+
+The following Netsh commands may also be used to configure this setting:
+""Netsh advfirewall set domainprofile firewallpolicy blockinbound,allowoutbound"".
+Or
+""Netsh advfirewall set allprofiles firewallpolicy blockinbound,allowoutbound"".
+Both inbound and outbound parameters must be specified to execute this command.","V-17419,SV-54863,CCI-001094"
+"Microsoft Windows Firewall with Advanced Security Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via email to the following address: disa.stig_spt@mail.mil.","2","1 ","01 Nov 2021","Release: 1 Benchmark Date: 01 Nov 2021","STIG.DOD.MIL","terms-of-use","V-241994","SV-241994r698223_rule","WNFWA-000009","low","CAT III","","SRG-OS-000327-GPOS-00127","The Windows Firewall with Advanced Security log size must be configured for domain connections.","<VulnDiscussion>A firewall provides a line of defense against attack.  To be effective, it must be enabled and properly configured.  The firewall log file size for a domain connection will be set to ensure enough capacity is allocated for audit data.</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","A firewall provides a line of defense against attack.  To be effective, it must be enabled and properly configured.  The firewall log file size for a domain connection will be set to ensure enough capacity is allocated for audit data.","","","false","","","","","","","","If the system is not a member of a domain, the Domain Profile requirements can be marked NA.
+
+If the system is a member of a domain and the firewall's Domain Profile is not enabled (see V-17415), this requirement is also a finding.
+
+If the following policy-based registry value exists and is not configured as specified, this is a finding.
+
+Registry Hive:  HKEY_LOCAL_MACHINE
+Registry Path:  \SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile\Logging\
+
+Value Name:  LogFileSize
+
+Type:  REG_DWORD
+Value:  0x00004000 (16384) (or greater)
+
+If the policy-based registry value does not exist, verify the following registry value. If it is not configured as specified, this is a finding.
+
+Registry Hive:  HKEY_LOCAL_MACHINE
+Registry Path:  \SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\DomainProfile\Logging\
+
+Value Name:  LogFileSize
+
+Type:  REG_DWORD
+Value:  0x00004000 (16384) (or greater)","The preferred method of configuring the firewall settings is with a policy, particularly in a domain environment.
+
+Configure the policy value for Computer Configuration -> Windows Settings -> Security Settings -> Windows Firewall with Advanced Security -> Windows Firewall with Advanced Security -> Windows Firewall Properties (this link will be in the right pane) -> Domain Profile Tab -> Logging (select Customize), ""Size limit (KB):"" to ""16,384"" or greater.
+
+In addition to using policies, systems may also be configured using the firewall GUI or Netsh commands.  These methods may be more appropriate for standalone systems.
+The configuration settings in the GUI are the same as those specified in the policy above.  Windows Firewall Properties will be a link in the center pane after opening Windows Firewall with Advanced Security.
+
+The following Netsh command may also be used to configure this setting:
+""Netsh advfirewall set domainprofile logging maxfilesize 16384"" or greater.","V-17425,SV-54874,CCI-000140"
+"Microsoft Windows Firewall with Advanced Security Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via email to the following address: disa.stig_spt@mail.mil.","2","1 ","01 Nov 2021","Release: 1 Benchmark Date: 01 Nov 2021","STIG.DOD.MIL","terms-of-use","V-241995","SV-241995r698226_rule","WNFWA-000010","low","CAT III","","SRG-OS-000327-GPOS-00127","The Windows Firewall with Advanced Security must log dropped packets when connected to a domain.","<VulnDiscussion>A firewall provides a line of defense against attack.  To be effective, it must be enabled and properly configured.  Logging of dropped packets for a domain connection will be enabled to maintain an audit trail of potential issues.</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","A firewall provides a line of defense against attack.  To be effective, it must be enabled and properly configured.  Logging of dropped packets for a domain connection will be enabled to maintain an audit trail of potential issues.","","","false","","","","","","","","If the system is not a member of a domain, the Domain Profile requirements can be marked NA.
+
+If the system is a member of a domain and the firewall's Domain Profile is not enabled (see V-17415), this requirement is also a finding.
+
+If the following policy-based registry value exists and is not configured as specified, this is a finding.
+
+Registry Hive:  HKEY_LOCAL_MACHINE
+Registry Path:  \SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile\Logging\
+
+Value Name:  LogDroppedPackets
+
+Type:  REG_DWORD
+Value:  0x00000001 (1)
+
+If the policy-based registry value does not exist, verify the following registry value. If it is not configured as specified, this is a finding.
+
+Registry Hive:  HKEY_LOCAL_MACHINE
+Registry Path:  \SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\DomainProfile\Logging\
+
+Value Name:  LogDroppedPackets
+
+Type:  REG_DWORD
+Value:  0x00000001 (1)","The preferred method of configuring the firewall settings is with a policy, particularly in a domain environment.
+
+Configure the policy value for Computer Configuration -> Windows Settings -> Security Settings -> Windows Firewall with Advanced Security -> Windows Firewall with Advanced Security -> Windows Firewall Properties (this link will be in the right pane) -> Domain Profile Tab -> Logging (select Customize), ""Log dropped packets"" to ""Yes"".
+
+In addition to using policies, systems may also be configured using the firewall GUI or Netsh commands.  These methods may be more appropriate for standalone systems.
+The configuration settings in the GUI are the same as those specified in the policy above.  Windows Firewall Properties will be a link in the center pane after opening Windows Firewall with Advanced Security.
+
+The following Netsh commands may also be used to configure this setting:
+""Netsh advfirewall set domainprofile logging droppedconnections enable"".
+Or
+""Netsh advfirewall set allprofiles logging droppedconnections enable"".","V-17426,SV-54877,CCI-000172"
+"Microsoft Windows Firewall with Advanced Security Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via email to the following address: disa.stig_spt@mail.mil.","2","1 ","01 Nov 2021","Release: 1 Benchmark Date: 01 Nov 2021","STIG.DOD.MIL","terms-of-use","V-241996","SV-241996r698229_rule","WNFWA-000011","low","CAT III","","SRG-OS-000327-GPOS-00127","The Windows Firewall with Advanced Security must log successful connections when connected to a domain.","<VulnDiscussion>A firewall provides a line of defense against attack.  To be effective, it must be enabled and properly configured.  Logging of successful connections for a domain connection will be enabled to maintain an audit trail if issues are discovered.</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","A firewall provides a line of defense against attack.  To be effective, it must be enabled and properly configured.  Logging of successful connections for a domain connection will be enabled to maintain an audit trail if issues are discovered.","","","false","","","","","","","","If the system is not a member of a domain, the Domain Profile requirements can be marked NA.
+
+If the system is a member of a domain and the firewall's Domain Profile is not enabled (see V-17415), this requirement is also a finding.
+
+If the following policy-based registry value exists and is not configured as specified, this is a finding.
+
+Registry Hive:  HKEY_LOCAL_MACHINE
+Registry Path:  \SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile\Logging\
+
+Value Name:  LogSuccessfulConnections
+
+Type:  REG_DWORD
+Value:  0x00000001 (1)
+
+If the policy-based registry value does not exist, verify the following registry value. If it is not configured as specified, this is a finding.
+
+Registry Hive:  HKEY_LOCAL_MACHINE
+Registry Path:  \SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\DomainProfile\Logging\
+
+Value Name:  LogSuccessfulConnections
+
+Type:  REG_DWORD
+Value:  0x00000001 (1)","The preferred method of configuring the firewall settings is with a policy, particularly in a domain environment.
+
+Configure the policy value for Computer Configuration -> Windows Settings -> Security Settings -> Windows Firewall with Advanced Security -> Windows Firewall with Advanced Security -> Windows Firewall Properties (this link will be in the right pane) -> Domain Profile Tab -> Logging (select Customize), ""Log successful connections"" to ""Yes"".
+
+In addition to using policies, systems may also be configured using the firewall GUI or Netsh commands.  These methods may be more appropriate for standalone systems.
+The configuration settings in the GUI are the same as those specified in the policy above.  Windows Firewall Properties will be a link in the center pane after opening Windows Firewall with Advanced Security.
+
+The following Netsh commands may also be used to configure this setting:
+""Netsh advfirewall set domainprofile logging allowedconnections enable"".
+Or
+""Netsh advfirewall set allprofiles logging allowedconnections enable"".","V-17427,SV-54878,CCI-001462"
+"Microsoft Windows Firewall with Advanced Security Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via email to the following address: disa.stig_spt@mail.mil.","2","1 ","01 Nov 2021","Release: 1 Benchmark Date: 01 Nov 2021","STIG.DOD.MIL","terms-of-use","V-241997","SV-241997r698232_rule","WNFWA-000012","high","CAT I","","SRG-OS-000480-GPOS-00227","The Windows Firewall with Advanced Security must block unsolicited inbound connections when connected to a private network.","<VulnDiscussion>A firewall provides a line of defense against attack.  To be effective, it must be enabled and properly configured.  Unsolicited inbound connections may be malicious attempts to gain access to a system.  Unsolicited inbound connections, for which there is no rule allowing the connection, will be blocked on a private network.</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","A firewall provides a line of defense against attack.  To be effective, it must be enabled and properly configured.  Unsolicited inbound connections may be malicious attempts to gain access to a system.  Unsolicited inbound connections, for which there is no rule allowing the connection, will be blocked on a private network.","","","false","","","","","","","","If the firewall's Private Profile is not enabled (see V-17416), this requirement is also a finding.
+
+If the following policy-based registry value exists and is not configured as specified, this is a finding.
+
+Registry Hive:  HKEY_LOCAL_MACHINE
+Registry Path:  \SOFTWARE\Policies\Microsoft\WindowsFirewall\PrivateProfile\
+
+Value Name:  DefaultInboundAction
+
+Type:  REG_DWORD
+Value:  0x00000001 (1)
+
+If the policy-based registry value does not exist, verify the following registry value. If it is not configured as specified, this is a finding.
+
+Registry Hive:  HKEY_LOCAL_MACHINE
+Registry Path:  \SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\StandardProfile\
+
+Value Name:  DefaultInboundAction
+
+Type:  REG_DWORD
+Value:  0x00000001 (1)","The preferred method of configuring the firewall settings is with a policy, particularly in a domain environment.
+
+Configure the policy value for Computer Configuration -> Windows Settings -> Security Settings -> Windows Firewall with Advanced Security -> Windows Firewall with Advanced Security -> Windows Firewall Properties (this link will be in the right pane) -> Private Profile Tab -> State, ""Inbound connections"" to ""Block (default)"".
+
+In addition to using policies, systems may also be configured using the firewall GUI or Netsh commands.  These methods may be more appropriate for standalone systems.
+The configuration settings in the GUI are the same as those specified in the policy above.  Windows Firewall Properties will be a link in the center pane after opening Windows Firewall with Advanced Security.
+
+The following Netsh commands may also be used to configure this setting:
+""Netsh advfirewall set privateprofile firewallpolicy blockinbound,allowoutbound"".
+Or
+""Netsh advfirewall set allprofiles firewallpolicy blockinbound,allowoutbound"".
+Both inbound and outbound parameters must be specified to execute this command.","V-17428,SV-54879,CCI-000382"
+"Microsoft Windows Firewall with Advanced Security Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via email to the following address: disa.stig_spt@mail.mil.","2","1 ","01 Nov 2021","Release: 1 Benchmark Date: 01 Nov 2021","STIG.DOD.MIL","terms-of-use","V-241998","SV-241998r698235_rule","WNFWA-000013","medium","CAT II","","SRG-OS-000480-GPOS-00227","The Windows Firewall with Advanced Security must allow outbound connections, unless a rule explicitly blocks the connection when connected to a private network.","<VulnDiscussion>A firewall provides a line of defense against attack.  To be effective, it must be enabled and properly configured.  Outbound connections are allowed on a private network, unless a rule explicitly blocks the connection.  This allows normal outbound communication, which could be restricted as necessary with additional rules.</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","A firewall provides a line of defense against attack.  To be effective, it must be enabled and properly configured.  Outbound connections are allowed on a private network, unless a rule explicitly blocks the connection.  This allows normal outbound communication, which could be restricted as necessary with additional rules.","","","false","","","","","","","","If the firewall's Private Profile is not enabled (see V-17416), this requirement is also a finding.
+
+If the following policy-based registry value exists and is not configured as specified, this is a finding.
+
+Registry Hive:  HKEY_LOCAL_MACHINE
+Registry Path:  \SOFTWARE\Policies\Microsoft\WindowsFirewall\PrivateProfile\
+
+Value Name:  DefaultOutboundAction
+
+Type:  REG_DWORD
+Value:  0x00000000 (0)
+
+If the policy-based registry value does not exist, verify the following registry value. If it is not configured as specified, this is a finding.
+
+Registry Hive:  HKEY_LOCAL_MACHINE
+Registry Path:  \SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\StandardProfile\
+
+Value Name:  DefaultOutboundAction
+
+Type:  REG_DWORD
+Value:  0x00000000 (0)","The preferred method of configuring the firewall settings is with a policy, particularly in a domain environment.
+
+Configure the policy value for Computer Configuration -> Windows Settings -> Security Settings -> Windows Firewall with Advanced Security -> Windows Firewall with Advanced Security -> Windows Firewall Properties (this link will be in the right pane) -> Private Profile Tab -> State, ""Outbound connections"" to ""Allow (default)"".
+
+In addition to using policies, systems may also be configured using the firewall GUI or Netsh commands.  These methods may be more appropriate for standalone systems.
+The configuration settings in the GUI are the same as those specified in the policy above.  Windows Firewall Properties will be a link in the center pane after opening Windows Firewall with Advanced Security.
+
+The following Netsh commands may also be used to configure this setting:
+""Netsh advfirewall set privateprofile firewallpolicy blockinbound,allowoutbound"".
+Or
+""Netsh advfirewall set allprofiles firewallpolicy blockinbound,allowoutbound"".
+Both inbound and outbound parameters must be specified to execute this command.","V-17429,SV-54890,CCI-001094"
+"Microsoft Windows Firewall with Advanced Security Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via email to the following address: disa.stig_spt@mail.mil.","2","1 ","01 Nov 2021","Release: 1 Benchmark Date: 01 Nov 2021","STIG.DOD.MIL","terms-of-use","V-241999","SV-241999r698238_rule","WNFWA-000017","low","CAT III","","SRG-OS-000327-GPOS-00127","The Windows Firewall with Advanced Security log size must be configured for private network connections.","<VulnDiscussion>A firewall provides a line of defense against attack.  To be effective, it must be enabled and properly configured.  The firewall log file size for a private connection will be set  to ensure enough capacity is allocated for audit data.</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","A firewall provides a line of defense against attack.  To be effective, it must be enabled and properly configured.  The firewall log file size for a private connection will be set  to ensure enough capacity is allocated for audit data.","","","false","","","","","","","","If the firewall's Private Profile is not enabled (see V-17416), this requirement is also a finding.
+
+If the following policy-based registry value exists and is not configured as specified, this is a finding.
+
+Registry Hive:  HKEY_LOCAL_MACHINE
+Registry Path:  \SOFTWARE\Policies\Microsoft\WindowsFirewall\PrivateProfile\Logging\
+
+Value Name:  LogFileSize
+
+Type:  REG_DWORD
+Value:  0x00004000 (16384) (or greater)
+
+If the policy-based registry value does not exist, verify the following registry value. If it is not configured as specified, this is a finding.
+
+Registry Hive:  HKEY_LOCAL_MACHINE
+Registry Path:  \SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\StandardProfile\Logging\
+
+Value Name:  LogFileSize
+
+Type:  REG_DWORD
+Value:  0x00004000 (16384) (or greater)","The preferred method of configuring the firewall settings is with a policy, particularly in a domain environment.
+
+Configure the policy value for Computer Configuration -> Windows Settings -> Security Settings -> Windows Firewall with Advanced Security -> Windows Firewall with Advanced Security -> Windows Firewall Properties (this link will be in the right pane) -> Private Profile Tab -> Logging (select Customize), ""Size limit (KB)"" to ""16,384"" or greater.
+
+In addition to using policies, systems may also be configured using the firewall GUI or Netsh commands.  These methods may be more appropriate for standalone systems.
+The configuration settings in the GUI are the same as those specified in the policy above.  Windows Firewall Properties will be a link in the center pane after opening Windows Firewall with Advanced Security.
+
+The following Netsh command may also be used to configure this setting:
+""Netsh advfirewall set privateprofile logging maxfilesize 16384"" or greater.","V-17435,SV-54903,CCI-000140"
+"Microsoft Windows Firewall with Advanced Security Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via email to the following address: disa.stig_spt@mail.mil.","2","1 ","01 Nov 2021","Release: 1 Benchmark Date: 01 Nov 2021","STIG.DOD.MIL","terms-of-use","V-242000","SV-242000r698241_rule","WNFWA-000018","low","CAT III","","SRG-OS-000327-GPOS-00127","The Windows Firewall with Advanced Security must log dropped packets when connected to a private network.","<VulnDiscussion>A firewall provides a line of defense against attack.  To be effective, it must be enabled and properly configured.   Logging of dropped packets for a private network connection will be enabled  to maintain an audit trail of potential issues.</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","A firewall provides a line of defense against attack.  To be effective, it must be enabled and properly configured.   Logging of dropped packets for a private network connection will be enabled  to maintain an audit trail of potential issues.","","","false","","","","","","","","If the firewall's Private Profile is not enabled (see V-17416), this requirement is also a finding.
+
+If the following policy-based registry value exists and is not configured as specified, this is a finding.
+
+Registry Hive:  HKEY_LOCAL_MACHINE
+Registry Path:  \SOFTWARE\Policies\Microsoft\WindowsFirewall\PrivateProfile\Logging\
+
+Value Name:  LogDroppedPackets
+
+Type:  REG_DWORD
+Value:  0x00000001 (1)
+
+If the policy-based registry value does not exist, verify the following registry value. If it is not configured as specified, this is a finding.
+
+Registry Hive:  HKEY_LOCAL_MACHINE
+Registry Path:  \SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\StandardProfile\Logging\
+
+Value Name:  LogDroppedPackets
+
+Type:  REG_DWORD
+Value:  0x00000001 (1)","The preferred method of configuring the firewall settings is with a policy, particularly in a domain environment.
+
+Configure the policy value for Computer Configuration -> Windows Settings -> Security Settings -> Windows Firewall with Advanced Security -> Windows Firewall with Advanced Security -> Windows Firewall Properties (this link will be in the right pane) -> Private Profile Tab -> Logging (select Customize), ""Log dropped packets"" to ""Yes"".
+
+In addition to using policies, systems may also be configured using the firewall GUI or Netsh commands.  These methods may be more appropriate for standalone systems.
+The configuration settings in the GUI are the same as those specified in the policy above.  Windows Firewall Properties will be a link in the center pane after opening Windows Firewall with Advanced Security.
+
+The following Netsh commands may also be used to configure this setting:
+""Netsh advfirewall set privateprofile logging droppedconnections enable"".
+Or
+""Netsh advfirewall set allprofiles logging droppedconnections enable"".","V-17436,SV-54904,CCI-000172"
+"Microsoft Windows Firewall with Advanced Security Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via email to the following address: disa.stig_spt@mail.mil.","2","1 ","01 Nov 2021","Release: 1 Benchmark Date: 01 Nov 2021","STIG.DOD.MIL","terms-of-use","V-242001","SV-242001r698244_rule","WNFWA-000019","low","CAT III","","SRG-OS-000327-GPOS-00127","The Windows Firewall with Advanced Security must log successful connections when connected to a private network.","<VulnDiscussion>A firewall provides a line of defense against attack.  To be effective, it must be enabled and properly configured.  Logging of successful connections for a private network connection will be enabled  to maintain an audit trail if issues are discovered.</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","A firewall provides a line of defense against attack.  To be effective, it must be enabled and properly configured.  Logging of successful connections for a private network connection will be enabled  to maintain an audit trail if issues are discovered.","","","false","","","","","","","","If the firewall's Private Profile is not enabled (see V-17416), this requirement is also a finding.
+
+If the following policy-based registry value exists and is not configured as specified, this is a finding.
+
+Registry Hive:  HKEY_LOCAL_MACHINE
+Registry Path:  \SOFTWARE\Policies\Microsoft\WindowsFirewall\PrivateProfile\Logging\
+
+Value Name:  LogSuccessfulConnections
+
+Type:  REG_DWORD
+Value:  0x00000001 (1)
+
+If the policy-based registry value does not exist, verify the following registry value. If it is not configured as specified, this is a finding.
+
+Registry Hive:  HKEY_LOCAL_MACHINE
+Registry Path:  \SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\StandardProfile\Logging\
+
+Value Name:  LogSuccessfulConnections
+
+Type:  REG_DWORD
+Value:  0x00000001 (1)","The preferred method of configuring the firewall settings is with a policy, particularly in a domain environment.
+
+Configure the policy value for Computer Configuration -> Windows Settings -> Security Settings -> Windows Firewall with Advanced Security -> Windows Firewall with Advanced Security -> Windows Firewall Properties (this link will be in the right pane) -> Private Profile Tab -> Logging (select Customize), ""Logged successful connections"" to ""Yes"".
+
+In addition to using policies, systems may also be configured using the firewall GUI or Netsh commands.  These methods may be more appropriate for standalone systems.
+The configuration settings in the GUI are the same as those specified in the policy above.  Windows Firewall Properties will be a link in the center pane after opening Windows Firewall with Advanced Security.
+
+The following Netsh commands may also be used to configure this setting:
+""Netsh advfirewall set privateprofile logging allowedconnections enable"".
+Or
+""Netsh advfirewall set allprofiles logging allowedconnections enable"".","V-17437,SV-54905,CCI-001462"
+"Microsoft Windows Firewall with Advanced Security Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via email to the following address: disa.stig_spt@mail.mil.","2","1 ","01 Nov 2021","Release: 1 Benchmark Date: 01 Nov 2021","STIG.DOD.MIL","terms-of-use","V-242002","SV-242002r698247_rule","WNFWA-000020","high","CAT I","","SRG-OS-000480-GPOS-00227","The Windows Firewall with Advanced Security must block unsolicited inbound connections when connected to a public network.","<VulnDiscussion>A firewall provides a line of defense against attack.  To be effective, it must be enabled and properly configured.  Unsolicited inbound connections may be malicious attempts to gain access to a system.  Unsolicited inbound connections, for which there is no rule allowing the connection, will be blocked on a public network.</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","A firewall provides a line of defense against attack.  To be effective, it must be enabled and properly configured.  Unsolicited inbound connections may be malicious attempts to gain access to a system.  Unsolicited inbound connections, for which there is no rule allowing the connection, will be blocked on a public network.","","","false","","","","","","","","If the firewall's Public Profile is not enabled (see V-17417), this requirement is also a finding.
+
+If the following policy-based registry value exists and is not configured as specified, this is a finding.
+
+Registry Hive:  HKEY_LOCAL_MACHINE
+Registry Path:  \SOFTWARE\Policies\Microsoft\WindowsFirewall\PublicProfile\
+
+Value Name:  DefaultInboundAction
+
+Type:  REG_DWORD
+Value:  0x00000001 (1)
+
+If the policy-based registry value does not exist, verify the following registry value. If it is not configured as specified, this is a finding.
+
+Registry Hive:  HKEY_LOCAL_MACHINE
+Registry Path:  \SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\PublicProfile\
+
+Value Name:  DefaultInboundAction
+
+Type:  REG_DWORD
+Value:  0x00000001 (1)","The preferred method of configuring the firewall settings is with a policy, particularly in a domain environment.
+
+Configure the policy value for Computer Configuration -> Windows Settings -> Security Settings -> Windows Firewall with Advanced Security -> Windows Firewall with Advanced Security -> Windows Firewall Properties (this link will be in the right pane) -> Public Profile Tab -> State, ""Inbound connections"" to ""Block (default)"".
+
+In addition to using policies, systems may also be configured using the firewall GUI or Netsh commands.  These methods may be more appropriate for standalone systems.
+The configuration settings in the GUI are the same as those specified in the policy above.  Windows Firewall Properties will be a link in the center pane after opening Windows Firewall with Advanced Security.
+
+The following Netsh commands may also be used to configure this setting:
+""Netsh advfirewall set publicprofile firewallpolicy blockinbound,allowoutbound"".
+Or
+""Netsh advfirewall set allprofiles firewallpolicy blockinbound,allowoutbound"".
+Both inbound and outbound parameters must be specified to execute this command.","V-17438,SV-54906,CCI-000382"
+"Microsoft Windows Firewall with Advanced Security Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via email to the following address: disa.stig_spt@mail.mil.","2","1 ","01 Nov 2021","Release: 1 Benchmark Date: 01 Nov 2021","STIG.DOD.MIL","terms-of-use","V-242003","SV-242003r698250_rule","WNFWA-000021","medium","CAT II","","SRG-OS-000480-GPOS-00227","The Windows Firewall with Advanced Security must allow outbound connections, unless a rule explicitly blocks the connection when connected to a public network.","<VulnDiscussion>A firewall provides a line of defense against attack.  To be effective, it must be enabled and properly configured.  Outbound connections are allowed on a public network, unless a rule explicitly blocks the connection.  This allows normal outbound communication, which could be restricted as necessary with additional rules.</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","A firewall provides a line of defense against attack.  To be effective, it must be enabled and properly configured.  Outbound connections are allowed on a public network, unless a rule explicitly blocks the connection.  This allows normal outbound communication, which could be restricted as necessary with additional rules.","","","false","","","","","","","","If the firewall's Public Profile is not enabled (see V-17417), this requirement is also a finding.
+
+If the following policy-based registry value exists and is not configured as specified, this is a finding.
+
+Registry Hive:  HKEY_LOCAL_MACHINE
+Registry Path:  \SOFTWARE\Policies\Microsoft\WindowsFirewall\PublicProfile\
+
+Value Name:  DefaultOutboundAction
+
+Type:  REG_DWORD
+Value:  0x00000000 (0)
+
+If the policy-based registry value does not exist, verify the following registry value. If it is not configured as specified, this is a finding.
+
+Registry Hive:  HKEY_LOCAL_MACHINE
+Registry Path:  \SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\PublicProfile\
+
+Value Name:  DefaultOutboundAction
+
+Type:  REG_DWORD
+Value:  0x00000000 (0)","The preferred method of configuring the firewall settings is with a policy, particularly in a domain environment.
+
+Configure the policy value for Computer Configuration -> Windows Settings -> Security Settings -> Windows Firewall with Advanced Security -> Windows Firewall with Advanced Security -> Windows Firewall Properties (this link will be in the right pane) -> Public Profile Tab -> State, ""Outbound connections"" to ""Allow (default)"".
+
+In addition to using policies, systems may also be configured using the firewall GUI or Netsh commands.  These methods may be more appropriate for standalone systems.
+The configuration settings in the GUI are the same as those specified in the policy above.  Windows Firewall Properties will be a link in the center pane after opening Windows Firewall with Advanced Security.
+
+The following Netsh commands may also be used to configure this setting:
+""Netsh advfirewall set publicprofile firewallpolicy blockinbound,allowoutbound"".
+Or
+""Netsh advfirewall set allprofiles firewallpolicy blockinbound,allowoutbound"".
+Both inbound and outbound parameters must be specified to execute this command.","V-17439,SV-54908,CCI-001094"
+"Microsoft Windows Firewall with Advanced Security Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via email to the following address: disa.stig_spt@mail.mil.","2","1 ","01 Nov 2021","Release: 1 Benchmark Date: 01 Nov 2021","STIG.DOD.MIL","terms-of-use","V-242004","SV-242004r698253_rule","WNFWA-000024","medium","CAT II","","SRG-OS-000327-GPOS-00127","The Windows Firewall with Advanced Security local firewall rules must not be merged with Group Policy settings when connected to a public network.","<VulnDiscussion>A firewall provides a line of defense against attack.  To be effective, it must be enabled and properly configured.  Local firewall rules will not be merged with Group Policy settings on a public network to prevent Group Policy settings from being changed.</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","A firewall provides a line of defense against attack.  To be effective, it must be enabled and properly configured.  Local firewall rules will not be merged with Group Policy settings on a public network to prevent Group Policy settings from being changed.","","","false","","","","","","","","If the system is not a member of a domain, this is NA.
+
+If the firewall's Public Profile is not enabled (see V-17417), this requirement is also a finding.
+
+Verify the registry value below.
+
+If this registry value does not exist or is not configured as specified, this is a finding.
+
+Registry Hive:  HKEY_LOCAL_MACHINE
+Registry Path:  \SOFTWARE\Policies\Microsoft\WindowsFirewall\PublicProfile\
+
+Value Name:  AllowLocalPolicyMerge
+
+Type:  REG_DWORD
+Value:  0x00000000 (0)","If the system is not a member of a domain, this is NA.
+
+Configure the policy value for Computer Configuration -> Windows Settings -> Security Settings -> Windows Firewall with Advanced Security -> Windows Firewall with Advanced Security -> Windows Firewall Properties (this link will be in the right pane) -> Public Profile Tab -> Settings (select Customize) -> Rule merging, ""Apply local firewall rules:"" to ""No"".","V-17442,SV-54917,CCI-001190"
+"Microsoft Windows Firewall with Advanced Security Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via email to the following address: disa.stig_spt@mail.mil.","2","1 ","01 Nov 2021","Release: 1 Benchmark Date: 01 Nov 2021","STIG.DOD.MIL","terms-of-use","V-242005","SV-242005r698256_rule","WNFWA-000025","medium","CAT II","","SRG-OS-000327-GPOS-00127","The Windows Firewall with Advanced Security local connection rules must not be merged with Group Policy settings when connected to a public network.","<VulnDiscussion>A firewall provides a line of defense against attack.  To be effective, it must be enabled and properly configured.  Local connection rules will not be merged with Group Policy settings on a public network to prevent Group Policy settings from being changed.</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","A firewall provides a line of defense against attack.  To be effective, it must be enabled and properly configured.  Local connection rules will not be merged with Group Policy settings on a public network to prevent Group Policy settings from being changed.","","","false","","","","","","","","If the system is not a member of a domain, this is NA.
+
+If the firewall's Public Profile is not enabled (see V-17417), this requirement is also a finding.
+
+Verify the registry value below.
+
+If this registry value does not exist or is not configured as specified, this is a finding.
+
+Registry Hive:  HKEY_LOCAL_MACHINE
+Registry Path:  \SOFTWARE\Policies\Microsoft\WindowsFirewall\PublicProfile\
+
+Value Name:  AllowLocalIPsecPolicyMerge
+
+Type:  REG_DWORD
+Value:  0x00000000 (0)","If the system is not a member of a domain, this is NA.
+
+Configure the policy value for Computer Configuration -> Windows Settings -> Security Settings -> Windows Firewall with Advanced Security -> Windows Firewall with Advanced Security -> Windows Firewall Properties (this link will be in the right pane) -> Public Profile Tab -> Settings (select Customize) -> Rule merging, ""Apply local connection security rules:"" to ""No"".","V-17443,SV-54918,CCI-001190"
+"Microsoft Windows Firewall with Advanced Security Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via email to the following address: disa.stig_spt@mail.mil.","2","1 ","01 Nov 2021","Release: 1 Benchmark Date: 01 Nov 2021","STIG.DOD.MIL","terms-of-use","V-242006","SV-242006r698259_rule","WNFWA-000027","low","CAT III","","SRG-OS-000327-GPOS-00127","The Windows Firewall with Advanced Security log size must be configured for public network connections.","<VulnDiscussion>A firewall provides a line of defense against attack.  To be effective, it must be enabled and properly configured.  The firewall log file size for a public network connection will be set  to ensure enough capacity is allocated for audit data.</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","A firewall provides a line of defense against attack.  To be effective, it must be enabled and properly configured.  The firewall log file size for a public network connection will be set  to ensure enough capacity is allocated for audit data.","","","false","","","","","","","","If the firewall's Public Profile is not enabled (see V-17417), this requirement is also a finding.
+
+If the following policy-based registry value exists and is not configured as specified, this is a finding.
+
+Registry Hive:  HKEY_LOCAL_MACHINE
+Registry Path:  \SOFTWARE\Policies\Microsoft\WindowsFirewall\PublicProfile\Logging\
+
+Value Name:  LogFileSize
+
+Type:  REG_DWORD
+Value:  0x00004000 (16384) (or greater)
+
+If the policy-based registry value does not exist, verify the following registry value. If it is not configured as specified, this is a finding.
+
+Registry Hive:  HKEY_LOCAL_MACHINE
+Registry Path:  \SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\PublicProfile\Logging\
+
+Value Name:  LogFileSize
+
+Type:  REG_DWORD
+Value:  0x00004000 (16384) (or greater)","The preferred method of configuring the firewall settings is with a policy, particularly in a domain environment.
+
+Configure the policy value for Computer Configuration -> Windows Settings -> Security Settings -> Windows Firewall with Advanced Security -> Windows Firewall with Advanced Security -> Windows Firewall Properties (this link will be in the right pane) -> Public Profile Tab -> Logging (select Customize), ""Size limit (KB)"" to ""16,384"" or greater.
+
+In addition to using policies, systems may also be configured using the firewall GUI or Netsh commands.  These methods may be more appropriate for standalone systems.
+The configuration settings in the GUI are the same as those specified in the policy above.  Windows Firewall Properties will be a link in the center pane after opening Windows Firewall with Advanced Security.
+
+The following Netsh command may also be used to configure this setting:
+""Netsh advfirewall set publicprofile logging maxfilesize 16384"" or greater.","V-17445,SV-54921,CCI-000140"
+"Microsoft Windows Firewall with Advanced Security Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via email to the following address: disa.stig_spt@mail.mil.","2","1 ","01 Nov 2021","Release: 1 Benchmark Date: 01 Nov 2021","STIG.DOD.MIL","terms-of-use","V-242007","SV-242007r698262_rule","WNFWA-000028","low","CAT III","","SRG-OS-000327-GPOS-00127","The Windows Firewall with Advanced Security must log dropped packets when connected to a public network.","<VulnDiscussion>A firewall provides a line of defense against attack.  To be effective, it must be enabled and properly configured.  Logging of dropped packets for a public network connection will be enabled  to maintain an audit trail of potential issues.</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","A firewall provides a line of defense against attack.  To be effective, it must be enabled and properly configured.  Logging of dropped packets for a public network connection will be enabled  to maintain an audit trail of potential issues.","","","false","","","","","","","","If the firewall's Public Profile is not enabled (see V-17417), this requirement is also a finding.
+
+If the following policy-based registry value exists and is not configured as specified, this is a finding.
+
+Registry Hive:  HKEY_LOCAL_MACHINE
+Registry Path:  \SOFTWARE\Policies\Microsoft\WindowsFirewall\PublicProfile\Logging\
+
+Value Name:  LogDroppedPackets
+
+Type:  REG_DWORD
+Value:  0x00000001 (1)
+
+If the policy-based registry value does not exist, verify the following registry value. If it is not configured as specified, this is a finding.
+
+Registry Hive:  HKEY_LOCAL_MACHINE
+Registry Path:  \SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\PublicProfile\Logging\
+
+Value Name:  LogDroppedPackets
+
+Type:  REG_DWORD
+Value:  0x00000001 (1)","The preferred method of configuring the firewall settings is with a policy, particularly in a domain environment.
+
+Configure the policy value for Computer Configuration -> Windows Settings -> Security Settings -> Windows Firewall with Advanced Security -> Windows Firewall with Advanced Security -> Windows Firewall Properties (this link will be in the right pane) -> Public Profile Tab -> Logging (select Customize), ""Log dropped packets"" to ""Yes"".
+
+In addition to using policies, systems may also be configured using the firewall GUI or Netsh commands.  These methods may be more appropriate for standalone systems.
+The configuration settings in the GUI are the same as those specified in the policy above.  Windows Firewall Properties will be a link in the center pane after opening Windows Firewall with Advanced Security.
+
+The following Netsh commands may also be used to configure this setting:
+""Netsh advfirewall set publicprofile logging droppedconnections enable"".
+Or
+""Netsh advfirewall set allprofiles logging droppedconnections enable"".","V-17446,SV-54922,CCI-000172"
+"Microsoft Windows Firewall with Advanced Security Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via email to the following address: disa.stig_spt@mail.mil.","2","1 ","01 Nov 2021","Release: 1 Benchmark Date: 01 Nov 2021","STIG.DOD.MIL","terms-of-use","V-242008","SV-242008r698265_rule","WNFWA-000029","low","CAT III","","SRG-OS-000327-GPOS-00127","The Windows Firewall with Advanced Security must log successful connections when connected to a public network.","<VulnDiscussion>A firewall provides a line of defense against attack.  To be effective, it must be enabled and properly configured.  Logging of successful connections for a public network connection will be enabled to maintain an audit trail if issues are discovered.</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","A firewall provides a line of defense against attack.  To be effective, it must be enabled and properly configured.  Logging of successful connections for a public network connection will be enabled to maintain an audit trail if issues are discovered.","","","false","","","","","","","","If the firewall's Public Profile is not enabled (see V-17417), this requirement is also a finding.
+
+If the following policy-based registry value exists and is not configured as specified, this is a finding.
+
+Registry Hive:  HKEY_LOCAL_MACHINE
+Registry Path:  \SOFTWARE\Policies\Microsoft\WindowsFirewall\PublicProfile\Logging\
+
+Value Name:  LogSuccessfulConnections
+
+Type:  REG_DWORD
+Value:  0x00000001 (1)
+
+If the policy-based registry value does not exist, verify the following registry value. If it is not configured as specified, this is a finding.
+
+Registry Hive:  HKEY_LOCAL_MACHINE
+Registry Path:  \SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\PublicProfile\Logging\
+
+Value Name:  LogSuccessfulConnections
+
+Type:  REG_DWORD
+Value:  0x00000001 (1)","The preferred method of configuring the firewall settings is with a policy, particularly in a domain environment.
+
+Configure the policy value for Computer Configuration -> Windows Settings -> Security Settings -> Windows Firewall with Advanced Security -> Windows Firewall with Advanced Security -> Windows Firewall Properties (this link will be in the right pane) -> Public Profile Tab -> Logging (select Customize), ""Logged successful connections"" to ""Yes"".
+
+In addition to using policies, systems may also be configured using the firewall GUI or Netsh commands.  These methods may be more appropriate for standalone systems.
+The configuration settings in the GUI are the same as those specified in the policy above.  Windows Firewall Properties will be a link in the center pane after opening Windows Firewall with Advanced Security.
+
+The following Netsh commands may also be used to configure this setting:
+""Netsh advfirewall set publicprofile logging allowedconnections enable"".
+Or
+""Netsh advfirewall set allprofiles logging allowedconnections enable"".","V-17447,SV-54923,CCI-001462"
+"Microsoft Windows Firewall with Advanced Security Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via email to the following address: disa.stig_spt@mail.mil.","2","1 ","01 Nov 2021","Release: 1 Benchmark Date: 01 Nov 2021","STIG.DOD.MIL","terms-of-use","V-242009","SV-242009r698268_rule","WNFWA-000100","medium","CAT II","","SRG-OS-000480-GPOS-00227","Inbound exceptions to the firewall on domain workstations must only allow authorized remote management hosts.","<VulnDiscussion>Allowing inbound access to domain workstations from other systems may allow lateral movement across systems if credentials are compromised.  Limiting inbound connections only from authorized remote management systems will help limit this exposure.</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","Allowing inbound access to domain workstations from other systems may allow lateral movement across systems if credentials are compromised.  Limiting inbound connections only from authorized remote management systems will help limit this exposure.","","","false","","","","","","","","This requirement is NA for servers and non domain workstations.
+
+Verify firewall exceptions for inbound connections on domain workstations only allow authorized management systems and remote management hosts.
+
+Review inbound firewall exception rules in Windows Firewall with Advanced Security. Firewall rules can be complex and should be reviewed with the firewall administrator.
+
+One method for restricting inbound connections is to only allow exceptions for a specific scope of remote IP addresses.
+
+If allowed inbound exceptions are not limited to authorized management systems and remote management hosts, this is a finding.","Ensure firewall exceptions to inbound connections on domain workstations only allow authorized management systems and remote management hosts.
+
+Firewall rules can be complex and should be thoroughly tested before applying in a production environment.
+
+One method for restricting inbound connections is to only allow exceptions for a specific scope of remote IP addresses. For any inbound rules that allow connections from other systems, configure the Scope for Remote IP addresses to those of authorized management systems and remote management hosts. This may be defined as an IP address, subnet, or range. Apply the rule to all firewall profiles.","V-36440,SV-55086,CCI-000067"

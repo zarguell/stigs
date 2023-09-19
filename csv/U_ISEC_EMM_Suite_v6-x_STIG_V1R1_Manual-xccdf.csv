@@ -1,0 +1,1113 @@
+"Title","Description","Version","Release","BenchmarkDate","ReleaseInfo","Source","Notice","Rule_VulnID","Rule_RuleID","Rule_StigID","Rule_Severity","Rule_Cat","Rule_Classification","Rule_GroupTitle","Rule_RuleTitle","Rule_Description","Rule_VulnDiscussion","Rule_FalsePositives","Rule_FalseNegatives","Rule_Documentable","Rule_Mitigations","Rule_SeverityOverrideGuidance","Rule_PotentialImpacts","Rule_ThirdPartyTools","Rule_MitigationControl","Rule_Responsibility","Rule_IAControls","Rule_CheckText","Rule_FixText","Rule_CCI"
+"ISEC7 EMM Suite v6.x Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via email to the following address: disa.stig_spt@mail.mil.","1","1 ","23 Aug 2019","Release: 1 Benchmark Date: 23 Aug 2019","STIG.DOD.MIL","terms-of-use","V-97249","SV-106373r1_rule","ISEC-06-000660","high","CAT I","","SRG-APP-000148","ISEC7 EMM Suite must disable or delete local account created during application installation and configuration.","<VulnDiscussion>The ISEC7 local account password complexity controls do not meet DoD requirements; therefore, admins have the capability to configure the account out of compliance, which could allow attacker to gain unauthorized access to the server and access to command MDM servers.</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","The ISEC7 local account password complexity controls do not meet DoD requirements; therefore, admins have the capability to configure the account out of compliance, which could allow attacker to gain unauthorized access to the server and access to command MDM servers.","","","false","","","","","","","","Log in to the ISEC7 EMM Suite console.
+Navigate to Administration >> Configuration >> Account Management >> Users.
+Select Edit next to the local account Admin.
+Verify Login disabled has been selected.
+
+If Login disabled has not been selected, this is a finding.","Log in to the ISEC7 EMM Suite console.
+Navigate to Administration >> Configuration  >> Account Management >> Users.
+Select Edit next to the local account Admin.
+Check Login disabled for the account.
+Click Save.","CCI-000764"
+"ISEC7 EMM Suite v6.x Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via email to the following address: disa.stig_spt@mail.mil.","1","1 ","23 Aug 2019","Release: 1 Benchmark Date: 23 Aug 2019","STIG.DOD.MIL","terms-of-use","V-97261","SV-106375r1_rule","ISEC-06-002510","medium","CAT II","","SRG-APP-000516","The ISEC7 EMM Suite must be configured to leverage the enterprise directory service accounts and groups for ISEC7 EMM Suite server admin identification and authentication.","<VulnDiscussion>A comprehensive account management process that includes automation helps to ensure the accounts designated as requiring attention are consistently and promptly addressed. If an attacker compromises an account, the entire infrastructure is at risk. Providing automated support functions for the management of accounts will ensure only active accounts will be granted access with the proper authorization levels. These objectives are best achieved by configuring the server to leverage an enterprise authentication mechanism (e.g., Microsoft Active Directory Kerberos).</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","A comprehensive account management process that includes automation helps to ensure the accounts designated as requiring attention are consistently and promptly addressed. If an attacker compromises an account, the entire infrastructure is at risk. Providing automated support functions for the management of accounts will ensure only active accounts will be granted access with the proper authorization levels. These objectives are best achieved by configuring the server to leverage an enterprise authentication mechanism (e.g., Microsoft Active Directory Kerberos).","","","false","","","","","","","","Log in to the ISEC7 EMM Console.
+Navigate to Administration >> Configuration >> LDAP.
+Verify that a LDAP entry has been configured to the enterprise.
+Select Edit and confirm the Use for Login check box has been selected.
+Navigate to Administration >> Configuration >> Settings.
+Verify that Log in using (Default) has been set to the enterprise connection.
+
+If a LDAP entry has not been configured to the enterprise or Log in using (Default) has not been set to the enterprise connection, this is a finding.","Log in to the ISEC7 EMM Console.
+Navigate to Administration >> Configuration >> LDAP.
+Select Add new LDAP .
+Provide the connection information for the enterprise LDAP connection.
+Check the box Use for Login.
+Navigate to Administration >> Configuration >> Settings.
+Set Log in using (Default) to the enterprise connection.","CCI-000366"
+"ISEC7 EMM Suite v6.x Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via email to the following address: disa.stig_spt@mail.mil.","1","1 ","23 Aug 2019","Release: 1 Benchmark Date: 23 Aug 2019","STIG.DOD.MIL","terms-of-use","V-97263","SV-106377r1_rule","ISEC-06-002520","medium","CAT II","","SRG-APP-000516","The ISEC7 EMM Suite must configure the timeout for the console to be 15 minutes or less.","<VulnDiscussion>A session time-out lock is a temporary action taken when a user (MDM system administrator) stops work and moves away from the immediate physical vicinity of the information system but does not log out because of the temporary nature of the absence. Rather than relying on the user to manually lock their application session prior to vacating the vicinity, applications need to be able to identify when a user's application session has idled and take action to initiate the session lock.
+
+The session lock is implemented at the point where session activity can be determined and/or controlled. This is typically at the operating system level and results in a system lock but may be at the application level where the application interface window is secured instead.</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","A session time-out lock is a temporary action taken when a user (MDM system administrator) stops work and moves away from the immediate physical vicinity of the information system but does not log out because of the temporary nature of the absence. Rather than relying on the user to manually lock their application session prior to vacating the vicinity, applications need to be able to identify when a user's application session has idled and take action to initiate the session lock.
+
+The session lock is implemented at the point where session activity can be determined and/or controlled. This is typically at the operating system level and results in a system lock but may be at the application level where the application interface window is secured instead.","","","false","","","","","","","","Log in to the ISEC7 EMM Console.
+Navigate to Administration >> Configuration >> Apache Tomcat.
+Validate the session timeout has been set to the correct value.
+
+Alternatively, allow the console to sit for 15 minutes and confirm that you are prompted to login once again when attempting to navigate to a new screen.
+
+If the EMM Console timeout has not been set for 15 minutes or less, this is a finding.","Log in to the ISEC7 EMM Console.
+Navigate to Administration >> Configuration >> Apache Tomcat.
+Set the session timeout to the correct value of 15 minutes or less.","CCI-000366"
+"ISEC7 EMM Suite v6.x Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via email to the following address: disa.stig_spt@mail.mil.","1","1 ","23 Aug 2019","Release: 1 Benchmark Date: 23 Aug 2019","STIG.DOD.MIL","terms-of-use","V-97265","SV-106379r1_rule","ISEC-06-002530","medium","CAT II","","SRG-APP-000516","The ISEC7 EMM Suite, Tomcat installation, and ISEC7 Suite monitor must be configured to use the Windows Trust Store for the storage of digital certificates and keys.","<VulnDiscussion>A trust store provides requisite encryption and access control to protect digital certificates from unauthorized access.</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","A trust store provides requisite encryption and access control to protect digital certificates from unauthorized access.","","","false","","","","","","","","Log in to the ISEC7 EMM Console.
+
+Navigate to Administration >> Configuration >> Apache Tomcat Settings.
+
+Verify that the type of Keystore being used is: Windows-MY 
+
+If the type of Keystore being used is not Windows-MY, this is a finding.","Log in to the ISEC7 EMM Console.
+
+Navigate to Administration >> Configuration >> Apache Tomcat Settings.
+
+Select the type of Keystore to be used as: 
+
+Windows-MY","CCI-000366"
+"ISEC7 EMM Suite v6.x Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via email to the following address: disa.stig_spt@mail.mil.","1","1 ","23 Aug 2019","Release: 1 Benchmark Date: 23 Aug 2019","STIG.DOD.MIL","terms-of-use","V-97275","SV-106381r1_rule","ISEC-06-550150","medium","CAT II","","SRG-APP-000171","The Apache Tomcat Manager Web app password must be cryptographically hashed with a DoD approved algorithm.","<VulnDiscussion>The Apache Tomcat Manager Web app password is stored in plain text in CATALINA_HOME/conf/tomcat-users.xml and should be encrypted so it is not visible to an intruder. 
+
+Passwords need to be protected at all times, and encryption is the standard method for protecting passwords. If passwords are not encrypted, they can be plainly read and easily compromised. Use of passwords for authentication is intended only for limited situations and should not be used as a replacement for two-factor CAC-enabled authentication. 
+
+Examples of situations where a user ID and password might be used include:
+
+- When the user does not use a CAC and is not a current DoD employee, member of the military, or DoD contractor.
+
+- When a user has been officially designated as temporarily unable to present a CAC for some reason (lost, damaged, not yet issued, broken card reader) (i.e., Temporary Exception User) and to satisfy urgent organizational needs must be temporarily permitted to use user ID/password authentication until the problem with CAC use has been remedied.
+
+- When the application is publicly available and or hosting publicly releasable data requiring some degree of need-to-know protection.
+
+If the password is already encrypted and not a plaintext password, this meets this requirement. Implementation of this requirement requires configuration of FIPS-approved cipher block algorithm and block cipher modes for encryption. This method uses a one-way hashing encryption algorithm with a salt value to validate a user's password without having to store the actual password. Performance and time required to access are factors that must be considered, and the one-way hash is the most feasible means of securing the password and providing an acceptable measure of password security.
+
+Verifying the user knows a password is performed using a password verifier. In its simplest form, a password verifier is a computational function that is capable of creating a hash of a password and determining if the value provided by the user matches the hash. A more secure version of verifying a user knowing a password is to store the result of an iterating hash function and a large random salt value as follows:
+
+H0 = H(pwd, H(salt))
+Hn = H(Hn-1,H(salt))
+
+In the above, ""n"" is a cryptographically-strong random [*3] number. ""Hn"" is stored along with the salt. When the application wishes to verify that the user knows a password, it simply repeats the process and compares ""Hn"" with the stored ""Hn"". A salt is essentially a fixed-length cryptographically strong random value.
+
+Another method is using a keyed-hash message authentication code (HMAC). HMAC calculates a message authentication code via a cryptographic hash function used in conjunction with an encryption key. The key must be protected as with any private key.
+
+This requirement applies to all accounts including authentication server, AAA, and local account, including the root account and the account of last resort.</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","The Apache Tomcat Manager Web app password is stored in plain text in CATALINA_HOME/conf/tomcat-users.xml and should be encrypted so it is not visible to an intruder. 
+
+Passwords need to be protected at all times, and encryption is the standard method for protecting passwords. If passwords are not encrypted, they can be plainly read and easily compromised. Use of passwords for authentication is intended only for limited situations and should not be used as a replacement for two-factor CAC-enabled authentication. 
+
+Examples of situations where a user ID and password might be used include:
+
+- When the user does not use a CAC and is not a current DoD employee, member of the military, or DoD contractor.
+
+- When a user has been officially designated as temporarily unable to present a CAC for some reason (lost, damaged, not yet issued, broken card reader) (i.e., Temporary Exception User) and to satisfy urgent organizational needs must be temporarily permitted to use user ID/password authentication until the problem with CAC use has been remedied.
+
+- When the application is publicly available and or hosting publicly releasable data requiring some degree of need-to-know protection.
+
+If the password is already encrypted and not a plaintext password, this meets this requirement. Implementation of this requirement requires configuration of FIPS-approved cipher block algorithm and block cipher modes for encryption. This method uses a one-way hashing encryption algorithm with a salt value to validate a user's password without having to store the actual password. Performance and time required to access are factors that must be considered, and the one-way hash is the most feasible means of securing the password and providing an acceptable measure of password security.
+
+Verifying the user knows a password is performed using a password verifier. In its simplest form, a password verifier is a computational function that is capable of creating a hash of a password and determining if the value provided by the user matches the hash. A more secure version of verifying a user knowing a password is to store the result of an iterating hash function and a large random salt value as follows:
+
+H0 = H(pwd, H(salt))
+Hn = H(Hn-1,H(salt))
+
+In the above, ""n"" is a cryptographically-strong random [*3] number. ""Hn"" is stored along with the salt. When the application wishes to verify that the user knows a password, it simply repeats the process and compares ""Hn"" with the stored ""Hn"". A salt is essentially a fixed-length cryptographically strong random value.
+
+Another method is using a keyed-hash message authentication code (HMAC). HMAC calculates a message authentication code via a cryptographic hash function used in conjunction with an encryption key. The key must be protected as with any private key.
+
+This requirement applies to all accounts including authentication server, AAA, and local account, including the root account and the account of last resort.","","","false","","","","","","","","Verify the Apache Tomcat Manager Web app password is hashed using SHA-256 (or SHA-512).
+
+Login to the ISEC7 EMM Suite server.
+Navigate to <Drive>:\Program Files\ISEC7 EMM Suite\Tomcat\conf\
+Open tomcat-users.xml and verify the user password has been hashed with an obfuscated password.
+
+ex: <user password=""310c55aa3d5b42217e7f0e80ce30467d$100000$529cceb1fbc80f4f461fc1bd56219d79d9c94d4a8fc46abad0646f27e753ff9e"" roles=""manager-gui,manager-script"" username=""admin""/>
+
+Open <Drive>:\Program Files\ISEC7 EMM Suite\Tomcat\conf\server.xml with Notepad.exe
+
+Select Edit >> Find and search for CredentialHandler.
+
+Confirm the text: <CredentialHandler algorithm=""PBKDF2WithHmacSHA512"" keyLength=""256"" />
+
+Close the file.
+
+If the Apache Tomcat Manager Web app password is not hashed using SHA-256 (or SHA-512), this is a finding.","To encrypt the Tomcat Manager Web app password, run the ISEC7 integrated installer or use the following manual procedure.
+
+Note: The ISEC7 integrated installer will configure SHA-512 as the hash algorithm, which is not available with the manual procedure. The manual procedure will configure SHA-256. Both are DoD approved.
+
+Login to the ISEC7 EMM Suite server.
+Browse to <Drive>:\Program Files\ISEC7 EMM Suite\Tomcat\conf and open Tomcat-Users.xml
+Open the Command Prompt and CD to <Drive>:\Program Files\ISEC7 EMM Suite\Tomcat\bin
+Execute the following command:
+
+digest -a SHA-256 -h org.apache.catalina.realm.MessageDigestCredentialHandler *
+
+*where password is the 15 character password designated for the account
+
+Copy the output, which is the SHA-256 hashed digest password.
+In Tomcat-Users.xml, add in the password for the user with the obfuscated output.
+
+ex: <user password=""310c55aa3d5b42217e7f0e80ce30467d$100000$529cceb1fbc80f4f461fc1bd56219d79d9c94d4a8fc46abad0646f27e753ff9e"" roles=""manager-gui,manager-script"" username=""admin""/>
+
+Save the file.
+
+Open <Drive>:\Program Files\ISEC7 EMM Suite\Tomcat\conf\server.xml with Notepad.exe
+Select Edit >> Find and search for CredentialHandler.
+Replace the text with:  <CredentialHandler className=""org.apache.catalina.realm.MessageDigestCredentialHandler"" algorithm=""SHA-256"" />
+Save the file.
+Restart the ISEC7 EMM Suite Web service using the services.msc","CCI-000196"
+"ISEC7 EMM Suite v6.x Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via email to the following address: disa.stig_spt@mail.mil.","1","1 ","23 Aug 2019","Release: 1 Benchmark Date: 23 Aug 2019","STIG.DOD.MIL","terms-of-use","V-97277","SV-106383r1_rule","ISEC-06-550200","medium","CAT II","","SRG-APP-000383","All Web applications included with Apache Tomcat that are not required must be removed.","<VulnDiscussion>Removal of unneeded or non-secure functions, ports, protocols, and services mitigate the risk of unauthorized connection of devices, unauthorized transfer of information, or other exploitation of these resources.
+
+The organization must perform a periodic scan/review of the application (as required by CCI-000384) and disable functions, ports, protocols, and services deemed to be unneeded or non-secure.</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","Removal of unneeded or non-secure functions, ports, protocols, and services mitigate the risk of unauthorized connection of devices, unauthorized transfer of information, or other exploitation of these resources.
+
+The organization must perform a periodic scan/review of the application (as required by CCI-000384) and disable functions, ports, protocols, and services deemed to be unneeded or non-secure.","","","false","","","","","","","","Verify CATALINA_HOME/webapps Tomcat administrative tool has been configured to remove all Web applications that are not required.
+
+Log in to the ISEC7 EMM Suite server.
+Browse to <Drive>:\Program Files\ISEC7 EMM Suite\Tomcat\webapps\
+Confirm all folders in the directory with the exception of Manager and Host-Manager have been removed.
+
+If the CATALINA_HOME/webapps Tomcat administrative tool has not been configured to remove all Web applications that are not required, this is a finding.","To configure the CATALINA_HOME/webapps Tomcat administrative tool to remove all Web applications that are not required, run the ISEC7 integrated installer or use the following manual procedure: 
+
+Login to the ISEC7 EMM Suite server.
+Browse to <Drive>:\Program Files\ISEC7 EMM Suite\Tomcat\webapps\
+Remove all folders in the directory with the exception of Manager and Host-Manager.","CCI-001762"
+"ISEC7 EMM Suite v6.x Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via email to the following address: disa.stig_spt@mail.mil.","1","1 ","23 Aug 2019","Release: 1 Benchmark Date: 23 Aug 2019","STIG.DOD.MIL","terms-of-use","V-97279","SV-106385r1_rule","ISEC-06-550300","medium","CAT II","","SRG-APP-000383","LockOutRealm must not be removed from Apache Tomcat.","<VulnDiscussion>LockOutRealm prevents brute force attacks against user passwords. Removal of unneeded or non-secure functions, ports, protocols, and services mitigate the risk of unauthorized connection of devices, unauthorized transfer of information, or other exploitation of these resources.
+
+The organization must perform a periodic scan/review of the application (as required by CCI-000384) and disable functions, ports, protocols, and services deemed to be unneeded or non-secure.</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","LockOutRealm prevents brute force attacks against user passwords. Removal of unneeded or non-secure functions, ports, protocols, and services mitigate the risk of unauthorized connection of devices, unauthorized transfer of information, or other exploitation of these resources.
+
+The organization must perform a periodic scan/review of the application (as required by CCI-000384) and disable functions, ports, protocols, and services deemed to be unneeded or non-secure.","","","false","","","","","","","","Log in to the ISEC7 EMM Suite server.
+Navigate to <Drive>:\Program Files\Isec7 EMM Suite\Tomcat\Config
+Open the server.xml file with Notepad.
+Select Edit >> Find and search for LockOutRealm.
+Confirm the following line is in the server.xml file:
+
+<Realm className=""org.apache.catalina.realm.LockOutRealm"">
+
+If it is not found or has been commented out, this is a finding.
+
+If the LockOutRealm has been removed and can't be used, this is a finding.","Login to the ISEC7 EMM Suite server.
+Navigate to <Drive>:\Program Files\Isec7 EMM Suite\Tomcat\Config
+Open the server.xml file with Notepad.
+Select Edit >> Find and search for LockOutRealm.
+Add the following line is in the server.xml file:
+
+<Realm className=""org.apache.catalina.realm.LockOutRealm"">
+
+Restart the ISEC7 EMM Suite Web service in the services.msc","CCI-001762"
+"ISEC7 EMM Suite v6.x Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via email to the following address: disa.stig_spt@mail.mil.","1","1 ","23 Aug 2019","Release: 1 Benchmark Date: 23 Aug 2019","STIG.DOD.MIL","terms-of-use","V-97281","SV-106387r1_rule","ISEC-06-550305","medium","CAT II","","SRG-APP-000065","The LockOutRealm must be configured with a login failure count of 3.","<VulnDiscussion>LockOutRealm prevents brute force attacks against user passwords. Removal of unneeded or non-secure functions, ports, protocols, and services mitigate the risk of unauthorized connection of devices, unauthorized transfer of information, or other exploitation of these resources. Access to LockOutRealm must be configured to control login attempts by local accounts.
+
+The organization must perform a periodic scan/review of the application (as required by CCI-000384) and disable functions, ports, protocols, and services deemed to be unneeded or non-secure.</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","LockOutRealm prevents brute force attacks against user passwords. Removal of unneeded or non-secure functions, ports, protocols, and services mitigate the risk of unauthorized connection of devices, unauthorized transfer of information, or other exploitation of these resources. Access to LockOutRealm must be configured to control login attempts by local accounts.
+
+The organization must perform a periodic scan/review of the application (as required by CCI-000384) and disable functions, ports, protocols, and services deemed to be unneeded or non-secure.","","","false","","","","","","","","Verify the failureCount parameter is set to 3 in the LockOutRealm configuration.
+
+Login to the ISEC7 EMM Suite server.
+Navigate to <Drive>:\Program Files\Isec7 EMM Suite\Tomcat\Config
+Open the server.xml file with Notepad.
+Select Edit >> Find and search for LockOutRealm.
+Verify the failureCount parameter is set to 3 in the following file:
+
+<Realm className=""org.apache.catalina.realm.LockOutRealm"" failureCount=""3"" lockOutTime=""900"" >
+
+If the failureCount parameter is not set to 3 in the LockOutRealm configuration, this is a finding.","Add failureCount parameter to the LockOutRealm configuration:
+
+Login to the ISEC7 EMM Suite server.
+Navigate to <Drive>:\Program Files\Isec7 EMM Suite\Tomcat\Config
+Open the server.xml file with Notepad.
+Select Edit >> Find and search for LockOutRealm.
+Add the following line is in the server.xml file:
+
+<Realm className=""org.apache.catalina.realm.LockOutRealm"" failureCount=""3"" lockOutTime=""900"" >
+
+Restart the ISEC7 EMM Suite Web service in the services.msc","CCI-000044"
+"ISEC7 EMM Suite v6.x Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via email to the following address: disa.stig_spt@mail.mil.","1","1 ","23 Aug 2019","Release: 1 Benchmark Date: 23 Aug 2019","STIG.DOD.MIL","terms-of-use","V-97283","SV-106389r1_rule","ISEC-06-550310","medium","CAT II","","SRG-APP-000516","The LockOutRealm must be configured with a login lockout time of 15 minutes.","<VulnDiscussion>LockOutRealm prevents brute force attacks against user passwords. Removal of unneeded or non-secure functions, ports, protocols, and services mitigate the risk of unauthorized connection of devices, unauthorized transfer of information, or other exploitation of these resources. Access to LockOutRealm must be configured to control login attempts by local accounts.
+
+The organization must perform a periodic scan/review of the application (as required by CCI-000384) and disable functions, ports, protocols, and services deemed to be unneeded or non-secure.</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","LockOutRealm prevents brute force attacks against user passwords. Removal of unneeded or non-secure functions, ports, protocols, and services mitigate the risk of unauthorized connection of devices, unauthorized transfer of information, or other exploitation of these resources. Access to LockOutRealm must be configured to control login attempts by local accounts.
+
+The organization must perform a periodic scan/review of the application (as required by CCI-000384) and disable functions, ports, protocols, and services deemed to be unneeded or non-secure.","","","false","","","","","","","","Verify the lockOutTime parameter is set to 900 in the LockOutRealm configuration.
+
+Login to the ISEC7 EMM Suite server.
+Navigate to <Drive>:\Program Files\Isec7 EMM Suite\Tomcat\Config
+Open the server.xml file with Notepad.
+Select Edit >> Find and search for LockOutRealm.
+Verify the lockOutTime parameter is set to 900 in the following file:
+
+<Realm className=""org.apache.catalina.realm.LockOutRealm"" failureCount=""3"" lockOutTime=""900"" >
+
+If the lockOutTime parameter is not set to 900 in the LockOutRealm configuration, this is a finding.","Add lockOutTime parameter to the LockOutRealm configuration:
+
+Login to the ISEC7 EMM Suite server.
+Navigate to <Drive>:\Program Files\Isec7 EMM Suite\Tomcat\Config
+Open the server.xml file with Notepad.
+Select Edit>Find and search for LockOutRealm.
+Add the following line is in the server.xml file:
+
+<Realm className=""org.apache.catalina.realm.LockOutRealm"" failureCount=""3"" lockOutTime=""900"" >
+
+Restart the ISEC7 EMM Suite Web service in the services.msc","CCI-000366"
+"ISEC7 EMM Suite v6.x Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via email to the following address: disa.stig_spt@mail.mil.","1","1 ","23 Aug 2019","Release: 1 Benchmark Date: 23 Aug 2019","STIG.DOD.MIL","terms-of-use","V-97287","SV-106391r1_rule","ISEC-06-550800","medium","CAT II","","SRG-APP-000439","The ISEC7 EMM Suite must configure Enable HTTPS to use HTTP over SSL in Apache Tomcat.","<VulnDiscussion>Without protection of the transmitted information, confidentiality and integrity may be compromised since unprotected communications can be intercepted and either read or altered. 
+
+This requirement applies only to those applications that are either distributed or can allow access to data non-locally. Use of this requirement will be limited to situations where the data owner has a strict requirement for ensuring data integrity and confidentiality is maintained at every step of the data transfer and handling process. When transmitting data, applications need to leverage transmission protection mechanisms, such as TLS, TLS VPNs, or IPSEC.
+
+Communication paths outside the physical protection of a controlled boundary are exposed to the possibility of interception and modification. Protecting the confidentiality and integrity of organizational information can be accomplished by physical means (e.g., employing physical distribution systems) or by logical means (e.g., employing cryptographic techniques). If physical means of protection are employed, then logical means (cryptography) do not have to be employed, and vice versa.</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","Without protection of the transmitted information, confidentiality and integrity may be compromised since unprotected communications can be intercepted and either read or altered. 
+
+This requirement applies only to those applications that are either distributed or can allow access to data non-locally. Use of this requirement will be limited to situations where the data owner has a strict requirement for ensuring data integrity and confidentiality is maintained at every step of the data transfer and handling process. When transmitting data, applications need to leverage transmission protection mechanisms, such as TLS, TLS VPNs, or IPSEC.
+
+Communication paths outside the physical protection of a controlled boundary are exposed to the possibility of interception and modification. Protecting the confidentiality and integrity of organizational information can be accomplished by physical means (e.g., employing physical distribution systems) or by logical means (e.g., employing cryptographic techniques). If physical means of protection are employed, then logical means (cryptography) do not have to be employed, and vice versa.","","","false","","","","","","","","Verify Enable HTTPS has been configured to use HTTP over SSL:
+
+Open a web browser that is able to reach the ISEC7 EMM Suite console.
+Verify that the address used has a prefix of https://
+
+Alternately:
+
+Log in to the ISEC7 EMM Suite server.
+Open the server.xml file located at <Drive>:\Program Files\ISEC7 EMM Suite\Tomcat\conf with Notepad.exe
+Select Edit >> Find and search for Connector port=""443"" 
+Confirm the connector is present and not commented out:
+
+<Connector port=""443"" useServerCipherSuitesOrder=""true"" sslImplementationName=""org.apache.tomcat.util.net.jsse.JSSEImplementation"" secure=""true"" scheme=""https"" protocol=""org.apache.coyote.http11.Http11NioProtocol"" maxThreads=""200"" keystoreType=""Windows-MY"" keystoreFile="""" keyAlias=""https"" clientAuth=""none"" ciphers=""TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA384,TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384,TLS_ECDH_ECDSA_WITH_AES_256_CBC_SHA384,TLS_ECDH_RSA_WITH_AES_256_CBC_SHA384,TLS_DHE_DSS_WITH_AES_256_CBC_SHA256,TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA,TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA,TLS_ECDH_ECDSA_WITH_AES_256_CBC_SHA,TLS_ECDH_RSA_WITH_AES_256_CBC_SHA,TLS_DHE_DSS_WITH_AES_256_CBC_SHA,TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256,TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256,TLS_ECDH_ECDSA_WITH_AES_128_CBC_SHA256,TLS_ECDH_RSA_WITH_AES_128_CBC_SHA256,TLS_DHE_DSS_WITH_AES_128_CBC_SHA256,TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA,TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA,TLS_ECDH_ECDSA_WITH_AES_128_CBC_SHA,TLS_ECDH_RSA_WITH_AES_128_CBC_SHA,TLS_DHE_DSS_WITH_AES_128_CBC_SHA,TLS_ECDHE_ECDSA_WITH_RC4_128_SHA,TLS_ECDH_ECDSA_WITH_RC4_128_SHA,TLS_ECDH_RSA_WITH_RC4_128_SHA,TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384,TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384,TLS_RSA_WITH_AES_256_GCM_SHA384,TLS_ECDH_ECDSA_WITH_AES_256_GCM_SHA384,TLS_ECDH_RSA_WITH_AES_256_GCM_SHA384,TLS_DHE_DSS_WITH_AES_256_GCM_SHA384,TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,TLS_RSA_WITH_AES_128_GCM_SHA256,TLS_ECDH_ECDSA_WITH_AES_128_GCM_SHA256,TLS_ECDH_RSA_WITH_AES_128_GCM_SHA256,TLS_DHE_DSS_WITH_AES_128_GCM_SHA256,TLS_ECDHE_ECDSA_WITH_3DES_EDE_CBC_SHA,TLS_ECDHE_RSA_WITH_3DES_EDE_CBC_SHA,TLS_ECDH_ECDSA_WITH_3DES_EDE_CBC_SHA,TLS_ECDH_RSA_WITH_3DES_EDE_CBC_SHA,TLS_EMPTY_RENEGOTIATION_INFO_SCSVF"" SSLEnabled=""true""/>
+
+If Enable HTTPS has not been configured to use HTTP over SSL, this is a finding.","To enable HTTPS to use HTTP over SSL, run the ISEC7 integrated installer or use the following manual procedure:
+
+Log in to the ISEC7 EMM Suite server.
+Open the server.xml file located at <Drive>:\Program Files\ISEC7 EMM Suite\Tomcat\conf with Notepad.exe
+Select Edit >> Find and search for Connector port=""443"" 
+If the connector is not present add:
+
+<Connector port=""443"" useServerCipherSuitesOrder=""true"" sslImplementationName=""org.apache.tomcat.util.net.jsse.JSSEImplementation"" secure=""true"" scheme=""https"" protocol=""org.apache.coyote.http11.Http11NioProtocol"" maxThreads=""200"" keystoreType=""Windows-MY"" keystoreFile="""" keyAlias=""https"" clientAuth=""none"" ciphers=""TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA384,TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384,TLS_ECDH_ECDSA_WITH_AES_256_CBC_SHA384,TLS_ECDH_RSA_WITH_AES_256_CBC_SHA384,TLS_DHE_DSS_WITH_AES_256_CBC_SHA256,TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA,TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA,TLS_ECDH_ECDSA_WITH_AES_256_CBC_SHA,TLS_ECDH_RSA_WITH_AES_256_CBC_SHA,TLS_DHE_DSS_WITH_AES_256_CBC_SHA,TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256,TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256,TLS_ECDH_ECDSA_WITH_AES_128_CBC_SHA256,TLS_ECDH_RSA_WITH_AES_128_CBC_SHA256,TLS_DHE_DSS_WITH_AES_128_CBC_SHA256,TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA,TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA,TLS_ECDH_ECDSA_WITH_AES_128_CBC_SHA,TLS_ECDH_RSA_WITH_AES_128_CBC_SHA,TLS_DHE_DSS_WITH_AES_128_CBC_SHA,TLS_ECDHE_ECDSA_WITH_RC4_128_SHA,TLS_ECDH_ECDSA_WITH_RC4_128_SHA,TLS_ECDH_RSA_WITH_RC4_128_SHA,TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384,TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384,TLS_RSA_WITH_AES_256_GCM_SHA384,TLS_ECDH_ECDSA_WITH_AES_256_GCM_SHA384,TLS_ECDH_RSA_WITH_AES_256_GCM_SHA384,TLS_DHE_DSS_WITH_AES_256_GCM_SHA384,TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,TLS_RSA_WITH_AES_128_GCM_SHA256,TLS_ECDH_ECDSA_WITH_AES_128_GCM_SHA256,TLS_ECDH_RSA_WITH_AES_128_GCM_SHA256,TLS_DHE_DSS_WITH_AES_128_GCM_SHA256,TLS_ECDHE_ECDSA_WITH_3DES_EDE_CBC_SHA,TLS_ECDHE_RSA_WITH_3DES_EDE_CBC_SHA,TLS_ECDH_ECDSA_WITH_3DES_EDE_CBC_SHA,TLS_ECDH_RSA_WITH_3DES_EDE_CBC_SHA,TLS_EMPTY_RENEGOTIATION_INFO_SCSVF"" SSLEnabled=""true""/>
+
+If the connector has been commented out, remove the comment characters.
+Save the file.
+Restart the ISEC7EMM Suite Web service in the services.msc","CCI-002418"
+"ISEC7 EMM Suite v6.x Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via email to the following address: disa.stig_spt@mail.mil.","1","1 ","23 Aug 2019","Release: 1 Benchmark Date: 23 Aug 2019","STIG.DOD.MIL","terms-of-use","V-97289","SV-106393r1_rule","ISEC-06-551100","medium","CAT II","","SRG-APP-000383","The version number of Apache Tomcat must be removed from the CATALINA_HOME/lib/catalina.jar file.","<VulnDiscussion>If the version number of Apache Tomcat were visible to an intruder, they could use that information to search for known vulnerabilities of the app. Removal of unneeded or non-secure functions, ports, protocols, and services mitigate the risk of unauthorized connection of devices, unauthorized transfer of information, or other exploitation of these resources.
+
+The organization must perform a periodic scan/review of the application (as required by CCI-000384) and disable functions, ports, protocols, and services deemed to be unneeded or non-secure.</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","If the version number of Apache Tomcat were visible to an intruder, they could use that information to search for known vulnerabilities of the app. Removal of unneeded or non-secure functions, ports, protocols, and services mitigate the risk of unauthorized connection of devices, unauthorized transfer of information, or other exploitation of these resources.
+
+The organization must perform a periodic scan/review of the application (as required by CCI-000384) and disable functions, ports, protocols, and services deemed to be unneeded or non-secure.","","","false","","","","","","","","Verify the version number of Apache Tomcat has been removed from the CATALINA_HOME/lib/catalina.jar file.
+
+Open a CMD prompt.
+cd <Drive>:\Program Files\ISEC7 EMM Suite\Tomcat\lib
+Copy to desktop and rename catalina.jar to catalina.zip
+Open catalina.zip and drill down to org/apache/catalina/util/ServerInfo.properties
+Open  ‘ServerInfo.properties’ with WordPad.
+Confirm the server version information has been removed.
+…
+server.info=Apache Tomcat
+server.number=
+server.built=
+
+If the version number of Apache Tomcat has not been removed from the CATALINA_HOME/lib/catalina.jar file, this is a finding.","Remove the version string from HTTP error pages by unpacking ServerInfo.properties from CATALINA_HOME\lib\catalina.jar and updating the server version information: 
+
+Open a CMD prompt.
+cd <Drive>:\Program Files\ISEC7 EMM Suite\Tomcat\lib
+Copy to desktop and rename catalina.jar to catalina.zip
+Open catalina.zip and drill down to org/apache/catalina/util/ServerInfo.properties
+Open  ‘ServerInfo.properties’ with WordPad.
+Edit the server version information and save.
+…
+server.info=Apache Tomcat
+server.number=
+server.built=
+
+Save file, rename to catalina.jar, and copy back to directory, replacing existing file.","CCI-001762"
+"ISEC7 EMM Suite v6.x Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via email to the following address: disa.stig_spt@mail.mil.","1","1 ","23 Aug 2019","Release: 1 Benchmark Date: 23 Aug 2019","STIG.DOD.MIL","terms-of-use","V-97291","SV-106395r1_rule","ISEC-06-551200","medium","CAT II","","SRG-APP-000383","Stack tracing must be disabled in Apache Tomcat.","<VulnDiscussion>The default error page shows a full stack trace, which is a disclosure of sensitive information. Removal of unneeded or non-secure functions, ports, protocols, and services mitigate the risk of unauthorized connection of devices, unauthorized transfer of information, or other exploitation of these resources.
+
+The organization must perform a periodic scan/review of the application (as required by CCI-000384) and disable functions, ports, protocols, and services deemed to be unneeded or non-secure.</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","The default error page shows a full stack trace, which is a disclosure of sensitive information. Removal of unneeded or non-secure functions, ports, protocols, and services mitigate the risk of unauthorized connection of devices, unauthorized transfer of information, or other exploitation of these resources.
+
+The organization must perform a periodic scan/review of the application (as required by CCI-000384) and disable functions, ports, protocols, and services deemed to be unneeded or non-secure.","","","false","","","","","","","","Verify stack tracing has been disabled in Apache Tomcat. 
+
+Navigate to the ISEC7 EMM Suite installation directory: <Drive>:\Program Files\ISEC7 EMM Suite\web\WEB-INF
+Open web.xml with Notepad.exe
+Scroll to the end of the file.
+Confirm there are no comment tags <!--"" and ""--> and the following exists without comment tags:
+
+ <error-page>
+    <exception-type>java.lang.Exception</exception-type>
+    <location>/exception.jsp</location>
+  </error-page>
+
+If stack tracing has not been disabled in Apache Tomcat, this is a finding.","Remove the default error page by updating the web application web.xml file.
+
+ Navigate to the ISEC7 EMM Suite installation directory: <Drive>:\Program Files\ISEC7 EMM Suite\web\WEB-INF
+Open web.xml with Notepad.exe
+Scroll to the end of the file.
+Remove the comment tags <!--"" and ""-->
+
+<!--   <error-page>
+    <exception-type>java.lang.Exception</exception-type>
+    <location>/exception.jsp</location>
+  </error-page> -->
+
+Save the changes.
+
+This will acknowledge to the user that an exception occurred without showing any trace or source information.","CCI-001762"
+"ISEC7 EMM Suite v6.x Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via email to the following address: disa.stig_spt@mail.mil.","1","1 ","23 Aug 2019","Release: 1 Benchmark Date: 23 Aug 2019","STIG.DOD.MIL","terms-of-use","V-97293","SV-106397r1_rule","ISEC-06-551300","medium","CAT II","","SRG-APP-000380","The Apache Tomcat shutdown port must be disabled.","<VulnDiscussion>Tomcat uses a port (defaults to 8005) as a shutdown port. Someone could Telnet to the machine using this port and send the default command SHUTDOWN. Tomcat and all web apps would shut down in that case, which is a denial of service attack and would cause an unwanted service interruption.</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","Tomcat uses a port (defaults to 8005) as a shutdown port. Someone could Telnet to the machine using this port and send the default command SHUTDOWN. Tomcat and all web apps would shut down in that case, which is a denial of service attack and would cause an unwanted service interruption.","","","false","","","","","","","","Verify the shutdown port is disabled.
+
+Log in to the EMM Suite server.
+Browse to Program Files\Isec7 EMM Suite\Tomcat\Conf
+Open the server.xml with Notepad.exe
+Select Edit >> Find and search for Shutdown.
+Verify that the shutdown port has been disabled with below entry:
+
+shutdown=""-1""
+
+If the shutdown port has not been disabled, this is a finding.","Log in to the EMM Suite server.
+Browse to Program Files\Isec7 EMM Suite\Tomcat\Conf
+Open the server.xml with Notepad.exe
+Select Edit >> Find and search for Shutdown.
+Change the shutdown to -1
+
+example:  shutdown=-1
+
+Save the file and restart the Isec7 EMM Suite Web service with the services.msc","CCI-001813"
+"ISEC7 EMM Suite v6.x Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via email to the following address: disa.stig_spt@mail.mil.","1","1 ","23 Aug 2019","Release: 1 Benchmark Date: 23 Aug 2019","STIG.DOD.MIL","terms-of-use","V-97295","SV-106399r1_rule","ISEC-06-551310","medium","CAT II","","SRG-APP-000380","The ISEC7 EMM Suite must remove any unnecessaryusers or groups that have permissions to the server.xml file in Apache Tomcat.","<VulnDiscussion>Tomcat uses a port (defaults to 8005) as a shutdown port. Someone could Telnet to the machine using this port and send the default command SHUTDOWN. Tomcat and all web apps would shut down in that case, which is a denial of service attack and would cause an unwanted service interruption.</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","Tomcat uses a port (defaults to 8005) as a shutdown port. Someone could Telnet to the machine using this port and send the default command SHUTDOWN. Tomcat and all web apps would shut down in that case, which is a denial of service attack and would cause an unwanted service interruption.","","","false","","","","","","","","Verify unnecessaryusers or groups that have permissions to the Server.xml file in Apache Tomcat have been removed.
+
+Browse to ProgramFiles\Isec7 EMM Suite\Tomcat\Conf and select Server.xml
+Right click and select Properties.
+Select the security tab and verify no unnecessaryaccount or groups have been granted permissions to the file.
+Verify no unnecessaryusers or groups have permissions to the file.
+
+If unnecessaryusers or groups that have permissions to the Server.xml file in Apache Tomcat have not been removed, this is a finding.","Log in to the ISEC7 EMM Suite server.
+Browse to ProgramFiles\Isec7 EMM Suite\Tomcat\Conf and select Server.xml
+Right click and select Properties.
+Select the security tab and remove unnecessaryaccounts or groups that have been granted permissions to the Server.xml file.","CCI-001813"
+"ISEC7 EMM Suite v6.x Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via email to the following address: disa.stig_spt@mail.mil.","1","1 ","23 Aug 2019","Release: 1 Benchmark Date: 23 Aug 2019","STIG.DOD.MIL","terms-of-use","V-97297","SV-106401r1_rule","ISEC-06-551400","medium","CAT II","","SRG-APP-000090","A manager role must be assigned to the Apache Tomcat Web apps (Manager, Host-Manager).","<VulnDiscussion>If a manager role is not assigned to the Apache Tomcat web apps, the system administrator will not be able to manage and configure the web apps and security setting may not be configured correctly, with could leave the Apache Tomcat susceptible to attack by an intruder.</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","If a manager role is not assigned to the Apache Tomcat web apps, the system administrator will not be able to manage and configure the web apps and security setting may not be configured correctly, with could leave the Apache Tomcat susceptible to attack by an intruder.","","","false","","","","","","","","Verify a manager role has been assigned to the Apache Tomcat Web apps (Manager, Host-Manager).
+
+Login to the ISEC7 EMM Suite server.
+Navigate to <Drive>:\Program Files\ISEC7 EMM Suite\Tomcat\conf\
+Confirm a user with the manager role to <Drive>:\Program Files\ISEC7 EMM Suite\Tomcat\conf\tomcat-users.xml exists.
+
+example: <user username=""admin"" roles=""manager-gui,manager-script"" ..../>
+
+If  a manager role has not been assigned to the Apache Tomcat Web apps, this is a finding.","To add a manager role to the Apache Tomcat Web apps (Manager, Host-Manager), run the ISEC7 integrated installer or use the following manual procedure:
+
+By default there are no users with the manager role assigned. To make use of the manager webapp you need to add a new role and user into the <Drive>:\Program Files\ISEC7 EMM Suite\Tomcat\conf\tomcat-users.xml file.
+
+Login to the ISEC7 EMM Suite server.
+Navigate to <Drive>:\Program Files\ISEC7 EMM Suite\Tomcat\conf\
+Add a user with the manager role to <Drive>:\Program Files\ISEC7 EMM Suite\Tomcat\conf\tomcat-users.xml
+
+example: <user username=""admin"" roles=""manager-gui,manager-script"" ..../>
+
+Save the file.","CCI-000171"
+"ISEC7 EMM Suite v6.x Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via email to the following address: disa.stig_spt@mail.mil.","1","1 ","23 Aug 2019","Release: 1 Benchmark Date: 23 Aug 2019","STIG.DOD.MIL","terms-of-use","V-97299","SV-106403r1_rule","ISEC-06-551600","medium","CAT II","","SRG-APP-000439","SSL must be enabled on Apache Tomcat.","<VulnDiscussion>Without protection of the transmitted information, confidentiality and integrity may be compromised since unprotected communications can be intercepted and either read or altered. 
+
+This requirement applies only to those applications that are either distributed or can allow access to data non-locally. Use of this requirement will be limited to situations where the data owner has a strict requirement for ensuring data integrity and confidentiality is maintained at every step of the data transfer and handling process. When transmitting data, applications need to leverage transmission protection mechanisms, such as TLS, TLS VPNs, or IPSEC.
+
+Communication paths outside the physical protection of a controlled boundary are exposed to the possibility of interception and modification. Protecting the confidentiality and integrity of organizational information can be accomplished by physical means (e.g., employing physical distribution systems) or by logical means (e.g., employing cryptographic techniques). If physical means of protection are employed, then logical means (cryptography) do not have to be employed, and vice versa.</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","Without protection of the transmitted information, confidentiality and integrity may be compromised since unprotected communications can be intercepted and either read or altered. 
+
+This requirement applies only to those applications that are either distributed or can allow access to data non-locally. Use of this requirement will be limited to situations where the data owner has a strict requirement for ensuring data integrity and confidentiality is maintained at every step of the data transfer and handling process. When transmitting data, applications need to leverage transmission protection mechanisms, such as TLS, TLS VPNs, or IPSEC.
+
+Communication paths outside the physical protection of a controlled boundary are exposed to the possibility of interception and modification. Protecting the confidentiality and integrity of organizational information can be accomplished by physical means (e.g., employing physical distribution systems) or by logical means (e.g., employing cryptographic techniques). If physical means of protection are employed, then logical means (cryptography) do not have to be employed, and vice versa.","","","false","","","","","","","","Verify SSL is enabled on Apache Tomcat.
+
+Verify Enable HTTPS has been configured to use HTTP over SSL:
+
+Open a web browser that is able to reach the ISEC7 EMM Suite console.
+Verify that the address used has a prefix of https://
+
+Alternately:
+
+Login to the ISEC7 EMM Suite server.
+Open the server.xml file located at <Drive>:\Program Files\ISEC7 EMM Suite\Tomcat\conf with Notepad.exe
+Select Edit >> Find and search for Connector port=""443"" 
+Confirm the connector is present and not commented out.
+
+If SSL is not enabled on Apache Tomcat, this is a finding.","To configure SSL support on Tomcat, run the ISEC7 integrated installer or use the following manual procedure:
+
+To configure SSL support on Tomcat, you need to change the connector type in <Drive>:\Program Files\ISEC7 EMM Suite\Tomcat\conf\server.xml
+ 
+Log in to the ISEC7 EMM Suite server.
+Browse to <Drive>:\Program Files\ISEC7 EMM Suite\Tomcat\conf\
+Edit the server.xml with Notepad.exe
+Select Edit >> Find and search for connector port=443
+Replace the existing connection with the connection below, modifying the keystoreFile path and password as needed.
+
+<Connector port=""443"" useServerCipherSuitesOrder=""true"" secure=""true"" scheme=""https"" protocol=""com.isec7.bnator.utils.common.Http11NioProtocol"" maxThreads=""200"" keystoreType=""PKCS12"" keystorePass="""" keystoreFile=""C:\Program Files\ISEC7 EMM Suite_nmci\conf\https.pfx"" keyAlias=""https"" clientAuth=""none"" ciphers=""TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA384,TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384,TLS_ECDH_ECDSA_WITH_AES_256_CBC_SHA384,TLS_ECDH_RSA_WITH_AES_256_CBC_SHA384,TLS_DHE_DSS_WITH_AES_256_CBC_SHA256,TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA,TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA,TLS_ECDH_ECDSA_WITH_AES_256_CBC_SHA,TLS_ECDH_RSA_WITH_AES_256_CBC_SHA,TLS_DHE_DSS_WITH_AES_256_CBC_SHA,TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256,TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256,TLS_ECDH_ECDSA_WITH_AES_128_CBC_SHA256,TLS_ECDH_RSA_WITH_AES_128_CBC_SHA256,TLS_DHE_DSS_WITH_AES_128_CBC_SHA256,TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA,TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA,TLS_ECDH_ECDSA_WITH_AES_128_CBC_SHA,TLS_ECDH_RSA_WITH_AES_128_CBC_SHA,TLS_DHE_DSS_WITH_AES_128_CBC_SHA,TLS_ECDHE_ECDSA_WITH_RC4_128_SHA,TLS_ECDH_ECDSA_WITH_RC4_128_SHA,TLS_ECDH_RSA_WITH_RC4_128_SHA,TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384,TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384,TLS_RSA_WITH_AES_256_GCM_SHA384,TLS_ECDH_ECDSA_WITH_AES_256_GCM_SHA384,TLS_ECDH_RSA_WITH_AES_256_GCM_SHA384,TLS_DHE_DSS_WITH_AES_256_GCM_SHA384,TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,TLS_RSA_WITH_AES_128_GCM_SHA256,TLS_ECDH_ECDSA_WITH_AES_128_GCM_SHA256,TLS_ECDH_RSA_WITH_AES_128_GCM_SHA256,TLS_DHE_DSS_WITH_AES_128_GCM_SHA256,TLS_ECDHE_ECDSA_WITH_3DES_EDE_CBC_SHA,TLS_ECDHE_RSA_WITH_3DES_EDE_CBC_SHA,TLS_ECDH_ECDSA_WITH_3DES_EDE_CBC_SHA,TLS_ECDH_RSA_WITH_3DES_EDE_CBC_SHA,TLS_EMPTY_RENEGOTIATION_INFO_SCSVF"" SSLEnabled=""true""/>
+
+Remark: The user should not uncomment the connector tag for port 80/8080. It is recommended to keep this for the automated ISEC7 EMM Suite Agent update from the ISEC7 EMM Suite Tomcat portal (see 2.2.3). If you decline port 80/8080, the user has to enable J2SE SSL as described in section 2.2.1 with the same keystore file for very ISEC7 EMM Suite Agent host.
+
+Then the user can click on OK and restart the Apache Tomcat service to put the new configuration into effect.
+
+One can find further information at https://tomcat.apache.org/tomcat-8.5-doc/ssl-howto.html
+
+Alternatively, you can use the Windows certificate store instead of a local keystore file.
+
+<Connector port=""443"" protocol=""org.apache.coyote.http11.Http11NioProtocol"" sslImplementationName=""org.apache.tomcat.util.net.jsse.JSSEImplementation"" secure=""true"" scheme=""https"" maxThreads=""200"" SSLEnabled=""true""><SSLHostConfig honorCipherOrder=""true"" ciphers=""TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA384,TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384,TLS_ECDH_ECDSA_WITH_AES_256_CBC_SHA384,TLS_ECDH_RSA_WITH_AES_256_CBC_SHA384,TLS_DHE_DSS_WITH_AES_256_CBC_SHA256,TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA,TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA,TLS_ECDH_ECDSA_WITH_AES_256_CBC_SHA,TLS_ECDH_RSA_WITH_AES_256_CBC_SHA,TLS_DHE_DSS_WITH_AES_256_CBC_SHA,TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256,TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256,TLS_ECDH_ECDSA_WITH_AES_128_CBC_SHA256,TLS_ECDH_RSA_WITH_AES_128_CBC_SHA256,TLS_DHE_DSS_WITH_AES_128_CBC_SHA256,TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA,TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA,TLS_ECDH_ECDSA_WITH_AES_128_CBC_SHA,TLS_ECDH_RSA_WITH_AES_128_CBC_SHA,TLS_DHE_DSS_WITH_AES_128_CBC_SHA,TLS_ECDHE_ECDSA_WITH_RC4_128_SHA,TLS_ECDH_ECDSA_WITH_RC4_128_SHA,TLS_ECDH_RSA_WITH_RC4_128_SHA,TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384,TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384,TLS_RSA_WITH_AES_256_GCM_SHA384,TLS_ECDH_ECDSA_WITH_AES_256_GCM_SHA384,TLS_ECDH_RSA_WITH_AES_256_GCM_SHA384,TLS_DHE_DSS_WITH_AES_256_GCM_SHA384,TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,TLS_RSA_WITH_AES_128_GCM_SHA256,TLS_ECDH_ECDSA_WITH_AES_128_GCM_SHA256,TLS_ECDH_RSA_WITH_AES_128_GCM_SHA256,TLS_DHE_DSS_WITH_AES_128_GCM_SHA256,TLS_ECDHE_ECDSA_WITH_3DES_EDE_CBC_SHA,TLS_ECDHE_RSA_WITH_3DES_EDE_CBC_SHA,TLS_ECDH_ECDSA_WITH_3DES_EDE_CBC_SHA,TLS_ECDH_RSA_WITH_3DES_EDE_CBC_SHA,TLS_EMPTY_RENEGOTIATION_INFO_SCSVF"" certificateVerification=""none""><Certificate certificateKeystoreType=""Windows-MY"" certificateKeystoreFile="""" certificateKeyAlias=""https""/></SSLHostConfig>
+</Connector>
+
+The SSL certificate needs to be imported into the My user account – Personal using mmc certificate snap-in. Make sure that the cert has a friendly name, it can be verified in mmc under cert properties. The friendly name is case sensitive.","CCI-002418"
+"ISEC7 EMM Suite v6.x Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via email to the following address: disa.stig_spt@mail.mil.","1","1 ","23 Aug 2019","Release: 1 Benchmark Date: 23 Aug 2019","STIG.DOD.MIL","terms-of-use","V-97301","SV-106405r1_rule","ISEC-06-551700","medium","CAT II","","SRG-APP-000439","Tomcat SSL must be restricted except for ISEC7 EMM Suite tasks.","<VulnDiscussion>Restricting the use of SSL helps ensure only authorized users and processes have access to Tomcat Web apps and reduces the attack surface of the ISEC7 EMM Suite. Without protection of the transmitted information, confidentiality and integrity may be compromised since unprotected communications can be intercepted and either read or altered. 
+
+This requirement applies only to those applications that are either distributed or can allow access to data non-locally. Use of this requirement will be limited to situations where the data owner has a strict requirement for ensuring data integrity and confidentiality is maintained at every step of the data transfer and handling process. When transmitting data, applications need to leverage transmission protection mechanisms, such as TLS, TLS VPNs, or IPSEC.
+
+Communication paths outside the physical protection of a controlled boundary are exposed to the possibility of interception and modification. Protecting the confidentiality and integrity of organizational information can be accomplished by physical means (e.g., employing physical distribution systems) or by logical means (e.g., employing cryptographic techniques). If physical means of protection are employed, then logical means (cryptography) do not have to be employed, and vice versa.</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","Restricting the use of SSL helps ensure only authorized users and processes have access to Tomcat Web apps and reduces the attack surface of the ISEC7 EMM Suite. Without protection of the transmitted information, confidentiality and integrity may be compromised since unprotected communications can be intercepted and either read or altered. 
+
+This requirement applies only to those applications that are either distributed or can allow access to data non-locally. Use of this requirement will be limited to situations where the data owner has a strict requirement for ensuring data integrity and confidentiality is maintained at every step of the data transfer and handling process. When transmitting data, applications need to leverage transmission protection mechanisms, such as TLS, TLS VPNs, or IPSEC.
+
+Communication paths outside the physical protection of a controlled boundary are exposed to the possibility of interception and modification. Protecting the confidentiality and integrity of organizational information can be accomplished by physical means (e.g., employing physical distribution systems) or by logical means (e.g., employing cryptographic techniques). If physical means of protection are employed, then logical means (cryptography) do not have to be employed, and vice versa.","","","false","","","","","","","","Verify Tomcat SSL is restricted to only ISEC7 EMM Suite tasks.
+
+Log in to the ISEC7 EMM Suite server.
+Navigate to <Drive>:\ProgramFiles\ISEC7 EMM Suite\Tomcat\conf\
+Edit the web.xml file with Notepad.exe
+Verify the following entries are present:
+
+<security-constraint>
+ <web-resource-collection>
+  <web-resource-name>Unsecure</web-resource-name>
+  <!-- Agent -->
+  <url-pattern>/BNator/agent/*</url-pattern>
+  <url-pattern>/app/agent/*</url-pattern>
+  <url-pattern>/app/admin/agentinstaller.jnlp</url-pattern>
+  <!-- Client -->
+  <url-pattern>/app/clients/*</url-pattern>
+  <url-pattern>/app/data/*</url-pattern>
+  <!-- Remote Control -->
+  <url-pattern>/rc/*</url-pattern>
+  <!-- Traffic Push -->
+  <url-pattern>/BNator/uss/trafficinfo/*</url-pattern>
+  <url-pattern>/BNator/data/mds/trafficpush</url-pattern>
+  <url-pattern>/BNator/favorites/*</url-pattern>
+  <url-pattern>/app/resource/*</url-pattern>
+ </web-resource-collection>
+</security-constraint>
+
+<security-constraint>
+ <web-resource-collection>
+  <web-resource-name>Secure</web-resource-name>
+  <url-pattern>/*</url-pattern>
+ </web-resource-collection>
+
+ <user-data-constraint>
+  <transport-guarantee>CONFIDENTIAL</transport-guarantee>
+ </user-data-constraint>
+</security-constraint>
+
+If Tomcat SSL is not restricted to only ISEC7 EMM Suite tasks, this is a finding.","To restrict Tomcat SSL to only ISEC7 EMM Suite tasks, run the ISEC7 integrated installer or use the following manual procedure:
+
+To restrict SSL for all users except for agent task, the user needs to add a security constraint tag to <Drive>:\ProgramFiles\ISEC7 EMM Suite\Tomcat\conf\web.xml
+
+Login to the ISEC7 EMM Suite server.
+Navigate to <Drive>:\ProgramFiles\ISEC7 EMM Suite\Tomcat\conf\
+Edit the web.xml file with Notepad.exe
+Add the following entry:
+
+<security-constraint>
+ <web-resource-collection>
+  <web-resource-name>Unsecure</web-resource-name>
+  <!-- Agent -->
+  <url-pattern>/BNator/agent/*</url-pattern>
+  <url-pattern>/app/agent/*</url-pattern>
+  <url-pattern>/app/admin/agentinstaller.jnlp</url-pattern>
+  <!-- Client -->
+  <url-pattern>/app/clients/*</url-pattern>
+  <url-pattern>/app/data/*</url-pattern>
+  <!-- Remote Control -->
+  <url-pattern>/rc/*</url-pattern>
+  <!-- Traffic Push -->
+  <url-pattern>/BNator/uss/trafficinfo/*</url-pattern>
+  <url-pattern>/BNator/data/mds/trafficpush</url-pattern>
+  <url-pattern>/BNator/favorites/*</url-pattern>
+  <url-pattern>/app/resource/*</url-pattern>
+ </web-resource-collection>
+</security-constraint>
+
+<security-constraint>
+ <web-resource-collection>
+  <web-resource-name>Secure</web-resource-name>
+  <url-pattern>/*</url-pattern>
+ </web-resource-collection>
+
+ <user-data-constraint>
+  <transport-guarantee>CONFIDENTIAL</transport-guarantee>
+ </user-data-constraint>
+</security-constraint>","CCI-002418"
+"ISEC7 EMM Suite v6.x Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via email to the following address: disa.stig_spt@mail.mil.","1","1 ","23 Aug 2019","Release: 1 Benchmark Date: 23 Aug 2019","STIG.DOD.MIL","terms-of-use","V-97303","SV-106407r1_rule","ISEC-06-000010","medium","CAT II","","SRG-APP-000001","The ISEC7 EMM Suite must limit the number of concurrent sessions to an organization-defined number for all accounts and/or account types.","<VulnDiscussion>Application management includes the ability to control the number of users and user sessions that utilize an application. Limiting the number of allowed users and sessions per user is helpful in limiting risks related to DoS attacks.
+
+This requirement may be met via the application or by utilizing information system session control provided by a web server with specialized session management capabilities. If it has been specified that this requirement will be handled by the application, the capability to limit the maximum number of concurrent single user sessions must be designed and built into the application. 
+
+This requirement addresses concurrent sessions for information system accounts and does not address concurrent sessions by single users via multiple system accounts. The maximum number of concurrent sessions should be defined based upon mission needs and the operational environment for each system.</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","Application management includes the ability to control the number of users and user sessions that utilize an application. Limiting the number of allowed users and sessions per user is helpful in limiting risks related to DoS attacks.
+
+This requirement may be met via the application or by utilizing information system session control provided by a web server with specialized session management capabilities. If it has been specified that this requirement will be handled by the application, the capability to limit the maximum number of concurrent single user sessions must be designed and built into the application. 
+
+This requirement addresses concurrent sessions for information system accounts and does not address concurrent sessions by single users via multiple system accounts. The maximum number of concurrent sessions should be defined based upon mission needs and the operational environment for each system.","","","false","","","","","","","","Log in to the ISEC7 EMM Console.
+Navigate to Administration >> Configuration >> Apache Tomcat Settings.
+Verify the maxConnections setting is set according to organizational guidelines.
+Verify the maxThreads setting is set according to organizational guidelines.
+
+If the maxConnections setting is not set according to organizational guidelines or the maxThreads setting is not set according to organizational guidelines, this is a finding.","Log in to the ISEC7 EMM Console.
+Navigate to Administration >> Configuration >> Apache Tomcat Settings.
+Set the maxConnections setting according to organizational guidelines.
+Set the maxThreads setting according to organizational guidelines.
+Restart the ISEC7 EMM Suite Web service.","CCI-000054"
+"ISEC7 EMM Suite v6.x Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via email to the following address: disa.stig_spt@mail.mil.","1","1 ","23 Aug 2019","Release: 1 Benchmark Date: 23 Aug 2019","STIG.DOD.MIL","terms-of-use","V-97385","SV-106489r1_rule","ISEC-06-000030","medium","CAT II","","SRG-APP-000003","The ISEC7 EMM Suite must initiate a session lock after a 15-minute period of inactivity.","<VulnDiscussion>A session time-out lock is a temporary action taken when a user stops work and moves away from the immediate physical vicinity of the information system, but does not log out because of the temporary nature of the absence. Rather than relying on the user to manually lock their application session prior to vacating the vicinity, applications need to be able to identify when a user's application session has idled and take action to initiate the session lock.
+
+The session lock is implemented at the point where session activity can be determined and/or controlled. This is typically at the operating system-level and results in a system lock, but may be at the application-level where the application interface window is secured instead.</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","A session time-out lock is a temporary action taken when a user stops work and moves away from the immediate physical vicinity of the information system, but does not log out because of the temporary nature of the absence. Rather than relying on the user to manually lock their application session prior to vacating the vicinity, applications need to be able to identify when a user's application session has idled and take action to initiate the session lock.
+
+The session lock is implemented at the point where session activity can be determined and/or controlled. This is typically at the operating system-level and results in a system lock, but may be at the application-level where the application interface window is secured instead.","","","false","","","","","","","","Log in to the ISEC7 EMM Console.
+Navigate to Administration >> Configuration >> Apache Tomcat.
+Validate the session timeout has been set to the correct value.
+
+Alternatively, allow the console to sit for 15 minutes and confirm that you are prompted to login once again when attempting to navigate to a new screen.
+
+If the EMM Console timeout has not been set for 15 minutes or less, this is a finding.","Log in to the ISEC7 EMM Console.
+Navigate to Administration >> Configuration >> Apache Tomcat.
+Set the session timeout to the correct value of 15 minutes or less.","CCI-000057"
+"ISEC7 EMM Suite v6.x Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via email to the following address: disa.stig_spt@mail.mil.","1","1 ","23 Aug 2019","Release: 1 Benchmark Date: 23 Aug 2019","STIG.DOD.MIL","terms-of-use","V-97387","SV-106491r1_rule","ISEC-06-000060","medium","CAT II","","SRG-APP-000014","The ISEC7 EMM Suite must use TLS 1.2, at a minimum, to protect the confidentiality of sensitive data during electronic dissemination using remote access.","<VulnDiscussion>Using older unauthorized versions or incorrectly configuring protocol negotiation makes the gateway vulnerable to known and unknown attacks that exploit vulnerabilities in this protocol.
+
+This requirement applies to Transport Layer Security (TLS) gateways (also known as Secure Sockets Layer [SSL] gateways), web servers, and web applications and is not applicable to virtual private network (VPN) devices. Application protocols such as HTTPS and DNSSEC use TLS as the underlying security protocol and thus are in scope for this requirement. NIST SP 800-52 provides guidance for client negotiation on either DoD-only or on public-facing servers.</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","Using older unauthorized versions or incorrectly configuring protocol negotiation makes the gateway vulnerable to known and unknown attacks that exploit vulnerabilities in this protocol.
+
+This requirement applies to Transport Layer Security (TLS) gateways (also known as Secure Sockets Layer [SSL] gateways), web servers, and web applications and is not applicable to virtual private network (VPN) devices. Application protocols such as HTTPS and DNSSEC use TLS as the underlying security protocol and thus are in scope for this requirement. NIST SP 800-52 provides guidance for client negotiation on either DoD-only or on public-facing servers.","","","false","","","","","","","","Login to the EMM Console.
+Navigate to Administration >> Configuration >> Apache Tomcat Settings.
+Verify sslProtocol is set to TLSv1.2.
+
+If the sslProtocol is not set to TLSv1.2, this is a finding.","Login to the EMM Console.
+Navigate to Administration >> Configuration >> Apache Tomcat Settings.
+Using the dropdown menu for sslProtocol, select TLSv1.2.
+Click Update.
+Restart the ISEC7 EMM Suite Web service.","CCI-000068"
+"ISEC7 EMM Suite v6.x Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via email to the following address: disa.stig_spt@mail.mil.","1","1 ","23 Aug 2019","Release: 1 Benchmark Date: 23 Aug 2019","STIG.DOD.MIL","terms-of-use","V-97389","SV-106493r1_rule","ISEC-06-000200","medium","CAT II","","SRG-APP-000068","The ISEC7 EMM Suite must display the Standard Mandatory DoD Notice and Consent Banner before granting access to the ISEC7 EMM Suite.","<VulnDiscussion>Display of the DoD-approved use notification before granting access to the application ensures privacy and security notification verbiage used is consistent with applicable federal laws, Executive Orders, directives, policies, regulations, standards, and guidance.
+
+System use notifications are required only for access via logon interfaces with human users and are not required when such human interfaces do not exist.
+
+The banner must be formatted in accordance with DTM-08-060. Use the following verbiage for applications that can accommodate banners of 1300 characters:
+
+""You are accessing a U.S. Government (USG) Information System (IS) that is provided for USG-authorized use only.
+
+By using this IS (which includes any device attached to this IS), you consent to the following conditions:
+
+-The USG routinely intercepts and monitors communications on this IS for purposes including, but not limited to, penetration testing, COMSEC monitoring, network operations and defense, personnel misconduct (PM), law enforcement (LE), and counterintelligence (CI) investigations.
+
+-At any time, the USG may inspect and seize data stored on this IS.
+
+-Communications using, or data stored on, this IS are not private, are subject to routine monitoring, interception, and search, and may be disclosed or used for any USG-authorized purpose.
+
+-This IS includes security measures (e.g., authentication and access controls) to protect USG interests--not for your personal benefit or privacy.
+
+-Notwithstanding the above, using this IS does not constitute consent to PM, LE or CI investigative searching or monitoring of the content of privileged communications, or work product, related to personal representation or services by attorneys, psychotherapists, or clergy, and their assistants. Such communications and work product are private and confidential. See User Agreement for details.""
+ 
+Use the following verbiage for operating systems that have severe limitations on the number of characters that can be displayed in the banner:
+
+""I've read & consent to terms in IS user agreem't.""</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","Display of the DoD-approved use notification before granting access to the application ensures privacy and security notification verbiage used is consistent with applicable federal laws, Executive Orders, directives, policies, regulations, standards, and guidance.
+
+System use notifications are required only for access via logon interfaces with human users and are not required when such human interfaces do not exist.
+
+The banner must be formatted in accordance with DTM-08-060. Use the following verbiage for applications that can accommodate banners of 1300 characters:
+
+""You are accessing a U.S. Government (USG) Information System (IS) that is provided for USG-authorized use only.
+
+By using this IS (which includes any device attached to this IS), you consent to the following conditions:
+
+-The USG routinely intercepts and monitors communications on this IS for purposes including, but not limited to, penetration testing, COMSEC monitoring, network operations and defense, personnel misconduct (PM), law enforcement (LE), and counterintelligence (CI) investigations.
+
+-At any time, the USG may inspect and seize data stored on this IS.
+
+-Communications using, or data stored on, this IS are not private, are subject to routine monitoring, interception, and search, and may be disclosed or used for any USG-authorized purpose.
+
+-This IS includes security measures (e.g., authentication and access controls) to protect USG interests--not for your personal benefit or privacy.
+
+-Notwithstanding the above, using this IS does not constitute consent to PM, LE or CI investigative searching or monitoring of the content of privileged communications, or work product, related to personal representation or services by attorneys, psychotherapists, or clergy, and their assistants. Such communications and work product are private and confidential. See User Agreement for details.""
+ 
+Use the following verbiage for operating systems that have severe limitations on the number of characters that can be displayed in the banner:
+
+""I've read & consent to terms in IS user agreem't.""","","","false","","","","","","","","Log in to the ISEC7 EMM Console.
+Note if the appropriate Standard mandatory DoD Notice and Consent Banner is displayed.
+
+Alternatively, if already logged into the ISEC7 EMM Console, navigate to Administration >> User Self Service >> Page Customizations.
+Verify that a Page Customization exists to display the Standard mandatory DoD Notice and Consent Banner.
+
+If a Page Customization does not exist or it does not contain the required DoD banner, this is a finding.","Login to the ISEC7 EMM Suite console.
+Navigate to Administration >> User Self Service >> Page Customizations.
+Enter a name for the banner page customization and select Add.
+In the new window, select Edit for the English Disclaimer and paste the DoD Standard Disclaimer Warning text.
+Select Confirm.","CCI-000048"
+"ISEC7 EMM Suite v6.x Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via email to the following address: disa.stig_spt@mail.mil.","1","1 ","23 Aug 2019","Release: 1 Benchmark Date: 23 Aug 2019","STIG.DOD.MIL","terms-of-use","V-97391","SV-106495r1_rule","ISEC-06-000270","medium","CAT II","","SRG-APP-000090","The ISEC7 EMM Suite server must be configured to have at least one user in the following Administrator roles: Security Administrator, Site Administrator, Help Desk User.","<VulnDiscussion>Without the capability to restrict which roles and individuals can select which events are audited, unauthorized personnel may be able to prevent the auditing of critical events. Misconfigured audits may degrade the system's performance by overwhelming the audit log. Misconfigured audits may also make it more difficult to establish, correlate, and investigate the events relating to an incident, or identify those responsible for one. 
+ 
+The list of audited events is the set of events for which audits are to be generated. This set of events is typically a subset of the list of all events for which the system is capable of generating audit records.</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","Without the capability to restrict which roles and individuals can select which events are audited, unauthorized personnel may be able to prevent the auditing of critical events. Misconfigured audits may degrade the system's performance by overwhelming the audit log. Misconfigured audits may also make it more difficult to establish, correlate, and investigate the events relating to an incident, or identify those responsible for one. 
+ 
+The list of audited events is the set of events for which audits are to be generated. This set of events is typically a subset of the list of all events for which the system is capable of generating audit records.","","","false","","","","","","","","Login to the ISEC7 EMM Suite console.
+Navigate to Administration >> Configuration >> Global Permissions.
+Verify for each Role (Security Administrator, Site Administrator, Help Desk User) that at least one user or AD group has been assigned.
+
+If for each Role (Security Administrator, Site Administrator, Help Desk User) there is not at least one user (or AD group) assigned, this is a finding.","Login to the ISEC7 EMM Suite console.
+Navigate to Administration >> Configuration >> Global Permissions.
+Assign at least one user or AD group to each of the following roles, Security Administrator, Site Administrator, Help Desk User.","CCI-000171"
+"ISEC7 EMM Suite v6.x Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via email to the following address: disa.stig_spt@mail.mil.","1","1 ","23 Aug 2019","Release: 1 Benchmark Date: 23 Aug 2019","STIG.DOD.MIL","terms-of-use","V-97393","SV-106497r1_rule","ISEC-06-000380","medium","CAT II","","SRG-APP-000108","The ISEC7 EMM Suite must alert the ISSO and SA (at a minimum) in the event of an audit processing failure.","<VulnDiscussion>It is critical for the appropriate personnel to be aware if a system is at risk of failing to process audit logs as required. Without this notification, the security personnel may be unaware of an impending failure of the audit capability and system operation may be adversely affected. 
+
+Audit processing failures include software/hardware errors, failures in the audit capturing mechanisms, and audit storage capacity being reached or exceeded.
+
+This requirement applies to each audit data storage repository (i.e., distinct information system component where audit records are stored), the centralized audit storage capacity of organizations (i.e., all audit data storage repositories combined), or both.</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","It is critical for the appropriate personnel to be aware if a system is at risk of failing to process audit logs as required. Without this notification, the security personnel may be unaware of an impending failure of the audit capability and system operation may be adversely affected. 
+
+Audit processing failures include software/hardware errors, failures in the audit capturing mechanisms, and audit storage capacity being reached or exceeded.
+
+This requirement applies to each audit data storage repository (i.e., distinct information system component where audit records are stored), the centralized audit storage capacity of organizations (i.e., all audit data storage repositories combined), or both.","","","false","","","","","","","","Login to the ISEC7 EMM Suite console.
+Navigate to Administration >> Configuration >> Notifications >> Recipient Lists.
+Select Edit next to the Systems Notifications.
+Verify the email address or distribution list has been added.
+
+If a recipient email address or distribution list has not been added to System Notifications, this is a finding.","Login to the ISEC7 EMM Suite console.
+Navigate to Administration >> Configuration >> Notifications >> Recipient Lists.
+Select Edit next to the Systems Notifications.
+Under Add recipient, select Email as the Type and enter the correct email address of recipients.
+Select Add.","CCI-000139"
+"ISEC7 EMM Suite v6.x Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via email to the following address: disa.stig_spt@mail.mil.","1","1 ","23 Aug 2019","Release: 1 Benchmark Date: 23 Aug 2019","STIG.DOD.MIL","terms-of-use","V-97395","SV-106499r1_rule","ISEC-06-000780","medium","CAT II","","SRG-APP-000175","When using PKI-based authentication for user access, the ISEC7 EMM Suite must validate certificates by constructing a certification path (which includes status information) to an accepted trust anchor.","<VulnDiscussion>Without path validation, an informed trust decision by the relying party cannot be made when presented with any certificate not already explicitly trusted. To meet this requirement, the information system must create trusted channels between itself and remote trusted authorized IT product (e.g., syslog server) entities that protect the confidentiality and integrity of communications. The information system must create trusted paths between itself and remote administrators and users that protect the confidentiality and integrity of communications.
+
+A trust anchor is an authoritative entity represented via a public key and associated data. It is most often used in the context of public key infrastructures, X.509 digital certificates, and DNSSEC. However, applications that do not use a trusted path are not approved for non-local and remote management of DoD information systems.
+
+Use of SSHv2 to establish a trusted channel is approved. Use of FTP, TELNET, HTTP, and SNMPV1 is not approved since they violate the trusted channel rule set. Use of web management tools that are not validated by common criteria my also violate trusted channel rule set.
+
+When there is a chain of trust, usually the top entity to be trusted becomes the trust anchor; it can be, for example, a Certification Authority (CA). A certification path starts with the subject certificate and proceeds through a number of intermediate certificates up to a trusted root certificate, typically issued by a trusted CA. 
+
+This requirement verifies that a certification path to an accepted trust anchor is used for certificate validation and that the path includes status information. Path validation is necessary for a relying party to make an informed trust decision when presented with any certificate not already explicitly trusted. Status information for certification paths includes certificate revocation lists or online certificate status protocol responses. Validation of the certificate status information is out of scope for this requirement.</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","Without path validation, an informed trust decision by the relying party cannot be made when presented with any certificate not already explicitly trusted. To meet this requirement, the information system must create trusted channels between itself and remote trusted authorized IT product (e.g., syslog server) entities that protect the confidentiality and integrity of communications. The information system must create trusted paths between itself and remote administrators and users that protect the confidentiality and integrity of communications.
+
+A trust anchor is an authoritative entity represented via a public key and associated data. It is most often used in the context of public key infrastructures, X.509 digital certificates, and DNSSEC. However, applications that do not use a trusted path are not approved for non-local and remote management of DoD information systems.
+
+Use of SSHv2 to establish a trusted channel is approved. Use of FTP, TELNET, HTTP, and SNMPV1 is not approved since they violate the trusted channel rule set. Use of web management tools that are not validated by common criteria my also violate trusted channel rule set.
+
+When there is a chain of trust, usually the top entity to be trusted becomes the trust anchor; it can be, for example, a Certification Authority (CA). A certification path starts with the subject certificate and proceeds through a number of intermediate certificates up to a trusted root certificate, typically issued by a trusted CA. 
+
+This requirement verifies that a certification path to an accepted trust anchor is used for certificate validation and that the path includes status information. Path validation is necessary for a relying party to make an informed trust decision when presented with any certificate not already explicitly trusted. Status information for certification paths includes certificate revocation lists or online certificate status protocol responses. Validation of the certificate status information is out of scope for this requirement.","","","false","","","","","","","","Login to the server(s) hosting the ISEC7 EMM Suite application.
+Open the Microsoft Management Console and add the Local Computer Certificates snap-in.
+Open the Trusted Root Certification Authorities >> Certificates.
+Verify the DoD Root PKI Certificates Authorities have been added to the server.
+
+If the DoD Root PKI Certificates Authorities have not been added to the server, this is a finding.","Login to the server(s) hosting the ISEC7 EMM Suite application.
+Open the Microsoft Management Console and add the Local Computer Certificates snap-in.
+Open the Trusted Root Certification Authorities >> Certificates.
+Install the DoD Root PKI Certificates Authorities to the server.","CCI-000185"
+"ISEC7 EMM Suite v6.x Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via email to the following address: disa.stig_spt@mail.mil.","1","1 ","23 Aug 2019","Release: 1 Benchmark Date: 23 Aug 2019","STIG.DOD.MIL","terms-of-use","V-97397","SV-106501r1_rule","ISEC-06-001730","low","CAT III","","SRG-APP-000391","The ISEC7 EMM Suite must accept Personal Identity Verification (PIV) credentials.","<VulnDiscussion>The use of PIV credentials facilitates standardization and reduces the risk of unauthorized access.
+
+DoD has mandated the use of the CAC to support identity management and personal authentication for systems covered under HSPD 12, as well as a primary component of layered protection for national security systems.</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","The use of PIV credentials facilitates standardization and reduces the risk of unauthorized access.
+
+DoD has mandated the use of the CAC to support identity management and personal authentication for systems covered under HSPD 12, as well as a primary component of layered protection for national security systems.","","","false","","","","","","","","Log in to the ISEC7 EMM Console.
+
+Navigate to Administration >> Configuration >> Settings.
+
+Verify the CAC login box has been checked.
+
+On the ISEC7 EMM Suite server, browse to the install directory.
+Default is %Install Drive%/Program Files/ISEC7 EMM Suite
+Select the conf folder.
+Open config.properties and confirm the following lines exist:
+
+    cacUserUIDRegex=^CN=[^0-9]*\\.([0-9]+),
+    cacUserUIDProperty=UserPrincipalName
+
+Browse to %Install Drive%/Program Files >> ISEC7 EMM Suite >> Tomcat >> conf
+Confirm the server.xml file has clientAuth=""required"" under the Connection.
+
+If the required commends do not exist in config.properties or if clientAuth does not =""required"" in the server.xml file, this is a finding.","Log in to the ISEC7 EMM Console.
+
+Navigate to Administration >> Configuration >> Settings.
+Check the CAC login box.
+On the ISEC7 EMM Suite server, browse to the install directory.
+Default is %Install Drive%/Program Files/ISEC7 EMM Suite.
+Select the conf folder.
+Open config.properties and add the following lines:
+
+    cacUserUIDRegex=^CN=[^0-9]*\\.([0-9]+),
+    cacUserUIDProperty=UserPrincipalName
+
+Browse to %Install Drive%/Program Files >> ISEC7 EMM Suite >> Tomcat >> conf
+Open the server.xml file and add clientAuth=""required"" under the Connection.","CCI-001953"
+"ISEC7 EMM Suite v6.x Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via email to the following address: disa.stig_spt@mail.mil.","1","1 ","23 Aug 2019","Release: 1 Benchmark Date: 23 Aug 2019","STIG.DOD.MIL","terms-of-use","V-97399","SV-106503r1_rule","ISEC-06-001760","medium","CAT II","","SRG-APP-000395","Before establishing a local, remote, and/or network connection with any endpoint device, the ISEC7 EMM Suite must use a bidirectional authentication mechanism configured with a FIPS-validated Advanced Encryption Standard (AES) cipher block algorithm to authenticate with the device.","<VulnDiscussion>Without device-to-device authentication, communications with malicious devices may be established. Bidirectional authentication provides stronger safeguards to validate the identity of other devices for connections that are of greater risk. Currently, DoD requires the use of AES for bidirectional authentication since it is the only FIPS-validated AES cipher block algorithm. 
+
+For distributed architectures (e.g., service-oriented architectures), the decisions regarding the validation of authentication claims may be made by services separate from the services acting on those decisions. In such situations, it is necessary to provide authentication decisions (as opposed to the actual authenticators) to the services that need to act on those decisions.
+
+A local connection is any connection with a device communicating without the use of a network. A network connection is any connection with a device that communicates through a network (e.g., local area or wide area network; the Internet). A remote connection is any connection with a device communicating through an external network (e.g., the Internet).
+
+Because of the challenges of applying this requirement on a large scale, organizations are encouraged to apply the requirement only to those limited number (and type) of devices that truly need to support this capability.</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","Without device-to-device authentication, communications with malicious devices may be established. Bidirectional authentication provides stronger safeguards to validate the identity of other devices for connections that are of greater risk. Currently, DoD requires the use of AES for bidirectional authentication since it is the only FIPS-validated AES cipher block algorithm. 
+
+For distributed architectures (e.g., service-oriented architectures), the decisions regarding the validation of authentication claims may be made by services separate from the services acting on those decisions. In such situations, it is necessary to provide authentication decisions (as opposed to the actual authenticators) to the services that need to act on those decisions.
+
+A local connection is any connection with a device communicating without the use of a network. A network connection is any connection with a device that communicates through a network (e.g., local area or wide area network; the Internet). A remote connection is any connection with a device communicating through an external network (e.g., the Internet).
+
+Because of the challenges of applying this requirement on a large scale, organizations are encouraged to apply the requirement only to those limited number (and type) of devices that truly need to support this capability.","","","false","","","","","","","","Log in to the ISEC7 EMM Console.
+Confirm that the browser session is secured using a DoD issued certificate. 
+   Internet Explorer:
+   Click on the Padlock icon at the end of the url field.
+   Select View Certificates.
+   Confirm that the Issued By is a valid DoD Certificate Authority.
+
+   Google Chrome:
+   Click on the Padlock icon at the front of the url field.
+   Select Certificate.
+   Confirm that the Issued By is a valid DoD Certificate Authority.
+
+Alternately, Log in to the ISEC7 EMM Console.
+Navigate to Administration >> Configuration >> Apache Tomcat Settings.
+Identify which type of Keystore is being used.
+
+Windows MY:  
+    Open the Microsoft Management Console.
+    Add the Certificates Snap-In for the ISEC7 Service Account.
+    Navigate to the Personal Certificates Store.
+    Verify the certificate is issued by a DoD Trusted Certificate Authority.
+
+JavaKeystore PKCS12:
+    Using a Keystore browser such as Portecle, open the ISEC7 EMM Suite keystore.
+    Enter the Keystore password when prompted.
+    Open the installed certificate and verify it was issued by a DoD Trusted Certificate Authority.
+
+If certificates used by the server are not DoD issued certificates, this is a finding.","Submit a CSR for a DoD Issued Certificate with the private key.
+Retrieve the approved certificate from the issuing Certificate Authority.
+Set the friendly name on the certificate to https.
+
+Windows-MY:
+    Open the Microsoft Management Console.
+    Add the Certificates Snap-In for the ISEC7 Service Account.
+    Navigate to the Personal Certificates Store.
+    Import the certificate with Private key.
+    Log in to the ISEC7 EMM Console.
+    Navigate to Administration >> Configuration >> Apache Tomcat Settings.
+    Set the Keystore Type to Windows-MY.
+
+JavaKeystore:
+    Using a Keystore browser such as Portecle, open the ISEC7 EMM Suite keystore.
+    Enter the Keystore password when prompted.
+    Delete the self-signed certificate in the keystore.
+    Import the DoD issued certificate with the private key.
+    Enter the key password when prompted.
+    Enter the certificate alias as https when prompted.
+    Save the keystore with the same keystore password.
+    Log in to the ISEC7 EMM Console.
+    Navigate to Administration >> Configuration >> Apache Tomcat Settings.
+    Verify the Keystore type is set to JavaKeystore PKCS12.
+
+Navigate to Administration >> Configuration >> Apache Tomcat Settings.
+Using the dropdown menu for ""sslProtocol"", select TLSv1.2.
+Select Update at the bottom of the page.
+Restart the ISEC7 EMM Suite Web service.","CCI-001967"
+"ISEC7 EMM Suite v6.x Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via email to the following address: disa.stig_spt@mail.mil.","1","1 ","23 Aug 2019","Release: 1 Benchmark Date: 23 Aug 2019","STIG.DOD.MIL","terms-of-use","V-97401","SV-106505r1_rule","ISEC-06-001960","medium","CAT II","","SRG-APP-000427","The ISEC7 EMM Suite must allow the use of DoD PKI established certificate authorities for verification of the establishment of protected sessions.","<VulnDiscussion>Untrusted Certificate Authorities (CA) can issue certificates, but they may be issued by organizations or individuals that seek to compromise DoD systems or by organizations with insufficient security controls. If the CA used for verifying the certificate is not a DoD-approved CA, trust of this CA has not been established.
+
+The DoD will only accept PKI certificates obtained from a DoD-approved internal or external certificate authority. Reliance on CAs for the establishment of secure sessions includes, for example, the use of TLS certificates. 
+
+This requirement focuses on communications protection for the application session rather than for the network packet.
+
+This requirement applies to applications that utilize communications sessions. This includes, but is not limited to, web-based applications and Service-Oriented Architectures (SOA).</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","Untrusted Certificate Authorities (CA) can issue certificates, but they may be issued by organizations or individuals that seek to compromise DoD systems or by organizations with insufficient security controls. If the CA used for verifying the certificate is not a DoD-approved CA, trust of this CA has not been established.
+
+The DoD will only accept PKI certificates obtained from a DoD-approved internal or external certificate authority. Reliance on CAs for the establishment of secure sessions includes, for example, the use of TLS certificates. 
+
+This requirement focuses on communications protection for the application session rather than for the network packet.
+
+This requirement applies to applications that utilize communications sessions. This includes, but is not limited to, web-based applications and Service-Oriented Architectures (SOA).","","","false","","","","","","","","Log in to the ISEC7 EMM Console.
+Confirm that the browser session is secured using a DoD issued certificate. 
+
+   Internet Explorer:
+   Click on the Padlock icon at the end of the url field.
+   Select View Certificates.
+   Confirm that the Issued By is a valid DoD Certificate Authority.
+
+   Google Chrome:
+   Click on the Padlock icon at the front of the url field.
+   Select Certificate.
+   Confirm that the Issued By is a valid DoD Certificate Authority.
+
+Alternately, Log in to the ISEC7 EMM Console.
+Navigate to Administration >> Configuration >> Apache Tomcat Settings.
+Identify which type of Keystore is being used.
+
+Windows MY:  
+    Open the Microsoft Management Console.
+    Add the Certificates Snap-In for the ISEC7 Service Account.
+    Navigate to the Personal Certificates Store.
+    Verify the certificate is issued by a DoD Trusted Certificate Authority.
+
+JavaKeystore PKCS12:
+    Using a Keystore browser such as Portecle, open the ISEC7 EMM Suite keystore.
+    Enter the Keystore password when prompted.
+    Open the installed certificate and verify it was issued by a DoD Trusted Certificate Authority.
+
+If certificates used by the server are not DoD issued certificates, this is a finding.","Submit a CSR for a DoD Issued Certificate with the private key.
+Retrieve the approved certificate from the issuing Certificate Authority.
+Set the friendly name on the certificate to https.
+
+Windows-MY:
+    Open the Microsoft Management Console.
+    Add the Certificates Snap-In for the ISEC7 Service Account.
+    Navigate to the Personal Certificates Store.
+    Import the certificate with Private key.
+    Log in to the ISEC7 EMM Console.
+    Navigate to Administration >> Configuration >> Apache Tomcat Settings.
+    Set the Keystore Type to Windows-MY.
+
+JavaKeystore:
+    Using a Keystore browser such as Portecle, open the ISEC7 EMM Suite keystore.
+    Enter the Keystore password when prompted.
+    Delete the self-signed certificate in the keystore.
+    Import the DoD issued certificate with the private key.
+    Enter the key password when prompted.
+    Enter the certificate alias as https when prompted.
+    Save the keystore with the same keystore password.
+    Log in to the ISEC7 EMM Console.
+    Navigate to Administration >> Configuration >> Apache Tomcat Settings.
+    Verify the Keystore type is set to JavaKeystore PKCS12.","CCI-002470"
+"ISEC7 EMM Suite v6.x Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via email to the following address: disa.stig_spt@mail.mil.","1","1 ","23 Aug 2019","Release: 1 Benchmark Date: 23 Aug 2019","STIG.DOD.MIL","terms-of-use","V-97403","SV-106507r1_rule","ISEC-06-002660","medium","CAT II","","SRG-APP-000610","The ISEC7 EMM Suite must use FIPS-validated SHA-2 or higher hash function for digital signature generation and verification (non-legacy use).","<VulnDiscussion>Without cryptographic integrity protections, information can be altered by unauthorized users without detection.
+
+To protect the integrity of the authenticator and authentication mechanism used for the cryptographic module used by the network device, the application, operating system, or protocol must be configured to use one of the following hash functions for hashing the password or other authenticator in accordance with SP 800-131Ar1: SHA-224, SHA-256, SHA-384, SHA-512, SHA-512/224, SHA-512/256, SHA3-224, SHA3-256, SHA3-384, and SHA3-512.
+
+For digital signature verification, SP800-131Ar1 allows SHA-1 for legacy use where needed.</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","Without cryptographic integrity protections, information can be altered by unauthorized users without detection.
+
+To protect the integrity of the authenticator and authentication mechanism used for the cryptographic module used by the network device, the application, operating system, or protocol must be configured to use one of the following hash functions for hashing the password or other authenticator in accordance with SP 800-131Ar1: SHA-224, SHA-256, SHA-384, SHA-512, SHA-512/224, SHA-512/256, SHA3-224, SHA3-256, SHA3-384, and SHA3-512.
+
+For digital signature verification, SP800-131Ar1 allows SHA-1 for legacy use where needed.","","","false","","","","","","","","Log in to the ISEC7 EMM Console.
+Confirm that the browser session is secured using a DoD issued certificate.
+
+Alternately, Log in to the ISEC7 EMM Console.
+Navigate to Administration >> Configuration >> Apache Tomcat Settings.
+Identify which type of Keystore is being used.
+
+Windows MY:  
+    Open the Microsoft Management Console.
+    Add the Certificates Snap-In for the ISEC7 Service Account.
+    Navigate to the Personal Certificates Store.
+    Verify the certificate is issued by a DoD Trusted Certificate Authority.
+
+JavaKeystore PKCS12:
+    Using a Keystore browser such as Portecle, open the ISEC7 EMM Suite keystore.
+    Enter the Keystore password when prompted.
+    Open the installed certificate and verify it was issued by a DoD Trusted Certificate Authority.
+
+If certificates used by the server are not DoD issued certificates, this is a finding.","Submit a CSR for a DoD Issued Certificate with the private key.
+Retrieve the approved certificate from the issuing Certificate Authority.
+Set the friendly name on the certificate to https.
+
+Windows-MY:
+    Open the Microsoft Management Console.
+    Add the Certificates Snap-In for the ISEC7 Service Account.
+    Navigate to the Personal Certificates Store.
+    Import the certificate with Private key.
+    Log in to the ISEC7 EMM Console.
+    Navigate to Administration >> Configuration >> Apache Tomcat Settings.
+    Set the Keystore Type to Windows-MY.
+
+JavaKeystore:
+    Using a Keystore browser such as Portecle, open the ISEC7 EMM Suite keystore.
+    Enter the Keystore password when prompted.
+    Delete the self-signed certificate in the keystore.
+    Import the DoD issued certificate with the private key.
+    Enter the key password when prompted.
+    Enter the certificate alias as https when prompted.
+    Save the keystore with the same keystore password.
+    Log in to the ISEC7 EMM Console.
+    Navigate to Administration >> Configuration >> Apache Tomcat Settings.
+    Verify the Keystore type is set to JavaKeystore PKCS12.","CCI-000803"
+"ISEC7 EMM Suite v6.x Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via email to the following address: disa.stig_spt@mail.mil.","1","1 ","23 Aug 2019","Release: 1 Benchmark Date: 23 Aug 2019","STIG.DOD.MIL","terms-of-use","V-97405","SV-106509r1_rule","ISEC-06-002700","medium","CAT II","","SRG-APP-000635","The ISEC7 EMM Suite must use a FIPS 140-2-validated cryptographic module to implement encryption services for unclassified information requiring confidentiality, generate cryptographic hashes, and to configure web management tools with FIPS-validated Advanced Encryption Standard (AES) cipher block algorithm to protect the confidentiality of maintenance and diagnostic communications for nonlocal maintenance sessions.","<VulnDiscussion>FIPS 140-2 precludes the use of invalidated cryptography for the cryptographic protection of sensitive or valuable data within Federal systems. Unvalidated cryptography is viewed by NIST as providing no protection to the information or data. In effect, the data would be considered unprotected plaintext. If the agency specifies that the information or data be cryptographically protected, then FIPS 140-2 is applicable. In essence, if cryptography is required, it must be validated. Cryptographic modules that have been approved for classified use may be used in lieu of modules that have been validated against the FIPS 140-2 standard. 
+
+The cryptographic module used must have one FIPS-validated encryption algorithm (i.e., validated Advanced Encryption Standard [AES]). This validated algorithm must be used for encryption for cryptographic security function within the product being evaluated.
+
+EMM Suite is using the standard JCE module coming with OpenJDK 11 (included in installer) or Oracle JRE either legacy 1.8 or latest release.
+see https://openjdk.java.net/groups/security/   There are two module providers, IBM and RSA. The check/fix are written assuming the RSA module is used.
+Any FIPS 140-2 compliant JCE module (.jar) can be replaced and configured and used with EMM Suite.</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","FIPS 140-2 precludes the use of invalidated cryptography for the cryptographic protection of sensitive or valuable data within Federal systems. Unvalidated cryptography is viewed by NIST as providing no protection to the information or data. In effect, the data would be considered unprotected plaintext. If the agency specifies that the information or data be cryptographically protected, then FIPS 140-2 is applicable. In essence, if cryptography is required, it must be validated. Cryptographic modules that have been approved for classified use may be used in lieu of modules that have been validated against the FIPS 140-2 standard. 
+
+The cryptographic module used must have one FIPS-validated encryption algorithm (i.e., validated Advanced Encryption Standard [AES]). This validated algorithm must be used for encryption for cryptographic security function within the product being evaluated.
+
+EMM Suite is using the standard JCE module coming with OpenJDK 11 (included in installer) or Oracle JRE either legacy 1.8 or latest release.
+see https://openjdk.java.net/groups/security/   There are two module providers, IBM and RSA. The check/fix are written assuming the RSA module is used.
+Any FIPS 140-2 compliant JCE module (.jar) can be replaced and configured and used with EMM Suite.","","","false","","","","","","","","Log in to the ISEC7 EMM Console.
+Confirm that the browser session is secured using a DoD issued certificate.
+
+Alternately, Log in to the ISEC7 EMM Console.
+Navigate to Administration >> Configuration >> Apache Tomcat Settings.
+Identify which type of Keystore is being used.
+
+Windows MY:  
+    Open the Microsoft Management Console.
+    Add the Certificates Snap-In for the ISEC7 Service Account.
+    Navigate to the Personal Certificates Store.
+    Verify the certificate is issued by a DoD Trusted Certificate Authority.
+
+JavaKeystore PKCS12:
+    Using a Keystore browser such as Portecle, open the ISEC7 EMM Suite keystore.
+    Enter the Keystore password when prompted.
+    Open the installed certificate and verify it was issued by a DoD Trusted Certificate Authority.
+
+If certificates used by the server are not DoD issued certificates, this is a finding.","Login to the ISEC7 EMM Suite Monitor server.
+Browse to the Java Install\Lib\Security.
+Edit the Java.Security file.
+Add the following entries in bold to the Java.Security file:
+
+security.provider.1=com.rsa.jsafe.provider.JsafeJCE
+security.provider.2=sun.security.provider.Sun
+security.provider.3=sun.security.rsa.SunRsaSign
+security.provider.4=sun.security.ec.SunEC
+security.provider.5=com.sun.net.ssl.internal.ssl.Provider JsafeJCE
+security.provider.6=com.sun.crypto.provider.SunJCE
+security.provider.7=sun.security.jgss.SunProvider
+security.provider.8=com.sun.security.sasl.Provider
+security.provider.9=org.jcp.xml.dsig.internal.dom.XMLDSigRI
+security.provider.10=sun.security.smartcardio.SunPCSC
+security.provider.11=sun.security.mscapi.SunMSCAPI
+com.rsa.cryptoj.jce.kat.strategy=on.load
+com.rsa.cryptoj.jce.fips140initialmode=FIPS140_SSL","CCI-002450"
+"ISEC7 EMM Suite v6.x Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via email to the following address: disa.stig_spt@mail.mil.","1","1 ","23 Aug 2019","Release: 1 Benchmark Date: 23 Aug 2019","STIG.DOD.MIL","terms-of-use","V-97407","SV-106511r1_rule","ISEC-06-000500","medium","CAT II","","SRG-APP-000125","The ISEC7 EMM Suite must back up audit records at least every seven days onto a different system or system component than the system or component being audited, provide centralized management and configuration of the content to be captured in audit records generated by all ISEC7 EMM Suite components, and off-load audit records onto a different system or media than the system being audited.","<VulnDiscussion>Protection of log data includes assuring log data is not accidentally lost or deleted. Backing up audit records to a different system or onto separate media than the system being audited on an organizationally defined frequency helps to assure in the event of a catastrophic system failure, the audit records will be retained. 
+
+This helps to ensure a compromise of the information system being audited does not also result in a compromise of the audit records.
+
+This requirement only applies to applications that have a native backup capability for audit records. Operating system backup requirements cover applications that do not provide native backup functions.
+
+Satisfies: SRG-APP-000125, SRG-APP-000356, SRG-APP-000358</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","Protection of log data includes assuring log data is not accidentally lost or deleted. Backing up audit records to a different system or onto separate media than the system being audited on an organizationally defined frequency helps to assure in the event of a catastrophic system failure, the audit records will be retained. 
+
+This helps to ensure a compromise of the information system being audited does not also result in a compromise of the audit records.
+
+This requirement only applies to applications that have a native backup capability for audit records. Operating system backup requirements cover applications that do not provide native backup functions.
+
+Satisfies: SRG-APP-000125, SRG-APP-000356, SRG-APP-000358","","","false","","","","","","","","Open the central log repository and verify the ISEC7 logs have been written to the location of the log server.
+
+Alternatively:
+
+Log in to the ISEC7 EMM Console.
+Navigate to Administration >> Configuration >> Apache Tomcat Settings.
+Verify that the log directory path is set to the desired location.
+
+On the ISEC7 EMM Suite server, browse to the install directory.
+Default is %Install Drive%/Program Files/ISEC7 EMM Suite.
+Select the conf folder.
+Open config.properties and verify the logPath is set to the desired location.
+
+If ISEC7 EMM logs are not written to an audit log management server, this is a finding.","Log in to the ISEC7 EMM Console.
+
+Navigate to Administration >> Configuration >> Apache Tomcat Settings.
+
+Set the log directory path to the desired location.
+
+On the ISEC7 EMM Suite server, browse to the install directory.
+Default is %Install Drive%/Program Files/ISEC7 EMM Suite.
+Select the conf folder.
+Open config.properties and set the logPath to the desired location of the log server.","CCI-001348,CCI-001844,CCI-001851"
+"ISEC7 EMM Suite v6.x Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via email to the following address: disa.stig_spt@mail.mil.","1","1 ","23 Aug 2019","Release: 1 Benchmark Date: 23 Aug 2019","STIG.DOD.MIL","terms-of-use","V-97409","SV-106513r1_rule","ISEC-06-002030","medium","CAT II","","SRG-APP-000439","The ISEC7 EMM Suite must protect the confidentiality and integrity of transmitted information during preparation for transmission and during reception using cryptographic mechanisms.","<VulnDiscussion>Without protection of the transmitted information, confidentiality and integrity may be compromised since unprotected communications can be intercepted and either read or altered. 
+
+This requirement applies only to those applications that are either distributed or can allow access to data non-locally. Use of this requirement will be limited to situations where the data owner has a strict requirement for ensuring data integrity and confidentiality is maintained at every step of the data transfer and handling process. When transmitting data, applications need to leverage transmission protection mechanisms, such as TLS, TLS VPNs, or IPSEC.
+
+Communication paths outside the physical protection of a controlled boundary are exposed to the possibility of interception and modification. Protecting the confidentiality and integrity of organizational information can be accomplished by physical means (e.g., employing physical distribution systems) or by logical means (e.g., employing cryptographic techniques). If physical means of protection are employed, then logical means (cryptography) do not have to be employed, and vice versa.
+
+
+Satisfies: SRG-APP-000439, SRG-APP-000440, SRG-APP-000441, SRG-APP-000442</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","Without protection of the transmitted information, confidentiality and integrity may be compromised since unprotected communications can be intercepted and either read or altered. 
+
+This requirement applies only to those applications that are either distributed or can allow access to data non-locally. Use of this requirement will be limited to situations where the data owner has a strict requirement for ensuring data integrity and confidentiality is maintained at every step of the data transfer and handling process. When transmitting data, applications need to leverage transmission protection mechanisms, such as TLS, TLS VPNs, or IPSEC.
+
+Communication paths outside the physical protection of a controlled boundary are exposed to the possibility of interception and modification. Protecting the confidentiality and integrity of organizational information can be accomplished by physical means (e.g., employing physical distribution systems) or by logical means (e.g., employing cryptographic techniques). If physical means of protection are employed, then logical means (cryptography) do not have to be employed, and vice versa.
+
+
+Satisfies: SRG-APP-000439, SRG-APP-000440, SRG-APP-000441, SRG-APP-000442","","","false","","","","","","","","Log in to the ISEC7 EMM Console.
+Navigate to Administration >> Configuration >> Apache Tomcat Settings.
+Verify that sslProtocol is set to TLS1.2.
+
+If the sslProtocol is not set to TLS1.2, this is a finding.","Log in to the ISEC7 EMM Console.
+Navigate to Administration >> Configuration >> Apache Tomcat Settings.
+Verify that sslProtocol is set to TLS1.2.","CCI-002418,CCI-002420,CCI-002421,CCI-002422"
+"ISEC7 EMM Suite v6.x Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via email to the following address: disa.stig_spt@mail.mil.","1","1 ","23 Aug 2019","Release: 1 Benchmark Date: 23 Aug 2019","STIG.DOD.MIL","terms-of-use","V-97411","SV-106515r1_rule","ISEC-06-002620","medium","CAT II","","SRG-APP-000585","If cipher suites using pre-shared keys are used for device authentication, the ISEC7 EMM Suite must have a minimum security strength of 112 bits or higher, must only be used in networks where both the client and server are Government systems, must prohibit client negotiation to TLS 1.1, TLS 1.0, SSL 2.0, or SSL 3.0 and must prohibit or restrict the use of protocols that transmit unencrypted authentication information or use flawed cryptographic algorithm for transmission.","<VulnDiscussion>Pre-shared keys are symmetric keys that are already in place prior to the initiation of a Transport Layer Security (TLS) session (e.g., as the result of a manual distribution). In general, pre-shared keys should not be used. However, the use of pre-shared keys may be appropriate for some closed environments that have stung key management best practices. 
+
+Pre-shared keys may be appropriate for constrained environments with limited processing, memory, or power. If pre-shared keys are appropriate and supported, the following additional guidelines must be followed. Consult 800-52 for recommended pre-shared key cipher suites for pre-shared keys. Pre-shared keys must be distributed in a secure manner, such as a secure manual distribution or using a key establishment certificate. These cipher suites employ a pre-shared key for device authentication (for both the server and the client) and may also use RSA or ephemeral Diffie-Hellman (DHE) algorithms for key establishment. 
+
+Because these cipher suites require pre-shared keys, these suites are not generally applicable to classic secure website applications and are not expected to be widely supported in TLS clients or TLS servers. NIST suggests that these suites be considered in particular for infrastructure applications, particularly if frequent authentication of the network entities is required. These cipher suites may be used with TLS versions 1.1 or 1.2. Note that cipher suites using GCM, SHA-256, or SHA-384 are only available in TLS 1.2.
+
+Using older unauthorized versions or incorrectly configuring protocol negotiation makes the gateway vulnerable to known and unknown attacks that exploit vulnerabilities in this protocol.
+
+This requirement applies to Transport Layer Security (TLS) gateways (also known as Secure Sockets Layer [SSL] gateways), web servers, and web applications. Application protocols such as HTTPS and DNSSEC use TLS as the underlying security protocol and thus are in scope for this requirement. NIST SP 800-52 provides guidance for client negotiation, either on DoD-only or on public-facing servers.
+
+If unsecured protocols (lacking cryptographic mechanisms) are used for sessions, the contents of those sessions will be susceptible to manipulation, potentially allowing alteration and hijacking of maintenance sessions.
+
+Satisfies: SRG-APP-000585, SRG-APP-000590, SRG-APP-000560, SRG-APP-000645</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","Pre-shared keys are symmetric keys that are already in place prior to the initiation of a Transport Layer Security (TLS) session (e.g., as the result of a manual distribution). In general, pre-shared keys should not be used. However, the use of pre-shared keys may be appropriate for some closed environments that have stung key management best practices. 
+
+Pre-shared keys may be appropriate for constrained environments with limited processing, memory, or power. If pre-shared keys are appropriate and supported, the following additional guidelines must be followed. Consult 800-52 for recommended pre-shared key cipher suites for pre-shared keys. Pre-shared keys must be distributed in a secure manner, such as a secure manual distribution or using a key establishment certificate. These cipher suites employ a pre-shared key for device authentication (for both the server and the client) and may also use RSA or ephemeral Diffie-Hellman (DHE) algorithms for key establishment. 
+
+Because these cipher suites require pre-shared keys, these suites are not generally applicable to classic secure website applications and are not expected to be widely supported in TLS clients or TLS servers. NIST suggests that these suites be considered in particular for infrastructure applications, particularly if frequent authentication of the network entities is required. These cipher suites may be used with TLS versions 1.1 or 1.2. Note that cipher suites using GCM, SHA-256, or SHA-384 are only available in TLS 1.2.
+
+Using older unauthorized versions or incorrectly configuring protocol negotiation makes the gateway vulnerable to known and unknown attacks that exploit vulnerabilities in this protocol.
+
+This requirement applies to Transport Layer Security (TLS) gateways (also known as Secure Sockets Layer [SSL] gateways), web servers, and web applications. Application protocols such as HTTPS and DNSSEC use TLS as the underlying security protocol and thus are in scope for this requirement. NIST SP 800-52 provides guidance for client negotiation, either on DoD-only or on public-facing servers.
+
+If unsecured protocols (lacking cryptographic mechanisms) are used for sessions, the contents of those sessions will be susceptible to manipulation, potentially allowing alteration and hijacking of maintenance sessions.
+
+Satisfies: SRG-APP-000585, SRG-APP-000590, SRG-APP-000560, SRG-APP-000645","","","false","","","","","","","","Log in to the ISEC7 EMM Console.
+Navigate to Administration >> Configuration >> Apache Tomcat Settings.
+Verify that sslProtocol is set to TLS1.2.
+
+If the sslProtocol is not set to TLS1.2, this is a finding.","Log in to the ISEC7 EMM Console.
+Navigate to Administration >> Configuration >> Apache Tomcat Settings.
+Verify that sslProtocol is set to TLS1.2.","CCI-000382,CCI-001453,CCI-001967"
+"ISEC7 EMM Suite v6.x Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via email to the following address: disa.stig_spt@mail.mil.","1","1 ","23 Aug 2019","Release: 1 Benchmark Date: 23 Aug 2019","STIG.DOD.MIL","terms-of-use","V-97413","SV-106517r1_rule","ISEC-06-002690","medium","CAT II","","SRG-APP-000630","The ISEC7 EMM Suite must use a FIPS-validated cryptographic module to provision digital signatures.","<VulnDiscussion>Without confidentiality protection mechanisms, unauthorized individuals may gain access to sensitive information via a remote access session. FIPS 140-2 precludes the use of invalidated cryptography for the cryptographic protection of sensitive or valuable data within Federal systems. Unvalidated cryptography is viewed by NIST as providing no protection to the information or data. In effect, the data would be considered unprotected plaintext. If the agency specifies that the information or data be cryptographically protected, then FIPS 140-2 is applicable. In essence, if cryptography is required, it must be validated. Cryptographic modules that have been approved for classified use may be used in lieu of modules that have been validated against the FIPS 140-2 standard. 
+
+The cryptographic module used must have one FIPS-validated encryption algorithm (i.e., validated Advanced Encryption Standard [AES]). This validated algorithm must be used for encryption for cryptographic security function within the product being evaluated.
+
+EMM Suite is using the standard JCE module coming with OpenJDK 11 (included in installer) or Oracle JRE either legacy 1.8 or latest release (see https://openjdk.java.net/groups/security/). There are two module providers, IBM and RSA. The check/fix are written assuming the RSA module is used. Any FIPS 140-2 compliant JCE module (.jar) can be replaced and configured and used with EMM Suite.
+
+Satisfies: SRG-APP-000630, SRG-APP-000412, SRG-APP-000514</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","Without confidentiality protection mechanisms, unauthorized individuals may gain access to sensitive information via a remote access session. FIPS 140-2 precludes the use of invalidated cryptography for the cryptographic protection of sensitive or valuable data within Federal systems. Unvalidated cryptography is viewed by NIST as providing no protection to the information or data. In effect, the data would be considered unprotected plaintext. If the agency specifies that the information or data be cryptographically protected, then FIPS 140-2 is applicable. In essence, if cryptography is required, it must be validated. Cryptographic modules that have been approved for classified use may be used in lieu of modules that have been validated against the FIPS 140-2 standard. 
+
+The cryptographic module used must have one FIPS-validated encryption algorithm (i.e., validated Advanced Encryption Standard [AES]). This validated algorithm must be used for encryption for cryptographic security function within the product being evaluated.
+
+EMM Suite is using the standard JCE module coming with OpenJDK 11 (included in installer) or Oracle JRE either legacy 1.8 or latest release (see https://openjdk.java.net/groups/security/). There are two module providers, IBM and RSA. The check/fix are written assuming the RSA module is used. Any FIPS 140-2 compliant JCE module (.jar) can be replaced and configured and used with EMM Suite.
+
+Satisfies: SRG-APP-000630, SRG-APP-000412, SRG-APP-000514","","","false","","","","","","","","Log in to the ISEC7 EMM Console.
+Confirm that the browser session is secured using a DoD issued certificate.
+
+Alternately, Log in to the ISEC7 EMM Console.
+Navigate to Administration >> Configuration >> Apache Tomcat Settings.
+Identify which type of Keystore is being used.
+
+Windows MY: 
+ Open the Microsoft Management Console.
+ Add the Certificates Snap-In for the ISEC7 Service Account.
+ Navigate to the Personal Certificates Store.
+ Verify the certificate is issued by a DoD Trusted Certificate Authority.
+
+JavaKeystore PKCS12:
+ Using a Keystore browser such as Portecle, open the ISEC7 EMM Suite keystore.
+ Enter the Keystore password when prompted.
+ Open the installed certificate and verify it was issued by a DoD Trusted Certificate Authority.
+
+If certificates used by the server are not DoD issued certificates, this is a finding.","Submit a CSR for a DoD Issued Certificate with the private key.
+Retrieve the approved certificate from the issuing Certificate Authority.
+Set the friendly name on the certificate to https.
+
+Windows-MY:
+ Open the Microsoft Management Console.
+ Add the Certificates Snap-In for the ISEC7 Service Account.
+ Navigate to the Personal Certificates Store.
+ Import the certificate with Private key.
+ Log in to the ISEC7 EMM Console.
+ Navigate to Administration >> Configuration >> Apache Tomcat Settings.
+ Set the Keystore Type to Windows-MY.
+
+JavaKeystore:
+ Using a Keystore browser such as Portecle, open the ISEC7 EMM Suite keystore.
+ Enter the Keystore password when prompted.
+ Delete the self-signed certificate in the keystore.
+ Import the DoD issued certificate with the private key.
+ Enter the key password when prompted.
+ Enter the certificate alias as https when prompted.
+ Save the keystore with the same keystore password.
+ Log in to the ISEC7 EMM Console.
+ Navigate to Administration >> Configuration >> Apache Tomcat Settings.
+ Verify the Keystore type is set to JavaKeystore PKCS12.","CCI-002450,CCI-003123"
+"ISEC7 EMM Suite v6.x Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via email to the following address: disa.stig_spt@mail.mil.","1","1 ","23 Aug 2019","Release: 1 Benchmark Date: 23 Aug 2019","STIG.DOD.MIL","terms-of-use","V-97415","SV-106519r1_rule","ISEC-06-550700","medium","CAT II","","SRG-APP-000164","The Manager Web app password must be configured as follows: -15 or more characters -at least one lower case letter -at least one upper case letter -at least one number -at least one special character","<VulnDiscussion>The shorter the password, the lower the number of possible combinations that need to be tested before the password is compromised.
+
+Password complexity, or strength, is a measure of the effectiveness of a password in resisting attempts at guessing and brute-force attacks. Password length is one factor of several that helps to determine strength and how long it takes to crack a password. The shorter the password, the lower the number of possible combinations that need to be tested before the password is compromised. 
+
+Use of more characters in a password helps to exponentially increase the time and/or resources required to compromise the password.
+
+Satisfies: SRG-APP-000164, SRG-APP-000166, SRG-APP-000169</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","The shorter the password, the lower the number of possible combinations that need to be tested before the password is compromised.
+
+Password complexity, or strength, is a measure of the effectiveness of a password in resisting attempts at guessing and brute-force attacks. Password length is one factor of several that helps to determine strength and how long it takes to crack a password. The shorter the password, the lower the number of possible combinations that need to be tested before the password is compromised. 
+
+Use of more characters in a password helps to exponentially increase the time and/or resources required to compromise the password.
+
+Satisfies: SRG-APP-000164, SRG-APP-000166, SRG-APP-000169","","","false","","","","","","","","Verify the Manager Web app password has been configured as follows:
+-15 or more characters
+-at least one lower case letter
+-at least one upper case letter
+-at least one number
+-at least one special character
+
+Login to the ISEC7 EMM Suite server.
+Open a Web browser and go to https://localhost/manager/html
+Login with the custom administrator login and password. Verify password entered meets complexity requirements.
+
+If the Manager Web app password has not been configured as required, this is a finding.","To set a strong password on the Manager Web app, run the ISEC7 integrated installer or use the following manual procedure:
+
+Login to the ISEC7 EMM Suite server.
+Browse to <Drive>:\Program Files\ISEC7 EMM Suite\Tomcat\conf and open Tomcat-Users.xml
+Open the Command Prompt and CD to <Drive>:\Program Files\ISEC7 EMM Suite\Tomcat\bin
+Execute the following using 'sha' command:
+
+digest –a sha password*
+
+*where password is the 15 character password designated for the account
+
+Copy the output, which is the hashed digest password.
+In Tomcat-Users.xml, add in the password for the user with the obfuscated output at <user password=""**"", where ** is the obfuscated password.
+
+example: <user password=""310c55aa3d5b42217e7f0e80ce30467d$100000$529cceb1fbc80f4f461fc1bd56219d79d9c94d4a8fc46abad0646f27e753ff9e"" roles=""manager-gui,manager-script"" username=""admin""/>
+
+Save the file.
+Open <Drive>:\Program Files\ISEC7 EMM Suite\Tomcat\conf\server.xml with Notepad.exe
+Enter: <Realm className=""org.apache.catalina.realm.UserDatabaseRealm""
+ resourceName=""UserDatabase"" digest=”sha”/>
+Save the file.
+Restart the ISEC7 EMM Suite Web service using the services.msc
+
+Note: the password must meet the following complexity requirements:
+-15 or more characters
+-at least one lower case letter
+-at least one upper case letter
+-at least one number
+-at least one special character","CCI-000192,CCI-000205,CCI-001619"

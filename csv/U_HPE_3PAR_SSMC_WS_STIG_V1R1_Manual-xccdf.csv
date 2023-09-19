@@ -1,0 +1,497 @@
+"Title","Description","Version","Release","BenchmarkDate","ReleaseInfo","Source","Notice","Rule_VulnID","Rule_RuleID","Rule_StigID","Rule_Severity","Rule_Cat","Rule_Classification","Rule_GroupTitle","Rule_RuleTitle","Rule_Description","Rule_VulnDiscussion","Rule_FalsePositives","Rule_FalseNegatives","Rule_Documentable","Rule_Mitigations","Rule_SeverityOverrideGuidance","Rule_PotentialImpacts","Rule_ThirdPartyTools","Rule_MitigationControl","Rule_Responsibility","Rule_IAControls","Rule_CheckText","Rule_FixText","Rule_CCI"
+"HPE 3PAR SSMC Web Server Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DOD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via email to the following address: disa.stig_spt@mail.mil.","1","1 ","09 Nov 2022","Release: 1 Benchmark Date: 09 Nov 2022","STIG.DOD.MIL","terms-of-use","V-255251","SV-255251r869922_rule","SSMC-WS-010010","high","CAT I","","SRG-APP-000179-WSR-000111","The SSMC web server must use cryptographic modules that meet the requirements of applicable federal laws, Executive Orders, directives, policies, regulations, standards, and guidance for such authentication.","<VulnDiscussion>Encryption is only as good as the encryption modules utilized. Unapproved cryptographic module algorithms cannot be verified and cannot be relied upon to provide confidentiality or integrity, and DOD data may be compromised due to weak algorithms. 
+
+FIPS 140-2 is the current standard for validating cryptographic modules and NSA Type-X (where X=1, 2, 3, 4) products are NSA-certified, hardware-based encryption modules. 
+
+The web server must provide FIPS-compliant encryption modules when authenticating users and processes.
+
+Satisfies: SRG-APP-000179-WSR-000111, SRG-APP-000014-WSR-000006, SRG-APP-000015-WSR-000014, SRG-APP-000179-WSR-000110, SRG-APP-000224-WSR-000135, SRG-APP-000224-WSR-000136, SRG-APP-000224-WSR-000139, SRG-APP-000416-WSR-000118, SRG-APP-000439-WSR-000156, SRG-APP-000441-WSR-000181, SRG-APP-000442-WSR-000182</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","Encryption is only as good as the encryption modules utilized. Unapproved cryptographic module algorithms cannot be verified and cannot be relied upon to provide confidentiality or integrity, and DOD data may be compromised due to weak algorithms. 
+
+FIPS 140-2 is the current standard for validating cryptographic modules and NSA Type-X (where X=1, 2, 3, 4) products are NSA-certified, hardware-based encryption modules. 
+
+The web server must provide FIPS-compliant encryption modules when authenticating users and processes.
+
+Satisfies: SRG-APP-000179-WSR-000111, SRG-APP-000014-WSR-000006, SRG-APP-000015-WSR-000014, SRG-APP-000179-WSR-000110, SRG-APP-000224-WSR-000135, SRG-APP-000224-WSR-000136, SRG-APP-000224-WSR-000139, SRG-APP-000416-WSR-000118, SRG-APP-000439-WSR-000156, SRG-APP-000441-WSR-000181, SRG-APP-000442-WSR-000182","","","false","","","","","","","","Verify that SSMC utilizes FIPS 140-2 approved mode of encryption for authenticating users by doing the following:
+
+1. Log on to SSMC Administrator Console on web GUI as ssmcadmin. 
+
+2. Click the information icon on top right corner and verify ""FIPS mode enabled"" displays ""true"".
+
+3. Log on to SSMC appliance as ssmcadmin via SSH, press ""X"" to escape to general bash shell from the TUI menu, and issue the following command:
+
+$ sudo /ssmc/bin/config_security.sh -o fips_mode -a status
+The output of the command must read ""FIPS mode is enabled"".
+
+If the observations do not indicate FIPS mode as enabled in both steps 1 and 2, this is a finding.","Configure SSMC to utilize FIPS 140-2 approved mode of encryption for authenticating users by doing the following:
+
+1. Log on to the SSMC administrator console as ""ssmcadmin"" and enable FIPS 140-2 mode.
+
+a. Navigate to Actions >> Preferences >> FIPS 140-2 Enabled setting and toggle the switch to ""yes"". Select ""OK"". 
+
+2. Log on as ""ssmcadmin"" on the appliance and enable FIPS 140-2 approved mode by doing the following: 
+
+a. Press ""X"" to escape to general bash shell.
+
+b. Execute the following command:
+
+$ sudo /ssmc/bin/config_security.sh -o fips_mode -a enable
+
+c. Reboot the appliance when prompted.","CCI-000068,CCI-000803,CCI-001188,CCI-001453,CCI-002418,CCI-002420,CCI-002422,CCI-002450"
+"HPE 3PAR SSMC Web Server Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DOD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via email to the following address: disa.stig_spt@mail.mil.","1","1 ","09 Nov 2022","Release: 1 Benchmark Date: 09 Nov 2022","STIG.DOD.MIL","terms-of-use","V-255252","SV-255252r870275_rule","SSMC-WS-010020","medium","CAT II","","SRG-APP-000001-WSR-000001","SSMC web server must limit the number of allowed simultaneous session requests.","<VulnDiscussion>Web server management includes the ability to control the number of users and user sessions that utilize a web server. Limiting the number of allowed users and sessions per user is helpful in limiting risks related to several types of Denial of Service attacks. 
+
+Although there is some latitude concerning the settings themselves, the settings should follow DoD-recommended values, but the settings should be configurable to allow for future DOD direction. While the DOD will specify recommended values, the values can be adjusted to accommodate the operational requirement of a given system.</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","Web server management includes the ability to control the number of users and user sessions that utilize a web server. Limiting the number of allowed users and sessions per user is helpful in limiting risks related to several types of Denial of Service attacks. 
+
+Although there is some latitude concerning the settings themselves, the settings should follow DoD-recommended values, but the settings should be configurable to allow for future DOD direction. While the DOD will specify recommended values, the values can be adjusted to accommodate the operational requirement of a given system.","","","false","","","","","","","","Verify that SSMC limits the number of concurrent sessions by doing the following:
+
+1. Log on to SSMC TUI via SSH as ssmcadmin. Press ""X"" to escape to general bash shell.
+
+2. Execute the following commands:
+
+$ grep ^security.max.active.ui.sessions /opt/hpe/ssmc/ssmcbase/resources/ssmc.properties
+
+security.max.active.ui.sessions=10
+
+$ grep ^security.max.active.per.user.sessions /opt/hpe/ssmc/ssmcbase/resources/ssmc.properties
+security.max.active.per.user.sessions=1
+
+If the output of the above commands does not show the values for ""security.max.active.ui.sessions"" and ""security.max.active.per.user.sessions"" properties with values set as ""10"" and ""1"" respectively, this is a finding.","Configure SSMC to limit the number of allowed simultaneous web session requests by doing the following:
+
+1. Log on to SSMC TUI via SSH as ssmcadmin. Press ""X"" to escape to general bash shell.
+
+2. Edit /opt/hpe/ssmc/ssmcbase/resources/ssmc.properties (Use vi to edit).
+
+3. Locate (or add a fresh entry) property security.max.active.ui.sessions. Set the value to ""10"".
+
+4. Locate (or add a fresh entry) property security.max.active.per.user.sessions. Set the value to ""1"".
+
+5. Save the file and exit.
+
+6. Type ""config_appliance"" to return to TUI. Restart (stop and start) SSMC services using TUI menu option 2.","CCI-000054"
+"HPE 3PAR SSMC Web Server Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DOD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via email to the following address: disa.stig_spt@mail.mil.","1","1 ","09 Nov 2022","Release: 1 Benchmark Date: 09 Nov 2022","STIG.DOD.MIL","terms-of-use","V-255253","SV-255253r869928_rule","SSMC-WS-010040","high","CAT I","","SRG-APP-000014-WSR-000006","SSMC web server must use encryption strength in accordance with the categorization of data hosted by the web server when remote connections are provided.","<VulnDiscussion>The SSMC web server has several remote communications channels. Examples are user requests via http/https, communication to a backend database, or communication to authenticate users. The encryption used to communicate must match the data that is being retrieved or presented.
+
+Methods of communication are http for publicly displayed information, https to encrypt when user data is being transmitted, VPN tunneling, or other encryption methods to a database.
+
+Satisfies: SRG-APP-000014-WSR-000006, SRG-APP-000172-WSR-000104, SRG-APP-000439-WSR-000151, SRG-APP-000439-WSR-000156, SRG-APP-000441-WSR-000181, SRG-APP-000442-WSR-000182</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","The SSMC web server has several remote communications channels. Examples are user requests via http/https, communication to a backend database, or communication to authenticate users. The encryption used to communicate must match the data that is being retrieved or presented.
+
+Methods of communication are http for publicly displayed information, https to encrypt when user data is being transmitted, VPN tunneling, or other encryption methods to a database.
+
+Satisfies: SRG-APP-000014-WSR-000006, SRG-APP-000172-WSR-000104, SRG-APP-000439-WSR-000151, SRG-APP-000439-WSR-000156, SRG-APP-000441-WSR-000181, SRG-APP-000442-WSR-000182","","","false","","","","","","","","Verify that SSMC uses encryption strength equal to the categorization of data hosted by doing the following:
+
+1. Log on to SSH as ssmcadmin. Press ""X"" to escape to general bash shell.
+
+2. Execute the following:
+
+$ grep ^ssmc.secure.tls.only /opt/hpe/ssmc/ssmcbase/resources/ssmc.properties
+ssmc.secure.tls.only = true
+
+If the command output does not read ""ssmc.secure.tls.only = true"", this is a finding.","Configure SSMC to use encryption strength equal to the categorization of data hosted by doing the following: 
+
+1. Log on to SSH as ssmcadmin. Press ""X"" to escape to general bash shell.
+
+2. Using vi edit ssmc.properties and set ""ssmc.secure.tls.only=true"". Save and exit.
+
+3. Type ""config_appliance"" to return to TUI. Restart (stop and start) SSMC services using TUI menu option 2.","CCI-000068,CCI-000197,CCI-002418,CCI-002420,CCI-002422"
+"HPE 3PAR SSMC Web Server Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DOD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via email to the following address: disa.stig_spt@mail.mil.","1","1 ","09 Nov 2022","Release: 1 Benchmark Date: 09 Nov 2022","STIG.DOD.MIL","terms-of-use","V-255254","SV-255254r869931_rule","SSMC-WS-010051","high","CAT I","","SRG-APP-000015-WSR-000014","SSMC web server must use cryptography to protect the integrity of remote sessions.","<VulnDiscussion>Data exchanged between the user and the web server can range from static display data to credentials used to Log on to the hosted application. Even when data appears to be static, the nondisplayed logic in a web page may expose business logic or trusted system relationships. The integrity of all data being exchanged between the user and web server must always be trusted. To protect the integrity and trust, encryption methods should be used to protect the complete communication session.</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","Data exchanged between the user and the web server can range from static display data to credentials used to Log on to the hosted application. Even when data appears to be static, the nondisplayed logic in a web page may expose business logic or trusted system relationships. The integrity of all data being exchanged between the user and web server must always be trusted. To protect the integrity and trust, encryption methods should be used to protect the complete communication session.","","","false","","","","","","","","Verify that SSMC encrypts log exports to a remote syslog server with the following command: 
+
+$ sudo /ssmc/bin/config_security.sh -o remote_syslog_appliance -a status | grep tls
+
+ssmc.rsyslog.server.tls-enabled=1
+
+If ""ssmc.rsyslog.server.tls-enabled"" does not equal ""1"", this is a finding.","Configure SSMC to encrypt log exports to a remote syslog server:
+
+1. Configure rsyslog parameters in /ssmc/conf/security_config.properties like below (use vi editor):
+ssmc.rsyslog.server.tls-enabled=1
+
+2. Execute ""sudo /ssmc/bin/config_security.sh -o remote_syslog_appliance -a set -f"" to commit the configuration and enable the service.","CCI-001453"
+"HPE 3PAR SSMC Web Server Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DOD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via email to the following address: disa.stig_spt@mail.mil.","1","1 ","09 Nov 2022","Release: 1 Benchmark Date: 09 Nov 2022","STIG.DOD.MIL","terms-of-use","V-255255","SV-255255r869934_rule","SSMC-WS-010060","medium","CAT II","","SRG-APP-000016-WSR-000005","SSMC web server must generate information to be used by external applications or entities to monitor and control remote access.","<VulnDiscussion>Remote access to the web server is any access that communicates through an external, non-organization-controlled network. Remote access can be used to access hosted applications or to perform management functions. 
+
+By providing remote access information to an external monitoring system, the organization can monitor for cyber attacks and monitor compliance with remote access policies. The organization can also look at data organization wide and determine an attack or anomaly is occurring on the organization which might not be noticed if the data were kept local to the web server.
+
+Examples of external applications used to monitor or control access would be audit log monitoring systems, dynamic firewalls, or infrastructure monitoring systems.</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","Remote access to the web server is any access that communicates through an external, non-organization-controlled network. Remote access can be used to access hosted applications or to perform management functions. 
+
+By providing remote access information to an external monitoring system, the organization can monitor for cyber attacks and monitor compliance with remote access policies. The organization can also look at data organization wide and determine an attack or anomaly is occurring on the organization which might not be noticed if the data were kept local to the web server.
+
+Examples of external applications used to monitor or control access would be audit log monitoring systems, dynamic firewalls, or infrastructure monitoring systems.","","","false","","","","","","","","Verify that SSMC monitors remote access by doing the following:
+
+1. Log on to SSH as ssmcadmin. Press ""X"" to escape to general bash shell.
+
+2. Execute the following command to enable HTTP access logs:
+
+$ sudo /ssmc/bin/config_security.sh -o  http_access_log  -a status
+
+HTTP access logging is enabled.
+
+If the command output does not read ""HTTP access logging is enabled"", this is a finding.","Configure SSMC to be monitored for remote access by doing the following:
+
+1. Log on to SSH as ssmcadmin. Press ""X"" to escape to general bash shell.
+
+2. Execute the following command to enable HTTP access logs:
+
+$ sudo /ssmc/bin/config_security.sh -o http_access_log -a enable -f","CCI-000067"
+"HPE 3PAR SSMC Web Server Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DOD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via email to the following address: disa.stig_spt@mail.mil.","1","1 ","09 Nov 2022","Release: 1 Benchmark Date: 09 Nov 2022","STIG.DOD.MIL","terms-of-use","V-255256","SV-255256r869937_rule","SSMC-WS-010070","medium","CAT II","","SRG-APP-000016-WSR-000005","SSMC web server must generate information to be used by external applications or entities to monitor and control remote access.","<VulnDiscussion>Remote access to the web server is any access that communicates through an external, non-organization-controlled network. Remote access can be used to access hosted applications or to perform management functions. 
+
+By providing remote access information to an external monitoring system, the organization can monitor for cyber attacks and monitor compliance with remote access policies. The organization can also look at data organization wide and determine an attack or anomaly is occurring on the organization which might not be noticed if the data were kept local to the web server.
+
+Examples of external applications used to monitor or control access would be audit log monitoring systems, dynamic firewalls, or infrastructure monitoring systems.</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","Remote access to the web server is any access that communicates through an external, non-organization-controlled network. Remote access can be used to access hosted applications or to perform management functions. 
+
+By providing remote access information to an external monitoring system, the organization can monitor for cyber attacks and monitor compliance with remote access policies. The organization can also look at data organization wide and determine an attack or anomaly is occurring on the organization which might not be noticed if the data were kept local to the web server.
+
+Examples of external applications used to monitor or control access would be audit log monitoring systems, dynamic firewalls, or infrastructure monitoring systems.","","","false","","","","","","","","Verify that SSMC monitors remote access by doing the following:
+
+1. Log on to SSH as ssmcadmin. Press ""X"" to escape to general bash shell.
+
+2. Execute the following command to enable TCP access logs:
+
+$ sudo /ssmc/bin/config_security.sh -o  tcp_access_log  -a status
+
+TCP access logging is enabled
+
+If the command output does not read ""TCP access logging is enabled"", this is a finding.","Configure SSMC to be monitored for remote access by doing the following:
+
+1. Log on to SSH as ssmcadmin. Press ""X"" to escape to general bash shell.
+
+2. Execute the following command to enable TCP access logs:
+
+$ sudo /ssmc/bin/config_security.sh -o tcp_access_log -a enable -f","CCI-000067"
+"HPE 3PAR SSMC Web Server Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DOD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via email to the following address: disa.stig_spt@mail.mil.","1","1 ","09 Nov 2022","Release: 1 Benchmark Date: 09 Nov 2022","STIG.DOD.MIL","terms-of-use","V-255257","SV-255257r869940_rule","SSMC-WS-010080","medium","CAT II","","SRG-APP-000016-WSR-000005","SSMC web server must generate information to be used by external applications or entities to monitor and control remote access.","<VulnDiscussion>Remote access to the web server is any access that communicates through an external, non-organization-controlled network. Remote access can be used to access hosted applications or to perform management functions. 
+
+By providing remote access information to an external monitoring system, the organization can monitor for cyber attacks and monitor compliance with remote access policies. The organization can also look at data organization wide and determine an attack or anomaly is occurring on the organization which might not be noticed if the data were kept local to the web server.
+
+Examples of external applications used to monitor or control access would be audit log monitoring systems, dynamic firewalls, or infrastructure monitoring systems.
+
+Satisfies: SRG-APP-000016-WSR-000005, SRG-APP-000358-WSR-000163, SRG-APP-000358-WSR-000063, SRG-APP-000125-WSR-000071</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","Remote access to the web server is any access that communicates through an external, non-organization-controlled network. Remote access can be used to access hosted applications or to perform management functions. 
+
+By providing remote access information to an external monitoring system, the organization can monitor for cyber attacks and monitor compliance with remote access policies. The organization can also look at data organization wide and determine an attack or anomaly is occurring on the organization which might not be noticed if the data were kept local to the web server.
+
+Examples of external applications used to monitor or control access would be audit log monitoring systems, dynamic firewalls, or infrastructure monitoring systems.
+
+Satisfies: SRG-APP-000016-WSR-000005, SRG-APP-000358-WSR-000163, SRG-APP-000358-WSR-000063, SRG-APP-000125-WSR-000071","","","false","","","","","","","","Verify that SSMC monitors remote access by enabling exports to a remote syslog server with the following command: 
+
+$ sudo /ssmc/bin/config_security.sh -o remote_syslog_appliance -a status | sed 1q
+
+Remote syslog service status is OK
+
+If the output does not read ""Remote syslog service status is OK"", this is a finding.","Configure SSMC to be monitored for remote access by enabling exports to a remote syslog server:
+
+1. Configure rsyslog parameters in /ssmc/conf/security_config.properties like below (use vi editor):
+
+ssmc.rsyslog.server.host=<rsyslog_server>
+ssmc.rsyslog.server.port=<rsyslog_port>
+ssmc.rsyslog.server.protocol=tcp
+ssmc.rsyslog.server.tls-enabled=1
+ssmc.rsyslog.cert.caroot=<ca_root_cert_pem>
+ssmc.rsyslog.cert.clientcert=<ssmc_client_cert_pem>
+ssmc.rsyslog.cert.clientkey=<ssmc_client_key_pem>
+ssmc.rsyslog.server.authMode=<x509/name | x509/certvalid>
+ssmc.rsyslog.server.permittedPeers=<cn_of_rsyslog_server>
+ssmc.rsyslog.server.device=<ens160|ens192|eth0|eth1>
+ssmc.rsyslog.queue.maxdiskspace=6
+ssmc.rsyslog.smtp.alert=true
+ssmc.rsyslog.smtp.server=<smtp_server_ip>
+ssmc.rsyslog.smtp.port=<smtp_port>
+ssmc.rsyslog.smtp.recipient=[""id1@domain"",""id2@domain""]
+ssmc.rsyslog.smtp.notify-interval=300
+ssmc.rsyslog.smtp.mailFrom=id@domain
+
+2. Execute ""sudo /ssmc/bin/config_security.sh -o remote_syslog_appliance -a set -f"" to commit the configuration and enable the service.","CCI-000067,CCI-001348,CCI-001851"
+"HPE 3PAR SSMC Web Server Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DOD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via email to the following address: disa.stig_spt@mail.mil.","1","1 ","09 Nov 2022","Release: 1 Benchmark Date: 09 Nov 2022","STIG.DOD.MIL","terms-of-use","V-255258","SV-255258r869943_rule","SSMC-WS-010090","medium","CAT II","","SRG-APP-000142-WSR-000089","The SSMC web server must be configured to use a specified IP address and port.","<VulnDiscussion>The web server must be configured to listen on a specified IP address and port. Without specifying an IP address and port for the web server to utilize, the web server will listen on all IP addresses available to the hosting server. If the web server has multiple IP addresses, i.e., a management IP address, the web server will also accept connections on the management IP address.
+
+Accessing the hosted application through an IP address normally used for nonapplication functions opens the possibility of user access to resources, utilities, files, ports, and protocols that are protected on the desired application IP address.</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","The web server must be configured to listen on a specified IP address and port. Without specifying an IP address and port for the web server to utilize, the web server will listen on all IP addresses available to the hosting server. If the web server has multiple IP addresses, i.e., a management IP address, the web server will also accept connections on the management IP address.
+
+Accessing the hosted application through an IP address normally used for nonapplication functions opens the possibility of user access to resources, utilities, files, ports, and protocols that are protected on the desired application IP address.","","","false","","","","","","","","Verify that SSMC web server is configured to listen on a specific network IP address, by doing the following:
+
+1. Log on to ssmc appliance as ssmcadmin. Press ""X"" to escape to general bash shell.
+
+2. Execute the command:
+
+$ sudo /ssmc/bin/config_security.sh -o webserver_service_network -a status
+Webserver service is listening on <ip_address>
+
+If the command output does not display a specific IP address assigned to the SSMC host but reads ""default IP address"", this is a finding.","Configure SSMC web server to listen on a specified network IP address by doing the following:
+
+1. Log on to ssmc appliance as ssmcadmin; escape to general bash shell.
+
+2. Edit (using vi editor) file /ssmc/conf/security_config.properties and set the property ssmc.webserver.service.network=<interface_name>
+
+The property value can be any of ens160 or ens192 in an ESX environment; eth0 or eth1 in a Hyper-V environment.
+
+3. Execute the command:
+
+$ sudo /ssmc/bin/config_security.sh -o webserver_service_network -a set -f","CCI-000382"
+"HPE 3PAR SSMC Web Server Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DOD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via email to the following address: disa.stig_spt@mail.mil.","1","1 ","09 Nov 2022","Release: 1 Benchmark Date: 09 Nov 2022","STIG.DOD.MIL","terms-of-use","V-255259","SV-255259r869946_rule","SSMC-WS-010100","medium","CAT II","","SRG-APP-000175-WSR-000095","The SSMC web server must perform RFC 5280-compliant certification path validation.","<VulnDiscussion>A certificate's certification path is the path from the end entity certificate to a trusted root certification authority (CA). Certification path validation is necessary for a relying party to make an informed decision regarding acceptance of an end entity certificate. Certification path validation includes checks such as certificate issuer trust, time validity and revocation status for each certificate in the certification path. Revocation status information for CA and subject certificates in a certification path is commonly provided via certificate revocation lists (CRLs) or online certificate status protocol (OCSP) responses.</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","A certificate's certification path is the path from the end entity certificate to a trusted root certification authority (CA). Certification path validation is necessary for a relying party to make an informed decision regarding acceptance of an end entity certificate. Certification path validation includes checks such as certificate issuer trust, time validity and revocation status for each certificate in the certification path. Revocation status information for CA and subject certificates in a certification path is commonly provided via certificate revocation lists (CRLs) or online certificate status protocol (OCSP) responses.","","","false","","","","","","","","To verify SSMC always validates PKI certificates of all remote hosts that it connects to, in accordance with RFC 5280, do the following:
+
+1. Log on to ssmc appliance as ssmcadmin and escape to general bash shell.
+
+2. Execute the following command:
+$ grep ^ssmc.tls.trustmanager.enabled /opt/hpe/ssmc/ssmcbase/resources/ssmc.properties
+
+ssmc.tls.trustmanager.enabled=true
+
+If the command output does not show the property ssmc.tls.trustmanager.enabled as set to true, this is a finding.","Configure SSMC to always validate PKI certificates in accordance with RFC 5280 for all connections to remote hosts (as a client), by doing the following:
+
+1. Log on to ssmc appliance as ssmcadmin and escape to general bash shell.
+
+2. Edit (using vi editor) file /opt/hpe/ssmc/ssmcbase/resources/ssmc.properties and set the property ssmc.tls.trustmanager.enabled=true
+
+3. Save the file and exit.
+
+4. Type ""config_appliance"" to return to TUI. Restart (stop and start) SSMC services using TUI menu option 2.","CCI-000185"
+"HPE 3PAR SSMC Web Server Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DOD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via email to the following address: disa.stig_spt@mail.mil.","1","1 ","09 Nov 2022","Release: 1 Benchmark Date: 09 Nov 2022","STIG.DOD.MIL","terms-of-use","V-255260","SV-255260r869949_rule","SSMC-WS-010150","medium","CAT II","","SRG-APP-000295-WSR-000012","SSMC web server must set an absolute timeout for sessions.","<VulnDiscussion>Leaving sessions open indefinitely is a major security risk. An attacker can easily use an already authenticated session to access the hosted application as the previously authenticated user. By closing sessions after an absolute period of time, the user is forced to re-authenticate guaranteeing the session is still in use. Enabling an absolute timeout for sessions closes sessions that are still active. Examples would be a runaway process accessing the web server or an attacker using a hijacked session to slowly probe the web server.</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","Leaving sessions open indefinitely is a major security risk. An attacker can easily use an already authenticated session to access the hosted application as the previously authenticated user. By closing sessions after an absolute period of time, the user is forced to re-authenticate guaranteeing the session is still in use. Enabling an absolute timeout for sessions closes sessions that are still active. Examples would be a runaway process accessing the web server or an attacker using a hijacked session to slowly probe the web server.","","","false","","","","","","","","Verify that SSMC is configured to close web sessions after an absolute period of time by doing the following:
+
+1. Log on to SSMC appliance as ssmcadmin. Press ""X"" to escape to general bash shell.
+
+2. Execute the following command: 
+
+$ grep ^server.absolute.session.timeout /opt/hpe/ssmc/ssmcbase/resources/ssmc.properties
+
+server.absolute.session.timeout=60
+
+If the command output does not read ""server.absolute.session.timeout=60"", this is a finding.","Configure SSMC to close web sessions after an absolute period of time by doing the following:
+
+1. Log on to SSMC appliance as ssmcadmin. Press ""X"" to escape to general bash shell.
+
+2. Use vi editor to locate and set the value of property ""server.absolute.session.timeout"" to 60 in /opt/hpe/ssmc/ssmcbase/resources/ssmc.properties. Uncomment it if required. Save and exit.
+
+3. Type ""config_appliance"" to return to TUI. Restart (stop and start) SSMC services using TUI menu option 2.","CCI-002361"
+"HPE 3PAR SSMC Web Server Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DOD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via email to the following address: disa.stig_spt@mail.mil.","1","1 ","09 Nov 2022","Release: 1 Benchmark Date: 09 Nov 2022","STIG.DOD.MIL","terms-of-use","V-255261","SV-255261r869952_rule","SSMC-WS-010160","medium","CAT II","","SRG-APP-000295-WSR-000134","SSMC web server must set an inactive timeout for sessions.","<VulnDiscussion>Leaving sessions open indefinitely is a major security risk. An attacker can easily use an already authenticated session to access the hosted application as the previously authenticated user. By closing sessions after a set period of inactivity, the web server can make certain that those sessions that are not closed through the user logging out of an application are eventually closed. 
+
+Acceptable values are 5 minutes for high-value applications, 10 minutes for medium-value applications, and 20 minutes for low-value applications.</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","Leaving sessions open indefinitely is a major security risk. An attacker can easily use an already authenticated session to access the hosted application as the previously authenticated user. By closing sessions after a set period of inactivity, the web server can make certain that those sessions that are not closed through the user logging out of an application are eventually closed. 
+
+Acceptable values are 5 minutes for high-value applications, 10 minutes for medium-value applications, and 20 minutes for low-value applications.","","","false","","","","","","","","Verify that idle session timeout is set by doing the following:
+
+1. Log on to SSMC administrator console as ssmcadmin. 
+
+2. Navigate to Actions >> Preferences.
+
+3. Locate Session timeout property and check if it is set to 10 minutes.
+
+If the value is not set to 10 minutes, this is a finding.","Configure idle session timeouts on the web GUI by doing the following:
+
+1. Log on to SSMC administrator console as ssmcadmin.
+
+2. Navigate to Actions >> Preferences.
+
+3. Locate Session timeout property and update the value to 10 minutes.
+
+4. Restart SSMC services from appliance TUI menu option 2.","CCI-002361"
+"HPE 3PAR SSMC Web Server Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DOD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via email to the following address: disa.stig_spt@mail.mil.","1","1 ","09 Nov 2022","Release: 1 Benchmark Date: 09 Nov 2022","STIG.DOD.MIL","terms-of-use","V-255262","SV-255262r869955_rule","SSMC-WS-010161","medium","CAT II","","SRG-APP-000295-WSR-000134","SSMC web server must set an inactive timeout for shell sessions.","<VulnDiscussion>Leaving sessions open indefinitely is a major security risk. An attacker can easily use an already authenticated session to access the hosted application as the previously authenticated user. By closing sessions after a set period of inactivity, the web server can make certain that those sessions that are not closed through the user logging out of an application are eventually closed. 
+
+Acceptable values are 5 minutes for high-value applications, 10 minutes for medium-value applications, and 20 minutes for low-value applications.</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","Leaving sessions open indefinitely is a major security risk. An attacker can easily use an already authenticated session to access the hosted application as the previously authenticated user. By closing sessions after a set period of inactivity, the web server can make certain that those sessions that are not closed through the user logging out of an application are eventually closed. 
+
+Acceptable values are 5 minutes for high-value applications, 10 minutes for medium-value applications, and 20 minutes for low-value applications.","","","false","","","","","","","","Verify that SSMC web server is configured to close inactive sessions after 10 minutes by doing the following:
+
+1. Log on to the SSMC appliance as ssmcadmin. Press ""X"" to escape to general bash shell.
+
+2. Execute the command:
+
+$ sudo /ssmc/bin/config_security.sh -o shell_session_idle_timeout -a status
+
+Shell session idle timeout is configured to 600 seconds
+
+If the shell session idle timeout status does not read as ""configured to 600 seconds"", this is a finding.","Configure SSMC web server to close inactive shell sessions after 10 minutes by doing the following:
+
+1. Log on to the SSMC appliance as ssmcadmin. Press ""X"" to escape to general bash shell.
+
+2. Use vi to edit /ssmc/conf/security_config.properties file.
+
+3. Uncomment and update ""ssmc.shell.session.inactivity.timeout property"" to ""600 seconds"". Save and exit.
+
+4. Execute the following command:
+
+$ sudo /ssmc/bin/config_security.sh -o shell_session_idle_timeout -a set
+
+5. Terminate all open ssh sessions to SSMC appliance.","CCI-002361"
+"HPE 3PAR SSMC Web Server Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DOD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via email to the following address: disa.stig_spt@mail.mil.","1","1 ","09 Nov 2022","Release: 1 Benchmark Date: 09 Nov 2022","STIG.DOD.MIL","terms-of-use","V-255263","SV-255263r870278_rule","SSMC-WS-010180","medium","CAT II","","SRG-APP-000315-WSR-000004","SSMC web server must restrict connections from nonsecure zones.","<VulnDiscussion>Remote access to the web server is any access that communicates through an external, non-organization-controlled network. Remote access can be used to access hosted applications or to perform management functions.
+
+A web server can be accessed remotely and must be capable of restricting access from what the DOD defines as nonsecure zones. Nonsecure zones are defined as any IP, subnet, or region that is defined as a threat to the organization. The nonsecure zones must be defined for public web servers logically located in a DMZ, as well as private web servers with perimeter protection devices. By restricting access from nonsecure zones, through internal web server access list, the web server can stop or slow denial of service (DoS) attacks on the web server.
+
+Satisfies: SRG-APP-000315-WSR-000004, SRG-APP-000315-WSR-000003</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","Remote access to the web server is any access that communicates through an external, non-organization-controlled network. Remote access can be used to access hosted applications or to perform management functions.
+
+A web server can be accessed remotely and must be capable of restricting access from what the DOD defines as nonsecure zones. Nonsecure zones are defined as any IP, subnet, or region that is defined as a threat to the organization. The nonsecure zones must be defined for public web servers logically located in a DMZ, as well as private web servers with perimeter protection devices. By restricting access from nonsecure zones, through internal web server access list, the web server can stop or slow denial of service (DoS) attacks on the web server.
+
+Satisfies: SRG-APP-000315-WSR-000004, SRG-APP-000315-WSR-000003","","","false","","","","","","","","Verify that SSMC is configured to block DOD-defined nonsecure zones  using remote host access controls by doing the following:
+
+1. Log on to SSMC appliance as ssmcadmin. Press ""X"" to escape to general bash shell.
+
+2. Execute the following command: 
+
+$ sudo /ssmc/bin/config_security.sh -o host_access -a status
+
+Host access is configured
+
+If the command output does not read ""Host access is configured"", this is a finding.
+
+3. Review the inbound and outbound allow lists by executing the following command:
+
+$ grep ^ssmc.*.hosts.allow /ssmc/conf/security_config.properties
+
+ssmc.inbound.hosts.allow=<comma separated list or range of hosts>
+
+ssmc.outbound.hosts.allow=<comma separated list or range of hosts>
+
+If the inbound and outbound allow lists do not restrict connections from nonsecure zones, this is a finding.","Configure SSMC to block access from DOD-defined nonsecure zones by enabling remote host access control by doing the following:
+
+1. Log on to SSMC appliance as ssmcadmin. Press ""X"" to escape to general bash shell.
+
+2. Configure all hosts to which network traffic needs to be allowed by setting these two properties in /ssmc/conf/security_config.properties.
+
+ssmc.inbound.hosts.allow=<comma separated list or range of hosts; cidr and range notations are supported>
+
+ssmc.outbound.hosts.allow=<comma separated list or range of hosts; cidr and range notations are supported>
+
+3. Execute the following command: 
+
+$ sudo /ssmc/bin/config_security.sh -o host_access -a set","CCI-002314"
+"HPE 3PAR SSMC Web Server Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DOD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via email to the following address: disa.stig_spt@mail.mil.","1","1 ","09 Nov 2022","Release: 1 Benchmark Date: 09 Nov 2022","STIG.DOD.MIL","terms-of-use","V-255264","SV-255264r869961_rule","SSMC-WS-020000","medium","CAT II","","SRG-APP-000176-WSR-000096","SSMC web server application, libraries, and configuration files must only be accessible to privileged users.","<VulnDiscussion>A web server can be modified through parameter modification, patch installation, upgrades to the web server or modules, and security parameter changes. With each of these changes, there is the potential for an adverse effect such as a DoS, web server instability, or hosted application instability.
+
+To limit changes to the web server and limit exposure to any adverse effects from the changes, files such as the web server application files, libraries, and configuration files must have permissions and ownership set properly to only allow privileged users access.
+
+Satisfies: SRG-APP-000176-WSR-000096, SRG-APP-000380-WSR-000072, SRG-APP-000211-WSR-000030</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","A web server can be modified through parameter modification, patch installation, upgrades to the web server or modules, and security parameter changes. With each of these changes, there is the potential for an adverse effect such as a DoS, web server instability, or hosted application instability.
+
+To limit changes to the web server and limit exposure to any adverse effects from the changes, files such as the web server application files, libraries, and configuration files must have permissions and ownership set properly to only allow privileged users access.
+
+Satisfies: SRG-APP-000176-WSR-000096, SRG-APP-000380-WSR-000072, SRG-APP-000211-WSR-000030","","","false","","","","","","","","Verify that SSMC is configured to protect web server configuration files and logs from unauthorized access by executing command that enables stricter file permission:
+
+$ sudo /ssmc/bin/config_security.sh -o strict_file_permission -a status
+Strict file permission is set
+
+If the output does not read ""Strict file permission is set"", this is a finding.","Configure SSMC to protect web server configuration files and logs from unauthorized access by executing command that enables stricter file permission (cannot be undone): 
+
+$ sudo /ssmc/bin/config_security.sh -f -o strict_file_permission -a set","CCI-000186,CCI-001082,CCI-001813"
+"HPE 3PAR SSMC Web Server Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DOD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via email to the following address: disa.stig_spt@mail.mil.","1","1 ","09 Nov 2022","Release: 1 Benchmark Date: 09 Nov 2022","STIG.DOD.MIL","terms-of-use","V-255265","SV-255265r869964_rule","SSMC-WS-020010","medium","CAT II","","SRG-APP-000516-WSR-000174","SSMC web server must enable strict two-factor authentication for access to the webUI.","<VulnDiscussion>Accounts secured with only a password are subject to multiple forms of attack, from brute force, to social engineering. By enforcing strict two-factor authentication, this reduces the risk of account compromise by requiring an additional factor that is not a password.
+Strict two-factor authentication is enabled by default. However, this is enforced only when two-factor authentication is configured and active. This blocks access to web administrator console for ssmcadmin as this is a local account authenticated using password credentials. To allow access to administrator console, disable this strict two-factor authentication setting.</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","Accounts secured with only a password are subject to multiple forms of attack, from brute force, to social engineering. By enforcing strict two-factor authentication, this reduces the risk of account compromise by requiring an additional factor that is not a password.
+Strict two-factor authentication is enabled by default. However, this is enforced only when two-factor authentication is configured and active. This blocks access to web administrator console for ssmcadmin as this is a local account authenticated using password credentials. To allow access to administrator console, disable this strict two-factor authentication setting.","","","false","","","","","","","","Verify that SSMC is configured to enforce strict two-factor authentication by doing the following:
+
+1. Log on to SSMC appliance as ssmcadmin.
+
+2. Navigate to the Advanced Features section of the TUI by pressing ""9"" then ""2"".
+
+If the Advanced Features sections displays ""Enable strict two-factor authentication"", this is a finding.
+
+3. Escape to the bash shell by pressing ""X"".
+
+4. Check the two-factor authentication property values in the /opt/hpe/ssmc/ssmcbase/resources/ssmc.properties file with the following command:
+
+$ grep ^security.twofactor /opt/hpe/ssmc/ssmcbase/resources/ssmc.properties
+security.twofactor.strict = true
+security.twofactor.enabled = true
+
+If the properties for ""security.twofactor.strict"" and ""security.twofactor.enabled"" are not set to ""true"" or are missing, this is a finding.","Configure SSMC to enforce strict two-factor authentication by doing the following:
+
+1. Log on to SSMC appliance as ssmcadmin.
+
+2. Navigate to the Advanced Features section of the TUI by pressing ""9"" then ""2"". Press ""1""  to ""Enable strict two-factor authentication"" and ""Y"" to confirm.
+
+3. Escape to the bash shell by pressing ""X"".
+
+4. Enable and enforce strict two-factor authentication by setting these two properties in /opt/hpe/ssmc/ssmcbase/resources/ssmc.properties:
+
+security.twofactor.enabled = true
+security.twofactor.strict = true","CCI-000765,CCI-000766"
+"HPE 3PAR SSMC Web Server Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DOD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via email to the following address: disa.stig_spt@mail.mil.","1","1 ","09 Nov 2022","Release: 1 Benchmark Date: 09 Nov 2022","STIG.DOD.MIL","terms-of-use","V-255266","SV-255266r869967_rule","SSMC-WS-030000","medium","CAT II","","SRG-APP-000358-WSR-000063","SSMC web server must not impede the ability to write specified log record content to an audit log server.","<VulnDiscussion>Writing events to a centralized management audit system offers many benefits to the enterprise over having dispersed logs. Centralized management of audit records and logs provides for efficiency in maintenance and management of records, enterprise analysis of events, and backup and archiving of event records enterprise-wide. The web server and related components are required to be capable of writing logs to centralized audit log servers.</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","Writing events to a centralized management audit system offers many benefits to the enterprise over having dispersed logs. Centralized management of audit records and logs provides for efficiency in maintenance and management of records, enterprise analysis of events, and backup and archiving of event records enterprise-wide. The web server and related components are required to be capable of writing logs to centralized audit log servers.","","","false","","","","","","","","Verify that the SSMC web process writes the web app and audit log files at the right location on the filesystem for log exports to work correctly:
+
+1. Log on to SSMC appliance via SSH as ssmcadmin. Press ""X"" to escape to general bash shell.
+
+2. Check the following property values in /opt/hpe/ssmc/ssmcbase/resources/log4j2.json file:
+
+a. File name for SSMCRollingFile Appender:
+
+$ grep ""\""name\"" : \""SSMCRollingFile\"""" -A13 /opt/hpe/ssmc/ssmcbase/resources/log4j2.json | grep ""fileName""
+        ""fileName"" : ""${logpath}/ssmc.log"",
+If the output does not read ' ""fileName"" : ""${logpath}/ssmc.log"", ' , this is a finding.
+
+b. File name for LocalAuditRollingFile Appender:
+
+$ grep ""\""name\"" : \""LocalAuditRollingFile\"""" -A13 /opt/hpe/ssmc/ssmcbase/resources/log4j2.json | grep ""fileName""
+        ""fileName"" : ""${logpath}/audit.log"",
+If the output does not read ' ""fileName"" : ""${logpath}/audit.log"", ' , this is a finding.","Configure SSMC web process to write the web application and audit log files at the right location on the filesystem for log exports to work correctly:
+
+1. Log on to SSMC appliance via SSH as ssmcadmin. Press ""X"" to escape to general bash shell.
+
+2. Locate and update the following property values in /opt/hpe/ssmc/ssmcbase/resources/log4j2.json file:
+
+a. File name for SSMCRollingFile Appender:
+
+Locate the line to update with the following command: $ grep -n ""\""name\"" : \""SSMCRollingFile\"""" -A13 /opt/hpe/ssmc/ssmcbase/resources/log4j2.json | grep ""fileName""
+21-        ""fileName"" : ""${logpath}/ssmc.log"",
+Update: set the value for ""fileName"" property to ""${logpath}/ssmc.log"", if different, using vi editor.
+
+b. File name for LocalAuditRollingFile Appender:
+
+Locate the line to update with the following command: $ grep -n ""\""name\"" : \""LocalAuditRollingFile\"""" -A13 /opt/hpe/ssmc/ssmcbase/resources/log4j2.json | grep ""fileName""
+51-        ""fileName"" : ""${logpath}/audit.log"",
+Update: set the value for ""fileName"" property to ""${logpath}/audit.log"", if different, using vi editor.","CCI-001851"
+"HPE 3PAR SSMC Web Server Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DOD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via email to the following address: disa.stig_spt@mail.mil.","1","1 ","09 Nov 2022","Release: 1 Benchmark Date: 09 Nov 2022","STIG.DOD.MIL","terms-of-use","V-255267","SV-255267r869970_rule","SSMC-WS-030020","medium","CAT II","","SRG-APP-000089-WSR-000047","SSMC web server must generate, at a minimum, log records for system startup and shutdown, system access, and system authentication events.","<VulnDiscussion>Log records can be generated from various components within the web server (e.g., httpd, plug-ins to external backends, etc.). From a web server perspective, certain specific web server functionalities may be logged as well. The web server must allow the definition of what events are to be logged. As conditions change, the number and types of events to be logged may change, and the web server must be able to facilitate these changes.
+
+The minimum list of logged events should be those pertaining to system startup and shutdown, system access, and system authentication events. If these events are not logged at a minimum, any type of forensic investigation would be missing pertinent information needed to replay what occurred.
+
+Satisfies: SRG-APP-000089-WSR-000047, SRG-APP-000093-WSR-000053, SRG-APP-000095-WSR-000056, SRG-APP-000096-WSR-000057, SRG-APP-000097-WSR-000058, SRG-APP-000098-WSR-000059, SRG-APP-000099-WSR-000061, SRG-APP-000092-WSR-000055</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","Log records can be generated from various components within the web server (e.g., httpd, plug-ins to external backends, etc.). From a web server perspective, certain specific web server functionalities may be logged as well. The web server must allow the definition of what events are to be logged. As conditions change, the number and types of events to be logged may change, and the web server must be able to facilitate these changes.
+
+The minimum list of logged events should be those pertaining to system startup and shutdown, system access, and system authentication events. If these events are not logged at a minimum, any type of forensic investigation would be missing pertinent information needed to replay what occurred.
+
+Satisfies: SRG-APP-000089-WSR-000047, SRG-APP-000093-WSR-000053, SRG-APP-000095-WSR-000056, SRG-APP-000096-WSR-000057, SRG-APP-000097-WSR-000058, SRG-APP-000098-WSR-000059, SRG-APP-000099-WSR-000061, SRG-APP-000092-WSR-000055","","","false","","","","","","","","Verify that SSMC generates log records for system access by doing the following:
+
+1. Log on to SSH as ssmcadmin. Press ""X"" to escape to general bash shell.
+
+2. Execute the following commands:
+
+a. $ sudo /ssmc/bin/config_security.sh -o  tcp_access_log -a status
+TCP access logging is enabled
+
+If the command output does not read ""TCP access logging is enabled"", this is a finding.
+
+b. $ sudo /ssmc/bin/config_security.sh -o  http_access_log -f -a status
+HTTP access logging is enabled
+
+If the command output does not read ""HTTP access logging is enabled"", this is a finding.","Configure SSMC to generate log records for system access by doing the following:
+
+1. Log on to SSH as ssmcadmin. Press ""X"" to escape to general bash shell.
+
+2. Execute the following commands:
+
+$ sudo /ssmc/bin/config_security.sh -f -o  tcp_access_log -a enable
+
+$ sudo /ssmc/bin/config_security.sh -f -o  http_access_log -f -a enable","CCI-000130,CCI-000131,CCI-000132,CCI-000133,CCI-000134,CCI-000169,CCI-001462,CCI-001464"
+"HPE 3PAR SSMC Web Server Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DOD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via email to the following address: disa.stig_spt@mail.mil.","1","1 ","09 Nov 2022","Release: 1 Benchmark Date: 09 Nov 2022","STIG.DOD.MIL","terms-of-use","V-255268","SV-255268r869973_rule","SSMC-WS-030040","medium","CAT II","","SRG-APP-000092-WSR-000055","SSMC web server must initiate session logging upon start up.","<VulnDiscussion>An attacker can compromise a web server during the startup process. If logging is not initiated until all the web server processes are started, key information may be missed and not available during a forensic investigation. To assure all loggable events are captured, the web server must begin logging once the first web server process is initiated.</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","An attacker can compromise a web server during the startup process. If logging is not initiated until all the web server processes are started, key information may be missed and not available during a forensic investigation. To assure all loggable events are captured, the web server must begin logging once the first web server process is initiated.","","","false","","","","","","","","Verify that SSMC is configured to generate log records for system startup and shutdown, system access, and system authentication events. To do so, check if auditd facility (session_log) is enabled:
+
+1. Log on as ssmcadmin to ssmc appliance via SSH. Press ""X"" to escape to general bash shell.
+
+2. Execute the following command:
+
+$ sudo /ssmc/bin/config_security.sh -o session_log -a status
+Session log is enabled
+
+If the console output does not show the session log function as enabled, this is a finding.","Configure SSMC to generate log records for system startup and shutdown, system access, and system authentication events. To do so, enable auditd facility (session_log):
+
+1. Log on to SSMC appliance as ssmcadmin. Press ""X"" to escape to general bash shell from the TUI menu.
+
+2. Execute the following command to enable session logging:
+
+$ sudo /ssmc/bin/config_security.sh -o session_log -a enable","CCI-001464"
+"HPE 3PAR SSMC Web Server Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DOD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via email to the following address: disa.stig_spt@mail.mil.","1","1 ","09 Nov 2022","Release: 1 Benchmark Date: 09 Nov 2022","STIG.DOD.MIL","terms-of-use","V-255269","SV-255269r869976_rule","SSMC-WS-030050","medium","CAT II","","SRG-APP-000108-WSR-000166","SSMC web server must use a logging mechanism that is configured to alert the ISSO and SA in the event of a processing failure.","<VulnDiscussion>Reviewing log data allows an investigator to recreate the path of an attacker and to capture forensic data for later use. Log data is also essential to system administrators in their daily administrative duties on the hosted system or within the hosted applications. 
+
+If the logging system begins to fail, events will not be recorded. Organizations must define logging failure events, at which time the application or the logging mechanism the application utilizes will provide a warning to the ISSO and SA at a minimum.</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","Reviewing log data allows an investigator to recreate the path of an attacker and to capture forensic data for later use. Log data is also essential to system administrators in their daily administrative duties on the hosted system or within the hosted applications. 
+
+If the logging system begins to fail, events will not be recorded. Organizations must define logging failure events, at which time the application or the logging mechanism the application utilizes will provide a warning to the ISSO and SA at a minimum.","","","false","","","","","","","","Verify that SSMC is configured to provide an alert to the ISSO and SA when log processing failures occur by doing the following:
+
+Execute status check on remote_syslog_appliance security control:
+$ sudo /ssmc/bin/config_security.sh -o remote_syslog_appliance -a status | grep smtp
+
+ssmc.rsyslog.smtp.alert=true
+ssmc.rsyslog.smtp.mailFrom=id@domain
+ssmc.rsyslog.smtp.recipient=[""id1@domain"",""id2@domain""]
+ssmc.rsyslog.smtp.notify-interval=<failure_notify_interval>
+ssmc.rsyslog.smtp.server=<smtp_server_ip>
+ssmc.rsyslog.smtp.port=<smtp_port>
+
+If the ""smtp.alert"" is not equal to ""true"" and the remaining smtp configuration is not established per the site requirements, this is a finding.","Configure SSMC  to provide an alert to the ISSO and SA when log processing failures occur by doing the following:
+
+1. Configure rsyslog parameters in /ssmc/conf/security_config.properties like below (use vi editor) -
+ssmc.rsyslog.smtp.alert=true
+ssmc.rsyslog.smtp.server=<smtp_server_ip>
+ssmc.rsyslog.smtp.port=<smtp_port>
+ssmc.rsyslog.smtp.recipient=[""id1@domain"",""id2@domain""]
+ssmc.rsyslog.smtp.notify-interval=300
+ssmc.rsyslog.smtp.mailFrom=id@domain
+
+2. Execute ""sudo /ssmc/bin/config_security.sh -o remote_syslog_appliance -a set -f"" to commit the configuration and enable the service.","CCI-000139"

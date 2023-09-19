@@ -1,0 +1,221 @@
+"Title","Description","Version","Release","BenchmarkDate","ReleaseInfo","Source","Notice","Rule_VulnID","Rule_RuleID","Rule_StigID","Rule_Severity","Rule_Cat","Rule_Classification","Rule_GroupTitle","Rule_RuleTitle","Rule_Description","Rule_VulnDiscussion","Rule_FalsePositives","Rule_FalseNegatives","Rule_Documentable","Rule_Mitigations","Rule_SeverityOverrideGuidance","Rule_PotentialImpacts","Rule_ThirdPartyTools","Rule_MitigationControl","Rule_Responsibility","Rule_IAControls","Rule_CheckText","Rule_FixText","Rule_CCI"
+"Unified Endpoint Management Agent Security Requirements Guide","This Security Requirements Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via email to the following address: disa.stig_spt@mail.mil.","1","1 ","20 Nov 2020","Release: 1 Benchmark Date: 20 Nov 2020","STIG.DOD.MIL","terms-of-use","V-234235","SV-234235r617416_rule","SRG-APP-000089-UEM-100002","medium","CAT II","","SRG-APP-000089","The UEM Agent must provide an alert via the trusted channel to the UEM Server in the event of any of the following audit events:
+-successful application of policies to a mobile device
+-receiving or generating periodic reachability events
+-change in enrollment state
+-failure to install an application from the UEM Server
+-failure to update an application from the UEM Server.","<VulnDiscussion>Alerts providing notification of a change in enrollment state facilitate verification of the correct operation of security functions. When an UEM server receives such an alert from an UEM Agent, it indicates the security policy may no longer be enforced on the mobile device. This enables the UEM administrator to take an appropriate remedial action.
+
+Satisfies: FAU_ALT_EXT.2.1
+Reference: PP-UEM-402001, PP-UEM-402002, PP-MDM-402003</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","Alerts providing notification of a change in enrollment state facilitate verification of the correct operation of security functions. When an UEM server receives such an alert from an UEM Agent, it indicates the security policy may no longer be enforced on the mobile device. This enables the UEM administrator to take an appropriate remedial action.
+
+Satisfies: FAU_ALT_EXT.2.1
+Reference: PP-UEM-402001, PP-UEM-402002, PP-MDM-402003","","","false","","","","","","","","Verify the UEM Agent provides an alert via the trusted channel to the UEM Server in the event of any of the following audit events:
+-successful application of policies to a mobile device
+-receiving or generating periodic reachability events 
+-change in enrollment state
+-failure to install an application from the UEM Server
+-failure to update an application from the UEM Server.
+
+If the UEM Agent does not provide an alert via the trusted channel to the UEM Server in the event of any of the following audit events:
+-successful application of policies to a mobile device 
+-receiving or generating periodic reachability events 
+-change in enrollment state
+-failure to install an application from the UEM Server
+-failure to update an application from the UEM Server
+this is a finding.","Configure the UEM Agent to provide an alert via the trusted channel to the UEM Server in the event of any of the following audit events:
+-successful application of policies to a mobile device 
+-receiving or generating periodic reachability events 
+-change in enrollment state
+-failure to install an application from the UEM Server
+-failure to update an application from the UEM Server.","CCI-000169"
+"Unified Endpoint Management Agent Security Requirements Guide","This Security Requirements Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via email to the following address: disa.stig_spt@mail.mil.","1","1 ","20 Nov 2020","Release: 1 Benchmark Date: 20 Nov 2020","STIG.DOD.MIL","terms-of-use","V-234236","SV-234236r617390_rule","SRG-APP-000089-UEM-100004","medium","CAT II","","SRG-APP-000089","The UEM Agent must generate a UEM Agent audit record of the following auditable events:-startup and shutdown of the UEM Agent-UEM policy updated-any modification commanded by the UEM Server.","<VulnDiscussion>Without the capability to generate audit records, it would be difficult to establish, correlate, and investigate the events relating to an incident, or identify those responsible for one. 
+
+Audit records can be generated from various components within the application (e.g., process, module). Certain specific application functionalities may be audited as well. The list of audited events is the set of events for which audits are to be generated. This set of events is typically a subset of the list of all events for which the system is capable of generating audit records.
+
+DoD has defined the list of events for which the application will provide an audit record generation capability as the following: 
+
+(i) Successful and unsuccessful attempts to access, modify, or delete privileges, security objects, security levels, or categories of information (e.g., classification levels);
+
+(ii) Access actions, such as successful and unsuccessful logon attempts, privileged activities or other system level access, starting and ending time for user access to the system, concurrent logons from different workstations, successful and unsuccessful accesses to objects, all program initiations, and all direct access to the information system; and
+
+(iii) All account creation, modification, disabling, and termination actions.
+
+DoD Required auditable events include:
+- Change in enrollment status
+- Failure to apply policies to a mobile device
+- Start up and shut down of the MDM System
+- All administrative actions
+- Commands issued to the MDM Agent.
+
+Satisfies: FAU_GEN.1.1(2) Refinement</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","Without the capability to generate audit records, it would be difficult to establish, correlate, and investigate the events relating to an incident, or identify those responsible for one. 
+
+Audit records can be generated from various components within the application (e.g., process, module). Certain specific application functionalities may be audited as well. The list of audited events is the set of events for which audits are to be generated. This set of events is typically a subset of the list of all events for which the system is capable of generating audit records.
+
+DoD has defined the list of events for which the application will provide an audit record generation capability as the following: 
+
+(i) Successful and unsuccessful attempts to access, modify, or delete privileges, security objects, security levels, or categories of information (e.g., classification levels);
+
+(ii) Access actions, such as successful and unsuccessful logon attempts, privileged activities or other system level access, starting and ending time for user access to the system, concurrent logons from different workstations, successful and unsuccessful accesses to objects, all program initiations, and all direct access to the information system; and
+
+(iii) All account creation, modification, disabling, and termination actions.
+
+DoD Required auditable events include:
+- Change in enrollment status
+- Failure to apply policies to a mobile device
+- Start up and shut down of the MDM System
+- All administrative actions
+- Commands issued to the MDM Agent.
+
+Satisfies: FAU_GEN.1.1(2) Refinement","","","false","","","","","","","","Verify the UEM Agent generates an UEM Agent audit record of the following auditable events:
+-Startup and shutdown of the UEM Agent
+-UEM policy updated
+-any modification commanded by the UEM Server.
+
+If the UEM Agent does not generate an UEM Agent audit record of the following auditable events:
+-Startup and shutdown of the UEM Agent
+-UEM policy updated
+-any modification commanded by the UEM Server
+this is a finding.","Configure the UEM Agent to generate an UEM Agent audit record of the following auditable events:
+-Startup and shutdown of the UEM Agent
+-UEM policy updated
+-any modification commanded by the UEM Server.","CCI-000169"
+"Unified Endpoint Management Agent Security Requirements Guide","This Security Requirements Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via email to the following address: disa.stig_spt@mail.mil.","1","1 ","20 Nov 2020","Release: 1 Benchmark Date: 20 Nov 2020","STIG.DOD.MIL","terms-of-use","V-234237","SV-234237r617354_rule","SRG-APP-000089-UEM-100012","medium","CAT II","","SRG-APP-000089","The UEM Agent must be configured to enable the following function: read audit logs of the managed endpoint device.","<VulnDiscussion>Audit logs and alerts enable monitoring of security-relevant events and subsequent forensics when breaches occur. They help identify when the security posture of the device is not as expected. This enables the UEM administrator to take an appropriate remedial action.
+
+Satisfies: FMT_SMF_EXT.4.1
+Reference: PP-UEM-401005</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","Audit logs and alerts enable monitoring of security-relevant events and subsequent forensics when breaches occur. They help identify when the security posture of the device is not as expected. This enables the UEM administrator to take an appropriate remedial action.
+
+Satisfies: FMT_SMF_EXT.4.1
+Reference: PP-UEM-401005","","","false","","","","","","","","Verify the UEM Agent has enabled the following function: read audit logs of the managed endpoint device.
+
+If the UEM Agent has not enabled the following function: read audit logs of the managed endpoint device, this is a finding.","Configure the UEM Agent to enable the following function: read audit logs of the managed endpoint device.","CCI-000169"
+"Unified Endpoint Management Agent Security Requirements Guide","This Security Requirements Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via email to the following address: disa.stig_spt@mail.mil.","1","1 ","20 Nov 2020","Release: 1 Benchmark Date: 20 Nov 2020","STIG.DOD.MIL","terms-of-use","V-234238","SV-234238r617417_rule","SRG-APP-000097-UEM-100005","medium","CAT II","","SRG-APP-000097","The UEM Agent must record within each UEM Agent audit record the following information:
+
+-date and time of the event
+-type of event
+-subject identity
+-(if relevant) the outcome (success or failure) of the event.","<VulnDiscussion>Audit logs enable monitoring of security-relevant events and subsequent forensics when breaches occur. For audit logs to be useful, administrators must have the ability to view them.
+
+Satisfies: FAU_GEN.1.2(2) Refinement</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","Audit logs enable monitoring of security-relevant events and subsequent forensics when breaches occur. For audit logs to be useful, administrators must have the ability to view them.
+
+Satisfies: FAU_GEN.1.2(2) Refinement","","","false","","","","","","","","Verify the UEM Agent records within each UEM Agent audit record the following information:
+-Date and time of the event
+-type of event
+-subject identity
+-(if relevant) the outcome (success or failure) of the event.
+
+If the UEM Agent does not record within each UEM Agent audit record the following information:
+-Date and time of the event
+-type of event
+-subject identity
+-(if relevant) the outcome (success or failure) of the event
+this is a finding.","Configure the UEM Agent to record within each UEM Agent audit record the following information:
+-Date and time of the event
+-type of event
+-subject identity
+-(if relevant) the outcome (success or failure) of the event.","CCI-000132"
+"Unified Endpoint Management Agent Security Requirements Guide","This Security Requirements Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via email to the following address: disa.stig_spt@mail.mil.","1","1 ","20 Nov 2020","Release: 1 Benchmark Date: 20 Nov 2020","STIG.DOD.MIL","terms-of-use","V-234239","SV-234239r617354_rule","SRG-APP-000175-UEM-100008","medium","CAT II","","SRG-APP-000175","The UEM Agent must not install policies if the policy-signing certificate is deemed invalid.","<VulnDiscussion>It is critical that the UEM agent only use validated certificates for policy updates. Otherwise, there is no assurance that a malicious actor has not inserted itself in the process of packaging the code or policy.
+
+Satisfies: FMT_POL_EXT.2.2</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","It is critical that the UEM agent only use validated certificates for policy updates. Otherwise, there is no assurance that a malicious actor has not inserted itself in the process of packaging the code or policy.
+
+Satisfies: FMT_POL_EXT.2.2","","","false","","","","","","","","Verify the UEM Agent does not install policies if the policy-signing certificate is deemed invalid.
+
+If the UEM Agent installs policies when the policy-signing certificate is deemed invalid, this is a finding.","Configure the UEM Agent to not install policies if the policy-signing certificate is deemed invalid.","CCI-000185"
+"Unified Endpoint Management Agent Security Requirements Guide","This Security Requirements Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via email to the following address: disa.stig_spt@mail.mil.","1","1 ","20 Nov 2020","Release: 1 Benchmark Date: 20 Nov 2020","STIG.DOD.MIL","terms-of-use","V-234240","SV-234240r617354_rule","SRG-APP-000176-UEM-100001","medium","CAT II","","SRG-APP-000176","The UEM Agent must use managed endpoint device key storage for all persistent secret and private keys.","<VulnDiscussion>If validated secure storage locations are not used for keys, they could be compromised.
+
+Satisfies: FCS_STG_EXT.1(2)</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","If validated secure storage locations are not used for keys, they could be compromised.
+
+Satisfies: FCS_STG_EXT.1(2)","","","false","","","","","","","","This requirement is not applicable if the UEM Agent is provided by the managed endpoint device operating system.
+
+Verify the UEM Agent uses the managed endpoint device key storage for all persistent secret and private keys.
+
+If the UEM Agent does not use the managed endpoint device key storage for all persistent secret and private keys, this is a finding.","Configure the UEM Agent must use the managed endpoint device key storage for all persistent secret and private keys.","CCI-000186"
+"Unified Endpoint Management Agent Security Requirements Guide","This Security Requirements Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via email to the following address: disa.stig_spt@mail.mil.","1","1 ","20 Nov 2020","Release: 1 Benchmark Date: 20 Nov 2020","STIG.DOD.MIL","terms-of-use","V-234241","SV-234241r617354_rule","SRG-APP-000358-UEM-100003","medium","CAT II","","SRG-APP-000358","The UEM Agent must queue alerts if the trusted channel is not available.","<VulnDiscussion>Alerts providing notification of a change in enrollment state facilitate verification of the correct operation of security functions. When an UEM server receives such an alert from an UEM Agent, it indicates the security policy may no longer be enforced on the mobile device. This enables the UEM administrator to take an appropriate remedial action.
+
+Satisfies: FAU_ALT_EXT.2.2</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","Alerts providing notification of a change in enrollment state facilitate verification of the correct operation of security functions. When an UEM server receives such an alert from an UEM Agent, it indicates the security policy may no longer be enforced on the mobile device. This enables the UEM administrator to take an appropriate remedial action.
+
+Satisfies: FAU_ALT_EXT.2.2","","","false","","","","","","","","Verify the UEM Agent queues alerts if the trusted channel is not available.
+
+If the UEM Agent does not queue alerts if the trusted channel is not available, this is a finding.","Configure the UEM Agent to queue alerts if the trusted channel is not available.","CCI-001851"
+"Unified Endpoint Management Agent Security Requirements Guide","This Security Requirements Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via email to the following address: disa.stig_spt@mail.mil.","1","1 ","20 Nov 2020","Release: 1 Benchmark Date: 20 Nov 2020","STIG.DOD.MIL","terms-of-use","V-234242","SV-234242r617354_rule","SRG-APP-000358-UEM-100013","medium","CAT II","","SRG-APP-000358","The UEM Agent must be configured to enable the following function: transfer managed endpoint device audit logs read by the UEM Agent to an UEM server or third-party audit management server.","<VulnDiscussion>Audit logs and alerts enable monitoring of security-relevant events and subsequent forensics when breaches occur. They help identify when the security posture of the device is not as expected. This enables the UEM administrator to take an appropriate remedial action. MD audit logs must be transferred to an audit management service so they can be analyzed and acted on.
+
+Satisfies: FMT_SMF_EXT.4.1
+Reference: PP-UEM-401006</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","Audit logs and alerts enable monitoring of security-relevant events and subsequent forensics when breaches occur. They help identify when the security posture of the device is not as expected. This enables the UEM administrator to take an appropriate remedial action. MD audit logs must be transferred to an audit management service so they can be analyzed and acted on.
+
+Satisfies: FMT_SMF_EXT.4.1
+Reference: PP-UEM-401006","","","false","","","","","","","","Verify the UEM Agent has enabled the following function: transfer managed endpoint device audit logs read by the UEM Agent to an UEM server or third-party audit management server.
+
+If the UEM Agent has not enabled the following function: transfer managed endpoint device audit logs read by the UEM Agent to an UEM server or third-party audit management server, this is a finding.","Configure the UEM Agent to enable the following function: transfer managed endpoint device audit logs read by the UEM Agent to an UEM server or third-party audit management server.","CCI-001851"
+"Unified Endpoint Management Agent Security Requirements Guide","This Security Requirements Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via email to the following address: disa.stig_spt@mail.mil.","1","1 ","20 Nov 2020","Release: 1 Benchmark Date: 20 Nov 2020","STIG.DOD.MIL","terms-of-use","V-234243","SV-234243r617354_rule","SRG-APP-000427-UEM-100007","medium","CAT II","","SRG-APP-000427","The UEM Agent must only accept policies and policy updates that are digitally signed by a certificate that has been authorized for policy updates by the UEM Server.","<VulnDiscussion>It is critical that the UEM agent only use validated certificates for policy updates. Otherwise, there is no assurance that a malicious actor has not inserted itself in the process of packaging the code or policy.
+
+Satisfies: FMT_POL_EXT.2.1</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","It is critical that the UEM agent only use validated certificates for policy updates. Otherwise, there is no assurance that a malicious actor has not inserted itself in the process of packaging the code or policy.
+
+Satisfies: FMT_POL_EXT.2.1","","","false","","","","","","","","Verify the UEM Agent only accepts policies and policy updates that are digitally signed by a certificate that has been authorized for policy updates by the UEM Server.
+
+If the UEM Agent does not only accept policies and policy updates that are digitally signed by a certificate that has been authorized for policy updates by the UEM Server, this is a finding.","Configure the UEM Agent to only accept policies and policy updates that are digitally signed by a certificate that has been authorized for policy updates by the UEM Server.","CCI-002470"
+"Unified Endpoint Management Agent Security Requirements Guide","This Security Requirements Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via email to the following address: disa.stig_spt@mail.mil.","1","1 ","20 Nov 2020","Release: 1 Benchmark Date: 20 Nov 2020","STIG.DOD.MIL","terms-of-use","V-234244","SV-234244r617354_rule","SRG-APP-000427-UEM-100009","medium","CAT II","","SRG-APP-000427","The UEM Agent must perform the following functions: Import the certificates to be used for authentication of UEM Agent communications.","<VulnDiscussion>It is critical that the UEM agent only use validated certificates for policy updates. Otherwise, there is no assurance that a malicious actor has not inserted itself in the process of packaging the code or policy.
+
+Satisfies: FMT_SMF_EXT.4.1</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","It is critical that the UEM agent only use validated certificates for policy updates. Otherwise, there is no assurance that a malicious actor has not inserted itself in the process of packaging the code or policy.
+
+Satisfies: FMT_SMF_EXT.4.1","","","false","","","","","","","","Verify the UEM Agent performs the following functions: Import the certificates to be used for authentication of UEM Agent communications.
+
+If the UEM Agent does not perform the following functions: Import the certificates to be used for authentication of UEM Agent communications, this is a finding.","Configure the UEM Agent to perform the following functions: Import the certificates to be used for authentication of UEM Agent communications.","CCI-002470"
+"Unified Endpoint Management Agent Security Requirements Guide","This Security Requirements Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via email to the following address: disa.stig_spt@mail.mil.","1","1 ","20 Nov 2020","Release: 1 Benchmark Date: 20 Nov 2020","STIG.DOD.MIL","terms-of-use","V-234245","SV-234245r617354_rule","SRG-APP-000516-UEM-100006","medium","CAT II","","SRG-APP-000516","The UEM Agent must record the reference identifier of the UEM Server during the enrollment process.","<VulnDiscussion>Audit logs enable monitoring of security-relevant events and subsequent forensics when breaches occur. For audit logs to be useful, administrators must have the ability to view them.
+
+Satisfies: FIA_ENR_EXT.2.1</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","Audit logs enable monitoring of security-relevant events and subsequent forensics when breaches occur. For audit logs to be useful, administrators must have the ability to view them.
+
+Satisfies: FIA_ENR_EXT.2.1","","","false","","","","","","","","Verify the UEM Agent records the reference identifier of the UEM Server during the enrollment process.
+
+If the UEM Agent does not record the reference identifier of the UEM Server during the enrollment process, this is a finding.","Configure the UEM Agent to record the reference identifier of the UEM Server during the enrollment process.","CCI-000366"
+"Unified Endpoint Management Agent Security Requirements Guide","This Security Requirements Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via email to the following address: disa.stig_spt@mail.mil.","1","1 ","20 Nov 2020","Release: 1 Benchmark Date: 20 Nov 2020","STIG.DOD.MIL","terms-of-use","V-234246","SV-234246r617392_rule","SRG-APP-000516-UEM-100010","medium","CAT II","","SRG-APP-000516","The UEM Agent must perform the following functions: 
+
+-enroll in management
+
+-configure whether users can unenroll from management
+
+-configure periodicity of reachability events.","<VulnDiscussion>Access control of mobile devices to DoD sensitive information or access to DoD networks must be controlled so that DoD data will not be compromised. The primary method of access control of mobile devices is via enrollment of authorized mobile devices on the UEM server. Therefore, the UEM server must have the capability to enforce a policy for this control.
+
+Satisfies: FMT_SMF_EXT.4.2</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","Access control of mobile devices to DoD sensitive information or access to DoD networks must be controlled so that DoD data will not be compromised. The primary method of access control of mobile devices is via enrollment of authorized mobile devices on the UEM server. Therefore, the UEM server must have the capability to enforce a policy for this control.
+
+Satisfies: FMT_SMF_EXT.4.2","","","false","","","","","","","","Verify the UEM Agent performs the following functions: 
+-Enroll in management
+-Configure whether users can unenroll from management
+-Configure periodicity of reachability events.
+
+If the UEM Agent does not perform the following functions: 
+-Enroll in management
+-Configure whether users can unenroll from management
+-Configure periodicity of reachability event 
+this is a finding.","Configure the UEM Agent to perform the following functions: 
+-Enroll in management
+-Configure whether users can unenroll from management
+-Configure periodicity of reachability events.","CCI-000366"
+"Unified Endpoint Management Agent Security Requirements Guide","This Security Requirements Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via email to the following address: disa.stig_spt@mail.mil.","1","1 ","20 Nov 2020","Release: 1 Benchmark Date: 20 Nov 2020","STIG.DOD.MIL","terms-of-use","V-234247","SV-234247r617393_rule","SRG-APP-000516-UEM-100011","medium","CAT II","","SRG-APP-000516","The UEM Agent must be configured to perform one of the following actions upon an attempt to unenroll the mobile device from management: 
+-prevent the unenrollment from occurring
+-wipe the device to factory default settings
+-wipe the work profile with all associated applications and data.","<VulnDiscussion>Access control of mobile devices to DoD sensitive information or access to DoD networks must be controlled so that DoD data will not be compromised. The primary method of access control of mobile devices is via enrollment of authorized mobile devices on the UEM server. Therefore, the UEM server must have the capability to enforce a policy for this control.
+
+Satisfies: FMT_UNR_EXT.1.1</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","Access control of mobile devices to DoD sensitive information or access to DoD networks must be controlled so that DoD data will not be compromised. The primary method of access control of mobile devices is via enrollment of authorized mobile devices on the UEM server. Therefore, the UEM server must have the capability to enforce a policy for this control.
+
+Satisfies: FMT_UNR_EXT.1.1","","","false","","","","","","","","Verify the UEM Agent performs one of the following actions upon an attempt to unenroll the mobile device from management: 
+-prevent the unenrollment from occurring
+-wipe the device to factory default settings
+-wipe the work profile with all associated applications and data.
+
+If the UEM Agent does not perform one of the following actions upon an attempt to unenroll the mobile device from management: 
+-prevent the unenrollment from occurring
+-wipe the device to factory default settings
+-wipe the work profile with all associated applications and data
+this is a finding.","Configure the UEM Agent to perform one of the following actions upon an attempt to unenroll the mobile device from management: 
+-prevent the unenrollment from occurring
+-wipe the device to factory default settings
+-wipe the work profile with all associated applications and data.","CCI-000366"
+"Unified Endpoint Management Agent Security Requirements Guide","This Security Requirements Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via email to the following address: disa.stig_spt@mail.mil.","1","1 ","20 Nov 2020","Release: 1 Benchmark Date: 20 Nov 2020","STIG.DOD.MIL","terms-of-use","V-234248","SV-234248r617402_rule","SRG-APP-000555-UEM-100014","high","CAT I","","SRG-APP-000555","All UEM Agent cryptography supporting DoD functionality must be FIPS 140-2 validated.","<VulnDiscussion>Unapproved cryptographic algorithms cannot be relied on to provide confidentiality or integrity, and DoD data could be compromised as a result. The most common vulnerabilities with cryptographic modules are those associated with poor implementation. FIPS 140-2 validation provides assurance that the relevant cryptography has been implemented correctly. FIPS 140-2 validation is also a strict requirement for use of cryptography in the federal government for protecting unclassified data.
+
+Satisfies: FCS
+Reference: PP-UEM-404200</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","Unapproved cryptographic algorithms cannot be relied on to provide confidentiality or integrity, and DoD data could be compromised as a result. The most common vulnerabilities with cryptographic modules are those associated with poor implementation. FIPS 140-2 validation provides assurance that the relevant cryptography has been implemented correctly. FIPS 140-2 validation is also a strict requirement for use of cryptography in the federal government for protecting unclassified data.
+
+Satisfies: FCS
+Reference: PP-UEM-404200","","","false","","","","","","","","Verify all UEM Agent cryptography supporting DoD functionality is FIPS 140-2 validated.
+
+If all UEM Agent cryptography supporting DoD functionality is not FIPS 140-2 validated, this is a finding.","Configure the UEM Agent cryptography supporting DoD functionality for FIPS 140-2 mode.","CCI-002450"

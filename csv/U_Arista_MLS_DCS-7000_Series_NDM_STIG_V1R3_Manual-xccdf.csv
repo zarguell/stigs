@@ -1,0 +1,667 @@
+"Title","Description","Version","Release","BenchmarkDate","ReleaseInfo","Source","Notice","Rule_VulnID","Rule_RuleID","Rule_StigID","Rule_Severity","Rule_Cat","Rule_Classification","Rule_GroupTitle","Rule_RuleTitle","Rule_Description","Rule_VulnDiscussion","Rule_FalsePositives","Rule_FalseNegatives","Rule_Documentable","Rule_Mitigations","Rule_SeverityOverrideGuidance","Rule_PotentialImpacts","Rule_ThirdPartyTools","Rule_MitigationControl","Rule_Responsibility","Rule_IAControls","Rule_CheckText","Rule_FixText","Rule_CCI"
+"Arista MLS DCS-7000 Series NDM Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via e-mail to the following address: disa.stig_spt@mail.mil.","1","3 ","25 Oct 2019","Release: 3 Benchmark Date: 25 Oct 2019","STIG.DOD.MIL","terms-of-use","V-60815","SV-75271r1_rule","AMLS-NM-000100","high","CAT I","","SRG-APP-000516-NDM-000317","The Arista Multilayer Switch must have a local infrequently used account to be used as an account of last resort with full access to the network device.","<VulnDiscussion>Use of a complex password helps to increase the time and resources required to compromise the password. Password complexity, or strength, is a measure of the effectiveness of a password in resisting attempts at guessing and brute-force attacks. Password complexity is one factor of several that determines how long it takes to crack a password. The more complex the password, the greater the number of possible combinations that needs to be tested before the password is compromised.
+
+Typically, the account of last resort is a built-in account with full privileges to the network device. This account should only be used when the authentication mechanism is unreachable and configuration or maintenance actions must be taken.</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","Use of a complex password helps to increase the time and resources required to compromise the password. Password complexity, or strength, is a measure of the effectiveness of a password in resisting attempts at guessing and brute-force attacks. Password complexity is one factor of several that determines how long it takes to crack a password. The more complex the password, the greater the number of possible combinations that needs to be tested before the password is compromised.
+
+Typically, the account of last resort is a built-in account with full privileges to the network device. This account should only be used when the authentication mechanism is unreachable and configuration or maintenance actions must be taken.","","","false","","","","","","","","Review the Arista Multilayer Switch configuration for a local infrequently used account to be used as an account of last resort with full access to the network device. The default account on the Arista MLS is called admin.
+
+If the account of last resort does not exist, this is a finding.
+
+To assign a password to this account, enter the following:
+
+username admin secret [password] role [role]","Configure the Arista Multilayer Switch with a local infrequently used account to be used as an account of last resort with full access to the network device.","CCI-000366"
+"Arista MLS DCS-7000 Series NDM Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via e-mail to the following address: disa.stig_spt@mail.mil.","1","3 ","25 Oct 2019","Release: 3 Benchmark Date: 25 Oct 2019","STIG.DOD.MIL","terms-of-use","V-60833","SV-75289r1_rule","AMLS-NM-000110","medium","CAT II","","SRG-APP-000164-NDM-000252","The Arista Multilayer Switch account of last resort must have a password with a length of 15 characters.","<VulnDiscussion>Use of a complex password helps to increase the time and resources required to compromise the password. Password complexity, or strength, is a measure of the effectiveness of a password in resisting attempts at guessing and brute-force attacks. Password complexity is one factor of several that determines how long it takes to crack a password. The more complex the password, the greater the number of possible combinations that needs to be tested before the password is compromised.
+
+Typically, the account of last resort is a built-in account with full privileges to the network device. This account should only be used when the authentication mechanism is unreachable and configuration or maintenance actions must be taken.</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","Use of a complex password helps to increase the time and resources required to compromise the password. Password complexity, or strength, is a measure of the effectiveness of a password in resisting attempts at guessing and brute-force attacks. Password complexity is one factor of several that determines how long it takes to crack a password. The more complex the password, the greater the number of possible combinations that needs to be tested before the password is compromised.
+
+Typically, the account of last resort is a built-in account with full privileges to the network device. This account should only be used when the authentication mechanism is unreachable and configuration or maintenance actions must be taken.","","","false","","","","","","","","Review the Arista Multilayer Switch configuration for the account of last resort with full access to the network device.
+
+If the account of last resort does not require a password length of at least 15 characters, this is a finding.
+
+To verify the setting is correct, run the ""show running-config"" command on the switch. Under the section ""management security"", the configuration statement ""password minimum length 15"" must be present, with a value set to 15 or higher.","Configure the Arista Multilayer Switch account of last resort with a password with a length of at least 15 characters.
+
+To configure the password minimum length, enter the following commands:
+
+configure
+management security
+password minimum length 15","CCI-000205"
+"Arista MLS DCS-7000 Series NDM Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via e-mail to the following address: disa.stig_spt@mail.mil.","1","3 ","25 Oct 2019","Release: 3 Benchmark Date: 25 Oct 2019","STIG.DOD.MIL","terms-of-use","V-60835","SV-75291r1_rule","AMLS-NM-000120","medium","CAT II","","SRG-APP-000026-NDM-000208","The Arista Multilayer Switch must automatically audit account creation.","<VulnDiscussion>Upon gaining access to a network device, an attacker will often first attempt to create a persistent method of reestablishing access. One way to accomplish this is to create a new account. Notification of account creation helps to mitigate this risk. Auditing account creation provides the necessary reconciliation that account management procedures are being followed. Without this audit trail, personnel without the proper authorization may gain access to critical network nodes.</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","Upon gaining access to a network device, an attacker will often first attempt to create a persistent method of reestablishing access. One way to accomplish this is to create a new account. Notification of account creation helps to mitigate this risk. Auditing account creation provides the necessary reconciliation that account management procedures are being followed. Without this audit trail, personnel without the proper authorization may gain access to critical network nodes.","","","false","","","","","","","","Review the switch configuration and verify that logging is enabled.
+
+If logging is not enabled or is not enabled with sufficient detail to fulfill the specifications set forth in the VulDiscussion, this is a finding.
+
+To determine if logging is enabled, enter: 
+
+switch#show logging
+
+The output must show logging as enabled, with a logging level of informational or debugging.
+
+In order to ensure all user commands are captured, the following statement must be in the running config:
+
+aaa accounting commands all default start-stop logging [group radius]","Enable logging on the switch with sufficient detail to fulfill the specifications set forth in the VulDiscussion.
+
+To configure logging to a remote syslog server at the informational level, enter:
+
+switch#config
+switch(config)#logging host [ip address]
+switch(config)#logging trap informational
+
+Then configure the following AAA:
+
+aaa accounting commands all default start-stop logging [group radius]","CCI-000018"
+"Arista MLS DCS-7000 Series NDM Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via e-mail to the following address: disa.stig_spt@mail.mil.","1","3 ","25 Oct 2019","Release: 3 Benchmark Date: 25 Oct 2019","STIG.DOD.MIL","terms-of-use","V-60837","SV-75293r1_rule","AMLS-NM-000130","medium","CAT II","","SRG-APP-000027-NDM-000209","The Arista Multilayer Switch must automatically audit account modification.","<VulnDiscussion>Since the accounts in the network device are privileged or system-level accounts, account management is vital to the security of the network device. Account management by a designated authority ensures access to the network device is being controlled in a secure manner by granting access to only authorized personnel with the appropriate and necessary privileges. Auditing account modification along with an automatic notification to appropriate individuals will provide the necessary reconciliation that account management procedures are being followed. If modifications to management accounts are not audited, reconciliation of account management procedures cannot be tracked.</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","Since the accounts in the network device are privileged or system-level accounts, account management is vital to the security of the network device. Account management by a designated authority ensures access to the network device is being controlled in a secure manner by granting access to only authorized personnel with the appropriate and necessary privileges. Auditing account modification along with an automatic notification to appropriate individuals will provide the necessary reconciliation that account management procedures are being followed. If modifications to management accounts are not audited, reconciliation of account management procedures cannot be tracked.","","","false","","","","","","","","Review the switch configuration and verify that logging is enabled.
+
+If logging is not enabled or is not enabled with sufficient detail to fulfill the specifications set forth in the VulDiscussion, this is a finding.
+
+To determine if logging is enabled, enter: 
+
+switch#show logging
+
+The output must show logging as enabled, with a logging level of informational or debugging.
+
+In order to ensure all user commands are captured, the following statement must be in the running config.
+
+aaa accounting commands all default start-stop logging [group radius]","Enable logging on the switch with sufficient detail to fulfill the specifications set forth in the VulDiscussion.
+
+To configure logging to a remote syslog server at the informational level, enter:
+
+switch#config
+switch(config)#logging host [ip address]
+switch(config)#logging trap informational
+
+Then configure the following AAA
+
+aaa accounting commands all default start-stop logging [group radius]","CCI-001403"
+"Arista MLS DCS-7000 Series NDM Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via e-mail to the following address: disa.stig_spt@mail.mil.","1","3 ","25 Oct 2019","Release: 3 Benchmark Date: 25 Oct 2019","STIG.DOD.MIL","terms-of-use","V-60839","SV-75295r1_rule","AMLS-NM-000140","medium","CAT II","","SRG-APP-000028-NDM-000210","The Arista Multilayer Switch must automatically audit account disabling actions.","<VulnDiscussion>Account management, as a whole, ensures access to the network device is being controlled in a secure manner by granting access to only authorized personnel. Auditing account disabling actions will support account management procedures. When device management accounts are disabled, user or service accessibility may be affected. Auditing also ensures authorized active accounts remain enabled and available for use when required.</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","Account management, as a whole, ensures access to the network device is being controlled in a secure manner by granting access to only authorized personnel. Auditing account disabling actions will support account management procedures. When device management accounts are disabled, user or service accessibility may be affected. Auditing also ensures authorized active accounts remain enabled and available for use when required.","","","false","","","","","","","","Review the switch configuration and verify that logging is enabled.
+
+If logging is not enabled or is not enabled with sufficient detail to fulfill the specifications set forth in the VulDiscussion, this is a finding.
+
+To determine if logging is enabled, enter: 
+
+switch#show logging
+
+The output must show logging as enabled, with a logging level of informational or debugging.
+
+In order to ensure all user commands are captured, the following statement must be in the running config.
+
+aaa accounting commands all default start-stop logging [group radius]","Enable logging on the switch with sufficient detail to fulfill the specifications set forth in the VulDiscussion.
+
+To configure logging to a remote syslog server at the informational level, enter:
+
+switch#config
+switch(config)#logging host [ip address]
+switch(config)#logging trap informational
+
+Then configure the following AAA
+
+aaa accounting commands all default start-stop logging [group radius]","CCI-001404"
+"Arista MLS DCS-7000 Series NDM Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via e-mail to the following address: disa.stig_spt@mail.mil.","1","3 ","25 Oct 2019","Release: 3 Benchmark Date: 25 Oct 2019","STIG.DOD.MIL","terms-of-use","V-60841","SV-75297r1_rule","AMLS-NM-000150","medium","CAT II","","SRG-APP-000029-NDM-000211","The Arista Multilayer Switch must automatically audit account removal actions.","<VulnDiscussion>Account management, as a whole, ensures access to the network device is being controlled in a secure manner by granting access to only authorized personnel. Auditing account removal actions will support account management procedures. When device management accounts are terminated, user or service accessibility may be affected. Auditing also ensures authorized active accounts remain enabled and available for use when required.</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","Account management, as a whole, ensures access to the network device is being controlled in a secure manner by granting access to only authorized personnel. Auditing account removal actions will support account management procedures. When device management accounts are terminated, user or service accessibility may be affected. Auditing also ensures authorized active accounts remain enabled and available for use when required.","","","false","","","","","","","","Review the switch configuration and verify that logging is enabled.
+
+If logging is not enabled or is not enabled with sufficient detail to fulfill the specifications set forth in the VulDiscussion, this is a finding.
+
+To determine if logging is enabled, enter: 
+
+switch#show logging
+
+The output must show logging as enabled, with a logging level of informational or debugging.
+
+In order to ensure all user commands are captured, the following statement must be in the running config:
+
+aaa accounting commands all default start-stop logging [group radius]","Enable logging on the switch with sufficient detail to fulfill the specifications set forth in the VulDiscussion.
+
+To configure logging to a remote syslog server at the informational level, enter:
+
+switch#config
+switch(config)#logging host [ip address]
+switch(config)#logging trap informational
+
+Then configure the following AAA:
+
+aaa accounting commands all default start-stop logging [group radius]","CCI-001405"
+"Arista MLS DCS-7000 Series NDM Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via e-mail to the following address: disa.stig_spt@mail.mil.","1","3 ","25 Oct 2019","Release: 3 Benchmark Date: 25 Oct 2019","STIG.DOD.MIL","terms-of-use","V-60843","SV-75299r1_rule","AMLS-NM-000160","medium","CAT II","","SRG-APP-000068-NDM-000215","The Arista Multilayer Switch must display the Standard Mandatory DoD Notice and Consent Banner before granting access to the device.","<VulnDiscussion>Display of the DoD-approved use notification before granting access to the network device ensures privacy and security notification verbiage used is consistent with applicable federal laws, Executive Orders, directives, policies, regulations, standards, and guidance.
+
+System use notifications are required only for access via logon interfaces with human users.</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","Display of the DoD-approved use notification before granting access to the network device ensures privacy and security notification verbiage used is consistent with applicable federal laws, Executive Orders, directives, policies, regulations, standards, and guidance.
+
+System use notifications are required only for access via logon interfaces with human users.","","","false","","","","","","","","Review the device configuration and verify display of the Standard DoD Notice and Consent Banner.
+
+If the banner is not displayed, this is a finding.
+
+To verify the device is configured to display the DoD Banner, review the running configuration with the ""show running-config"" command. Identify the section ""banner login"" and verify the standard DoD Banner is displayed.","Configure the switch to display the Standard DoD Notice and Consent banner.
+
+To configure the banner, enter the following commands from the configuration mode interface. Replace the bracketed data with the DoD Banner.
+
+switch(config)#banner login
+[DoD Banner]
+EOF","CCI-000048"
+"Arista MLS DCS-7000 Series NDM Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via e-mail to the following address: disa.stig_spt@mail.mil.","1","3 ","25 Oct 2019","Release: 3 Benchmark Date: 25 Oct 2019","STIG.DOD.MIL","terms-of-use","V-60845","SV-75301r1_rule","AMLS-NM-000170","low","CAT III","","SRG-APP-000080-NDM-000220","The Arista Multilayer Switch must protect against an individual (or process acting on behalf of an individual) falsely denying having performed organization-defined actions to be covered by non-repudiation.","<VulnDiscussion>This requirement supports non-repudiation of actions taken by an administrator and is required in order to maintain the integrity of the configuration management process. All configuration changes to the network device are logged, and administrators authenticate with two-factor authentication before gaining administrative access. Together, these processes will ensure the administrators can be held accountable for the configuration changes they implement.
+
+To meet this requirement, the network device must log administrator access and activity.</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","This requirement supports non-repudiation of actions taken by an administrator and is required in order to maintain the integrity of the configuration management process. All configuration changes to the network device are logged, and administrators authenticate with two-factor authentication before gaining administrative access. Together, these processes will ensure the administrators can be held accountable for the configuration changes they implement.
+
+To meet this requirement, the network device must log administrator access and activity.","","","false","","","","","","","","Review the switch configuration and verify that logging is enabled.
+
+If logging is not enabled or is not enabled with sufficient detail to fulfill the specifications set forth in the VulDiscussion, this is a finding.
+
+To determine if logging is enabled, enter: 
+
+switch#show logging
+
+The output must show logging as enabled, with a logging level of informational or debugging.
+
+In order to ensure all user commands are captured, the following statement must be in the running config:
+
+aaa accounting commands all default start-stop logging [group radius]","Enable logging on the switch with sufficient detail to fulfill the specifications set forth in the VulDiscussion.
+
+To configure logging to a remote syslog server at the informational level, enter:
+
+switch#config
+switch(config)#logging host [ip address]
+switch(config)#logging trap informational
+
+Then configure the following AAA
+
+aaa accounting commands all default start-stop logging [group radius]","CCI-000166"
+"Arista MLS DCS-7000 Series NDM Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via e-mail to the following address: disa.stig_spt@mail.mil.","1","3 ","25 Oct 2019","Release: 3 Benchmark Date: 25 Oct 2019","STIG.DOD.MIL","terms-of-use","V-60847","SV-75303r1_rule","AMLS-NM-000180","low","CAT III","","SRG-APP-000091-NDM-000223","The Arista Multilayer Switch must generate audit records when successful/unsuccessful attempts to access privileges occur.","<VulnDiscussion>Without generating audit records that are specific to the security and mission needs of the organization, it would be difficult to establish, correlate, and investigate the events relating to an incident or identify those responsible for one. 
+
+Audit records can be generated from various components within the information system (e.g., module or policy filter).</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","Without generating audit records that are specific to the security and mission needs of the organization, it would be difficult to establish, correlate, and investigate the events relating to an incident or identify those responsible for one. 
+
+Audit records can be generated from various components within the information system (e.g., module or policy filter).","","","false","","","","","","","","Review the switch configuration and verify that logging is enabled.
+
+If logging is not enabled or is not enabled with sufficient detail to fulfill the specifications set forth in the VulDiscussion, this is a finding.
+
+To determine if logging is enabled, enter: 
+
+switch#show logging
+
+The output must show logging as enabled, with a logging level of informational or debugging.
+
+In order to ensure all user commands are captured, the following statement must be in the running config:
+
+aaa accounting commands all default start-stop logging [group radius]","Enable logging on the switch with sufficient detail to fulfill the specifications set forth in the VulDiscussion.
+
+To configure logging to a remote syslog server at the informational level, enter:
+
+switch#config
+switch(config)#logging host [ip address]
+switch(config)#logging trap informational
+
+Then configure the following AAA:
+
+aaa accounting commands all default start-stop logging [group radius]","CCI-000172"
+"Arista MLS DCS-7000 Series NDM Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via e-mail to the following address: disa.stig_spt@mail.mil.","1","3 ","25 Oct 2019","Release: 3 Benchmark Date: 25 Oct 2019","STIG.DOD.MIL","terms-of-use","V-60849","SV-75305r1_rule","AMLS-NM-000190","low","CAT III","","SRG-APP-000095-NDM-000225","The Arista Multilayer Switch must produce audit log records containing sufficient information to establish what type of event occurred.","<VulnDiscussion>It is essential for security personnel to know what is being done, what was attempted, where it was done, when it was done, and by whom it was done in order to compile an accurate risk assessment. Associating event types with detected events in the application and audit logs provides a means of investigating an attack; recognizing resource utilization or capacity thresholds; or identifying an improperly configured network device. Without this capability, it would be difficult to establish, correlate, and investigate the events leading up to an outage or attack.</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","It is essential for security personnel to know what is being done, what was attempted, where it was done, when it was done, and by whom it was done in order to compile an accurate risk assessment. Associating event types with detected events in the application and audit logs provides a means of investigating an attack; recognizing resource utilization or capacity thresholds; or identifying an improperly configured network device. Without this capability, it would be difficult to establish, correlate, and investigate the events leading up to an outage or attack.","","","false","","","","","","","","Review the device configuration and verify that logging is enabled with sufficient detail to establish what type of event occurred.
+
+If logging is not enabled or does not provide sufficient detail, this is a finding.
+
+To determine if logging is enabled, enter:
+
+switch#show logging
+
+The output must show logging as enabled, with a logging level of informational or debugging.","Enable logging on the switch with sufficient detail to establish what type of event occurred.
+
+To configure logging to a remote syslog server at the informational level, enter:
+
+switch#config
+switch(config)#logging host [ip address]
+switch(config)#logging trap informational","CCI-000130"
+"Arista MLS DCS-7000 Series NDM Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via e-mail to the following address: disa.stig_spt@mail.mil.","1","3 ","25 Oct 2019","Release: 3 Benchmark Date: 25 Oct 2019","STIG.DOD.MIL","terms-of-use","V-60851","SV-75307r1_rule","AMLS-NM-000200","low","CAT III","","SRG-APP-000101-NDM-000231","The Arista Multilayer Switch must generate audit records containing the full-text recording of privileged commands.","<VulnDiscussion>Reconstruction of harmful events or forensic analysis is not possible if audit records do not contain enough information. 
+
+Organizations consider limiting the additional audit information to only that information explicitly needed for specific audit requirements. The additional information required is dependent on the type of information (i.e., sensitivity of the data and the environment within which it resides). At a minimum, the organization must audit full-text recordings of privileged commands. The organization must maintain audit trails in sufficient detail to reconstruct events to determine the cause and impact of compromise.</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","Reconstruction of harmful events or forensic analysis is not possible if audit records do not contain enough information. 
+
+Organizations consider limiting the additional audit information to only that information explicitly needed for specific audit requirements. The additional information required is dependent on the type of information (i.e., sensitivity of the data and the environment within which it resides). At a minimum, the organization must audit full-text recordings of privileged commands. The organization must maintain audit trails in sufficient detail to reconstruct events to determine the cause and impact of compromise.","","","false","","","","","","","","Review the switch configuration and verify that logging is enabled.
+
+If logging is not enabled or is not enabled with sufficient detail to fulfill the specifications set forth in the VulDiscussion, this is a finding.
+
+To determine if logging is enabled, enter:
+
+switch#show logging
+
+The output must show logging as enabled, with a logging level of informational or debugging.
+
+In order to ensure all user commands are captured, the following statement must be in the running config:
+
+aaa accounting commands all default start-stop logging [group radius]","Enable logging on the switch with sufficient detail to fulfill the specifications set forth in the VulDiscussion.
+
+To configure logging to a remote syslog server at the informational level, enter:
+
+switch#config
+switch(config)#logging host [ip address]
+switch(config)#logging trap informational
+
+Then configure the following AAA:
+
+aaa accounting commands all default start-stop logging [group radius]","CCI-000135"
+"Arista MLS DCS-7000 Series NDM Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via e-mail to the following address: disa.stig_spt@mail.mil.","1","3 ","25 Oct 2019","Release: 3 Benchmark Date: 25 Oct 2019","STIG.DOD.MIL","terms-of-use","V-60853","SV-75309r1_rule","AMLS-NM-000210","medium","CAT II","","SRG-APP-000142-NDM-000245","The Arista Multilayer Switch must be configured to prohibit the use of all unnecessary and/or nonsecure functions, ports, protocols, and/or services, as defined in the PPSM CAL and vulnerability assessments.","<VulnDiscussion>In order to prevent unauthorized connection of devices, unauthorized transfer of information, or unauthorized tunneling (i.e., embedding of data types within data types), organizations must disable unused or unnecessary physical and logical ports/protocols on information systems.
+
+Network devices are capable of providing a wide variety of functions and services. Some of the functions and services provided by default may not be necessary to support essential organizational operations. Additionally, it is sometimes convenient to provide multiple services from a single component (e.g., email and web services); however, doing so increases risk over limiting the services provided by any one component. 
+
+To support the requirements and principles of least functionality, the network device must support the organizational requirements providing only essential capabilities and limiting the use of ports, protocols, and/or services to only those required, authorized, and approved to conduct official business or to address authorized quality of life issues.</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","In order to prevent unauthorized connection of devices, unauthorized transfer of information, or unauthorized tunneling (i.e., embedding of data types within data types), organizations must disable unused or unnecessary physical and logical ports/protocols on information systems.
+
+Network devices are capable of providing a wide variety of functions and services. Some of the functions and services provided by default may not be necessary to support essential organizational operations. Additionally, it is sometimes convenient to provide multiple services from a single component (e.g., email and web services); however, doing so increases risk over limiting the services provided by any one component. 
+
+To support the requirements and principles of least functionality, the network device must support the organizational requirements providing only essential capabilities and limiting the use of ports, protocols, and/or services to only those required, authorized, and approved to conduct official business or to address authorized quality of life issues.","","","false","","","","","","","","Determine if the network device prohibits the use of all unnecessary and/or nonsecure functions, ports, protocols, and/or services, as defined in the PPSM CAL and vulnerability assessments.
+
+This can be verified by reviewing the access control list configuration on the device and comparing against the PPSM CAL. The access control list configuration must deny ports, protocols, and services defined by the PPSM CAL. IP access list configuration can be viewed via the ""show ip access-lists"" command. To verify an interface has the appropriate access control list on it, use the ""show ip access-list"" summary command.
+
+If any unnecessary or nonsecure functions are permitted, this is a finding.","Configure the network device to prohibit the use of all unnecessary and/or nonsecure functions, ports, protocols, and/or services, as defined in the PPSM CAL and vulnerability assessments.
+
+To configure an access control list, use the following commands:
+
+configure
+ip access-list [name]
+10 deny [protocol] [src port] [src mask] [dst port] [dst mask] [options]
+exit
+
+To apply an access control list to an interface, use the following commands from the interface configuration mode:
+
+ip access-group [name] [direction]","CCI-000382"
+"Arista MLS DCS-7000 Series NDM Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via e-mail to the following address: disa.stig_spt@mail.mil.","1","3 ","25 Oct 2019","Release: 3 Benchmark Date: 25 Oct 2019","STIG.DOD.MIL","terms-of-use","V-60855","SV-75311r1_rule","AMLS-NM-000220","medium","CAT II","","SRG-APP-000151-NDM-000248","The Arista Multilayer Switch must use multifactor authentication for local access to privileged accounts.","<VulnDiscussion>Multifactor authentication is defined as: using two or more factors to achieve authentication.
+
+Factors include: 
+(i) Something a user knows (e.g., password/PIN); 
+(ii) Something a user has (e.g., cryptographic identification device, token); or 
+(iii) Something a user is (e.g., biometric).
+
+To assure accountability and prevent unauthenticated access, privileged users must utilize multifactor authentication to prevent potential misuse and compromise of the system. 
+
+Local access is defined as access to an organizational information system by a user (or process acting on behalf of a user) communicating through a direct connection without the use of a network.
+
+Applications integrating with the DoD Active Directory and utilizing the DoD CAC are examples of compliant multifactor authentication solutions.</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","Multifactor authentication is defined as: using two or more factors to achieve authentication.
+
+Factors include: 
+(i) Something a user knows (e.g., password/PIN); 
+(ii) Something a user has (e.g., cryptographic identification device, token); or 
+(iii) Something a user is (e.g., biometric).
+
+To assure accountability and prevent unauthenticated access, privileged users must utilize multifactor authentication to prevent potential misuse and compromise of the system. 
+
+Local access is defined as access to an organizational information system by a user (or process acting on behalf of a user) communicating through a direct connection without the use of a network.
+
+Applications integrating with the DoD Active Directory and utilizing the DoD CAC are examples of compliant multifactor authentication solutions.","","","false","","","","","","","","Determine if the network device uses multifactor authentication for local access to privileged accounts. This requirement may be verified by demonstration or configuration review. This requirement may be met through use of a properly configured authentication server if the device is configured to use the authentication server. 
+
+If multifactor authentication is not used for local access to privileged accounts, this is a finding.
+
+Review the device configuration via the ""show running-config"" command. The line ""aaa authentication login console group [server-group] [radius/tacplus] [local]"" must be present and must contain, at a minimum, the server group used for authentication, if present, or the term radius or tacplus to indicate all configured radius or tacplus servers, and the term local for local database authentication.","Configure the network device or its associated authentication server to use multifactor authentication for local access to privileged accounts.
+
+To configure the local device to authenticate via its authentication server, enter the following command from the configuration mode interface. Replace the bracketed value with the configured server group name or the name of the server type to validate against all configured servers of that type.
+
+switch(config)#aaa authentication login console group [radius] local","CCI-000767"
+"Arista MLS DCS-7000 Series NDM Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via e-mail to the following address: disa.stig_spt@mail.mil.","1","3 ","25 Oct 2019","Release: 3 Benchmark Date: 25 Oct 2019","STIG.DOD.MIL","terms-of-use","V-60857","SV-75315r1_rule","AMLS-NM-000240","medium","CAT II","","SRG-APP-000190-NDM-000267","The Arista Multilayer Switch must terminate all network connections associated with a device management session at the end of the session, or the session must be terminated after 10 minutes of inactivity except to fulfill documented and validated mission requirements.","<VulnDiscussion>Terminating an idle session within a short time period reduces the window of opportunity for unauthorized personnel to take control of a management session enabled on the console or console port that has been left unattended. In addition, quickly terminating an idle session will also free up resources committed by the managed network element.
+
+Terminating network connections associated with communications sessions includes, for example, de-allocating associated TCP/IP address/port pairs at the operating system level, or de-allocating networking assignments at the application level if multiple application sessions are using a single, operating system-level network connection. This does not mean that the device terminates all sessions or network access; it only ends the inactive session and releases the resources associated with that session.</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","Terminating an idle session within a short time period reduces the window of opportunity for unauthorized personnel to take control of a management session enabled on the console or console port that has been left unattended. In addition, quickly terminating an idle session will also free up resources committed by the managed network element.
+
+Terminating network connections associated with communications sessions includes, for example, de-allocating associated TCP/IP address/port pairs at the operating system level, or de-allocating networking assignments at the application level if multiple application sessions are using a single, operating system-level network connection. This does not mean that the device terminates all sessions or network access; it only ends the inactive session and releases the resources associated with that session.","","","false","","","","","","","","Determine if the network device terminates the connection associated with a device management session at the end of the session or after 10 minutes of inactivity. This requirement may be verified by demonstration or configuration review.
+
+Verify by executing a ""show running-config"" command, and under the ""management ssh"" subsection, validate the configuration statement ""idle-timeout 10"" is present and the value is 10 or less.
+
+If the network device does not terminate the connection associated with a device management session at the end of the session or after 10 minutes of inactivity, this is a finding.","Configure the network device to terminate the connection associated with a device management session at the end of the session or after 10 minutes of inactivity.
+
+Arista switches have a configurable timeout function that automatically closes connections to the switch upon reaching an organization-defined period of time.
+
+Configuration Example:
+
+switch(config)#management ssh
+switch(config-mgmt-ssh)#idle-timeout 10
+
+Configure the switch to terminate an idle ssh connection after 10 minutes of inactivity.","CCI-001133"
+"Arista MLS DCS-7000 Series NDM Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via e-mail to the following address: disa.stig_spt@mail.mil.","1","3 ","25 Oct 2019","Release: 3 Benchmark Date: 25 Oct 2019","STIG.DOD.MIL","terms-of-use","V-60859","SV-75317r1_rule","AMLS-NM-000250","medium","CAT II","","SRG-APP-000267-NDM-000273","The Arista Multilayer Switch must reveal error messages only to authorized individuals (ISSO, ISSM, and SA).","<VulnDiscussion>Only authorized personnel should be aware of errors and the details of the errors. Error messages are an indicator of an organization's operational state. Additionally, sensitive account information must not be revealed through error messages to unauthorized personnel or their designated representatives.</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","Only authorized personnel should be aware of errors and the details of the errors. Error messages are an indicator of an organization's operational state. Additionally, sensitive account information must not be revealed through error messages to unauthorized personnel or their designated representatives.","","","false","","","","","","","","Determine if the network device is configured to reveal error messages only to authorized individuals. This requirement may be verified by demonstration or configuration review. This requirement can be met by a central audit server if the network device is configured to send audit logs to that audit server.
+
+If the network device reveals error messages to any unauthorized individuals, this is a finding.
+
+This is a function of SNMP Traps. Verify the SNMP configuration is present in the output of the ""show running-config"" command and that SNMP is active via the ""show snmp"" command.","Configure the network device or its associated audit server to reveal error messages only to authorized individuals.
+
+SNMP is used to fulfill this function. An example SNMP configuration is provided below. To configure SNMP according to site-specific policies and procedures, refer to the Arista Configuration Guide Chapter 37
+
+snmp-server engineID local 
+snmp-server view snmpview system included
+snmp-server group ROgroup v3 priv read snmpview
+snmp-server group RWgroup v3 priv write snmpview
+snmp-server user disa ROgroup v3
+snmp-server user disaRW RWgroup v3
+snmp-server host 10.1.1.1 version 3 priv disaRW
+snmp-server host 10.2.2.2 version 3 noauth disaRW
+snmp-server host 10.3.3.3 version 3 noauth disaRW
+snmp-server host 127.0.0.1 version 3 noauth auth
+snmp-server host 172.22.29.82 version 3 noauth disaRW
+snmp-server enable traps","CCI-001314"
+"Arista MLS DCS-7000 Series NDM Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via e-mail to the following address: disa.stig_spt@mail.mil.","1","3 ","25 Oct 2019","Release: 3 Benchmark Date: 25 Oct 2019","STIG.DOD.MIL","terms-of-use","V-60861","SV-75319r1_rule","AMLS-NM-000260","medium","CAT II","","SRG-APP-000268-NDM-000274","The Arista Multilayer Switch must activate a system alert message, send an alarm, and/or automatically shut down when a component failure is detected.","<VulnDiscussion>Predictable failure prevention requires organizational planning to address device failure issues. If components key to maintaining the device's security fail to function, the device could continue operating in an insecure state. If appropriate actions are not taken when a network device failure occurs, a denial of service condition may occur that could result in mission failure since the network would be operating without a critical security monitoring and prevention function. Upon detecting a failure of network device security components, the network device must activate a system alert message, send an alarm, or shut down.</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","Predictable failure prevention requires organizational planning to address device failure issues. If components key to maintaining the device's security fail to function, the device could continue operating in an insecure state. If appropriate actions are not taken when a network device failure occurs, a denial of service condition may occur that could result in mission failure since the network would be operating without a critical security monitoring and prevention function. Upon detecting a failure of network device security components, the network device must activate a system alert message, send an alarm, or shut down.","","","false","","","","","","","","Determine if the network device activates a system alert message, sends an alarm, and/or automatically shuts down when a component failure is detected. This requirement may be verified by demonstration or configuration review. 
+
+If the network device does not activate a system alert message, send an alarm, or automatically shut down when a component failure is detected, this is a finding.
+
+This is a function of SNMP Traps. Verify the SNMP configuration is present in the output of the ""show running-config"" command and that SNMP is active via the ""show snmp"" command.","Configure the network device to activate a system alert message, send an alarm, and/or automatically shut down when a component failure is detected.
+
+SNMP is used to fulfill this function. An example SNMP configuration is provided below. To configure SNMP according to site-specific policies and procedures, refer to the Arista Configuration Guide, Chapter 37.
+
+snmp-server engineID local 
+snmp-server view snmpview system included
+snmp-server group ROgroup v3 priv read snmpview
+snmp-server group RWgroup v3 priv write snmpview
+snmp-server user disa ROgroup v3
+snmp-server user disaRW RWgroup v3
+snmp-server host 10.1.1.1 version 3 priv disaRW
+snmp-server host 10.2.2.2 version 3 noauth disaRW
+snmp-server host 10.3.3.3 version 3 noauth disaRW
+snmp-server host 127.0.0.1 version 3 noauth auth
+snmp-server host 172.22.29.82 version 3 noauth disaRW
+snmp-server enable traps","CCI-000366,CCI-001328"
+"Arista MLS DCS-7000 Series NDM Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via e-mail to the following address: disa.stig_spt@mail.mil.","1","3 ","25 Oct 2019","Release: 3 Benchmark Date: 25 Oct 2019","STIG.DOD.MIL","terms-of-use","V-60863","SV-75321r1_rule","AMLS-NM-000270","medium","CAT II","","SRG-APP-000372-NDM-000297","The Arista Multilayer Switch must synchronize internal information system clocks to the authoritative time source when the time difference is greater than the organization-defined time period.","<VulnDiscussion>Inaccurate time stamps make it more difficult to correlate events and can lead to an inaccurate analysis. Determining the correct time a particular event occurred on a system is critical when conducting forensic analysis and investigating system events. 
+
+Synchronizing internal information system clocks provides uniformity of time stamps for information systems with multiple system clocks and systems connected over a network. Organizations should consider setting time periods for different types of systems (e.g., financial, legal, or mission-critical systems). Organizations should also consider endpoints that may not have regular access to the authoritative time server (e.g., mobile, teleworking, and tactical endpoints). This requirement is related to the comparison done every 24 hours in CCI-001891 because a comparison must be done in order to determine the time difference.
+
+The organization-defined time period will depend on multiple factors, most notably the granularity of time stamps in audit logs. For example, if time stamps only show to the nearest second, there is no need to have accuracy of a tenth of a second in clocks.</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","Inaccurate time stamps make it more difficult to correlate events and can lead to an inaccurate analysis. Determining the correct time a particular event occurred on a system is critical when conducting forensic analysis and investigating system events. 
+
+Synchronizing internal information system clocks provides uniformity of time stamps for information systems with multiple system clocks and systems connected over a network. Organizations should consider setting time periods for different types of systems (e.g., financial, legal, or mission-critical systems). Organizations should also consider endpoints that may not have regular access to the authoritative time server (e.g., mobile, teleworking, and tactical endpoints). This requirement is related to the comparison done every 24 hours in CCI-001891 because a comparison must be done in order to determine the time difference.
+
+The organization-defined time period will depend on multiple factors, most notably the granularity of time stamps in audit logs. For example, if time stamps only show to the nearest second, there is no need to have accuracy of a tenth of a second in clocks.","","","false","","","","","","","","Check the network device configuration to determine if the device synchronizes internal information system clocks to the authoritative time source when the time difference is greater than the organization-defined time period. 
+
+If this synchronization is not occurring when the time difference is greater than the organization-defined time period, this is a finding.
+
+Verify with the ""show NTP status"" command, which shows the state of device synchronization.","Configure the network device to synchronize internal information system clocks to the authoritative time source when the time difference is greater than the organization-defined time period.
+
+Configuration Example:
+switch(config)#ntp server HOST
+switch(config)#ntp server HOST prefer","CCI-002046"
+"Arista MLS DCS-7000 Series NDM Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via e-mail to the following address: disa.stig_spt@mail.mil.","1","3 ","25 Oct 2019","Release: 3 Benchmark Date: 25 Oct 2019","STIG.DOD.MIL","terms-of-use","V-60865","SV-75323r1_rule","AMLS-NM-000280","medium","CAT II","","SRG-APP-000373-NDM-000298","The Arista Multilayer Switch must be configured to synchronize internal information system clocks with the primary and secondary time sources located in different geographic regions using redundant authoritative time sources.","<VulnDiscussion>The loss of connectivity to a particular authoritative time source will result in the loss of time synchronization (free-run mode) and increasingly inaccurate time stamps on audit events and other functions.
+
+Multiple time sources provide redundancy by including a secondary source. Time synchronization is usually a hierarchy; clients synchronize time to a local source while that source synchronizes its time to a more accurate source. The network device must utilize an authoritative time server and/or be configured to use redundant authoritative time sources. This requirement is related to the comparison done in CCI-001891.
+
+DoD-approved solutions consist of a combination of a primary and secondary time source using a combination or multiple instances of the following: a time server designated for the appropriate DoD network (NIPRNet/SIPRNet); United States Naval Observatory (USNO) time servers; and/or the Global Positioning System (GPS). The secondary time source must be located in a different geographic region than the primary time source.</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","The loss of connectivity to a particular authoritative time source will result in the loss of time synchronization (free-run mode) and increasingly inaccurate time stamps on audit events and other functions.
+
+Multiple time sources provide redundancy by including a secondary source. Time synchronization is usually a hierarchy; clients synchronize time to a local source while that source synchronizes its time to a more accurate source. The network device must utilize an authoritative time server and/or be configured to use redundant authoritative time sources. This requirement is related to the comparison done in CCI-001891.
+
+DoD-approved solutions consist of a combination of a primary and secondary time source using a combination or multiple instances of the following: a time server designated for the appropriate DoD network (NIPRNet/SIPRNet); United States Naval Observatory (USNO) time servers; and/or the Global Positioning System (GPS). The secondary time source must be located in a different geographic region than the primary time source.","","","false","","","","","","","","Determine if the network device is configured to synchronize internal information system clocks with the primary and secondary time sources located in different geographic regions using redundant authoritative time sources.
+
+If the network device is not configured to synchronize internal information system clocks with the primary and secondary time sources located in different geographic regions using redundant authoritative time sources, this is a finding.
+
+Verify with: 
+
+switch#show NTP status 
+
+Identify the NTP status and available time sources.","Configure the network device to synchronize internal information system clocks with the primary and secondary time sources located in different geographic regions using redundant authoritative time sources.
+
+Configuration Example: 
+
+switch(config)#ntp server HOST
+switch(config)#ntp server HOST prefer","CCI-000366,CCI-001893"
+"Arista MLS DCS-7000 Series NDM Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via e-mail to the following address: disa.stig_spt@mail.mil.","1","3 ","25 Oct 2019","Release: 3 Benchmark Date: 25 Oct 2019","STIG.DOD.MIL","terms-of-use","V-60867","SV-75325r1_rule","AMLS-NM-000290","medium","CAT II","","SRG-APP-000374-NDM-000299","The Arista Multilayer Switch must record time stamps for audit records that can be mapped to Coordinated Universal Time (UTC) or Greenwich Mean Time (GMT).","<VulnDiscussion>If time stamps are not consistently applied and there is no common time reference, it is difficult to perform forensic analysis.
+
+Time stamps generated by the application include date and time. Time is commonly expressed in Coordinated Universal Time (UTC), a modern continuation of Greenwich Mean Time (GMT), or local time with an offset from UTC.</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","If time stamps are not consistently applied and there is no common time reference, it is difficult to perform forensic analysis.
+
+Time stamps generated by the application include date and time. Time is commonly expressed in Coordinated Universal Time (UTC), a modern continuation of Greenwich Mean Time (GMT), or local time with an offset from UTC.","","","false","","","","","","","","Determine if the network device records time stamps for audit records that can be mapped to Coordinated Universal Time (UTC) or Greenwich Mean Time (GMT). This requirement may be verified by demonstration or configuration review.
+
+If the network device does not record time stamps for audit records that can be mapped to Coordinated Universal Time (UTC) or Greenwich Mean Time (GMT), this is a finding.
+
+This can be configured with the following command:
+
+clock timezone GMT
+
+and verified by 
+
+show run section clock
+
+Log records can be validated with:
+
+show logging","Configure the network device to record time stamps for audit records that can be mapped to Coordinated Universal Time (UTC) or Greenwich Mean Time (GMT).
+
+This can be configured with the following command:
+
+clock timezone GMT","CCI-001890"
+"Arista MLS DCS-7000 Series NDM Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via e-mail to the following address: disa.stig_spt@mail.mil.","1","3 ","25 Oct 2019","Release: 3 Benchmark Date: 25 Oct 2019","STIG.DOD.MIL","terms-of-use","V-60869","SV-75327r1_rule","AMLS-NM-000340","medium","CAT II","","SRG-APP-000411-NDM-000330","Arista Multilayer Switches used for nonlocal maintenance sessions must implement cryptographic mechanisms to protect the integrity of nonlocal maintenance and diagnostic communications.","<VulnDiscussion>This requires the use of secure protocols instead of their unsecured counterparts, such as SSH instead of telnet, SCP instead of FTP, and HTTPS instead of HTTP.</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","This requires the use of secure protocols instead of their unsecured counterparts, such as SSH instead of telnet, SCP instead of FTP, and HTTPS instead of HTTP.","","","false","","","","","","","","Determine if the network device uses secure protocols instead of their unsecured counterparts. 
+
+If any unsecured maintenance protocols are in use (e.g., telnet, FTP, HTTP) and these protocols are not wrapped in a secure tunnel, this is a finding.
+
+Validate by checking that unsecure protocols are either disabled or wrapped in SSH tunnels.
+
+Executing a ""show run"" command will provide a means to validate this config. From the output of this command, verify that there is no statement enabling telnet, there is no statement enabling FTP, and there is no statement enabling the API, or the API is configured to use only HTTPS.","Configure the network device to use secure protocols instead of their unsecured counterparts.
+
+Configuration Example: 
+
+Disable unsecure protocols.
+configure
+management telnet
+shutdown
+exit
+management api http-commands
+no protocol http
+protocol https
+exit 
+
+Other protocols (FTP) can be denied using AAA and RBAC. For connections that require use of these maintenance protocols, creation of SSH tunnels can fulfill this security requirement. This is summarized here and available at length in the Common Criteria guidance document.
+
+Configuration Example: 
+
+management ssh
+tunnel NEW
+local port 514
+ssh-server syslogServer user authuser port 22
+remote host localhost port 514
+no shutdown","CCI-002890"
+"Arista MLS DCS-7000 Series NDM Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via e-mail to the following address: disa.stig_spt@mail.mil.","1","3 ","25 Oct 2019","Release: 3 Benchmark Date: 25 Oct 2019","STIG.DOD.MIL","terms-of-use","V-60871","SV-75329r1_rule","AMLS-NM-000350","medium","CAT II","","SRG-APP-000412-NDM-000331","Arista Multilayer Switches used for nonlocal maintenance sessions must implement cryptographic mechanisms to protect the confidentiality of nonlocal maintenance and diagnostic communications.","<VulnDiscussion>This requires the use of secure protocols instead of their unsecured counterparts, such as SSH instead of telnet, SCP instead of FTP, and HTTPS instead of HTTP.</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","This requires the use of secure protocols instead of their unsecured counterparts, such as SSH instead of telnet, SCP instead of FTP, and HTTPS instead of HTTP.","","","false","","","","","","","","Determine if the network device uses secure protocols instead of their unsecured counterparts.
+
+If any unsecured maintenance protocols are in use (e.g., telnet, FTP, HTTP) and these protocols are not wrapped in a secure tunnel, this is a finding.
+
+Validate by checking that unsecure protocols are either disabled or wrapped in SSH tunnels.
+
+Executing a ""show run"" command will provide a means to validate this config. From the output of this command, verify that there is no statement enabling telnet, no statement enabling FTP, no statement enabling HTTP, and no statement enabling the API, or the API is configured to use only HTTPS.","Configure the network device to use secure protocols instead of their unsecured counterparts.
+
+Configuration Example: 
+
+Disable unsecure protocols.
+configure
+management telnet
+shutdown
+exit
+management api http-commands
+no protocol http
+protocol https
+exit 
+
+Other protocols (FTP) can be denied using AAA and RBAC. For connections that require use of these maintenance protocols, creation of SSH tunnels can fulfill this security requirement. This is summarized here and available at length in the Common Criteria guidance document.
+
+Configuration Example: 
+
+management ssh
+tunnel NEW
+local port 514
+ssh-server syslogServer user authuser port 22
+remote host localhost port 514
+no shutdown","CCI-003123"
+"Arista MLS DCS-7000 Series NDM Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via e-mail to the following address: disa.stig_spt@mail.mil.","1","3 ","25 Oct 2019","Release: 3 Benchmark Date: 25 Oct 2019","STIG.DOD.MIL","terms-of-use","V-60873","SV-75331r1_rule","AMLS-NM-000360","medium","CAT II","","SRG-APP-000504-NDM-000321","The Arista Multilayer Switch must generate audit records for privileged activities or other system-level access.","<VulnDiscussion>Without generating audit records that are specific to the security and mission needs of the organization, it would be difficult to establish, correlate, and investigate the events relating to an incident or identify those responsible for one. 
+
+Audit records can be generated from various components within the information system (e.g., module or policy filter).</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","Without generating audit records that are specific to the security and mission needs of the organization, it would be difficult to establish, correlate, and investigate the events relating to an incident or identify those responsible for one. 
+
+Audit records can be generated from various components within the information system (e.g., module or policy filter).","","","false","","","","","","","","Determine if the network device generates audit records for privileged activities or other system-level access. 
+
+If the network device does not generate audit records for privileged activities or other system-level access, this is a finding.
+
+Verify logging is configured to audit full-text commands.
+
+Execute a ""show logging"" command and review the logs to verify the full text of commands is included.","Configure the network device to generate audit records for privileged activities or other system-level access.
+
+aaa accounting commands all default start-stop
+aaa accounting exec default start-stop
+aaa accounting system default start-stop","CCI-000172"
+"Arista MLS DCS-7000 Series NDM Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via e-mail to the following address: disa.stig_spt@mail.mil.","1","3 ","25 Oct 2019","Release: 3 Benchmark Date: 25 Oct 2019","STIG.DOD.MIL","terms-of-use","V-60875","SV-75333r1_rule","AMLS-NM-000370","medium","CAT II","","SRG-APP-000505-NDM-000322","The Arista Multilayer Switch must generate audit records showing starting and ending time for administrator access to the system.","<VulnDiscussion>Without generating audit records that are specific to the security and mission needs of the organization, it would be difficult to establish, correlate, and investigate the events relating to an incident or identify those responsible for one. 
+
+Audit records can be generated from various components within the information system (e.g., module or policy filter).</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","Without generating audit records that are specific to the security and mission needs of the organization, it would be difficult to establish, correlate, and investigate the events relating to an incident or identify those responsible for one. 
+
+Audit records can be generated from various components within the information system (e.g., module or policy filter).","","","false","","","","","","","","Determine if the network device generates audit records showing starting and ending time for administrator access to the system. 
+
+If the network device does not generate audit records showing starting and ending time for administrator access to the system, this is a finding.
+
+Verify by reviewing log files to show start and end times for administrator access to the system via the ""show logging"" command.","Configure the network device to generate audit records showing starting and ending time for administrator access to the system.
+
+Enable logging level 6 to ensure this event is captured.
+
+Switch(config)#logging trap 6
+switch(config)#logging level all 6","CCI-000172"
+"Arista MLS DCS-7000 Series NDM Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via e-mail to the following address: disa.stig_spt@mail.mil.","1","3 ","25 Oct 2019","Release: 3 Benchmark Date: 25 Oct 2019","STIG.DOD.MIL","terms-of-use","V-60877","SV-75335r1_rule","AMLS-NM-000380","medium","CAT II","","SRG-APP-000506-NDM-000323","The Arista Multilayer Switch must generate audit records when concurrent logons from different workstations occur.","<VulnDiscussion>Without generating audit records that are specific to the security and mission needs of the organization, it would be difficult to establish, correlate, and investigate the events relating to an incident or identify those responsible for one. 
+
+Audit records can be generated from various components within the information system (e.g., module or policy filter).</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","Without generating audit records that are specific to the security and mission needs of the organization, it would be difficult to establish, correlate, and investigate the events relating to an incident or identify those responsible for one. 
+
+Audit records can be generated from various components within the information system (e.g., module or policy filter).","","","false","","","","","","","","Determine if the network device generates audit records when concurrent logons from different workstations occur. 
+
+If the network device does not generate audit records when concurrent logons from different workstations occur, this is a finding.
+
+Verify by reviewing log files to show concurrent logons to the system via the ""Show Logging"" command.","Configure the network device to generate audit records when concurrent logons from different workstations occur.
+
+Enable logging level 6 to ensure this event is captured.
+
+Switch(config)#logging trap 6
+switch(config)#logging level all 6","CCI-000172"
+"Arista MLS DCS-7000 Series NDM Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via e-mail to the following address: disa.stig_spt@mail.mil.","1","3 ","25 Oct 2019","Release: 3 Benchmark Date: 25 Oct 2019","STIG.DOD.MIL","terms-of-use","V-60879","SV-75337r1_rule","AMLS-NM-000390","medium","CAT II","","SRG-APP-000509-NDM-000324","The Arista Multilayer Switch must generate audit records for all account creations, modifications, disabling, and termination events.","<VulnDiscussion>Without generating audit records that are specific to the security and mission needs of the organization, it would be difficult to establish, correlate, and investigate the events relating to an incident or identify those responsible for one. 
+
+Audit records can be generated from various components within the information system (e.g., module or policy filter).</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","Without generating audit records that are specific to the security and mission needs of the organization, it would be difficult to establish, correlate, and investigate the events relating to an incident or identify those responsible for one. 
+
+Audit records can be generated from various components within the information system (e.g., module or policy filter).","","","false","","","","","","","","Determine if the network device generates audit records for all account creations, modifications, disabling, and termination events. 
+
+If the network device does not generate audit records for all account creations, modifications, disabling, and termination events, this is a finding.
+
+Verify by reviewing log files to show audit records for account creation, modification, disabling, and termination via the ""Show Logging"" command.","Configure the network device to generate audit records for all account creations, modifications, disabling, and termination events.
+
+Enable logging level 6 to ensure this event is captured:
+
+Switch(config)#logging trap 6
+switch(config)#logging level all 6","CCI-000172"
+"Arista MLS DCS-7000 Series NDM Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via e-mail to the following address: disa.stig_spt@mail.mil.","1","3 ","25 Oct 2019","Release: 3 Benchmark Date: 25 Oct 2019","STIG.DOD.MIL","terms-of-use","V-60881","SV-75339r1_rule","AMLS-NM-000400","medium","CAT II","","SRG-APP-000515-NDM-000325","The Arista Multilayer Switch must, at a minimum, off-load audit records for interconnected systems in real time.","<VulnDiscussion>Information stored in one location is vulnerable to accidental or incidental deletion or alteration.
+
+Off-loading is a common process in information systems with limited audit storage capacity.</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","Information stored in one location is vulnerable to accidental or incidental deletion or alteration.
+
+Off-loading is a common process in information systems with limited audit storage capacity.","","","false","","","","","","","","Check the network device configuration to determine if the device off-loads audit records onto a different system or media than the system being audited. 
+
+If the device does not off-load audit records onto a different system or media, this is a finding.
+
+Review the configuration for the ""logging host [a.b.c.d]"" statement. Execute a ""show logging"" to verify logging host status.","Configure the network device to off-load interconnected systems in real time and off-load standalone systems weekly.
+
+Arista EOS logs can be exported to, including by a regular syslog server.
+
+Configuration Example: 
+
+switch(config)#logging host[ a.b.c.d]
+switch(config)#logging trap informational","CCI-001851"
+"Arista MLS DCS-7000 Series NDM Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via e-mail to the following address: disa.stig_spt@mail.mil.","1","3 ","25 Oct 2019","Release: 3 Benchmark Date: 25 Oct 2019","STIG.DOD.MIL","terms-of-use","V-60883","SV-75341r1_rule","AMLS-NM-000420","medium","CAT II","","SRG-APP-000516-NDM-000317","The Arista Multilayer Switch must protect the audit records of nonlocal accesses to privileged accounts and the execution of privileged functions.","<VulnDiscussion>Auditing may not be reliable when performed by the network device to which the user being audited has privileged access. The privileged user may inhibit auditing or modify audit records. This control enhancement helps mitigate this risk by requiring that privileged access be further defined between audit-related privileges and other privileges, thus limiting the users with audit-related privileges. Reducing the risk of audit compromises by privileged users can also be achieved by performing audit activity on a separate information system or by using storage media that cannot be modified (e.g., write-once recording devices).</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","Auditing may not be reliable when performed by the network device to which the user being audited has privileged access. The privileged user may inhibit auditing or modify audit records. This control enhancement helps mitigate this risk by requiring that privileged access be further defined between audit-related privileges and other privileges, thus limiting the users with audit-related privileges. Reducing the risk of audit compromises by privileged users can also be achieved by performing audit activity on a separate information system or by using storage media that cannot be modified (e.g., write-once recording devices).","","","false","","","","","","","","Review the network device account configuration files to determine if the privileged functions to access and modify audit settings and files are restricted to authorized security personnel. Review locations of audit logs generated as a result of nonlocal accesses to privileged accounts and the execution of privileged functions. Verify there are appropriate controls and permissions to protect the audit information from unauthorized access.
+
+If the audit records that are generated upon nonlocal access to privileged accounts or upon the execution of privileged functions are not protected, this is a finding.
+
+Verify remote logging is enabled via the ""Show Logging"" command.
+
+Verify that individual accounts do not have access to logging functionality by executing the ""show user-account"" command and validating that only intended users are assigned to roles that permit access to logging functions. To verify what permissions are allowed by each role, execute the ""show roles"" command.","Configure the system to protect the audit records of nonlocal accesses to privileged accounts and the execution of privileged functions.
+
+Enable remote logging with:
+
+config
+logging host a.b.c.d
+logging trap informational
+
+To assign a user to a role, use the command:
+
+username [name] role [role name]
+
+To deny access to logging functions via RBAC:
+
+role [name]
+deny command logging [all]","CCI-000366"
+"Arista MLS DCS-7000 Series NDM Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via e-mail to the following address: disa.stig_spt@mail.mil.","1","3 ","25 Oct 2019","Release: 3 Benchmark Date: 25 Oct 2019","STIG.DOD.MIL","terms-of-use","V-60885","SV-75343r2_rule","AMLS-NM-000430","high","CAT I","","SRG-APP-000516-NDM-000336","The Arista Multilayer Switch must employ AAA service to centrally manage authentication settings.","<VulnDiscussion>The use of authentication servers or other centralized management servers for providing centralized authentication services is required for network device management. Maintaining local administrator accounts for daily usage on each network device without centralized management is not scalable or feasible. Without centralized management, it is likely that credentials for some network devices will be forgotten, leading to delays in administration, which itself leads to delays in remediating production problems and in addressing compromises in a timely fashion.</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","The use of authentication servers or other centralized management servers for providing centralized authentication services is required for network device management. Maintaining local administrator accounts for daily usage on each network device without centralized management is not scalable or feasible. Without centralized management, it is likely that credentials for some network devices will be forgotten, leading to delays in administration, which itself leads to delays in remediating production problems and in addressing compromises in a timely fashion.","","","false","","","","","","","","Review the device's configuration and verify the use of an AAA server for Account Management. Configuration must include at least one authenticated remote AAA server and verification that authentication, authorization, and accounting are enabled. In order for AAA to execute authorizations, role-based access control (RBAC) must also be configured on the switch, as shown in the configuration example. User roles do not need to follow these exact permissions, but they must comply with organizational policies for access-control. If the AAA server is not configured to centrally manage authentication settings, this is a finding.
+
+Using the ""show running-config"" command will display all configured AAA commands, which must include the following commands with the variables completed:
+
+aaa group server [radius/tacacs] [name]
+[radius/tacacs]-server host [IP Address] vrf [name] key [key]
+aaa authentication login default group [group name] [radius/tacacs] [local]
+aaa authentication login console [group] [group name/radius/tacacs+] [local]
+aaa authentication dot1x default group [group] [radius]
+aaa authentication policy on-success log
+aaa authentication policy on-failure log
+aaa authorization console
+aaa authorization exec default [radius/tacacs] local
+aaa authorization commands all default local
+aaa accounting exec default start-stop logging
+aaa accounting system default start-stop logging
+aaa accounting commands all default start-stop logging
+no aaa root
+
+Executing the ""Show aaa sessions"" command will verify the operation of AAA for any connected sessions. This will include the username, role, state, authentication method, and remote host information, which must match the configured remote AAA server.
+
+Verify Role Based Access Control is enabled by executing the ""show roles"" command, and review the configured roles to ensure they meet organization-defined requirements.","Configure AAA services via a remote AAA server for all nonlocal accounts.
+
+Configuration:
+aaa group server [radius/tacacs] [name]
+[radius/tacacs]-server host [IP Address] vrf [name] key [key]
+aaa authentication login default group [group name] [radius/tacacs] [local]
+aaa authentication login console [group] [group name/radius/tacacs+] [local]
+aaa authentication dot1x default group [group] [radius]
+aaa authentication policy on-success log
+aaa authentication policy on-failure log
+aaa authorization console
+aaa authorization exec default [radius/tacacs] local
+aaa authorization commands all default local
+aaa accounting exec default start-stop logging
+aaa accounting system default start-stop logging
+aaa accounting commands all default start-stop logging
+no aaa root
+
+Example RBAC roles:
+
+role administrator
+ 10 permit command .*
+
+ role operator
+ 10 permit command show running-config [all|detail] sanitized
+ 20 deny command >|>>|extension|\||session|do|delete|copy|rmdir|mkdir|python-shell|bash|platform|scp|append|redirect|tee|more|less|who|show run.*
+ 25 deny command bash
+ 30 deny mode config command (no |default ) (username|role|aaa|tcpdump|schedule|event.*)
+ 40 permit command .*
+ 30 deny mode config command (no |default ) (username|role|aaa|tcpdump|schedule|event.*)
+ 40 permit command .*","CCI-000366,CCI-000370"
+"Arista MLS DCS-7000 Series NDM Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via e-mail to the following address: disa.stig_spt@mail.mil.","1","3 ","25 Oct 2019","Release: 3 Benchmark Date: 25 Oct 2019","STIG.DOD.MIL","terms-of-use","V-60887","SV-75345r1_rule","AMLS-NM-000440","low","CAT III","","SRG-APP-000516-NDM-000340","The Arista Multilayer Switch must support organizational requirements to conduct backups of system-level information contained in the information system when changes occur or weekly, whichever is sooner.","<VulnDiscussion>System-level information includes default and customized settings and security attributes, including ACLs that relate to the network device configuration, as well as software required for the execution and operation of the device. Information system backup is a critical step in ensuring system integrity and availability. If the system fails and there is no backup of the system-level information, a denial of service condition is possible for all who utilize this critical network component.
+
+This control requires the network device to support the organizational central backup process for system-level information associated with the network device. This function may be provided by the network device itself; however, the preferred best practice is a centralized backup rather than each network device performing discrete backups.</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","System-level information includes default and customized settings and security attributes, including ACLs that relate to the network device configuration, as well as software required for the execution and operation of the device. Information system backup is a critical step in ensuring system integrity and availability. If the system fails and there is no backup of the system-level information, a denial of service condition is possible for all who utilize this critical network component.
+
+This control requires the network device to support the organizational central backup process for system-level information associated with the network device. This function may be provided by the network device itself; however, the preferred best practice is a centralized backup rather than each network device performing discrete backups.","","","false","","","","","","","","Check the network device to determine if the network device is configured to conduct backups of system-level information contained in the information system when changes occur or weekly, whichever is sooner. 
+
+If the network device does not support the organizational requirements to conduct backups of system-level data according to the defined frequency, this is a finding.","Configure the network device to conduct backups of system-level information contained in the information system when changes occur or weekly, whichever is sooner.
+
+For weekly backups, the following chronologically scheduled command will back up the switch information one per day at noon:
+
+switch(config)#schedule [name] at [hh:mm:ss] interval 1440 max-log-files 100 command bash FastCli -p 15 -c $'enable\nshow tech-support > scp:[remote destination/filename]\n'
+
+The following event-handler will schedule backups any time the configuration is changed and written to memory:
+
+event-handler Copy-Config
+trigger on-startup-config
+action bash sudo ip netns exec ns-DATA scp /mnt/flash/startup-config [user@IPaddress/filepath/filename]
+delay 5","CCI-000366,CCI-000537"
+"Arista MLS DCS-7000 Series NDM Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via e-mail to the following address: disa.stig_spt@mail.mil.","1","3 ","25 Oct 2019","Release: 3 Benchmark Date: 25 Oct 2019","STIG.DOD.MIL","terms-of-use","V-67195","SV-81685r1_rule","AMLS-NM-000500","low","CAT III","","SRG-APP-000516-NDM-000317","The Arista Multilayer Switch must be updated to one of the minimum approved versions of EOS.","<VulnDiscussion>The Arista Multilayer Switch uses the EOS operating system. Updates to EOS contain new security-related features and security patches that address known vulnerabilities. Running a current DoD-approved software version improves the security posture of the network device.</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","The Arista Multilayer Switch uses the EOS operating system. Updates to EOS contain new security-related features and security patches that address known vulnerabilities. Running a current DoD-approved software version improves the security posture of the network device.","","","false","","","","","","","","Verify the Arista Multilayer Switch configuration using the “Show version” command. Review the software image version, and verify it is a minimum DoD-approved version. The current approved minimum versions are 4.16.0F, 4.15.3F, 4.14.11M, or later. If the Arista Multilayer Switch is not using a minimum approved versions of EOS, this is a finding.","Configure the Arista Multilayer Switch to use an approved software version. Download the approved version from www.arista.com/support, copy the .swi file to flash via an approved file transfer mechanism, and then enter:
+
+Enable
+Configure
+Boot system flash:<your_image.swi>
+Write memory
+reload","CCI-000366"
+"Arista MLS DCS-7000 Series NDM Security Technical Implementation Guide","This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via e-mail to the following address: disa.stig_spt@mail.mil.","1","3 ","25 Oct 2019","Release: 3 Benchmark Date: 25 Oct 2019","STIG.DOD.MIL","terms-of-use","V-67197","SV-81687r1_rule","AMLS-NM-200825","medium","CAT II","","SRG-APP-000179-NDM-000265","The Arista Multilayer Switch must use FIPS-compliant mechanisms for authentication to a cryptographic module.","<VulnDiscussion>Unapproved mechanisms that are used for authentication to the cryptographic module are not verified and therefore cannot be relied upon to provide confidentiality or integrity, and DoD data may be compromised.
+
+Network devices utilizing encryption are required to use FIPS-compliant mechanisms for authenticating to cryptographic modules.
+
+FIPS 140-2 is the current standard for validating that mechanisms used to access cryptographic modules utilize authentication that meets DoD requirements.</VulnDiscussion><FalsePositives></FalsePositives><FalseNegatives></FalseNegatives><Documentable>false</Documentable><Mitigations></Mitigations><SeverityOverrideGuidance></SeverityOverrideGuidance><PotentialImpacts></PotentialImpacts><ThirdPartyTools></ThirdPartyTools><MitigationControl></MitigationControl><Responsibility></Responsibility><IAControls></IAControls>","Unapproved mechanisms that are used for authentication to the cryptographic module are not verified and therefore cannot be relied upon to provide confidentiality or integrity, and DoD data may be compromised.
+
+Network devices utilizing encryption are required to use FIPS-compliant mechanisms for authenticating to cryptographic modules.
+
+FIPS 140-2 is the current standard for validating that mechanisms used to access cryptographic modules utilize authentication that meets DoD requirements.","","","false","","","","","","","","Review the device configuration via the “show running-config” command for the following statement:
+
+management ssh
+fips restrictions
+
+If this statement is not present, this is a finding.","Enable FIPS restrictions via the following commands:
+Enable
+Configure
+Management ssh
+Fips restrictions
+Exit
+
+Additionally, the switch should be configured to use its Hardware Random Number Generator as a source of entropy for the SSH protocol. To enable this, configure:
+
+Enable
+Configure
+Management security
+Entropy source hardware
+
+Once this has been changed, regenerate the SSH RSA Keys with:
+
+Reset ssh hostkey rsa","CCI-000803"
